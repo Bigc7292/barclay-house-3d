@@ -1,0 +1,4 @@
+<script type="module" src="model-viewer.min.js"></script>
+<style>body{margin:0}model-viewer{width:100vw;height:100vh;background:#cde}</style>
+<model-viewer id=m camera-controls shadow-intensity="0" exposure="1" environment-image="neutral"></model-viewer>
+<script type="module">import "./model-viewer.min.js";customElements.get("model-viewer").meshoptDecoderLocation="./meshopt_decoder.js";</script><script>const q=new URLSearchParams(location.search);const m=document.getElementById('m');m.src=q.get('f');if(q.get('o'))m.cameraOrbit=q.get('o');m.addEventListener('load',()=>document.title='LOADED');m.addEventListener('error',e=>document.title='ERR');</script>

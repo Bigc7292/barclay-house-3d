@@ -1,0 +1,9 @@
+{"frame": "hero", "note": "pixel coords read off refs/plans_p1_cgi.png (1287x910) with a 50 px grid; ROOF+parapet = 20.13 m above street; corners from OSM footprint in HERO_front_frame local metres",
+ "points": [
+  {"name": "front_left_parapet",  "xyz": [0.0, 0.0, 20.13],    "px": [440, 237]},
+  {"name": "front_left_street",   "xyz": [0.0, 0.0, 0.0],      "px": [437, 748]},
+  {"name": "front_right_parapet", "xyz": [37.54, 0.0, 20.13],  "px": [918, 440]},
+  {"name": "front_right_street",  "xyz": [37.54, 0.0, 0.0],    "px": [918, 742]},
+  {"name": "side_rear_parapet",   "xyz": [-0.4, 26.0, 20.13],  "px": [230, 390]},
+  {"name": "side_rear_street",    "xyz": [-0.4, 26.0, 0.0],    "px": [230, 746]}
+ ]}

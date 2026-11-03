@@ -1,0 +1,9 @@
+SURR REPORT {"buildings_detailed,removed_old": [16, 16], "viaduct_arch_infills": 56, "street": {"lamps(stand-in pos)": 53, "traffic_signals": 11, "signal_crossing": 11, "post_box": 1, "atm": 2, "bus_stop": 12, "bicycle_parking": 18, "crossing_unmarked": 26, "telephone": 2, "zebra": 3, "bollard": 2, "bench": 8, "waste_basket": 4, "vending_machine": 2}, "trees_lidar,removed_old": [61, 12], "canal_railing_posts": 199}
+RENDERED wsw_east
+RENDERED wsw_west
+RENDERED street
+RENDERED viaduct
+RENDERED aerial
+EXPORT DONE
+{"file":"out/barclay_surroundings_detail.glb","MB":45.28,"budget":null,"errors":0,"warnings":2,"primitives_drawcalls":5414,"materials":44,"textures":21,"ok":true}
+{"file":"out/mobile/barclay_surroundings_detail_mobile.glb","MB":4.94,"budget":6,"errors":0,"warnings":6,"primitives_drawcalls":40,"materials":40,"textures":18,"ok":true}

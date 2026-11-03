@@ -38,3 +38,6 @@ After each round, add any repeated mistake as a rule (one line) under "Lessons".
 
 ## Bookmark-trick intake gate (Colin's rule, 2026-11-03)
 Every item X Bookmark Analyst adds to x_tricks.md is NOT adopted until Barclay House 3D has: (1) read the source + doc, (2) verified it's free and licence-OK, (3) checked where it fits (script/step/bot), (4) tested it on a copy in tests/, (5) certified it (PASS/FAIL with measured result, validate.sh must pass for exports), (6) integrated it into AGENTS.md pipeline or tool map, and (7) told all bots. Record each in /workspace/barclay/tricks_register.md: id, source, status (NEW/TESTING/CERTIFIED/REJECTED), test result, where integrated, date. Never leave a trick as NEW for more than one round.
+
+## Backup rule
+- After EVERY change set or round, run ./backup.sh "<msg>" and confirm it prints PUSH OK. Never add files >99 MB (backup.sh blocks them).

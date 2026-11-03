@@ -1,0 +1,17 @@
+DEBUG:BlenderGIS.core.checkdeps:GDAL Python binding unavailable
+DEBUG:BlenderGIS.core.checkdeps:PyProj unavailable
+DEBUG:BlenderGIS.core.checkdeps:Pillow unavailable
+DEBUG:BlenderGIS.core.checkdeps:ImageIO Freeimage plugin available
+Blender 4.2.3 LTS (hash 0e22e4fcea03 built 2024-10-14 23:31:34)
+Read blend: "/workspace/barclay/tests/scene_copy.blend"
+Info: Registering operator class: 'BARCLAY_OT_preset', bl_idname 'barclay.preset' has been registered before, unregistering previous
+Info: Registering operator class: 'BARCLAY_OT_render', bl_idname 'barclay.render_presets' has been registered before, unregistering previous
+Info: Registering panel class: 'BARCLAY_PT_panel', bl_idname 'BARCLAY_PT_panel' has been registered before, unregistering previous
+register_class(...):
+Info: Registering operator class: 'BARCLAY_OT_preset', bl_idname 'barclay.preset' has been registered before, unregistering previous
+register_class(...):
+Info: Registering operator class: 'BARCLAY_OT_render', bl_idname 'barclay.render_presets' has been registered before, unregistering previous
+register_class(...):
+Info: Registering panel class: 'BARCLAY_PT_panel', bl_idname 'BARCLAY_PT_panel' has been registered before, unregistering previous
+
+Blender quit
