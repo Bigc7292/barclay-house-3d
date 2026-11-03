@@ -1,0 +1,650 @@
+                                                     Application for Planning Permission.
+                                                     Town and Country Planning Act 1990
+
+Publication of applications on planning authority websites.
+Please note that the information provided on this application form and in supporting documents may be published on the Authority’s website. If
+you require any further clarification, please contact the Authority’s planning department.
+
+
+
+1. Site Address
+Number                  35
+
+
+Suffix
+
+
+Property name           Barclay House
+
+
+Address line 1          Whitworth Street West
+
+
+Address line 2
+
+
+Address line 3
+
+
+Town/city               Manchester
+
+
+Postcode                M1 5NG
+
+Description of site location must be completed if postcode is not known:
+
+Easting (x)             383880
+
+
+Northing (y)            397521
+
+Description
+
+
+
+
+2. Applicant Details
+Title                   Mr
+
+
+First name
+
+
+Surname                 POWER LIVING (BARCLAY HOUSE) LTD
+
+
+Company name            POWER LIVING (BARCLAY HOUSE) LTD
+
+
+Address line 1          Barclay House
+
+
+Address line 2          35 Whitworth Street West
+
+
+Address line 3
+
+
+Town/city               Manchester
+
+
+Country
+
+
+
+                                                            Planning Portal Reference: PP-09278714
+2. Applicant Details
+Postcode                M1 5NG
+
+
+Are you an agent acting on behalf of the applicant?                                                                            Yes      No
+
+Primary number
+
+
+Secondary number
+
+
+Fax number
+
+
+Email address
+
+
+
+
+3. Agent Details
+Title                   Mr
+
+
+First name              Alec
+
+
+Surname                 Drake
+
+
+Company name            WSP Indigo
+
+
+Address line 1          8 First Street
+
+
+Address line 2
+
+
+Address line 3
+
+
+Town/city               Manchester
+
+
+Country
+
+
+Postcode                M15 4GU
+
+
+Primary number
+
+
+Secondary number
+
+
+Fax number
+
+
+Email
+
+
+
+
+4. Site Area
+What is the measurement of the site area?        1363.04
+(numeric characters only).
+
+Unit                    Sq. metres
+
+
+
+
+5. Description of the Proposal
+Please describe details of the proposed development or works including any change of use.
+
+If you are applying for Technical Details Consent on a site that has been granted Permission In Principle, please include the relevant details in the description
+below.
+
+“Erection of a two-storey rooftop extension to form 9 duplex apartments and the conversion of the existing redundant internal car park to create a further 4
+duplex apartments at Barclay House, Whitworth Street West, Manchester”
+
+Has the work or change of use already started?                                                                                 Yes      No
+
+
+
+
+                                                             Planning Portal Reference: PP-09278714
+6. Existing Use
+Please describe the current use of the site
+
+The existing building was previously in office use (Use Class B1(a)), but is currently being converted to residential use (Use Class C3)
+under application ref:118033/P3OPA/2017. Part of the ground floor comprises a redundant internal car park.
+
+Is the site currently vacant?                                                                                                 Yes      No
+
+Does the proposal involve any of the following? If Yes, you will need to submit an appropriate contamination assessment with your application.
+
+Land which is known to be contaminated                                                                                        Yes      No
+
+Land where contamination is suspected for all or part of the site                                                             Yes      No
+
+A proposed use that would be particularly vulnerable to the presence of contamination                                         Yes      No
+
+
+
+
+7. Materials
+
+Does the proposed development require any materials to be used externally?                                                    Yes      No
+
+Please provide a description of existing and proposed materials and finishes to be used externally (including type, colour and name for each material):
+
+
+  Walls
+
+  Description of existing materials and finishes (optional):                       N/A
+
+  Description of proposed materials and finishes:                                  See plans and DAS
+
+
+
+
+  Roof
+
+  Description of existing materials and finishes (optional):                       N/A
+
+  Description of proposed materials and finishes:                                  See plans and DAS
+
+
+
+
+  Windows
+
+  Description of existing materials and finishes (optional):                       N/A
+
+  Description of proposed materials and finishes:                                  See plans and DAS
+
+
+
+
+  Doors
+
+  Description of existing materials and finishes (optional):                       N/A
+
+  Description of proposed materials and finishes:                                  See plans and DAS
+
+
+
+Are you supplying additional information on submitted plans, drawings or a design and access statement?                       Yes      No
+
+If Yes, please state references for the plans, drawings and/or design and access statement
+
+See plans and DAS
+
+
+
+
+8. Pedestrian and Vehicle Access, Roads and Rights of Way
+
+Is a new or altered vehicular access proposed to or from the public highway?                                                  Yes      No
+
+Is a new or altered pedestrian access proposed to or from the public highway?                                                 Yes      No
+
+Are there any new public roads to be provided within the site?                                                                Yes      No
+
+
+
+
+                                                               Planning Portal Reference: PP-09278714
+8. Pedestrian and Vehicle Access, Roads and Rights of Way
+
+Are there any new public rights of way to be provided within or adjacent to the site?                                          Yes      No
+
+Do the proposals require any diversions/extinguishments and/or creation of rights of way?                                      Yes      No
+
+
+
+
+9. Vehicle Parking
+
+Does the site have any existing vehicle/cycle parking spaces or will the proposed development add/remove any parking           Yes      No
+spaces?
+
+Please provide information on the existing and proposed number of on-site parking spaces
+
+
+  Type of vehicle                                                  Existing number of spaces       Total proposed (including         Difference in spaces
+                                                                                                   spaces retained)
+
+  Cars                                                                             18                           18                                 0
+
+
+
+
+10. Trees and Hedges
+
+Are there trees or hedges on the proposed development site?                                                                    Yes      No
+
+And/or: Are there trees or hedges on land adjacent to the proposed development site that could influence the                   Yes      No
+development or might be important as part of the local landscape character?
+
+If Yes to either or both of the above, you may need to provide a full tree survey, at the discretion of your local planning authority. If a tree survey is
+required, this and the accompanying plan should be submitted alongside your application. Your local planning authority should make clear on its
+website what the survey should contain, in accordance with the current 'BS5837: Trees in relation to design, demolition and construction -
+Recommendations'.
+
+
+
+
+11. Assessment of Flood Risk
+
+Is the site within an area at risk of flooding? (Check the location on the Government's Flood map for planning. You            Yes      No
+should also refer to national standing advice and your local planning authority requirements for information as
+necessary.)
+
+If Yes, you will need to submit a Flood Risk Assessment to consider the risk to the proposed site.
+
+Is your proposal within 20 metres of a watercourse (e.g. river, stream or beck)?                                               Yes      No
+
+Will the proposal increase the flood risk elsewhere?                                                                           Yes      No
+
+How will surface water be disposed of?
+
+   Sustainable drainage system
+
+
+   Existing water course
+
+
+   Soakaway
+
+
+   Main sewer
+
+
+   Pond/lake
+
+
+
+
+12. Biodiversity and Geological Conservation
+Is there a reasonable likelihood of the following being affected adversely or conserved and enhanced within the application site, or on land adjacent to
+or near the application site?
+
+To assist in answering this question correctly, please refer to the help text which provides guidance on determining if any important biodiversity or
+geological conservation features may be present or nearby; and whether they are likely to be affected by the proposals.
+
+a) Protected and priority species:
+
+
+
+
+                                                             Planning Portal Reference: PP-09278714
+12. Biodiversity and Geological Conservation
+
+   Yes, on the development site
+   Yes, on land adjacent to or near the proposed development
+   No
+
+
+b) Designated sites, important habitats or other biodiversity features:
+   Yes, on the development site
+   Yes, on land adjacent to or near the proposed development
+   No
+
+
+c) Features of geological conservation importance:
+   Yes, on the development site
+   Yes, on land adjacent to or near the proposed development
+   No
+
+
+
+
+13. Foul Sewage
+
+Please state how foul sewage is to be disposed of:
+   Mains Sewer
+   Septic Tank
+   Package Treatment plant
+   Cess Pit
+   Other
+   Unknown
+
+
+Are you proposing to connect to the existing drainage system?                                                       Yes     No     Unknown
+
+
+
+
+14. Waste Storage and Collection
+
+Do the plans incorporate areas to store and aid the collection of waste?                                            Yes     No
+
+If Yes, please provide details:
+
+See enclosed Waste Strategy.
+
+Have arrangements been made for the separate storage and collection of recyclable waste?                            Yes     No
+
+If Yes, please provide details:
+
+See enclosed Waste Strategy.
+
+
+
+
+15. Trade Effluent
+
+Does the proposal involve the need to dispose of trade effluents or trade waste?                                    Yes     No
+
+
+
+
+16. Residential/Dwelling Units
+Please note: This question has been updated to include the latest information requirements specified by government.
+Applications created before 23 May 2020 will not have been updated, please read the ‘Help’ to see details of how to workaround this issue.
+
+Does your proposal include the gain, loss or change of use of residential units?                                    Yes     No
+
+Please select the proposed housing categories that are relevant to your proposal.
+   Market Housing
+   Social, Affordable or Intermediate Rent
+   Affordable Home Ownership
+   Starter Homes
+   Self-build and Custom Build
+
+Add 'Market Housing - Proposed' residential units
+
+
+
+
+                                                              Planning Portal Reference: PP-09278714
+16. Residential/Dwelling Units
+
+  Market Housing - Proposed
+
+                                               Number of bedrooms
+
+                                                       1                   2                  3               4+      Unknown           Total
+
+  Houses                                               0                   5                  8               0              0                  13
+
+  Total                                                0                   5                  8               0              0                  13
+
+
+
+Please select the existing housing categories that are relevant to your proposal.
+   Market Housing
+   Social, Affordable or Intermediate Rent
+   Affordable Home Ownership
+   Starter Homes
+   Self-build and Custom Build
+
+Total proposed residential units                  13
+
+
+Total existing residential units                  0
+
+
+Total net gain or loss of residential units       13
+
+
+
+
+17. All Types of Development: Non-Residential Floorspace
+
+Does your proposal involve the loss, gain or change of use of non-residential floorspace?                              Yes       No
+Note that 'non-residential' covers ALL uses execept Use Class C3 Dwellinghouses
+
+
+
+
+18. Employment
+
+Are there any existing employees on the site or will the proposed development increase or decrease the number of       Yes       No
+employees?
+
+
+
+
+19. Hours of Opening
+
+Are Hours of Opening relevant to this proposal?                                                                        Yes       No
+
+
+
+
+20. Industrial or Commercial Processes and Machinery
+
+Does this proposal involve the carrying out of industrial or commercial activities and processes?                      Yes       No
+
+Is the proposal for a waste management development?                                                                    Yes       No
+
+If this is a landfill application you will need to provide further information before your application can be determined. Your waste planning authority
+should make it clear what information it requires on its website
+
+
+
+
+21. Hazardous Substances
+
+Does the proposal involve the use or storage of any hazardous substances?                                              Yes       No
+
+
+
+
+22. Site Visit
+
+Can the site be seen from a public road, public footpath, bridleway or other public land?                              Yes       No
+
+If the planning authority needs to make an appointment to carry out a site visit, whom should they contact?
+
+
+
+
+                                                             Planning Portal Reference: PP-09278714
+22. Site Visit
+
+   The agent
+   The applicant
+   Other person
+
+
+
+
+23. Pre-application Advice
+
+Has assistance or prior advice been sought from the local authority about this application?                                   Yes      No
+
+If Yes, please complete the following information about the advice you were given (this will help the authority to deal with this application more
+efficiently):
+
+Officer name:
+
+Title
+
+
+First name
+
+
+Surname
+
+
+Reference
+
+Date (Must be pre-application submission)
+
+01/05/2020
+
+Details of the pre-application advice received
+
+Design and heritage advice
+
+
+
+
+24. Authority Employee/Member
+With respect to the Authority, is the applicant and/or agent one of the following:
+(a) a member of staff
+(b) an elected member
+(c) related to a member of staff
+(d) related to an elected member
+
+It is an important principle of decision-making that the process is open and transparent.                                     Yes      No
+For the purposes of this question, "related to" means related, by birth or otherwise, closely enough that a fair-minded and
+informed observer, having considered the facts, would conclude that there was bias on the part of the decision-maker in
+the Local Planning Authority.
+
+Do any of the above statements apply?
+
+
+
+
+25. Ownership Certificates and Agricultural Land Declaration
+CERTIFICATE OF OWNERSHIP - CERTIFICATE B - Town and Country Planning (Development Management Procedure) (England) Order 2015 Certificate
+under Article 14
+
+I certify/The applicant certifies that:
+  I have/The applicant has given the requisite notice to everyone else (as listed below) who, on the day 21 days before the date of this application, was the
+owner* and/or agricultural tenant** of any part of the land or building to which this application relates; or
+  The applicant is the sole owner of all the land or buildings to which this application relates and there are no other owners* and/or agricultural tenants**.
+
+* 'owner' is a person with a freehold interest or leasehold interest with at least 7 years to run. ** 'agricultural tenant' has the meaning given in section
+65(8) of the Town and Country Planning Act 1990.
+
+Owner/Agricultural Tenant
+
+
+
+
+                                                             Planning Portal Reference: PP-09278714
+25. Ownership Certificates and Agricultural Land Declaration
+
+  Name of Owner/Agricultural
+  Tenant
+
+  Number
+
+  Suffix
+
+  House Name                      James House
+
+  Address line 1
+
+  Address line 2                  Yew Tree Way
+
+  Town/city                       Golborne
+
+  Postcode                        WA3 3JD
+
+  Date notice served              26/11/2020
+  (DD/MM/YYYY)
+
+
+
+
+  Name of Owner/Agricultural
+  Tenant
+
+  Number
+
+  Suffix
+
+  House Name                      5th Floor Bridgewater House
+
+  Address line 1                  Whitworth Street
+
+  Address line 2
+
+  Town/city                       Manchester
+
+  Postcode                        M1 6LT
+
+  Date notice served              26/11/2020
+  (DD/MM/YYYY)
+
+
+
+Person role
+   The applicant
+   The agent
+
+Title                  Mr
+
+
+First name             Alec
+
+
+Surname                Drake
+
+
+Declaration date       26/11/2020
+(DD/MM/YYYY)
+
+   Declaration made
+
+
+
+
+26. Declaration
+
+I/we hereby apply for planning permission/consent as described in this form and the accompanying plans/drawings and additional information. I/we confirm
+that, to the best of my/our knowledge, any facts stated are true and accurate and any opinions given are the genuine opinions of the person(s) giving them.
+
+Date (cannot be pre-   26/11/2020
+application)
+
+
+
+
+                                                            Planning Portal Reference: PP-09278714
+

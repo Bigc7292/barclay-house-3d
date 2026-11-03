@@ -1,0 +1,10964 @@
+{
+"origin": "local BNG metres, origin hero centroid E383889.38 N397518.84; z rel. street ODN 32.18 m",
+"sources": {
+"osm": "https://overpass-api.de/api/interpreter (Overpass, around:250 m of 53.47415,-2.24419, fetched 2026-11-03, ODbL)",
+"lidar": "EA National LIDAR Programme 1 m DSM/DTM via WCS (lidar/*.tif, OGL v3) https://environment.data.gov.uk/survey",
+"base": "scene_data.json (prep.py)"
+},
+"furniture": [
+{
+"osm": "node/643132",
+"xy": [
+116.81,
+207.15
+],
+"z_ground": 6.48,
+"tags": {
+"highway": "traffic_signals",
+"traffic_signals": "signal",
+"traffic_signals:direction": "backward"
+}
+},
+{
+"osm": "node/3911908",
+"xy": [
+-0.8,
+-35.71
+],
+"z_ground": -0.01,
+"tags": {
+"railway": "switch"
+}
+},
+{
+"osm": "node/249390248",
+"xy": [
+112.65,
+214.85
+],
+"z_ground": 6.65,
+"tags": {
+"button_operated": "yes",
+"crossing": "traffic_signals",
+"crossing:island": "no",
+"crossing:markings": "yes",
+"crossing:signals": "yes",
+"crossing_ref": "pelican",
+"highway": "crossing",
+"tactile_paving": "yes"
+}
+},
+{
+"osm": "node/346999237",
+"xy": [
+162.96,
+17.91
+],
+"z_ground": 2.03,
+"tags": {
+"railway": "buffer_stop"
+}
+},
+{
+"osm": "node/347000814",
+"xy": [
+186.27,
+41.77
+],
+"z_ground": 3.69,
+"tags": {
+"amenity": "post_box",
+"check_date": "2024-06-10",
+"collection_times": "Mo-Fr 16:00; Sa 10:30",
+"operator": "Royal Mail",
+"operator:wikidata": "Q638098",
+"post_box:design": "type_a",
+"post_box:type": "pillar",
+"ref": "M1 14",
+"royal_cypher": "EVIIR",
+"royal_cypher:wikidata": "Q33102324"
+}
+},
+{
+"osm": "node/347020720",
+"xy": [
+149.58,
+174.53
+],
+"z_ground": 6.15,
+"tags": {
+"amenity": "atm",
+"check_date": "2025-04-06",
+"fee": "no",
+"operator": "Tesco"
+}
+},
+{
+"osm": "node/347262398",
+"xy": [
+204.52,
+-40.57
+],
+"z_ground": -0.94,
+"tags": {
+"name": "Manchester Oxford Road",
+"public_transport": "stop_position",
+"railway": "stop",
+"ref": "3",
+"train": "yes",
+"wheelchair": "no"
+}
+},
+{
+"osm": "node/347262413",
+"xy": [
+113.56,
+-47.64
+],
+"z_ground": -0.92,
+"tags": {
+"name": "Manchester Oxford Road",
+"public_transport": "stop_position",
+"railway": "stop",
+"ref": "2",
+"train": "yes",
+"wheelchair": "no"
+}
+},
+{
+"osm": "node/533823327",
+"xy": [
+97.71,
+20.12
+],
+"z_ground": 0.98,
+"tags": {
+"bench": "no",
+"bin": "no",
+"bus": "yes",
+"covered": "no",
+"highway": "bus_stop",
+"lit": "yes",
+"local_ref": "E",
+"name": "Manchester City Centre, Whitworth Street West (Stop E)",
+"naptan:AtcoCode": "1800SB08951",
+"naptan:Bearing": "E",
+"naptan:CommonName": "Whitworth Street/Gloucester Street",
+"naptan:Indicator": "Ritz",
+"naptan:Landmark": "RITZ",
+"naptan:NaptanCode": "mantgamw",
+"naptan:PlusbusZoneRef": "MNCRPIC",
+"naptan:ShortCommonName": "Gloucester Street",
+"naptan:Street": "Whitworth Street West",
+"naptan:verified": "no",
+"network": "TfGM",
+"operator": "TfGM",
+"public_transport": "platform",
+"ref": "E",
+"shelter": "no",
+"source": "naptan_import"
+}
+},
+{
+"osm": "node/533823340",
+"xy": [
+-9.91,
+-124.24
+],
+"z_ground": -1.31,
+"tags": {
+"bench": "no",
+"bin": "yes",
+"bus": "yes",
+"highway": "bus_stop",
+"name": "Manchester City Centre, Cambridge Street / near Hulme Street",
+"naptan:AtcoCode": "1800SB09051",
+"naptan:Bearing": "N",
+"naptan:CommonName": "Cambridge Street/Hulme Street",
+"naptan:Indicator": "Opp Dunlops",
+"naptan:Landmark": "RIVER MEDLOCK",
+"naptan:NaptanCode": "mangpmjp",
+"naptan:PlusbusZoneRef": "MNCRPIC",
+"naptan:ShortCommonName": "Hulme Street",
+"naptan:Street": "Cambridge Street",
+"naptan:verified": "no",
+"network": "TfGM",
+"operator": "TfGM",
+"public_transport": "platform",
+"shelter": "no",
+"source": "naptan_import",
+"tactile_paving": "no"
+}
+},
+{
+"osm": "node/533823375",
+"xy": [
+-137.41,
+90.57
+],
+"z_ground": 5.22,
+"tags": {
+"bus": "yes",
+"highway": "bus_stop",
+"local_ref": "ST",
+"name": "Bridgewater Hall (Stop ST)",
+"naptan:AtcoCode": "1800SB09461",
+"naptan:Bearing": "E",
+"naptan:CommonName": "Bridgewater Hall (Stop ST)",
+"naptan:Indicator": "Stop St",
+"naptan:Landmark": "BRIDGEWATER",
+"naptan:NaptanCode": "mangpmpj",
+"naptan:Notes": "LOCATION AMENDED",
+"naptan:PlusbusZoneRef": "MNCRPIC",
+"naptan:ShortCommonName": "Bridgewater Hall",
+"naptan:Street": "GT BRIDGEWATER",
+"naptan:verified": "no",
+"network": "TfGM",
+"public_transport": "platform",
+"source": "naptan_import"
+}
+},
+{
+"osm": "node/533823633",
+"xy": [
+143.6,
+29.56
+],
+"z_ground": 2.03,
+"tags": {
+"bench": "no",
+"bin": "yes",
+"bus": "yes",
+"departures_board": "timetable",
+"highway": "bus_stop",
+"lit": "yes",
+"local_ref": "A",
+"name": "Manchester City Centre, Whitworth Street West / Oxford Road Station (Stop A)",
+"naptan:AtcoCode": "1800SB12101",
+"naptan:Bearing": "W",
+"naptan:CommonName": "Whitworth St West/Oxford Rd Stn (A)",
+"naptan:Indicator": "Stop A",
+"naptan:Landmark": "OXFORD Road RAIL",
+"naptan:NaptanCode": "mangptmd",
+"naptan:PlusbusZoneRef": "MNCRPIC",
+"naptan:ShortCommonName": "Oxford Rd Stn",
+"naptan:Street": "Whitworth Street W",
+"naptan:verified": "no",
+"network": "TfGM",
+"operator": "TfGM",
+"public_transport": "platform",
+"ref": "A",
+"shelter": "yes",
+"source": "naptan_import",
+"tactile_paving": "no"
+}
+},
+{
+"osm": "node/533825378",
+"xy": [
+-93.41,
+213.56
+],
+"z_ground": 7.32,
+"tags": {
+"bench": "no",
+"bin": "yes",
+"bus": "yes",
+"highway": "bus_stop",
+"local_ref": "SQ",
+"name": "Lwr Mosley St/G-Mex (Stop SQ)",
+"naptan:AtcoCode": "1800SB39501",
+"naptan:Bearing": "SW",
+"naptan:CommonName": "Lwr Mosley St/G-Mex (Stop SQ)",
+"naptan:Indicator": "Stop Sq",
+"naptan:Landmark": "OPP G-MEX",
+"naptan:NaptanCode": "mangwjdw",
+"naptan:PlusbusZoneRef": "MNCRPIC",
+"naptan:ShortCommonName": "G-Mex",
+"naptan:Street": "Lower Mosely Street",
+"naptan:verified": "no",
+"network": "TfGM",
+"public_transport": "platform",
+"shelter": "no",
+"source": "naptan_import"
+}
+},
+{
+"osm": "node/533827112",
+"xy": [
+72.59,
+202.57
+],
+"z_ground": 6.04,
+"tags": {
+"bench": "yes",
+"bin": "yes",
+"bus": "yes",
+"highway": "bus_stop",
+"lit": "yes",
+"local_ref": "SV",
+"name": "Chepstow Street/Oxford Street (Stop SV)",
+"naptan:AtcoCode": "1800SB00591",
+"naptan:Bearing": "SW",
+"naptan:CommonName": "Chepstow Street/Oxford Street (Stop SV)",
+"naptan:Indicator": "Stop Sv",
+"naptan:Landmark": "MCDONALDS",
+"naptan:NaptanCode": "mangpgmp",
+"naptan:PlusbusZoneRef": "MNCRPIC",
+"naptan:ShortCommonName": "Oxford Street",
+"naptan:Street": "CHEPSTOW STREET",
+"naptan:verified": "no",
+"network": "TfGM",
+"public_transport": "platform",
+"shelter": "yes",
+"source": "naptan_import",
+"tactile_paving": "no"
+}
+},
+{
+"osm": "node/533827449",
+"xy": [
+-121.41,
+73.57
+],
+"z_ground": 5.07,
+"tags": {
+"bus": "yes",
+"highway": "bus_stop",
+"local_ref": "SU",
+"name": "Bridgewater Hall (Stop SU)",
+"naptan:AtcoCode": "1800SB04831",
+"naptan:Bearing": "W",
+"naptan:CommonName": "Bridgewater Hall (Stop SU)",
+"naptan:Indicator": "Stop Su",
+"naptan:Landmark": "BRIDGEWATER",
+"naptan:NaptanCode": "mangpjgm",
+"naptan:PlusbusZoneRef": "MNCRPIC",
+"naptan:ShortCommonName": "Bridgewater Hall",
+"naptan:Street": "GT BRIDGEWATER",
+"naptan:verified": "no",
+"network": "TfGM",
+"public_transport": "platform",
+"source": "naptan_import"
+}
+},
+{
+"osm": "node/533827485",
+"xy": [
+143.97,
+142.85
+],
+"z_ground": 5.99,
+"tags": {
+"bench": "no",
+"bin": "yes",
+"bus": "yes",
+"check_date:shelter": "2025-08-08",
+"highway": "bus_stop",
+"lit": "no",
+"name": "Manchester City Centre, Oxford Street / near Gt Bridgewater Street",
+"naptan:AtcoCode": "1800SB04891",
+"naptan:Bearing": "NW",
+"naptan:CommonName": "Oxford St/Gt Bridgewater St",
+"naptan:Indicator": "Churchgate",
+"naptan:Landmark": "PALACE THEATRE",
+"naptan:NaptanCode": "mangpjmj",
+"naptan:PlusbusZoneRef": "MNCRPIC",
+"naptan:ShortCommonName": "Gt Bridgewater St",
+"naptan:Street": "OXFORD STREET",
+"naptan:verified": "no",
+"network": "TfGM",
+"operator": "TfGM",
+"public_transport": "platform",
+"shelter": "no",
+"source": "naptan_import",
+"tactile_paving": "no"
+}
+},
+{
+"osm": "node/533827501",
+"xy": [
+248.08,
+-13.44
+],
+"z_ground": 1.72,
+"tags": {
+"bench": "yes",
+"bin": "yes",
+"bus": "yes",
+"departures_board": "timetable",
+"highway": "bus_stop",
+"lit": "yes",
+"local_ref": "B",
+"name": "Manchester City Centre, Oxford Road / Oxford Road Station (Stop B)",
+"naptan:AtcoCode": "1800SB04911",
+"naptan:Bearing": "SE",
+"naptan:CommonName": "Oxford Rd/Oxford Rd Stn (Stop B)",
+"naptan:Indicator": "Stop B",
+"naptan:Landmark": "PALACE HOTEL",
+"naptan:NaptanCode": "mangpjmt",
+"naptan:PlusbusZoneRef": "MNCRPIC",
+"naptan:ShortCommonName": "Oxford Rd Stn",
+"naptan:Street": "OXFORD ROAD",
+"naptan:verified": "no",
+"network": "TfGM",
+"operator": "TfGM",
+"public_transport": "platform",
+"ref": "B",
+"shelter": "yes",
+"source": "naptan_import",
+"tactile_paving": "no"
+}
+},
+{
+"osm": "node/533827649",
+"xy": [
+-65.41,
+-27.45
+],
+"z_ground": 0.18,
+"tags": {
+"bench": "no",
+"bin": "no",
+"bus": "yes",
+"departures_board": "timetable",
+"highway": "bus_stop",
+"lit": "no",
+"name": "Whitworth Street West/Gloucester Street",
+"naptan:AtcoCode": "1800SB05911",
+"naptan:Bearing": "W",
+"naptan:CommonName": "Whitworth Street West/Gloucester Street",
+"naptan:Indicator": "Brick House",
+"naptan:Landmark": "CLUB",
+"naptan:NaptanCode": "mangpmaj",
+"naptan:PlusbusZoneRef": "MNCRPIC",
+"naptan:ShortCommonName": "Gloucester Street",
+"naptan:Street": "Whitworth Street W",
+"naptan:verified": "no",
+"network": "TfGM Bus Network",
+"operator": "TfGM",
+"public_transport": "platform",
+"shelter": "no",
+"source": "naptan_import"
+}
+},
+{
+"osm": "node/533827857",
+"xy": [
+-128.41,
+194.57
+],
+"z_ground": 7.09,
+"tags": {
+"bus": "yes",
+"highway": "bus_stop",
+"local_ref": "SP",
+"name": "Lower Mosley Street/G-Mex (Stop SP)",
+"naptan:AtcoCode": "1800SB45421",
+"naptan:Bearing": "NE",
+"naptan:CommonName": "Lower Mosley Street/G-Mex (Stop SP)",
+"naptan:Indicator": "Stop Sp",
+"naptan:Landmark": "G-MEX CENTRE",
+"naptan:NaptanCode": "mangwpjm",
+"naptan:PlusbusZoneRef": "MNCRPIC",
+"naptan:ShortCommonName": "G-Mex",
+"naptan:Street": "Lower Mosely Street",
+"naptan:verified": "no",
+"network": "TfGM",
+"public_transport": "platform",
+"source": "naptan_import"
+}
+},
+{
+"osm": "node/533829904",
+"xy": [
+151.45,
+-11.84
+],
+"z_ground": 0.85,
+"tags": {
+"amenity": "taxi",
+"check_date": "2024-01-18",
+"name": "Station Approach",
+"naptan:AtcoCode": "1800SBT0341",
+"naptan:CommonName": "Station Approach",
+"naptan:Indicator": "Whitworth St",
+"naptan:Landmark": "STATION APPROACH",
+"naptan:PlusbusZoneRef": "MNCRPIC",
+"naptan:Street": "Oxford Rd Station",
+"naptan:verified": "no",
+"source": "naptan_import"
+}
+},
+{
+"osm": "node/533832566",
+"xy": [
+149.21,
+44.93
+],
+"z_ground": 2.57,
+"tags": {
+"amenity": "taxi",
+"check_date": "2025-01-01",
+"name": "City Centre - Whitworth Street West",
+"naptan:AtcoCode": "1800SBT0611",
+"naptan:CommonName": "City Centre - Whitworth Street West",
+"naptan:Indicator": "Whitworth St West - Oxford St",
+"naptan:Landmark": "OXFORD ST",
+"naptan:PlusbusZoneRef": "MNCRPIC",
+"naptan:Street": "Whitworth St West",
+"naptan:verified": "no",
+"source": "naptan_import"
+}
+},
+{
+"osm": "node/738966108",
+"xy": [
+186.15,
+38.64
+],
+"z_ground": 3.91,
+"tags": {
+"access": "yes",
+"amenity": "bicycle_parking",
+"bicycle_parking": "stands",
+"bike_ride": "train",
+"capacity": "11",
+"covered": "no",
+"fee": "no",
+"note": "last rack only fits 1 bike as next to bin"
+}
+},
+{
+"osm": "node/1163494701",
+"xy": [
+16.27,
+-12.87
+],
+"z_ground": -0.08,
+"tags": {
+"barrier": "lift_gate",
+"bicycle": "no",
+"foot": "no",
+"motorcar": "yes",
+"motorcycle": "yes"
+}
+},
+{
+"osm": "node/1163494841",
+"xy": [
+-28.9,
+-9.69
+],
+"z_ground": 0.05,
+"tags": {
+"barrier": "lift_gate",
+"foot": "yes",
+"motorcar": "yes"
+}
+},
+{
+"osm": "node/1163495180",
+"xy": [
+-49.19,
+82.77
+],
+"z_ground": 4.81,
+"tags": {
+"amenity": "bicycle_parking",
+"bicycle_parking": "stands",
+"capacity": "6",
+"covered": "no"
+}
+},
+{
+"osm": "node/1175868535",
+"xy": [
+-13.17,
+-37.9
+],
+"z_ground": -0.13,
+"tags": {
+"railway": "switch"
+}
+},
+{
+"osm": "node/1175868818",
+"xy": [
+238.22,
+-42.03
+],
+"z_ground": 1.0,
+"tags": {
+"railway": "switch"
+}
+},
+{
+"osm": "node/1798362636",
+"xy": [
+243.05,
+-31.16
+],
+"z_ground": 1.38,
+"tags": {
+"amenity": "bicycle_parking",
+"bicycle_parking": "stands",
+"capacity": "4",
+"check_date": "2023-07-30",
+"covered": "no"
+}
+},
+{
+"osm": "node/1798362659",
+"xy": [
+-49.11,
+-31.18
+],
+"z_ground": 0.11,
+"tags": {
+"access": "yes",
+"amenity": "bicycle_parking",
+"bicycle_parking": "stands",
+"capacity": "1",
+"covered": "no",
+"fee": "no"
+}
+},
+{
+"osm": "node/2502686144",
+"xy": [
+-62.12,
+-35.79
+],
+"z_ground": 0.12,
+"tags": {
+"railway": "switch"
+}
+},
+{
+"osm": "node/2502686214",
+"xy": [
+25.82,
+-34.08
+],
+"z_ground": -0.19,
+"tags": {
+"railway": "switch"
+}
+},
+{
+"osm": "node/2506329183",
+"xy": [
+13.71,
+-32.08
+],
+"z_ground": -0.26,
+"tags": {
+"barrier": "kerb",
+"kerb": "lowered",
+"tactile_paving": "yes",
+"tactile_paving:colour": "red"
+}
+},
+{
+"osm": "node/2542369484",
+"xy": [
+180.45,
+42.78
+],
+"z_ground": 3.45,
+"tags": {
+"crossing": "unmarked",
+"crossing:island": "no",
+"highway": "crossing",
+"tactile_paving": "yes"
+}
+},
+{
+"osm": "node/2542369487",
+"xy": [
+209.63,
+34.85
+],
+"z_ground": 3.27,
+"tags": {
+"crossing": "no",
+"highway": "traffic_signals",
+"traffic_signals": "traffic_lights",
+"traffic_signals:direction": "forward"
+}
+},
+{
+"osm": "node/2542369491",
+"xy": [
+217.38,
+64.41
+],
+"z_ground": 3.84,
+"tags": {
+"crossing": "no",
+"highway": "traffic_signals",
+"traffic_signals": "traffic_lights",
+"traffic_signals:direction": "forward"
+}
+},
+{
+"osm": "node/2542369496",
+"xy": [
+208.78,
+60.43
+],
+"z_ground": 3.89,
+"tags": {
+"button_operated": "yes",
+"crossing": "traffic_signals",
+"crossing:island": "no",
+"crossing:signals": "yes",
+"crossing_ref": "pelican",
+"highway": "crossing",
+"tactile_paving": "yes",
+"traffic_signals:sound": "yes",
+"traffic_signals:vibration": "yes"
+}
+},
+{
+"osm": "node/2542369502",
+"xy": [
+204.17,
+44.95
+],
+"z_ground": 3.67,
+"tags": {
+"crossing": "traffic_signals",
+"crossing:island": "no",
+"crossing:signals": "yes",
+"crossing_ref": "pelican",
+"highway": "crossing",
+"tactile_paving": "yes"
+}
+},
+{
+"osm": "node/2542369507",
+"xy": [
+189.4,
+72.98
+],
+"z_ground": 4.44,
+"tags": {
+"button_operated": "yes",
+"crossing": "traffic_signals",
+"crossing:island": "no",
+"crossing:signals": "yes",
+"crossing_ref": "pelican",
+"highway": "crossing",
+"tactile_paving": "yes",
+"traffic_signals:sound": "yes",
+"traffic_signals:vibration": "yes"
+}
+},
+{
+"osm": "node/2542369508",
+"xy": [
+194.02,
+75.43
+],
+"z_ground": 4.49,
+"tags": {
+"barrier": "kerb",
+"kerb": "lowered",
+"tactile_paving": "no"
+}
+},
+{
+"osm": "node/2542369509",
+"xy": [
+201.04,
+43.17
+],
+"z_ground": 3.53,
+"tags": {
+"barrier": "kerb",
+"kerb": "lowered",
+"tactile_paving": "yes"
+}
+},
+{
+"osm": "node/2542369513",
+"xy": [
+184.93,
+70.62
+],
+"z_ground": 4.38,
+"tags": {
+"barrier": "kerb",
+"kerb": "lowered",
+"tactile_paving": "yes"
+}
+},
+{
+"osm": "node/2542369515",
+"xy": [
+210.96,
+48.43
+],
+"z_ground": 3.61,
+"tags": {
+"barrier": "kerb",
+"kerb": "lowered",
+"tactile_paving": "yes"
+}
+},
+{
+"osm": "node/2555316367",
+"xy": [
+174.82,
+62.64
+],
+"z_ground": 3.83,
+"tags": {
+"amenity": "atm",
+"cash_in": "no",
+"check_date": "2024-10-01",
+"fee": "no",
+"operator": "Sainsbury's Finance",
+"wheelchair": "yes"
+}
+},
+{
+"osm": "node/2557797899",
+"xy": [
+235.22,
+-24.94
+],
+"z_ground": 1.3,
+"tags": {
+"crossing": "unmarked",
+"crossing:island": "no",
+"crossing:markings": "no",
+"highway": "crossing",
+"kerb": "lowered",
+"tactile_paving": "yes"
+}
+},
+{
+"osm": "node/2777515969",
+"xy": [
+149.69,
+-172.51
+],
+"z_ground": -0.26,
+"tags": {
+"amenity": "bicycle_parking",
+"bicycle_parking": "stands",
+"capacity": "6",
+"covered": "no",
+"fee": "no"
+}
+},
+{
+"osm": "node/2777516135",
+"xy": [
+80.98,
+-191.97
+],
+"z_ground": -0.42,
+"tags": {
+"amenity": "bicycle_parking",
+"bicycle_parking": "stands",
+"capacity": "6",
+"covered": "no",
+"fee": "no"
+}
+},
+{
+"osm": "node/3185353682",
+"xy": [
+181.36,
+-3.56
+],
+"z_ground": 1.26,
+"tags": {
+"access": "yes",
+"amenity": "bicycle_parking",
+"bicycle_parking": "shed",
+"covered": "yes",
+"fee": "yes",
+"note": "new two-tier racks, surrounded by a cage. Not clear if open yet."
+}
+},
+{
+"osm": "node/3636744493",
+"xy": [
+98.83,
+20.02
+],
+"z_ground": 0.92,
+"tags": {
+"amenity": "telephone",
+"booth": "NWCapped",
+"covered": "booth"
+}
+},
+{
+"osm": "node/3678898708",
+"xy": [
+-22.09,
+106.76
+],
+"z_ground": 4.48,
+"tags": {
+"barrier": "gate"
+}
+},
+{
+"osm": "node/3678898711",
+"xy": [
+-10.71,
+120.58
+],
+"z_ground": 4.52,
+"tags": {
+"barrier": "gate"
+}
+},
+{
+"osm": "node/3782047526",
+"xy": [
+162.98,
+-121.84
+],
+"z_ground": -1.91,
+"tags": {
+"crossing": "marked",
+"crossing:island": "no",
+"crossing:markings": "zebra",
+"crossing_ref": "zebra",
+"highway": "crossing",
+"source": "Bing",
+"tactile_paving": "yes"
+}
+},
+{
+"osm": "node/3810235803",
+"xy": [
+119.5,
+-178.65
+],
+"z_ground": -0.55,
+"tags": {
+"amenity": "bicycle_parking",
+"bicycle_parking": "stands",
+"capacity": "4",
+"covered": "no"
+}
+},
+{
+"osm": "node/3827453788",
+"xy": [
+-82.78,
+-165.34
+],
+"z_ground": -1.48,
+"tags": {
+"crossing": "unmarked",
+"crossing:markings": "no",
+"highway": "crossing"
+}
+},
+{
+"osm": "node/4221532103",
+"xy": [
+10.12,
+135.05
+],
+"z_ground": 4.51,
+"tags": {
+"natural": "tree"
+}
+},
+{
+"osm": "node/4221532104",
+"xy": [
+36.56,
+162.66
+],
+"z_ground": 4.84,
+"tags": {
+"natural": "tree"
+}
+},
+{
+"osm": "node/4221532111",
+"xy": [
+28.1,
+133.92
+],
+"z_ground": 4.63,
+"tags": {
+"natural": "tree"
+}
+},
+{
+"osm": "node/4221532112",
+"xy": [
+25.4,
+124.7
+],
+"z_ground": 4.39,
+"tags": {
+"natural": "tree"
+}
+},
+{
+"osm": "node/4221532113",
+"xy": [
+29.82,
+115.98
+],
+"z_ground": 4.19,
+"tags": {
+"natural": "tree"
+}
+},
+{
+"osm": "node/4221532114",
+"xy": [
+36.48,
+137.8
+],
+"z_ground": 4.8,
+"tags": {
+"natural": "tree"
+}
+},
+{
+"osm": "node/4263972671",
+"xy": [
+176.34,
+-36.59
+],
+"z_ground": 0.51,
+"tags": {
+"name": "Manchester Oxford Road",
+"public_transport": "stop_position",
+"railway": "stop",
+"ref": "4",
+"train": "yes"
+}
+},
+{
+"osm": "node/4295880391",
+"xy": [
+-95.22,
+-35.61
+],
+"z_ground": 0.18,
+"tags": {
+"barrier": "bollard",
+"bicycle": "yes",
+"bollard": "removable",
+"foot": "yes",
+"motor_vehicle": "no"
+}
+},
+{
+"osm": "node/4303849604",
+"xy": [
+129.03,
+172.84
+],
+"z_ground": 6.05,
+"tags": {
+"amenity": "telephone",
+"booth": "KXPlus",
+"check_date": "2026-10-07",
+"covered": "booth"
+}
+},
+{
+"osm": "node/4310535834",
+"xy": [
+-168.73,
+-87.52
+],
+"z_ground": -0.85,
+"tags": {
+"amenity": "bench",
+"backrest": "no",
+"check_date": "2025-05-18"
+}
+},
+{
+"osm": "node/4310535835",
+"xy": [
+-160.76,
+-93.88
+],
+"z_ground": -0.93,
+"tags": {
+"amenity": "bench",
+"backrest": "no",
+"check_date": "2025-11-29"
+}
+},
+{
+"osm": "node/4453861799",
+"xy": [
+-217.26,
+110.76
+],
+"z_ground": 4.79,
+"tags": {
+"highway": "traffic_signals",
+"traffic_signals": "signal"
+}
+},
+{
+"osm": "node/4462057798",
+"xy": [
+-105.45,
+-2.81
+],
+"z_ground": 0.73,
+"tags": {
+"barrier": "bollard",
+"bollard": "removable"
+}
+},
+{
+"osm": "node/4462057801",
+"xy": [
+-92.37,
+40.25
+],
+"z_ground": 2.43,
+"tags": {
+"amenity": "bench",
+"backrest": "yes"
+}
+},
+{
+"osm": "node/5064011790",
+"xy": [
+126.88,
+-41.85
+],
+"z_ground": -0.61,
+"tags": {
+"addr:city": "Manchester",
+"addr:housename": "Oxford Road Station",
+"addr:postcode": "M1 6FU",
+"addr:street": "Oxford Road Station Approach",
+"alt_name:ur": "\u0645\u0627\u0646\u0686\u0633\u0679\u0631 \u0627\u0648\u06a9\u0633\u0641\u0648\u0631\u0688 \u0631\u0648\u0688",
+"alt_name_2:ur": "\u0645\u0627\u0646\u0686\u0633\u0679\u0631 \u0627\u0648\u06a9\u0633\u0641\u0631\u0688 \u0631\u0648\u0688",
+"internet_access": "no",
+"name": "Manchester Oxford Road",
+"name:en": "Manchester Oxford Road",
+"name:ur": "\u0645\u0627\u0646\u0686\u0633\u0679\u0631 \u0622\u06a9\u0633\u0641\u0648\u0631\u0688 \u0631\u0648\u0688",
+"naptan:AtcoCode": "9100MNCROXR",
+"network": "National Rail",
+"network:website": "https://www.nationalrail.co.uk/stations/mco/",
+"network:wikidata": "Q26334",
+"operator": "Northern Trains",
+"operator:website": "https://www.northernrailway.co.uk/stations/manchester-oxford-road",
+"operator:wikidata": "Q85789775",
+"public_transport": "station",
+"railway": "station",
+"ref:crs": "MCO",
+"ref:tiploc": "MNCROXR",
+"toilets": "yes",
+"toilets:wheelchair": "yes",
+"train": "yes",
+"website": "https://www.nationalrail.co.uk/stations/mco/",
+"wheelchair": "yes",
+"wikidata": "Q1859538",
+"wikimedia_commons": "Category:Manchester_Oxford_Road_railway_station",
+"wikipedia": "en:Manchester Oxford Road railway station"
+}
+},
+{
+"osm": "node/5402450439",
+"xy": [
+96.1,
+222.89
+],
+"z_ground": 6.6,
+"tags": {
+"button_operated": "yes",
+"crossing": "traffic_signals",
+"crossing:island": "yes",
+"crossing:markings": "yes",
+"crossing:signals": "yes",
+"crossing_ref": "pelican",
+"highway": "crossing",
+"tactile_paving": "yes"
+}
+},
+{
+"osm": "node/6005189597",
+"xy": [
+-236.2,
+-23.53
+],
+"z_ground": 1.86,
+"tags": {
+"railway": "switch"
+}
+},
+{
+"osm": "node/6005189598",
+"xy": [
+-139.67,
+-29.93
+],
+"z_ground": 0.09,
+"tags": {
+"railway": "switch"
+}
+},
+{
+"osm": "node/6005189599",
+"xy": [
+-73.23,
+-31.36
+],
+"z_ground": 0.47,
+"tags": {
+"railway": "switch"
+}
+},
+{
+"osm": "node/6005189600",
+"xy": [
+-60.26,
+-32.21
+],
+"z_ground": 0.3,
+"tags": {
+"railway": "switch"
+}
+},
+{
+"osm": "node/6283574285",
+"xy": [
+7.34,
+125.45
+],
+"z_ground": 3.94,
+"tags": {
+"crossing": "unmarked",
+"crossing:island": "no",
+"crossing:markings": "no",
+"highway": "crossing",
+"tactile_paving": "yes"
+}
+},
+{
+"osm": "node/6283574286",
+"xy": [
+10.89,
+123.67
+],
+"z_ground": 3.78,
+"tags": {
+"direction": "forward",
+"highway": "give_way"
+}
+},
+{
+"osm": "node/6283574287",
+"xy": [
+16.44,
+108.86
+],
+"z_ground": 4.02,
+"tags": {
+"direction": "backward",
+"highway": "give_way"
+}
+},
+{
+"osm": "node/6316442868",
+"xy": [
+175.36,
+-45.21
+],
+"z_ground": 0.21,
+"tags": {
+"highway": "elevator"
+}
+},
+{
+"osm": "node/6316442869",
+"xy": [
+170.03,
+-30.3
+],
+"z_ground": 0.63,
+"tags": {
+"highway": "elevator"
+}
+},
+{
+"osm": "node/6414583151",
+"xy": [
+79.89,
+-48.11
+],
+"z_ground": -1.22,
+"tags": {
+"name": "Manchester Oxford Road",
+"public_transport": "stop_position",
+"railway": "stop",
+"ref": "1",
+"train": "yes",
+"wheelchair": "no"
+}
+},
+{
+"osm": "node/6594239645",
+"xy": [
+40.44,
+105.24
+],
+"z_ground": 4.0,
+"tags": {
+"access": "private",
+"barrier": "gate"
+}
+},
+{
+"osm": "node/6629586064",
+"xy": [
+10.83,
+-0.19
+],
+"z_ground": 0.44,
+"tags": {
+"amenity": "parking_entrance"
+}
+},
+{
+"osm": "node/6629586072",
+"xy": [
+32.32,
+-18.99
+],
+"z_ground": -0.11,
+"tags": {
+"button_operated": "yes",
+"crossing": "traffic_signals",
+"crossing:island": "yes",
+"crossing:markings": "dots;surface",
+"crossing:signals": "yes",
+"crossing_ref": "puffin",
+"highway": "crossing",
+"surface": "asphalt",
+"surface:colour": "red",
+"tactile_paving": "yes",
+"traffic_signals:countdown": "no"
+}
+},
+{
+"osm": "node/6864868218",
+"xy": [
+107.63,
+-178.88
+],
+"z_ground": -0.59,
+"tags": {
+"crossing": "unmarked",
+"crossing:markings": "no",
+"highway": "crossing"
+}
+},
+{
+"osm": "node/6874362267",
+"xy": [
+165.55,
+-110.26
+],
+"z_ground": -2.0,
+"tags": {
+"barrier": "gate"
+}
+},
+{
+"osm": "node/6875195982",
+"xy": [
+150.96,
+-117.95
+],
+"z_ground": -1.99,
+"tags": {
+"barrier": "gate"
+}
+},
+{
+"osm": "node/6875215909",
+"xy": [
+158.97,
+-133.58
+],
+"z_ground": -1.46,
+"tags": {
+"barrier": "gate"
+}
+},
+{
+"osm": "node/8851172107",
+"xy": [
+239.62,
+0.34
+],
+"z_ground": 2.02,
+"tags": {
+"bench": "yes",
+"bin": "yes",
+"bus": "yes",
+"departures_board": "timetable",
+"highway": "bus_stop",
+"lit": "yes",
+"name": "Manchester City Centre, Oxford Road / adjacent Oxford Road Station",
+"naptan:AtcoCode": "1800SB18781",
+"naptan:Bearing": "SE",
+"naptan:Landmark": "PALACE HOTEL",
+"naptan:NaptanCode": "MANTWTDW",
+"naptan:Street": "Oxford Road",
+"network": "TfGM",
+"operator": "TfGM",
+"public_transport": "platform",
+"ref": "A",
+"shelter": "yes",
+"tactile_paving": "yes"
+}
+},
+{
+"osm": "node/9241445193",
+"xy": [
+119.65,
+218.35
+],
+"z_ground": 6.64,
+"tags": {
+"barrier": "kerb",
+"kerb": "lowered",
+"tactile_paving": "yes"
+}
+},
+{
+"osm": "node/9245233133",
+"xy": [
+-37.01,
+196.4
+],
+"z_ground": 2.11,
+"tags": {
+"barrier": "gate"
+}
+},
+{
+"osm": "node/9245396439",
+"xy": [
+206.3,
+65.33
+],
+"z_ground": 4.05,
+"tags": {
+"barrier": "kerb",
+"kerb": "lowered",
+"tactile_paving": "no"
+}
+},
+{
+"osm": "node/9245873175",
+"xy": [
+-114.06,
+-107.87
+],
+"z_ground": -0.77,
+"tags": {
+"access": "permissive",
+"amenity": "parking_entrance",
+"level": "0",
+"maxheight": "2.3",
+"parking": "multi-storey"
+}
+},
+{
+"osm": "node/9245873194",
+"xy": [
+-74.86,
+-102.73
+],
+"z_ground": -1.78,
+"tags": {
+"barrier": "gate"
+}
+},
+{
+"osm": "node/9246424404",
+"xy": [
+-241.23,
+-8.23
+],
+"z_ground": 2.1,
+"tags": {
+"barrier": "kerb",
+"kerb": "lowered",
+"tactile_paving": "yes"
+}
+},
+{
+"osm": "node/9246813921",
+"xy": [
+-107.26,
+-2.11
+],
+"z_ground": 0.74,
+"tags": {
+"amenity": "waste_basket"
+}
+},
+{
+"osm": "node/9246813922",
+"xy": [
+-107.19,
+-0.51
+],
+"z_ground": 0.8,
+"tags": {
+"access": "yes",
+"amenity": "bicycle_parking",
+"bicycle_parking": "stands",
+"capacity": "4",
+"covered": "no",
+"fee": "no"
+}
+},
+{
+"osm": "node/9246820520",
+"xy": [
+-239.02,
+-1.04
+],
+"z_ground": 2.36,
+"tags": {
+"barrier": "kerb",
+"kerb": "lowered",
+"tactile_paving": "yes"
+}
+},
+{
+"osm": "node/9248787614",
+"xy": [
+3.85,
+-32.61
+],
+"z_ground": -0.26,
+"tags": {
+"barrier": "kerb",
+"kerb": "lowered",
+"tactile_paving": "yes",
+"tactile_paving:colour": "red"
+}
+},
+{
+"osm": "node/9248789124",
+"xy": [
+47.09,
+-20.78
+],
+"z_ground": -0.2,
+"tags": {
+"barrier": "kerb",
+"kerb": "lowered",
+"tactile_paving": "no"
+}
+},
+{
+"osm": "node/9248789135",
+"xy": [
+60.98,
+-12.16
+],
+"z_ground": 0.06,
+"tags": {
+"barrier": "kerb",
+"kerb": "lowered",
+"tactile_paving": "no"
+}
+},
+{
+"osm": "node/9248789152",
+"xy": [
+174.47,
+41.67
+],
+"z_ground": 3.26,
+"tags": {
+"barrier": "kerb",
+"kerb": "lowered",
+"tactile_paving": "no"
+}
+},
+{
+"osm": "node/9249804073",
+"xy": [
+30.48,
+-14.19
+],
+"z_ground": -0.08,
+"tags": {
+"barrier": "kerb",
+"kerb": "lowered",
+"tactile_paving": "yes",
+"tactile_paving:colour": "red"
+}
+},
+{
+"osm": "node/9249804111",
+"xy": [
+183.15,
+62.16
+],
+"z_ground": 3.88,
+"tags": {
+"barrier": "kerb",
+"kerb": "flush",
+"tactile_paving": "yes"
+}
+},
+{
+"osm": "node/9249933254",
+"xy": [
+185.0,
+43.63
+],
+"z_ground": 3.61,
+"tags": {
+"barrier": "kerb",
+"kerb": "lowered",
+"tactile_paving": "no"
+}
+},
+{
+"osm": "node/9249933290",
+"xy": [
+190.42,
+46.69
+],
+"z_ground": 3.61,
+"tags": {
+"barrier": "kerb",
+"kerb": "flush",
+"tactile_paving": "no"
+}
+},
+{
+"osm": "node/9446117179",
+"xy": [
+186.71,
+55.23
+],
+"z_ground": 3.82,
+"tags": {
+"button_operated": "yes",
+"crossing": "traffic_signals",
+"crossing:island": "yes",
+"crossing:signals": "yes",
+"crossing_ref": "pelican",
+"highway": "crossing",
+"tactile_paving": "yes",
+"traffic_signals:sound": "yes",
+"traffic_signals:vibration": "yes"
+}
+},
+{
+"osm": "node/9446117188",
+"xy": [
+212.83,
+52.42
+],
+"z_ground": 3.65,
+"tags": {
+"barrier": "kerb",
+"kerb": "lowered",
+"tactile_paving": "no"
+}
+},
+{
+"osm": "node/9446117192",
+"xy": [
+184.69,
+82.1
+],
+"z_ground": 4.87,
+"tags": {
+"crossing": "no",
+"highway": "traffic_signals",
+"traffic_signals": "traffic_lights",
+"traffic_signals:direction": "forward"
+}
+},
+{
+"osm": "node/9446128607",
+"xy": [
+58.23,
+193.29
+],
+"z_ground": 5.84,
+"tags": {
+"crossing": "unmarked",
+"crossing:markings": "no",
+"highway": "crossing"
+}
+},
+{
+"osm": "node/9446128612",
+"xy": [
+100.0,
+215.05
+],
+"z_ground": 6.51,
+"tags": {
+"barrier": "kerb",
+"kerb": "lowered"
+}
+},
+{
+"osm": "node/9446128614",
+"xy": [
+91.93,
+231.27
+],
+"z_ground": 6.73,
+"tags": {
+"barrier": "kerb",
+"kerb": "lowered",
+"tactile_paving": "yes"
+}
+},
+{
+"osm": "node/9446128615",
+"xy": [
+78.32,
+228.63
+],
+"z_ground": 6.65,
+"tags": {
+"barrier": "gate"
+}
+},
+{
+"osm": "node/9446129029",
+"xy": [
+88.93,
+219.56
+],
+"z_ground": 6.57,
+"tags": {
+"highway": "traffic_signals",
+"traffic_signals": "signal",
+"traffic_signals:direction": "forward"
+}
+},
+{
+"osm": "node/9709142422",
+"xy": [
+158.19,
+15.54
+],
+"z_ground": 1.88,
+"tags": {
+"name": "Manchester Oxford Road",
+"public_transport": "stop_position",
+"railway": "stop",
+"ref": "5",
+"train": "yes"
+}
+},
+{
+"osm": "node/9779572046",
+"xy": [
+-81.22,
+234.2
+],
+"z_ground": 7.49,
+"tags": {
+"crossing": "traffic_signals",
+"crossing:island": "yes",
+"crossing:markings": "dots",
+"crossing:signals": "yes",
+"highway": "crossing",
+"tactile_paving": "yes"
+}
+},
+{
+"osm": "node/9893969205",
+"xy": [
+-194.61,
+140.34
+],
+"z_ground": 3.08,
+"tags": {
+"height": "40",
+"man_made": "chimney",
+"material": "steel",
+"name": "Tower of Light",
+"operator": "Manchester City Council",
+"wikidata": "Q116698423"
+}
+},
+{
+"osm": "node/10013611312",
+"xy": [
+33.31,
+157.08
+],
+"z_ground": 4.61,
+"tags": {
+"amenity": "motorcycle_parking",
+"capacity": "4",
+"covered": "no"
+}
+},
+{
+"osm": "node/10013611313",
+"xy": [
+35.23,
+157.48
+],
+"z_ground": 4.65,
+"tags": {
+"amenity": "bicycle_parking",
+"bicycle_parking": "stands",
+"capacity": "6",
+"covered": "no"
+}
+},
+{
+"osm": "node/10013611314",
+"xy": [
+21.59,
+158.49
+],
+"z_ground": 4.72,
+"tags": {
+"amenity": "motorcycle_parking",
+"capacity": "6",
+"covered": "no"
+}
+},
+{
+"osm": "node/10013611315",
+"xy": [
+17.76,
+159.46
+],
+"z_ground": 4.81,
+"tags": {
+"amenity": "bicycle_parking",
+"bicycle_parking": "stands",
+"capacity": "4",
+"covered": "no"
+}
+},
+{
+"osm": "node/10013611316",
+"xy": [
+16.87,
+104.03
+],
+"z_ground": 3.98,
+"tags": {
+"amenity": "bicycle_parking",
+"bicycle_parking": "stands",
+"capacity": "12",
+"covered": "no"
+}
+},
+{
+"osm": "node/10205095962",
+"xy": [
+128.83,
+154.54
+],
+"z_ground": 5.75,
+"tags": {
+"amenity": "bicycle_rental",
+"bicycle_rental": "docking_station",
+"brand": "Beryl",
+"brand:wikidata": "Q106575365",
+"capacity": "5",
+"email": "support@beryl.cc",
+"fee": "yes",
+"name": "Bridgewater House",
+"network": "Beryl",
+"network:wikidata": "Q106575365",
+"operator": "Beryl",
+"operator:wikidata": "Q106575369",
+"payment:app": "yes",
+"payment:cash": "no",
+"payment:credit_cards": "no",
+"payment:cryptocurrencies": "no",
+"payment:debit_cards": "no",
+"payment:electronic_purses": "no",
+"phone": "+44 20 3003 5044",
+"ref:gbfs": "beryl_greater_manchester:3012",
+"rental": "city_bike;ebike",
+"website": "https://beryl.cc/scheme/greater-manchester"
+}
+},
+{
+"osm": "node/10207662321",
+"xy": [
+-198.47,
+-0.32
+],
+"z_ground": 1.49,
+"tags": {
+"amenity": "bicycle_rental",
+"bicycle_rental": "docking_station",
+"capacity": "12",
+"email": "support@beryl.cc",
+"fee": "yes",
+"name": "The Hacienda",
+"network": "tfgm_cycle_hire",
+"operator": "Beryl",
+"operator:wikidata": "Q106575369",
+"payment:app": "yes",
+"payment:cash": "no",
+"payment:credit_cards": "no",
+"payment:cryptocurrencies": "no",
+"payment:debit_cards": "no",
+"payment:electronic_purses": "no",
+"phone": "+44 20 3003 5044",
+"ref:gbfs": "beryl_greater_manchester:4029",
+"rental": "city_bike;ebike",
+"website": "https://beryl.cc/scheme/greater-manchester"
+}
+},
+{
+"osm": "node/10683322292",
+"xy": [
+-63.87,
+160.45
+],
+"z_ground": 1.44,
+"tags": {
+"amenity": "fountain"
+}
+},
+{
+"osm": "node/11019910422",
+"xy": [
+123.74,
+-13.04
+],
+"z_ground": 0.31,
+"tags": {
+"access": "yes",
+"amenity": "toilets",
+"check_date": "2024-06-23",
+"fee": "no",
+"level": "0",
+"toilets:disposal": "flush",
+"wheelchair": "yes"
+}
+},
+{
+"osm": "node/12003646556",
+"xy": [
+136.74,
+-25.42
+],
+"z_ground": 0.01,
+"tags": {
+"amenity": "vending_machine",
+"check_date": "2024-06-23",
+"level": "0",
+"operator": "Decorum Vending",
+"payment:american_express": "yes",
+"payment:cash": "no",
+"payment:credit_cards": "yes",
+"payment:debit_cards": "yes",
+"vending": "drinks;food"
+}
+},
+{
+"osm": "node/12003646558",
+"xy": [
+107.82,
+-21.24
+],
+"z_ground": -0.09,
+"tags": {
+"access": "customers",
+"amenity": "bicycle_parking",
+"bicycle_parking": "stands",
+"bike_ride": "train",
+"capacity": "36",
+"covered": "yes",
+"fee": "no",
+"operator": "Northern Trains",
+"operator:type": "public"
+}
+},
+{
+"osm": "node/12003646559",
+"xy": [
+136.53,
+-42.61
+],
+"z_ground": -0.6,
+"tags": {
+"amenity": "vending_machine",
+"check_date": "2024-06-23",
+"currency:GBP": "yes",
+"level": "0",
+"operator": "Decorum Vending",
+"payment:american_express": "yes",
+"payment:cash": "no",
+"payment:credit_cards": "yes",
+"payment:debit_cards": "yes",
+"vending": "drinks;food"
+}
+},
+{
+"osm": "node/12003646560",
+"xy": [
+141.1,
+-43.36
+],
+"z_ground": -0.53,
+"tags": {
+"amenity": "bench",
+"backrest": "yes",
+"material": "wood"
+}
+},
+{
+"osm": "node/12003646561",
+"xy": [
+130.83,
+-42.3
+],
+"z_ground": -0.61,
+"tags": {
+"amenity": "bench",
+"backrest": "yes",
+"material": "wood"
+}
+},
+{
+"osm": "node/12003646562",
+"xy": [
+119.16,
+-41.74
+],
+"z_ground": -0.64,
+"tags": {
+"amenity": "bench",
+"backrest": "yes",
+"material": "wood"
+}
+},
+{
+"osm": "node/12273088686",
+"xy": [
+119.19,
+216.24
+],
+"z_ground": 6.6,
+"tags": {
+"access": "yes",
+"amenity": "bicycle_parking",
+"bicycle_parking": "stands",
+"capacity": "8",
+"covered": "no",
+"fee": "no"
+}
+},
+{
+"osm": "node/12273094904",
+"xy": [
+185.04,
+41.92
+],
+"z_ground": 3.67,
+"tags": {
+"amenity": "waste_basket"
+}
+},
+{
+"osm": "node/12273133842",
+"xy": [
+136.72,
+186.65
+],
+"z_ground": 6.1,
+"tags": {
+"amenity": "waste_basket"
+}
+},
+{
+"osm": "node/12273222751",
+"xy": [
+144.17,
+-42.85
+],
+"z_ground": -0.43,
+"tags": {
+"amenity": "recycling",
+"recycling:beverage_cartons": "no",
+"recycling:cans": "yes",
+"recycling:paper": "yes",
+"recycling:plastic": "no",
+"recycling:plastic_bottles": "yes",
+"recycling:plastic_packaging": "no",
+"recycling_type": "container"
+}
+},
+{
+"osm": "node/12273224385",
+"xy": [
+144.16,
+-43.44
+],
+"z_ground": -0.43,
+"tags": {
+"amenity": "waste_basket"
+}
+},
+{
+"osm": "node/12373807202",
+"xy": [
+-233.74,
+-2.35
+],
+"z_ground": 2.23,
+"tags": {
+"highway": "traffic_signals",
+"traffic_signals": "signal",
+"traffic_signals:direction": "forward"
+}
+},
+{
+"osm": "node/12377132083",
+"xy": [
+61.14,
+130.19
+],
+"z_ground": 4.19,
+"tags": {
+"barrier": "kerb",
+"kerb": "lowered",
+"tactile_paving": "yes"
+}
+},
+{
+"osm": "node/12377132084",
+"xy": [
+56.88,
+127.19
+],
+"z_ground": 4.09,
+"tags": {
+"crossing": "unmarked",
+"crossing:island": "no",
+"crossing:markings": "no",
+"highway": "crossing",
+"tactile_paving": "yes"
+}
+},
+{
+"osm": "node/12377132085",
+"xy": [
+52.96,
+125.2
+],
+"z_ground": 4.06,
+"tags": {
+"barrier": "kerb",
+"kerb": "lowered",
+"tactile_paving": "yes"
+}
+},
+{
+"osm": "node/12377132099",
+"xy": [
+90.67,
+142.22
+],
+"z_ground": 4.76,
+"tags": {
+"crossing": "unmarked",
+"crossing:markings": "no",
+"highway": "crossing",
+"tactile_paving": "yes"
+}
+},
+{
+"osm": "node/12381733762",
+"xy": [
+106.86,
+211.59
+],
+"z_ground": 6.44,
+"tags": {
+"barrier": "kerb",
+"kerb": "lowered",
+"tactile_paving": "yes"
+}
+},
+{
+"osm": "node/12405091253",
+"xy": [
+-232.33,
+73.48
+],
+"z_ground": 4.05,
+"tags": {
+"barrier": "kerb",
+"kerb": "lowered"
+}
+},
+{
+"osm": "node/12405091254",
+"xy": [
+-231.29,
+78.73
+],
+"z_ground": 4.26,
+"tags": {
+"barrier": "kerb",
+"kerb": "lowered"
+}
+},
+{
+"osm": "node/12405091258",
+"xy": [
+-232.06,
+74.84
+],
+"z_ground": 4.07,
+"tags": {
+"crossing": "unmarked",
+"crossing:markings": "no",
+"highway": "crossing"
+}
+},
+{
+"osm": "node/12405091261",
+"xy": [
+-193.73,
+1.54
+],
+"z_ground": 1.17,
+"tags": {
+"barrier": "kerb",
+"kerb": "lowered",
+"tactile_paving": "yes"
+}
+},
+{
+"osm": "node/12405091262",
+"xy": [
+-190.7,
+1.26
+],
+"z_ground": 1.13,
+"tags": {
+"barrier": "kerb",
+"kerb": "lowered",
+"tactile_paving": "yes"
+}
+},
+{
+"osm": "node/12405091263",
+"xy": [
+-182.59,
+0.51
+],
+"z_ground": 1.18,
+"tags": {
+"barrier": "kerb",
+"kerb": "lowered",
+"tactile_paving": "yes"
+}
+},
+{
+"osm": "node/12405091264",
+"xy": [
+-177.54,
+0.17
+],
+"z_ground": 1.11,
+"tags": {
+"barrier": "kerb",
+"kerb": "lowered",
+"tactile_paving": "yes"
+}
+},
+{
+"osm": "node/12405091265",
+"xy": [
+62.68,
+3.6
+],
+"z_ground": 0.16,
+"tags": {
+"barrier": "kerb",
+"kerb": "lowered",
+"tactile_paving": "no"
+}
+},
+{
+"osm": "node/12405091269",
+"xy": [
+-248.33,
+28.36
+],
+"z_ground": 0.91,
+"tags": {
+"barrier": "kerb",
+"kerb": "lowered",
+"tactile_paving": "yes"
+}
+},
+{
+"osm": "node/12405091285",
+"xy": [
+-242.32,
+4.24
+],
+"z_ground": 2.4,
+"tags": {
+"barrier": "kerb",
+"kerb": "lowered",
+"tactile_paving": "yes"
+}
+},
+{
+"osm": "node/12405091286",
+"xy": [
+-240.46,
+9.02
+],
+"z_ground": 2.62,
+"tags": {
+"barrier": "kerb",
+"kerb": "lowered",
+"tactile_paving": "yes"
+}
+},
+{
+"osm": "node/12408562281",
+"xy": [
+14.43,
+-236.09
+],
+"z_ground": 0.3,
+"tags": {
+"barrier": "kerb"
+}
+},
+{
+"osm": "node/12408562282",
+"xy": [
+21.2,
+-232.25
+],
+"z_ground": 0.29,
+"tags": {
+"barrier": "kerb"
+}
+},
+{
+"osm": "node/12408562294",
+"xy": [
+-96.16,
+-178.97
+],
+"z_ground": -1.46,
+"tags": {
+"barrier": "kerb",
+"kerb": "lowered"
+}
+},
+{
+"osm": "node/12408638702",
+"xy": [
+-99.38,
+-172.24
+],
+"z_ground": -1.31,
+"tags": {
+"barrier": "kerb",
+"kerb": "lowered"
+}
+},
+{
+"osm": "node/12408638703",
+"xy": [
+-97.57,
+-176.02
+],
+"z_ground": -1.39,
+"tags": {
+"crossing": "marked",
+"crossing:markings": "lines",
+"highway": "crossing"
+}
+},
+{
+"osm": "node/12408638705",
+"xy": [
+-78.3,
+-167.01
+],
+"z_ground": -1.45,
+"tags": {
+"barrier": "kerb",
+"kerb": "lowered"
+}
+},
+{
+"osm": "node/12408638706",
+"xy": [
+-86.28,
+-164.04
+],
+"z_ground": -1.48,
+"tags": {
+"barrier": "kerb"
+}
+},
+{
+"osm": "node/12408638711",
+"xy": [
+47.95,
+-206.68
+],
+"z_ground": 0.11,
+"tags": {
+"barrier": "kerb"
+}
+},
+{
+"osm": "node/12408638712",
+"xy": [
+11.97,
+-135.56
+],
+"z_ground": -1.4,
+"tags": {
+"barrier": "kerb",
+"kerb": "lowered"
+}
+},
+{
+"osm": "node/12408638713",
+"xy": [
+5.83,
+-125.38
+],
+"z_ground": -1.24,
+"tags": {
+"barrier": "kerb",
+"kerb": "lowered"
+}
+},
+{
+"osm": "node/12408638714",
+"xy": [
+11.28,
+-133.95
+],
+"z_ground": -1.35,
+"tags": {
+"crossing": "unmarked",
+"crossing:markings": "no",
+"highway": "crossing"
+}
+},
+{
+"osm": "node/12410738517",
+"xy": [
+17.23,
+-234.51
+],
+"z_ground": 0.19,
+"tags": {
+"crossing": "unmarked",
+"crossing:markings": "no",
+"highway": "crossing"
+}
+},
+{
+"osm": "node/12410738518",
+"xy": [
+51.29,
+-212.65
+],
+"z_ground": 0.11,
+"tags": {
+"barrier": "kerb"
+}
+},
+{
+"osm": "node/12412952210",
+"xy": [
+8.45,
+-32.76
+],
+"z_ground": -0.27,
+"tags": {
+"button_operated": "yes",
+"crossing": "traffic_signals",
+"crossing:island": "no",
+"crossing:markings": "dots;surface",
+"crossing:signals": "yes",
+"crossing_ref": "puffin",
+"highway": "crossing",
+"surface": "asphalt",
+"surface:colour": "red",
+"tactile_paving": "yes",
+"traffic_signals:countdown": "no",
+"traffic_signals:vibration": "yes"
+}
+},
+{
+"osm": "node/12412952230",
+"xy": [
+-5.2,
+80.48
+],
+"z_ground": 4.22,
+"tags": {
+"crossing": "unmarked",
+"crossing:markings": "no",
+"highway": "crossing"
+}
+},
+{
+"osm": "node/12412952260",
+"xy": [
+-28.8,
+-11.74
+],
+"z_ground": 0.08,
+"tags": {
+"highway": "crossing"
+}
+},
+{
+"osm": "node/12412952263",
+"xy": [
+-3.64,
+-28.1
+],
+"z_ground": -0.07,
+"tags": {
+"barrier": "kerb",
+"kerb": "lowered",
+"tactile_paving": "yes",
+"tactile_paving:colour": "red"
+}
+},
+{
+"osm": "node/12412952264",
+"xy": [
+-3.37,
+-23.46
+],
+"z_ground": 0.02,
+"tags": {
+"button_operated": "yes",
+"crossing": "traffic_signals",
+"crossing:island": "no",
+"crossing:markings": "dots;surface",
+"crossing:signals": "yes",
+"crossing_ref": "puffin",
+"highway": "crossing",
+"surface": "asphalt",
+"surface:colour": "red",
+"tactile_paving": "yes",
+"traffic_signals:countdown": "no",
+"traffic_signals:vibration": "yes"
+}
+},
+{
+"osm": "node/12412952265",
+"xy": [
+-2.96,
+-16.59
+],
+"z_ground": -0.06,
+"tags": {
+"barrier": "kerb",
+"kerb": "lowered",
+"tactile_paving": "yes",
+"tactile_paving:colour": "red"
+}
+},
+{
+"osm": "node/12412952271",
+"xy": [
+34.36,
+-23.9
+],
+"z_ground": -0.26,
+"tags": {
+"barrier": "kerb",
+"kerb": "lowered",
+"tactile_paving": "yes",
+"tactile_paving:colour": "red"
+}
+},
+{
+"osm": "node/12416012580",
+"xy": [
+49.98,
+-210.44
+],
+"z_ground": 0.05,
+"tags": {
+"crossing": "unmarked",
+"crossing:continuous": "no",
+"crossing:island": "no",
+"crossing:markings": "no",
+"crossing:signals": "no",
+"highway": "crossing"
+}
+},
+{
+"osm": "node/12416012582",
+"xy": [
+41.42,
+-219.08
+],
+"z_ground": 0.19,
+"tags": {
+"barrier": "kerb"
+}
+},
+{
+"osm": "node/12416012583",
+"xy": [
+38.19,
+-212.95
+],
+"z_ground": 0.06,
+"tags": {
+"barrier": "kerb"
+}
+},
+{
+"osm": "node/12416012584",
+"xy": [
+39.75,
+-215.97
+],
+"z_ground": 0.15,
+"tags": {
+"crossing": "unmarked",
+"crossing:continuous": "no",
+"crossing:island": "no",
+"crossing:markings": "no",
+"crossing:signals": "no",
+"highway": "crossing"
+}
+},
+{
+"osm": "node/12416012588",
+"xy": [
+178.69,
+-154.91
+],
+"z_ground": -0.11,
+"tags": {
+"barrier": "kerb",
+"kerb": "flush",
+"tactile_paving": "yes",
+"tactile_paving:colour": "yellow"
+}
+},
+{
+"osm": "node/12416012590",
+"xy": [
+179.82,
+-154.39
+],
+"z_ground": -0.11,
+"tags": {
+"crossing": "unmarked",
+"crossing:continuous": "no",
+"crossing:island": "no",
+"crossing:markings": "no",
+"crossing:signals": "no",
+"highway": "crossing",
+"tactile_paving": "yes"
+}
+},
+{
+"osm": "node/12416012593",
+"xy": [
+175.4,
+-145.96
+],
+"z_ground": -0.57,
+"tags": {
+"crossing": "unmarked",
+"crossing:continuous": "no",
+"crossing:island": "no",
+"crossing:markings": "no",
+"crossing:signals": "no",
+"highway": "crossing",
+"tactile_paving": "yes"
+}
+},
+{
+"osm": "node/12416012600",
+"xy": [
+183.58,
+-152.48
+],
+"z_ground": -0.16,
+"tags": {
+"barrier": "kerb",
+"kerb": "flush",
+"tactile_paving": "yes",
+"tactile_paving:colour": "yellow"
+}
+},
+{
+"osm": "node/12416048610",
+"xy": [
+173.83,
+-146.84
+],
+"z_ground": -0.55,
+"tags": {
+"barrier": "kerb",
+"kerb": "flush",
+"tactile_paving": "yes",
+"tactile_paving:colour": "yellow"
+}
+},
+{
+"osm": "node/12416048611",
+"xy": [
+177.98,
+-144.68
+],
+"z_ground": -0.54,
+"tags": {
+"barrier": "kerb",
+"kerb": "flush",
+"tactile_paving": "yes",
+"tactile_paving:colour": "yellow"
+}
+},
+{
+"osm": "node/12416048614",
+"xy": [
+163.88,
+-121.39
+],
+"z_ground": -1.94,
+"tags": {
+"barrier": "kerb",
+"kerb": "lowered",
+"tactile_paving": "yes",
+"tactile_paving:colour": "red"
+}
+},
+{
+"osm": "node/12416048615",
+"xy": [
+162.13,
+-122.24
+],
+"z_ground": -1.92,
+"tags": {
+"barrier": "kerb",
+"kerb": "lowered",
+"tactile_paving": "yes",
+"tactile_paving:colour": "red"
+}
+},
+{
+"osm": "node/12416048617",
+"xy": [
+143.11,
+-88.34
+],
+"z_ground": -1.74,
+"tags": {
+"barrier": "kerb",
+"kerb": "lowered",
+"tactile_paving": "no"
+}
+},
+{
+"osm": "node/12416048620",
+"xy": [
+141.62,
+-84.21
+],
+"z_ground": -1.71,
+"tags": {
+"barrier": "kerb",
+"kerb": "lowered",
+"tactile_paving": "no"
+}
+},
+{
+"osm": "node/12416048622",
+"xy": [
+173.64,
+-152.43
+],
+"z_ground": -0.35,
+"tags": {
+"crossing": "unmarked",
+"crossing:continuous": "no",
+"crossing:island": "no",
+"crossing:markings": "no",
+"crossing:signals": "no",
+"highway": "crossing",
+"tactile_paving": "yes"
+}
+},
+{
+"osm": "node/12440443696",
+"xy": [
+-156.48,
+150.68
+],
+"z_ground": 6.11,
+"tags": {
+"crossing": "unmarked",
+"crossing:markings": "no",
+"highway": "crossing"
+}
+},
+{
+"osm": "node/12442510023",
+"xy": [
+142.1,
+-85.55
+],
+"z_ground": -1.73,
+"tags": {
+"crossing": "unmarked",
+"crossing:island": "no",
+"highway": "crossing",
+"tactile_paving": "no"
+}
+},
+{
+"osm": "node/12442510025",
+"xy": [
+139.41,
+-67.15
+],
+"z_ground": -1.43,
+"tags": {
+"barrier": "kerb",
+"kerb": "lowered"
+}
+},
+{
+"osm": "node/12442510026",
+"xy": [
+134.23,
+-57.05
+],
+"z_ground": -1.14,
+"tags": {
+"barrier": "kerb",
+"kerb": "lowered",
+"tactile_paving": "no"
+}
+},
+{
+"osm": "node/12442510028",
+"xy": [
+98.96,
+5.51
+],
+"z_ground": 0.7,
+"tags": {
+"barrier": "kerb",
+"kerb": "lowered",
+"tactile_paving": "no"
+}
+},
+{
+"osm": "node/12442510030",
+"xy": [
+138.07,
+-64.53
+],
+"z_ground": -1.4,
+"tags": {
+"crossing": "unmarked",
+"crossing:island": "no",
+"highway": "crossing",
+"tactile_paving": "no"
+}
+},
+{
+"osm": "node/12442521511",
+"xy": [
+68.06,
+6.31
+],
+"z_ground": 0.21,
+"tags": {
+"barrier": "kerb",
+"kerb": "lowered",
+"tactile_paving": "no"
+}
+},
+{
+"osm": "node/12442586277",
+"xy": [
+92.41,
+2.52
+],
+"z_ground": 0.45,
+"tags": {
+"barrier": "kerb",
+"kerb": "lowered",
+"tactile_paving": "no"
+}
+},
+{
+"osm": "node/12442586286",
+"xy": [
+56.64,
+-15.33
+],
+"z_ground": -0.02,
+"tags": {
+"barrier": "kerb",
+"kerb": "lowered",
+"tactile_paving": "no"
+}
+},
+{
+"osm": "node/12442586287",
+"xy": [
+43.96,
+-21.7
+],
+"z_ground": -0.23,
+"tags": {
+"barrier": "kerb",
+"kerb": "lowered",
+"tactile_paving": "no"
+}
+},
+{
+"osm": "node/12442586289",
+"xy": [
+95.57,
+3.97
+],
+"z_ground": 0.56,
+"tags": {
+"crossing": "unmarked",
+"crossing:island": "no",
+"highway": "crossing",
+"tactile_paving": "no"
+}
+},
+{
+"osm": "node/12442603929",
+"xy": [
+106.91,
+27.5
+],
+"z_ground": 1.38,
+"tags": {
+"barrier": "kerb",
+"kerb": "lowered",
+"tactile_paving": "no"
+}
+},
+{
+"osm": "node/12442603930",
+"xy": [
+103.76,
+25.79
+],
+"z_ground": 1.24,
+"tags": {
+"barrier": "kerb",
+"kerb": "lowered",
+"tactile_paving": "no"
+}
+},
+{
+"osm": "node/13081728702",
+"xy": [
+128.65,
+-55.31
+],
+"z_ground": -1.07,
+"tags": {
+"crossing": "marked",
+"crossing:island": "no",
+"crossing:markings": "zebra",
+"crossing:signals": "no",
+"crossing_ref": "zebra",
+"highway": "crossing",
+"tactile_paving": "yes"
+}
+},
+{
+"osm": "node/13081728703",
+"xy": [
+131.33,
+-54.01
+],
+"z_ground": -1.01,
+"tags": {
+"barrier": "kerb",
+"kerb": "lowered",
+"tactile_paving": "yes",
+"tactile_paving:colour": "red"
+}
+},
+{
+"osm": "node/13081728704",
+"xy": [
+127.22,
+-56.01
+],
+"z_ground": -1.13,
+"tags": {
+"barrier": "kerb",
+"kerb": "lowered",
+"tactile_paving": "yes",
+"tactile_paving:colour": "red"
+}
+},
+{
+"osm": "node/13081728706",
+"xy": [
+94.44,
+6.18
+],
+"z_ground": 0.58,
+"tags": {
+"direction": "forward",
+"highway": "give_way"
+}
+},
+{
+"osm": "node/13081737164",
+"xy": [
+184.98,
+-150.02
+],
+"z_ground": -0.18,
+"tags": {
+"barrier": "kerb",
+"kerb": "flush",
+"tactile_paving": "yes",
+"tactile_paving:colour": "yellow"
+}
+},
+{
+"osm": "node/13081737167",
+"xy": [
+183.96,
+-148.03
+],
+"z_ground": -0.21,
+"tags": {
+"crossing": "unmarked",
+"crossing:continuous": "no",
+"crossing:island": "no",
+"crossing:markings": "no",
+"crossing:signals": "no",
+"highway": "crossing",
+"tactile_paving": "yes"
+}
+},
+{
+"osm": "node/13081737168",
+"xy": [
+172.39,
+-150.12
+],
+"z_ground": -0.46,
+"tags": {
+"barrier": "kerb",
+"kerb": "flush",
+"tactile_paving": "yes",
+"tactile_paving:colour": "yellow"
+}
+},
+{
+"osm": "node/13081737170",
+"xy": [
+175.13,
+-155.55
+],
+"z_ground": -0.22,
+"tags": {
+"barrier": "kerb",
+"kerb": "flush",
+"tactile_paving": "yes",
+"tactile_paving:colour": "yellow"
+}
+},
+{
+"osm": "node/13081737173",
+"xy": [
+182.27,
+-144.75
+],
+"z_ground": -0.5,
+"tags": {
+"barrier": "kerb",
+"kerb": "flush",
+"tactile_paving": "yes",
+"tactile_paving:colour": "yellow"
+}
+},
+{
+"osm": "node/13081737174",
+"xy": [
+179.49,
+-153.79
+],
+"z_ground": -0.13,
+"tags": {
+"direction": "backward",
+"highway": "give_way"
+}
+},
+{
+"osm": "node/13081737175",
+"xy": [
+176.22,
+-147.63
+],
+"z_ground": -0.48,
+"tags": {
+"direction": "backward",
+"highway": "give_way"
+}
+},
+{
+"osm": "node/13082143099",
+"xy": [
+48.13,
+-211.47
+],
+"z_ground": 0.03,
+"tags": {
+"direction": "backward",
+"highway": "give_way"
+}
+},
+{
+"osm": "node/13082143100",
+"xy": [
+40.39,
+-215.64
+],
+"z_ground": 0.16,
+"tags": {
+"direction": "forward",
+"highway": "give_way"
+}
+},
+{
+"osm": "node/13082253172",
+"xy": [
+177.69,
+52.77
+],
+"z_ground": 3.63,
+"tags": {
+"crossing": "no",
+"highway": "traffic_signals",
+"traffic_signals": "traffic_lights",
+"traffic_signals:direction": "backward"
+}
+},
+{
+"osm": "node/13082260957",
+"xy": [
+23.82,
+-30.21
+],
+"z_ground": -0.3,
+"tags": {
+"barrier": "kerb",
+"kerb": "lowered",
+"tactile_paving": "no"
+}
+},
+{
+"osm": "node/13082260958",
+"xy": [
+21.88,
+-30.67
+],
+"z_ground": -0.23,
+"tags": {
+"barrier": "kerb",
+"kerb": "lowered",
+"tactile_paving": "no"
+}
+},
+{
+"osm": "node/13082260959",
+"xy": [
+22.84,
+-30.44
+],
+"z_ground": -0.25,
+"tags": {
+"crossing": "unmarked",
+"crossing:continuous": "no",
+"crossing:island": "no",
+"crossing:markings": "no",
+"crossing:signals": "no",
+"highway": "crossing",
+"tactile_paving": "no"
+}
+},
+{
+"osm": "node/13082260960",
+"xy": [
+23.45,
+-31.88
+],
+"z_ground": -0.27,
+"tags": {
+"barrier": "gate"
+}
+},
+{
+"osm": "node/13082260961",
+"xy": [
+16.74,
+-14.24
+],
+"z_ground": -0.1,
+"tags": {
+"highway": "crossing"
+}
+},
+{
+"osm": "node/13082260965",
+"xy": [
+38.78,
+-15.68
+],
+"z_ground": -0.08,
+"tags": {
+"crossing": "no",
+"highway": "traffic_signals",
+"traffic_signals": "traffic_lights",
+"traffic_signals:direction": "forward"
+}
+},
+{
+"osm": "node/13082260966",
+"xy": [
+-10.68,
+-23.07
+],
+"z_ground": 0.07,
+"tags": {
+"crossing": "no",
+"highway": "traffic_signals",
+"traffic_signals": "traffic_lights",
+"traffic_signals:direction": "backward"
+}
+},
+{
+"osm": "node/13082260967",
+"xy": [
+-0.12,
+-45.21
+],
+"z_ground": -0.7,
+"tags": {
+"crossing": "no",
+"highway": "traffic_signals",
+"traffic_signals": "traffic_lights",
+"traffic_signals:direction": "forward"
+}
+},
+{
+"osm": "node/13099103267",
+"xy": [
+141.63,
+-85.79
+],
+"z_ground": -1.73,
+"tags": {
+"access": "no",
+"barrier": "gate",
+"height": "2.5",
+"locked": "yes",
+"material": "metal",
+"operator": "Manchester Metropolitan University"
+}
+},
+{
+"osm": "node/13099130007",
+"xy": [
+161.32,
+102.55
+],
+"z_ground": 2.05,
+"tags": {
+"access": "no",
+"barrier": "fence"
+}
+},
+{
+"osm": "node/13161425833",
+"xy": [
+-199.76,
+122.16
+],
+"z_ground": 5.09,
+"tags": {
+"crossing": "traffic_signals",
+"crossing:markings": "dots",
+"crossing:signals": "yes",
+"highway": "crossing"
+}
+},
+{
+"osm": "node/13274080094",
+"xy": [
+-79.42,
+-47.27
+],
+"z_ground": 0.03,
+"tags": {
+"access": "yes",
+"amenity": "bicycle_parking",
+"bicycle_parking": "stands",
+"capacity": "12",
+"covered": "no",
+"fee": "no"
+}
+},
+{
+"osm": "node/13364656832",
+"xy": [
+28.73,
+106.99
+],
+"z_ground": 4.09,
+"tags": {
+"crossing": "unmarked",
+"crossing:markings": "no",
+"highway": "crossing"
+}
+},
+{
+"osm": "node/13908610459",
+"xy": [
+136.44,
+-29.24
+],
+"z_ground": -0.14,
+"tags": {
+"amenity": "bench",
+"backrest": "yes"
+}
+},
+{
+"osm": "node/13908611014",
+"xy": [
+139.09,
+-29.61
+],
+"z_ground": -0.09,
+"tags": {
+"amenity": "bench",
+"backrest": "yes"
+}
+},
+{
+"osm": "node/13908631403",
+"xy": [
+134.32,
+-21.66
+],
+"z_ground": 0.12,
+"tags": {
+"amenity": "public_bookcase"
+}
+},
+{
+"osm": "node/14103908243",
+"xy": [
+175.42,
+61.4
+],
+"z_ground": 3.81,
+"tags": {
+"access": "yes",
+"amenity": "bicycle_parking",
+"bicycle_parking": "stands",
+"capacity": "8",
+"covered": "no",
+"fee": "no"
+}
+},
+{
+"osm": "node/14103908244",
+"xy": [
+197.67,
+83.08
+],
+"z_ground": 4.74,
+"tags": {
+"access": "yes",
+"amenity": "bicycle_parking",
+"bicycle_parking": "stands",
+"capacity": "8",
+"covered": "no",
+"fee": "no"
+}
+},
+{
+"osm": "node/14103908246",
+"xy": [
+-245.98,
+-21.09
+],
+"z_ground": 1.93,
+"tags": {
+"access": "yes",
+"amenity": "bicycle_parking",
+"bicycle_parking": "stands",
+"capacity": "16",
+"covered": "yes",
+"fee": "no"
+}
+},
+{
+"osm": "node/14103908247",
+"xy": [
+-249.9,
+-20.8
+],
+"z_ground": 2.0,
+"tags": {
+"access": "yes",
+"amenity": "bicycle_parking",
+"bicycle_parking": "rack",
+"capacity": "15",
+"covered": "yes",
+"fee": "no"
+}
+}
+],
+"pois": [
+{
+"osm": "node/346988637",
+"xy": [
+102.33,
+211.62
+],
+"z_ground": 6.63,
+"tags": {
+"addr:city": "Manchester",
+"addr:country": "GB",
+"addr:housenumber": "36-38",
+"addr:postcode": "M1 5EJ",
+"addr:street": "Oxford Street",
+"amenity": "fast_food",
+"brand": "McDonald's",
+"brand:wikidata": "Q38076",
+"check_date": "2024-08-31",
+"check_date:opening_hours": "2024-08-31",
+"contact:website": "https://www.mcdonalds.com/gb/en-gb/location/manchester/manchester---oxford-street/3638-oxford-street/8260230.html",
+"cuisine": "burger",
+"drive_through": "no",
+"fhrs:id": "1819366",
+"indoor_seating": "yes",
+"internet_access": "wlan",
+"name": "McDonald's",
+"opening_hours": "Mo-Su 00:00-24:00",
+"phone": "+44 161 236 2567",
+"self_service": "yes",
+"takeaway": "yes",
+"wheelchair": "yes"
+}
+},
+{
+"osm": "node/347016335",
+"xy": [
+186.49,
+114.58
+],
+"z_ground": 4.82,
+"tags": {
+"addr:city": "Manchester",
+"addr:street": "Oxford Street",
+"name": "Venus",
+"shop": "florist"
+}
+},
+{
+"osm": "node/426959803",
+"xy": [
+201.76,
+-65.97
+],
+"z_ground": -0.06,
+"tags": {
+"addr:city": "Manchester",
+"addr:country": "GB",
+"addr:housenumber": "7-9",
+"addr:postcode": "M1 5NP",
+"addr:street": "New Wakefield Street",
+"amenity": "bar",
+"contact:email": "info@mother-marys.com",
+"contact:instagram": "mothermarysmcr_",
+"contact:website": "https://www.mother-marys.com",
+"dog": "yes",
+"fhrs:id": "1818213",
+"food": "yes",
+"internet_access": "wlan",
+"internet_access:fee": "no",
+"live_music": "yes",
+"name": "Mother Mary's",
+"opening_hours": "10:00-00:00",
+"panoramax": "e2e84b6b-cc25-48c7-a1e4-e9659c463fdc",
+"panoramax:0": "29b1782d-c688-4442-a723-ea514ea82b27",
+"payment:cards": "yes",
+"payment:cash": "no",
+"payment:qr_code": "no",
+"phone": "+44 161 669 8090",
+"service:electricity": "yes"
+}
+},
+{
+"osm": "node/497393593",
+"xy": [
+222.94,
+-8.4
+],
+"z_ground": 1.79,
+"tags": {
+"amenity": "pub",
+"check_date": "2025-08-14",
+"name": "Grand Central"
+}
+},
+{
+"osm": "node/497393594",
+"xy": [
+173.36,
+-70.98
+],
+"z_ground": -0.67,
+"tags": {
+"addr:city": "Manchester",
+"addr:country": "GB",
+"addr:housenumber": "11-13",
+"addr:postcode": "M1 5NP",
+"addr:street": "New Wakefield Street",
+"amenity": "bar",
+"fhrs:id": "1819325",
+"name": "BrickHouse Social"
+}
+},
+{
+"osm": "node/1842244652",
+"xy": [
+128.13,
+157.89
+],
+"z_ground": 5.79,
+"tags": {
+"addr:city": "Manchester",
+"addr:country": "GB",
+"addr:housenumber": "100",
+"addr:postcode": "M1 5JW",
+"addr:street": "Bridgewater Street",
+"amenity": "pub",
+"description": "Pub is in a old underground toilet, think Carry on at your Convienience",
+"fhrs:id": "1820339",
+"indoor_seating": "yes",
+"level": "-1",
+"name": "The Temple",
+"outdoor_seating": "yes",
+"was:amenity": "toilet",
+"wheelchair": "no"
+}
+},
+{
+"osm": "node/2555325252",
+"xy": [
+212.66,
+11.25
+],
+"z_ground": 2.56,
+"tags": {
+"addr:city": "Manchester",
+"addr:country": "GB",
+"addr:housenumber": "72",
+"addr:postcode": "M1 5NH",
+"addr:street": "Oxford Road",
+"amenity": "fast_food",
+"cuisine": "burger",
+"fhrs:id": "1821376",
+"name": "Archie's",
+"website": "http://www.archiesmanchester.co.uk/"
+}
+},
+{
+"osm": "node/2721293617",
+"xy": [
+189.51,
+11.54
+],
+"z_ground": 1.76,
+"tags": {
+"addr:city": "Manchester",
+"addr:country": "GB",
+"addr:housenumber": "1-3",
+"addr:postcode": "M1 6FU",
+"addr:street": "Station Approach",
+"amenity": "cafe",
+"cuisine": "coffee_shop",
+"fhrs:id": "1819454",
+"internet_access": "no",
+"internet_access:fee": "no",
+"name": "Java Bar Espresso",
+"outdoor_seating": "yes",
+"smoking": "separated",
+"takeaway": "yes",
+"wheelchair": "limited"
+}
+},
+{
+"osm": "node/3185353683",
+"xy": [
+225.75,
+50.27
+],
+"z_ground": 3.6,
+"tags": {
+"addr:city": "Manchester",
+"addr:housename": "Refuge Assurance Building",
+"addr:postcode": "M60 7HA",
+"addr:street": "Oxford Street",
+"amenity": "restaurant",
+"bar": "yes",
+"check_date": "2025-08-08",
+"check_date:opening_hours": "2025-08-08",
+"cuisine": "coffee_shop;breakfast;brunch",
+"diet:vegetarian": "yes",
+"highchair": "yes",
+"indoor_seating": "yes",
+"name": "The Refuge",
+"opening_hours:signed": "no",
+"outdoor_seating": "no",
+"payment:american_express": "yes",
+"payment:cash": "yes",
+"payment:mastercard": "yes",
+"payment:visa": "yes",
+"payment:visa_debit": "yes",
+"reservation": "yes",
+"toilets": "yes",
+"toilets:wheelchair": "yes",
+"website": "https://www.refugemcr.co.uk/",
+"wheelchair": "yes",
+"wheelchair:description": "phone restaurant to get wheelchair access via an internal courtyard on Whitworth street. though there is an accessible toilet it is positioned in an extremely awkward location - down a narrow corridor with right hand left and right turns to access it. La"
+}
+},
+{
+"osm": "node/3636739696",
+"xy": [
+104.0,
+4.21
+],
+"z_ground": 0.94,
+"tags": {
+"addr:city": "Manchester",
+"addr:country": "GB",
+"addr:housenumber": "54-56",
+"addr:postcode": "M1 5WW",
+"addr:street": "Whitworth Street West",
+"amenity": "bar",
+"fhrs:id": "1817564",
+"indoor_seating": "yes",
+"name": "Gorilla",
+"outdoor_seating": "no",
+"wheelchair": "yes"
+}
+},
+{
+"osm": "node/3636743793",
+"xy": [
+90.07,
+-2.93
+],
+"z_ground": 0.71,
+"tags": {
+"addr:city": "Manchester",
+"addr:country": "GB",
+"addr:housenumber": "57",
+"addr:postcode": "M1 5WW",
+"addr:street": "Whitworth Street West",
+"amenity": "bar",
+"amenity_1": "bowling alley",
+"fhrs:id": "1816872",
+"indoor_seating": "yes",
+"name": "Dog Bowl",
+"outdoor_seating": "yes"
+}
+},
+{
+"osm": "node/3637622193",
+"xy": [
+-30.71,
+-32.68
+],
+"z_ground": 0.2,
+"tags": {
+"amenity": "fast_food",
+"cuisine": "burger",
+"drive_in": "no",
+"drive_through": "no",
+"name": "Loco Express",
+"wheelchair": "yes"
+}
+},
+{
+"osm": "node/3638783095",
+"xy": [
+21.57,
+-10.01
+],
+"z_ground": 0.18,
+"tags": {
+"name": "Jamie's Salon",
+"shop": "hairdresser",
+"wheelchair": "yes"
+}
+},
+{
+"osm": "node/3638795833",
+"xy": [
+38.97,
+-3.95
+],
+"z_ground": 0.25,
+"tags": {
+"addr:city": "Manchester",
+"addr:country": "GB",
+"addr:housenumber": "41",
+"addr:postcode": "M1 5BD",
+"addr:street": "Whitworth Street West",
+"name": "iSmart Communications",
+"shop": "electronics",
+"wheelchair": "no"
+}
+},
+{
+"osm": "node/3638795834",
+"xy": [
+49.23,
+1.39
+],
+"z_ground": 0.43,
+"tags": {
+"addr:city": "Manchester",
+"addr:country": "GB",
+"addr:housenumber": "41",
+"addr:postcode": "M1 5BD",
+"addr:street": "Whitworth Street West",
+"amenity": "cafe",
+"cuisine": "deli",
+"drive_in": "no",
+"fhrs:id": "1819622",
+"indoor_seating": "yes",
+"name": "Olivitta",
+"outdoor_seating": "yes",
+"wheelchair": "no"
+}
+},
+{
+"osm": "node/3638797796",
+"xy": [
+54.09,
+4.09
+],
+"z_ground": 0.36,
+"tags": {
+"addr:city": "Manchester",
+"addr:country": "GB",
+"addr:housenumber": "41",
+"addr:postcode": "M1 5BD",
+"addr:street": "Whitworth Street West",
+"name": "Vampire Vape",
+"shop": "e-cigarette",
+"wheelchair": "yes"
+}
+},
+{
+"osm": "node/3638798296",
+"xy": [
+35.55,
+-5.47
+],
+"z_ground": 0.3,
+"tags": {
+"addr:city": "Manchester",
+"addr:country": "GB",
+"addr:housenumber": "41",
+"addr:postcode": "M1 5BD",
+"addr:street": "Whitworth Street West",
+"name": "Close Male Grooming",
+"shop": "hairdresser",
+"wheelchair": "no"
+}
+},
+{
+"osm": "node/3638920893",
+"xy": [
+58.17,
+6.22
+],
+"z_ground": 0.45,
+"tags": {
+"addr:city": "Manchester",
+"addr:country": "GB",
+"addr:housenumber": "41",
+"addr:postcode": "M1 5BD",
+"addr:street": "Whitworth Street West",
+"name": "The Nail",
+"shop": "beauty",
+"wheelchair": "yes"
+}
+},
+{
+"osm": "node/3693252208",
+"xy": [
+-136.29,
+-51.44
+],
+"z_ground": -0.63,
+"tags": {
+"amenity": "cinema",
+"name": "HOME Cinema",
+"opening_hours": "Mo-Su 12:00-23:00",
+"website": "https://homemcr.org/cinema/",
+"wheelchair": "yes"
+}
+},
+{
+"osm": "node/3693252209",
+"xy": [
+-175.06,
+-73.27
+],
+"z_ground": -0.02,
+"tags": {
+"amenity": "bar",
+"level": "0",
+"name": "HOME Bar & Kitchen",
+"opening_hours": "Mo-Th 10:00-23:00, Fr,Sa 10:00-24:00, Su 11:00-22:30",
+"wheelchair": "yes"
+}
+},
+{
+"osm": "node/4169290217",
+"xy": [
+176.38,
+71.2
+],
+"z_ground": 4.37,
+"tags": {
+"addr:city": "Manchester",
+"addr:country": "GB",
+"addr:housenumber": "51",
+"addr:postcode": "M1 5EA",
+"addr:street": "Whitworth Street West",
+"brand": "Sainsbury's Local",
+"brand:wikidata": "Q13218434",
+"check_date": "2024-12-22",
+"level": "0",
+"name": "Sainsbury's Local",
+"shop": "convenience",
+"website": "https://stores.sainsburys.co.uk/4048/whitworth-street-local",
+"wheelchair": "yes"
+}
+},
+{
+"osm": "node/4169291848",
+"xy": [
+184.51,
+118.51
+],
+"z_ground": 3.31,
+"tags": {
+"addr:city": "Manchester",
+"addr:street": "Oxford Street",
+"amenity": "fast_food",
+"name": "Changos Burritos"
+}
+},
+{
+"osm": "node/4169291850",
+"xy": [
+161.38,
+162.04
+],
+"z_ground": 5.98,
+"tags": {
+"addr:city": "Manchester",
+"addr:country": "GB",
+"addr:housenumber": "75",
+"addr:postcode": "M1 6EQ",
+"addr:street": "Oxford Street",
+"check_date": "2024-12-22",
+"level": "0",
+"name": "Fretwell Bennett",
+"phone": "+44 161 236 9693",
+"shop": "hairdresser"
+}
+},
+{
+"osm": "node/4169291852",
+"xy": [
+156.81,
+171.11
+],
+"z_ground": 6.08,
+"tags": {
+"addr:city": "Manchester",
+"addr:country": "GB",
+"addr:housenumber": "71-73",
+"addr:postcode": "M1 6EQ",
+"addr:street": "Oxford Street",
+"amenity": "cafe",
+"brand": "Caff\u00e8 Nero",
+"brand:wikidata": "Q675808",
+"check_date": "2024-12-22",
+"check_date:opening_hours": "2024-08-22",
+"cuisine": "coffee_shop",
+"level": "0",
+"name": "Caff\u00e8 Nero",
+"opening_hours": "Mo-Fr 06:30-20:00; Sa 07:30-20:00; Su 08:30-19:00",
+"takeaway": "yes",
+"website": "https://www.caffenero.com/uk/stores/manchester-oxford-st"
+}
+},
+{
+"osm": "node/4169291853",
+"xy": [
+151.54,
+178.99
+],
+"z_ground": 6.25,
+"tags": {
+"addr:city": "Manchester",
+"addr:country": "GB",
+"addr:housenumber": "67-69",
+"addr:postcode": "M1 6EQ",
+"addr:street": "Oxford Street",
+"amenity": "restaurant",
+"brand": "PizzaExpress",
+"brand:wikidata": "Q662845",
+"cuisine": "pizza",
+"name": "PizzaExpress",
+"opening_hours": "Mo-Su 11:30-22:00",
+"website": "https://www.pizzaexpress.com/manchester-oxford-street"
+}
+},
+{
+"osm": "node/4169291854",
+"xy": [
+144.67,
+192.02
+],
+"z_ground": 6.36,
+"tags": {
+"addr:city": "Manchester",
+"addr:country": "GB",
+"addr:housename": "St James Building",
+"addr:housenumber": "63",
+"addr:postcode": "M1 6EQ",
+"addr:street": "Oxford Street",
+"brand": "Tesco Express",
+"brand:wikidata": "Q98456772",
+"check_date": "2023-08-15",
+"contact:website": "https://www.tesco.com/store-locator/manchester/oxford-street",
+"fhrs:id": "1821406",
+"level": "0",
+"name": "Tesco Express",
+"payment:contactless": "yes",
+"payment:credit_cards": "yes",
+"payment:debit_cards": "yes",
+"payment:mastercard": "yes",
+"payment:visa": "yes",
+"shop": "convenience"
+}
+},
+{
+"osm": "node/4295880405",
+"xy": [
+-38.97,
+-32.19
+],
+"z_ground": 0.28,
+"tags": {
+"addr:city": "Manchester",
+"addr:country": "GB",
+"addr:postcode": "M1 5WQ",
+"addr:street": "Whitworth Street West",
+"addr:unit": "Arch 66",
+"amenity": "nightclub",
+"name": "Sixxis",
+"phone": "+44 161 236 4418",
+"website": "http://sixxisclub.com/"
+}
+},
+{
+"osm": "node/4302940831",
+"xy": [
+-232.15,
+68.17
+],
+"z_ground": 4.05,
+"tags": {
+"addr:city": "Manchester",
+"addr:country": "GB",
+"addr:housenumber": "19",
+"addr:postcode": "M1 5LN",
+"addr:street": "Albion Street",
+"amenity": "bar",
+"name": "Bliss Club Manchester"
+}
+},
+{
+"osm": "node/4303795343",
+"xy": [
+87.75,
+233.28
+],
+"z_ground": 6.75,
+"tags": {
+"addr:city": "Manchester",
+"addr:country": "GB",
+"addr:housenumber": "34",
+"addr:postcode": "M1 5EL",
+"addr:street": "Oxford Street",
+"amenity": "fast_food",
+"brand": "Pret A Manger",
+"brand:wikidata": "Q2109109",
+"cuisine": "sandwich",
+"fhrs:id": "1817336",
+"indoor_seating": "yes",
+"name": "Pret A Manger",
+"outdoor_seating": "no",
+"short_name": "Pret",
+"takeaway": "yes"
+}
+},
+{
+"osm": "node/4303795344",
+"xy": [
+107.8,
+202.66
+],
+"z_ground": 6.49,
+"tags": {
+"addr:city": "Manchester",
+"addr:country": "GB",
+"addr:housenumber": "40-42",
+"addr:postcode": "M1 5EJ",
+"addr:street": "Oxford Street",
+"brand": "William Hill",
+"brand:wikidata": "Q4053147",
+"name": "William Hill",
+"shop": "bookmaker",
+"website": "https://shoplocator.williamhill/manchester/oxford-street/m1-5ej"
+}
+},
+{
+"osm": "node/4303849595",
+"xy": [
+71.68,
+146.01
+],
+"z_ground": 4.7,
+"tags": {
+"addr:city": "Manchester",
+"addr:country": "GB",
+"addr:housenumber": "3",
+"addr:postcode": "M1 5FW",
+"addr:street": "Chepstow Street",
+"brand": "Bannatyne Health Club",
+"brand:wikidata": "Q24993691",
+"leisure": "fitness_centre",
+"name": "Bannatyne Health Club",
+"website": "https://www.bannatyne.co.uk/healthandfitness/manchestercst/"
+}
+},
+{
+"osm": "node/4306994890",
+"xy": [
+-98.34,
+-55.67
+],
+"z_ground": 0.21,
+"tags": {
+"amenity": "cafe",
+"brand": "Starbucks",
+"brand:wikidata": "Q37158",
+"cuisine": "coffee_shop",
+"name": "Starbucks",
+"official_name": "Starbucks Coffee",
+"opening_hours": "Mo-Fr 06:30-18:00; Sa 07:30-17:00; Su 08:00-17:00; PH 09:00-16:30",
+"takeaway": "yes",
+"website": "https://www.starbucks.com/store-locator/store/1013838/manchester-first-street-unit-7-b-first-street-manchester-eng-m-15-4-fn-gb"
+}
+},
+{
+"osm": "node/4309746390",
+"xy": [
+174.44,
+13.97
+],
+"z_ground": 2.16,
+"tags": {
+"name": "Point to go",
+"shop": "convenience"
+}
+},
+{
+"osm": "node/4310535842",
+"xy": [
+-117.56,
+-102.84
+],
+"z_ground": -0.81,
+"tags": {
+"access": "permissive",
+"amenity": "parking",
+"brand": "Q-Park",
+"brand:wikidata": "Q1127798",
+"capacity": "700",
+"capacity:disabled": "28",
+"fee": "yes",
+"name": "Q-Park First Street",
+"opening_hours": "Mo-Su,PH 00:00-00:00",
+"operator": "Q-Park",
+"operator:wikidata": "Q1127798",
+"parking": "multi-storey",
+"surface": "asphalt",
+"website": "https://www.q-park.co.uk/en-gb/cities/manchester/first-street/"
+}
+},
+{
+"osm": "node/4310535844",
+"xy": [
+-164.25,
+-46.26
+],
+"z_ground": 0.1,
+"tags": {
+"amenity": "theatre",
+"name": "HOME Theatre",
+"website": "https://homemcr.org/theatre/",
+"wheelchair": "yes"
+}
+},
+{
+"osm": "node/4310817160",
+"xy": [
+-135.49,
+-81.23
+],
+"z_ground": -0.2,
+"tags": {
+"amenity": "pub",
+"check_date": "2025-05-18",
+"name": "Gas Works",
+"real_ale": "yes",
+"wheelchair": "yes"
+}
+},
+{
+"osm": "node/5261578426",
+"xy": [
+-105.75,
+-58.44
+],
+"z_ground": 0.26,
+"tags": {
+"amenity": "bar",
+"name": "Bunny Jackson's",
+"opening_hours": "Mo-Su 12:00-03:00",
+"wheelchair": "yes"
+}
+},
+{
+"osm": "node/5631281916",
+"xy": [
+51.35,
+186.56
+],
+"z_ground": 5.8,
+"tags": {
+"amenity": "cafe",
+"indoor_seating": "yes",
+"name": "The Clink",
+"outdoor_seating": "no",
+"website": "https://theclinkcharity.org/"
+}
+},
+{
+"osm": "node/6594239638",
+"xy": [
+116.1,
+185.85
+],
+"z_ground": 6.43,
+"tags": {
+"addr:city": "Manchester",
+"addr:country": "GB",
+"addr:housenumber": "44",
+"addr:postcode": "M1 5EJ",
+"addr:street": "Oxford Street",
+"brand": "Superdrug",
+"brand:wikidata": "Q7643261",
+"check_date": "2023-08-15",
+"contact:website": "https://www.superdrug.com/store/manchester-oxford-street",
+"level": "0",
+"name": "Superdrug",
+"payment:contactless": "yes",
+"payment:credit_cards": "yes",
+"payment:debit_cards": "yes",
+"payment:mastercard": "yes",
+"payment:visa": "yes",
+"shop": "chemist",
+"wheelchair": "yes"
+}
+},
+{
+"osm": "node/6594239639",
+"xy": [
+120.3,
+177.52
+],
+"z_ground": 6.21,
+"tags": {
+"addr:city": "Manchester",
+"addr:country": "GB",
+"addr:housenumber": "44",
+"addr:street": "Oxford Street",
+"amenity": "restaurant",
+"indoor_seating": "yes",
+"level": "0",
+"name": "Malatang Express",
+"outdoor_seating": "no"
+}
+},
+{
+"osm": "node/6594239640",
+"xy": [
+123.8,
+170.78
+],
+"z_ground": 6.1,
+"tags": {
+"addr:city": "Manchester",
+"addr:country": "GB",
+"addr:housenumber": "44",
+"addr:postcode": "M1 5EJ",
+"addr:street": "Oxford Street",
+"amenity": "fast_food",
+"brand": "Tortilla",
+"brand:wikidata": "Q21006828",
+"check_date": "2025-05-08",
+"cuisine": "american;mexican",
+"fhrs:id": "1820437",
+"indoor_seating": "yes",
+"level": "0",
+"name": "Burger King",
+"outdoor_seating": "no",
+"takeaway": "yes"
+}
+},
+{
+"osm": "node/6629586049",
+"xy": [
+84.89,
+21.66
+],
+"z_ground": 1.09,
+"tags": {
+"addr:city": "Manchester",
+"addr:postcode": "M1 5NQ",
+"addr:street": "Whitworth Street West",
+"amenity": "events_venue",
+"fhrs:id": "1820096",
+"name": "O2 Ritz",
+"wheelchair": "limited"
+}
+},
+{
+"osm": "node/6629586053",
+"xy": [
+41.93,
+-2.86
+],
+"z_ground": 0.22,
+"tags": {
+"addr:city": "Manchester",
+"addr:country": "GB",
+"addr:housenumber": "41",
+"addr:postcode": "M1 5BD",
+"addr:street": "Whitworth Street West",
+"fhrs:id": "1817792",
+"name": "Frurt",
+"shop": "frozen_food"
+}
+},
+{
+"osm": "node/6629586054",
+"xy": [
+29.91,
+-8.1
+],
+"z_ground": 0.34,
+"tags": {
+"addr:city": "Manchester",
+"addr:country": "GB",
+"addr:housenumber": "41",
+"addr:postcode": "M1 5BD",
+"addr:street": "Whitworth Street West",
+"name": "Band Box",
+"self_service": "no",
+"shop": "laundry",
+"wheelchair": "yes"
+}
+},
+{
+"osm": "node/6629599192",
+"xy": [
+-94.28,
+-2.26
+],
+"z_ground": 0.81,
+"tags": {
+"addr:city": "Manchester",
+"addr:country": "GB",
+"addr:housenumber": "21",
+"addr:postcode": "M1 5ND",
+"addr:street": "Whitworth Street West",
+"name": "Hive MCR",
+"shop": "hairdresser",
+"wheelchair": "yes"
+}
+},
+{
+"osm": "node/6910498941",
+"xy": [
+78.26,
+-8.85
+],
+"z_ground": 0.56,
+"tags": {
+"addr:city": "Manchester",
+"addr:country": "GB",
+"addr:housenumber": "58",
+"addr:postcode": "M1 5WW",
+"addr:street": "Whitworth Street West",
+"amenity": "bar",
+"name": "Viva"
+}
+},
+{
+"osm": "node/6955689879",
+"xy": [
+162.72,
+158.68
+],
+"z_ground": 5.97,
+"tags": {
+"addr:city": "Manchester",
+"addr:country": "GB",
+"addr:housenumber": "77",
+"addr:postcode": "M1 6EG",
+"addr:street": "Oxford Street",
+"amenity": "bank",
+"check_date": "2024-12-22",
+"level": "-1",
+"name": "St James Safe Deposit Co",
+"opening_hours": "Mo-Sa 09:30-17:30"
+}
+},
+{
+"osm": "node/8566491818",
+"xy": [
+-130.2,
+-76.41
+],
+"z_ground": -0.06,
+"tags": {
+"amenity": "fast_food",
+"name": "Thief Street"
+}
+},
+{
+"osm": "node/9117223823",
+"xy": [
+147.61,
+-2.16
+],
+"z_ground": 1.1,
+"tags": {
+"amenity": "cafe",
+"changing_table": "no",
+"cuisine": "coffee_shop",
+"diet:vegan": "yes",
+"diet:vegetarian": "yes",
+"indoor_seating": "no",
+"name": "Gourmet Coffee Bar & Kitchen",
+"outdoor_seating": "no",
+"takeaway": "only",
+"website": "https://gourmetcoffeebar.co.uk/"
+}
+},
+{
+"osm": "node/9117223832",
+"xy": [
+249.34,
+-3.2
+],
+"z_ground": 2.3,
+"tags": {
+"name": "Giraffe Flowers",
+"opening_hours": "Tu-Fr 09:00-18:00; Mo,Sa 10:00-17:00; PH,Su 11:00-16:00",
+"shop": "florist"
+}
+},
+{
+"osm": "node/9837077094",
+"xy": [
+215.31,
+6.19
+],
+"z_ground": 1.9,
+"tags": {
+"brand": "Samaritans",
+"brand:wikidata": "Q7408851",
+"check_date": "2026-04-03",
+"name": "Samaritans",
+"shop": "charity"
+}
+},
+{
+"osm": "node/9895946394",
+"xy": [
+172.33,
+141.48
+],
+"z_ground": 5.66,
+"tags": {
+"addr:city": "Manchester",
+"addr:housenumber": "85",
+"addr:postcode": "M1 6ET",
+"addr:street": "Oxford Street",
+"amenity": "restaurant",
+"contact:facebook": "https://bundobust.com/locations/manchester-brewery/facebook.com/BundoBrewery",
+"contact:instagram": "https://bundobust.com/locations/manchester-brewery/instagram.com/bundobust",
+"contact:twitter": "https://bundobust.com/locations/manchester-brewery/twitter.com/bundobrewery",
+"cuisine": "indian",
+"delivery": "yes",
+"email": "brewery@bundobust.com",
+"indoor_seating": "yes",
+"name": "Bundobust",
+"opening_hours": "Mo-Th 12:00-21:30; Fr-Sa 12:00-22:00; Su 12:00-20:00",
+"outdoor_seating": "no",
+"phone": "+44 161 511 8601",
+"website": "https://bundobust.com/locations/manchester-brewery/"
+}
+},
+{
+"osm": "node/9895946395",
+"xy": [
+173.9,
+138.19
+],
+"z_ground": 5.42,
+"tags": {
+"addr:city": "Manchester",
+"addr:housenumber": "87",
+"addr:postcode": "M1 6ET",
+"addr:street": "Oxford Street",
+"amenity": "restaurant",
+"contact:instagram": "banhmicoba",
+"cuisine": "vietnamese",
+"name": "Ban Mi Co Ba",
+"opening_hours": "Mo-Fr 11:00-20:30; Sa 12:00-20:30",
+"self_service": "no"
+}
+},
+{
+"osm": "node/9895946397",
+"xy": [
+177.39,
+131.62
+],
+"z_ground": 5.33,
+"tags": {
+"addr:city": "Manchester",
+"addr:housenumber": "91-93",
+"addr:postcode": "M1 6ET",
+"addr:street": "Oxford Street",
+"amenity": "fast_food",
+"cuisine": "mexican",
+"fhrs:id": "1816870",
+"indoor_seating": "yes",
+"name": "Listo Burrito",
+"outdoor_seating": "yes"
+}
+},
+{
+"osm": "node/9932732106",
+"xy": [
+-69.83,
+223.96
+],
+"z_ground": 7.65,
+"tags": {
+"addr:city": "Manchester",
+"addr:housenumber": "101",
+"addr:postcode": "M2 3BG",
+"addr:street": "Barbirolli Square",
+"amenity": "bank",
+"brand": "Handelsbanken",
+"brand:wikidata": "Q135118062",
+"name": "Handelsbanken"
+}
+},
+{
+"osm": "node/11115658149",
+"xy": [
+138.08,
+196.97
+],
+"z_ground": 6.33,
+"tags": {
+"amenity": "cafe",
+"check_date": "2026-04-03",
+"level": "0",
+"name": "Ditto Coffee"
+}
+},
+{
+"osm": "node/11818434491",
+"xy": [
+198.32,
+-148.88
+],
+"z_ground": 0.17,
+"tags": {
+"addr:city": "Manchester",
+"addr:housename": "The Quadrangle",
+"addr:postcode": "M1 5GL",
+"addr:street": "Hulme Street",
+"addr:unit": "6",
+"amenity": "restaurant",
+"cuisine": "chinese",
+"name": "Spicy & Tasty"
+}
+},
+{
+"osm": "node/11938338693",
+"xy": [
+-150.59,
+-61.74
+],
+"z_ground": 0.07,
+"tags": {
+"amenity": "restaurant",
+"diet:vegan": "yes",
+"diet:vegetarian": "yes",
+"level": "1",
+"name": "HOME Bar & Kitchen",
+"opening_hours": "Mo-Sa 12:00-22:00; Su 12:00-21:00",
+"phone": "+44 161 212 3500",
+"wheelchair": "yes"
+}
+},
+{
+"osm": "node/12003646557",
+"xy": [
+117.59,
+-14.88
+],
+"z_ground": 0.16,
+"tags": {
+"amenity": "cafe",
+"brand": "Costa Coffee",
+"brand:wikidata": "Q608845",
+"check_date": "2024-06-23",
+"cuisine": "coffee_shop",
+"internet_access": "wlan",
+"internet_access:fee": "customers",
+"level": "0",
+"name": "Costa",
+"opening_hours": "Mo-Fr 06:00-19:00; Sa 07:00-18:00; Su 08:30-17:00",
+"outdoor_seating": "no",
+"takeaway": "only",
+"wheelchair": "yes"
+}
+},
+{
+"osm": "node/13188263701",
+"xy": [
+-26.03,
+171.47
+],
+"z_ground": 5.46,
+"tags": {
+"addr:housenumber": "100",
+"addr:postcode": "M2 3BD",
+"addr:street": "Barbirolli Square",
+"amenity": "bar",
+"name": "Vocation & Co. Manchester",
+"website": "https://www.vocationbrewery.com/pages/vocation-co-manchester"
+}
+},
+{
+"osm": "node/13314589992",
+"xy": [
+-60.24,
+197.25
+],
+"z_ground": 7.83,
+"tags": {
+"addr:housenumber": "Society",
+"addr:street": "Barbirolli Square",
+"amenity": "fast_food",
+"description": "Korean Street Food offering wings, waffles, dumplings, etc.",
+"name": "Yoki - Korean Soul Food",
+"opening_hours": "Su-Th 12:00-23:00, Fr,Sa 12:00-24:00"
+}
+},
+{
+"osm": "node/13314631618",
+"xy": [
+-52.82,
+192.44
+],
+"z_ground": 8.27,
+"tags": {
+"addr:housenumber": "Society",
+"addr:street": "Barbirolli Square",
+"amenity": "fast_food",
+"name": "Slap & Pickle - Burgers",
+"opening_hours": "Su-Th 12:00-23:00, Fr,Sa 12:00-24:00"
+}
+},
+{
+"osm": "node/13314643153",
+"xy": [
+-50.09,
+190.94
+],
+"z_ground": 8.42,
+"tags": {
+"addr:housenumber": "Society",
+"addr:street": "Barbirolli Square",
+"amenity": "bar",
+"description": "Bar in Society offering Liqueurs, beers, cocktails, etc.",
+"name": "Vocation Brewery",
+"opening_hours": "Su-Th 12:00-23:00, Fr,Sa 12:00-24:00"
+}
+},
+{
+"osm": "node/13314657377",
+"xy": [
+-64.28,
+194.34
+],
+"z_ground": 7.8,
+"tags": {
+"addr:housenumber": "Society",
+"addr:street": "Barbirolli Square",
+"amenity": "fast_food",
+"name": "Noi Quattro Dinner - Pizza",
+"opening_hours": "Su-Th 12:00-23:00, Fr,Sa 12:00-24:00",
+"wheelchair": "limited"
+}
+},
+{
+"osm": "node/13314684907",
+"xy": [
+-56.63,
+195.02
+],
+"z_ground": 8.04,
+"tags": {
+"addr:housenumber": "Society",
+"addr:street": "Barbirolli Square",
+"amenity": "fast_food",
+"description": "Food stall in society offering asian fusion street food like curries, bao buns and noodle bowls, etc.",
+"name": "Manzoku - Asian Fusion",
+"opening_hours": "Su-Th 12:00-11:00, Fr,Sa 12:00-24:00"
+}
+},
+{
+"osm": "node/13340577857",
+"xy": [
+-127.14,
+-101.37
+],
+"z_ground": -0.84,
+"tags": {
+"amenity": "cafe",
+"name": "Essy's - Coffee Bar & Eatery",
+"wheelchair": "yes"
+}
+},
+{
+"osm": "node/13340604165",
+"xy": [
+-87.37,
+-198.88
+],
+"z_ground": -1.28,
+"tags": {
+"amenity": "fast_food",
+"name": "Burger & Beyond"
+}
+},
+{
+"osm": "node/13340606270",
+"xy": [
+-115.33,
+-64.02
+],
+"z_ground": 0.21,
+"tags": {
+"amenity": "bar",
+"name": "Ninety Six",
+"wheelchair": "yes"
+}
+},
+{
+"osm": "node/13340609913",
+"xy": [
+-125.56,
+-63.7
+],
+"z_ground": 0.0,
+"tags": {
+"amenity": "cafe",
+"name": "Coffee Pod"
+}
+},
+{
+"osm": "node/13340610251",
+"xy": [
+-79.64,
+-213.33
+],
+"z_ground": -1.21,
+"tags": {
+"amenity": "fast_food",
+"name": "OK Taqueria"
+}
+},
+{
+"osm": "node/13340612066",
+"xy": [
+-76.95,
+-219.42
+],
+"z_ground": -1.21,
+"tags": {
+"amenity": "fast_food",
+"name": "Mughli Canteen"
+}
+},
+{
+"osm": "node/13340625269",
+"xy": [
+-82.97,
+-206.54
+],
+"z_ground": -1.37,
+"tags": {
+"amenity": "fast_food",
+"name": "Choi Wan"
+}
+},
+{
+"osm": "node/13340631673",
+"xy": [
+-100.81,
+-162.15
+],
+"z_ground": -1.29,
+"tags": {
+"amenity": "restaurant",
+"name": "Hakkapo"
+}
+},
+{
+"osm": "node/13340633954",
+"xy": [
+-90.89,
+-193.28
+],
+"z_ground": -1.37,
+"tags": {
+"amenity": "fast_food",
+"name": "Dough Religion"
+}
+}
+],
+"buildings_osm": [
+{
+"osm": "way/100646649",
+"centroid": [
+-0.3,
+-0.5
+],
+"dist": 0.6,
+"tags": {
+"addr:housename": "Barclay House",
+"building": "commercial",
+"building:levels": "5",
+"roof:levels": "0"
+}
+},
+{
+"osm": "way/204921679",
+"centroid": [
+31.3,
+3.4
+],
+"dist": 31.5,
+"tags": {
+"building": "apartments",
+"building:levels": "10",
+"roof:levels": "0"
+}
+},
+{
+"osm": "way/100646631",
+"centroid": [
+-58.0,
+5.0
+],
+"dist": 58.2,
+"tags": {
+"building": "apartments"
+}
+},
+{
+"osm": "way/737719731",
+"centroid": [
+-38.1,
+46.5
+],
+"dist": 60.1,
+"tags": {
+"building": "apartments",
+"building:levels": "6",
+"ref:GB:uprn": "77212772;77212783;77212771;77212782;77212781;77212780;77212776;77212775;77212786;77212774;77212785;77212773;77212784;77212779;77212778;77212777;77099698",
+"roof:levels": "0"
+}
+},
+{
+"osm": "way/737719730",
+"centroid": [
+-28.2,
+58.1
+],
+"dist": 64.6,
+"tags": {
+"building": "apartments",
+"building:levels": "3",
+"ref:GB:uprn": "77099508;77099507;77099509;77099504;77099506;77099505;77099555;77099510;77249313",
+"roof:levels": "0",
+"roof:shape": "gabled"
+}
+},
+{
+"osm": "way/737719729",
+"centroid": [
+-14.4,
+66.6
+],
+"dist": 68.2,
+"tags": {
+"building": "apartments",
+"ref:GB:uprn": "77212770;77212765;77212764;77212763;77212769;77212768;77212767;77212766;77099556"
+}
+},
+{
+"osm": "way/737719728",
+"centroid": [
+14.5,
+77.5
+],
+"dist": 78.8,
+"tags": {
+"building": "apartments",
+"building:levels": "6",
+"roof:levels": "1"
+}
+},
+{
+"osm": "way/647385657",
+"centroid": [
+30.1,
+-77.4
+],
+"dist": 83.0,
+"tags": {
+"building": "apartments",
+"building:part": "no"
+}
+},
+{
+"osm": "way/705574571",
+"centroid": [
+74.1,
+37.7
+],
+"dist": 83.1,
+"tags": {
+"amenity": "music_venue",
+"building": "public",
+"building:levels": "1",
+"name": "O2 Ritz",
+"roof:levels": "0",
+"roof:shape": "flat",
+"wikidata": "Q7760946",
+"wikipedia": "en:The Ritz (Manchester)"
+}
+},
+{
+"osm": "way/136999879",
+"centroid": [
+83.4,
+-7.4
+],
+"dist": 83.8,
+"tags": {
+"building": "retail",
+"building:levels": "2",
+"roof:levels": "0",
+"roof:shape": "flat"
+}
+},
+{
+"osm": "way/100646641",
+"centroid": [
+-62.8,
+58.2
+],
+"dist": 85.6,
+"tags": {
+"addr:city": "Manchester",
+"addr:housenumber": "80",
+"addr:postcode": "M1 5JG",
+"addr:street": "Great Bridgewater Street",
+"amenity": "pub",
+"building": "yes",
+"indoor_seating": "yes",
+"name": "Rain Bar",
+"outdoor_seating": "yes",
+"real_ale": "yes",
+"ref:GB:uprn": "77253337;10090239142",
+"website": "https://www.rain-bar.co.uk/",
+"wheelchair": "yes"
+}
+},
+{
+"osm": "way/114615385",
+"centroid": [
+-44.9,
+-76.2
+],
+"dist": 88.4,
+"tags": {
+"abandoned": "building",
+"addr:city": "Manchester",
+"addr:housenumber": "2",
+"addr:postcode": "M1 5QR",
+"addr:street": "Gloucester Street",
+"building": "ruins",
+"description": "Burned down on 23/06/2025\nhttps://manchesterfire.gov.uk/news/an-update-on-the-hotspur-press-building-fire/",
+"name": "The Hotspur Press",
+"wikidata": "Q135042353"
+}
+},
+{
+"osm": "way/1281855670",
+"centroid": [
+-80.6,
+-39.4
+],
+"dist": 89.8,
+"tags": {
+"building": "substation",
+"power": "substation"
+}
+},
+{
+"osm": "way/100646638",
+"centroid": [
+-31.0,
+86.9
+],
+"dist": 92.2,
+"tags": {
+"addr:city": "Manchester",
+"addr:housenumber": "127",
+"addr:postcode": "M1 5JQ",
+"addr:street": "Great Bridgewater Street",
+"amenity": "pub",
+"building": "yes",
+"building:colour": "#eada0b",
+"fhrs:id": "1818728",
+"indoor_seating": "yes",
+"name": "Peveril of the Peak",
+"outdoor_seating": "yes",
+"phone": "+44 161 236 6364",
+"real_ale": "yes",
+"ref:GB:uprn": "10090239102;77099699",
+"wheelchair": "yes"
+}
+},
+{
+"osm": "way/737719727",
+"centroid": [
+27.3,
+91.3
+],
+"dist": 95.3,
+"tags": {
+"building": "apartments",
+"building:levels": "5",
+"ref:GB:uprn": "77212761;77212760;77212754;77212753;77212762;77212758;77212757;77212756;77212755;77099557;77212759",
+"roof:levels": "0"
+}
+},
+{
+"osm": "way/647385655",
+"centroid": [
+7.4,
+-100.3
+],
+"dist": 100.5,
+"tags": {
+"building": "apartments",
+"building:part": "no",
+"ref:GB:uprn": "10093073573"
+}
+},
+{
+"osm": "way/167682674",
+"centroid": [
+84.7,
+-68.3
+],
+"dist": 108.8,
+"tags": {
+"building": "apartments"
+}
+},
+{
+"osm": "way/100646652",
+"centroid": [
+-124.5,
+7.9
+],
+"dist": 124.8,
+"tags": {
+"building": "commercial"
+}
+},
+{
+"osm": "way/100646665",
+"centroid": [
+-56.7,
+111.3
+],
+"dist": 124.9,
+"tags": {
+"building": "residential",
+"building:levels": "5",
+"roof:levels": "0"
+}
+},
+{
+"osm": "way/734006534",
+"centroid": [
+77.2,
+-98.8
+],
+"dist": 125.4,
+"tags": {
+"building": "house",
+"house": "terraced",
+"ref:GB:uprn": "10023044412"
+}
+},
+{
+"osm": "way/734006535",
+"centroid": [
+81.7,
+-96.5
+],
+"dist": 126.4,
+"tags": {
+"building": "house",
+"house": "terraced",
+"ref:GB:uprn": "10014177396"
+}
+},
+{
+"osm": "way/100646687",
+"centroid": [
+77.1,
+100.5
+],
+"dist": 126.7,
+"tags": {
+"building": "commercial",
+"building:levels": "8",
+"ref:GB:uprn": "10090666118",
+"roof:levels": "0"
+}
+},
+{
+"osm": "way/734006536",
+"centroid": [
+86.4,
+-94.1
+],
+"dist": 127.7,
+"tags": {
+"building": "house",
+"house": "terraced",
+"ref:GB:uprn": "10023044411"
+}
+},
+{
+"osm": "way/734006537",
+"centroid": [
+91.0,
+-91.8
+],
+"dist": 129.2,
+"tags": {
+"building": "house",
+"house": "terraced",
+"ref:GB:uprn": "10023044410"
+}
+},
+{
+"osm": "way/734006532",
+"centroid": [
+95.2,
+-89.6
+],
+"dist": 130.8,
+"tags": {
+"building": "house",
+"house": "terraced",
+"ref:GB:uprn": "10023044415"
+}
+},
+{
+"osm": "way/734006533",
+"centroid": [
+99.4,
+-87.6
+],
+"dist": 132.5,
+"tags": {
+"building": "house",
+"house": "terraced",
+"ref:GB:uprn": "10023044414"
+}
+},
+{
+"osm": "way/100646647",
+"centroid": [
+-117.3,
+64.8
+],
+"dist": 134.0,
+"tags": {
+"building": "commercial"
+}
+},
+{
+"osm": "way/734006531",
+"centroid": [
+104.0,
+-85.2
+],
+"dist": 134.5,
+"tags": {
+"building": "house",
+"house": "terraced",
+"ref:GB:uprn": "10014177399"
+}
+},
+{
+"osm": "way/734006530",
+"centroid": [
+108.8,
+-82.8
+],
+"dist": 136.7,
+"tags": {
+"building": "house",
+"house": "terraced",
+"ref:GB:uprn": "10023044413"
+}
+},
+{
+"osm": "way/374924929",
+"centroid": [
+136.0,
+-15.4
+],
+"dist": 136.9,
+"tags": {
+"addr:city": "Manchester",
+"addr:postcode": "M1 6FU",
+"addr:street": "Oxford Road",
+"building": "train_station",
+"layer": "1",
+"name": "Manchester Oxford Road"
+}
+},
+{
+"osm": "way/431832633",
+"centroid": [
+-108.1,
+-86.9
+],
+"dist": 138.7,
+"tags": {
+"building": "yes",
+"building:colour": "yellow",
+"building:material": "metal",
+"source": "EsriWorldImagery;OS-OpenData_StreetView"
+}
+},
+{
+"osm": "way/734006529",
+"centroid": [
+119.8,
+-81.0
+],
+"dist": 144.6,
+"tags": {
+"building": "apartments"
+}
+},
+{
+"osm": "way/204921673",
+"centroid": [
+-89.4,
+-114.0
+],
+"dist": 144.9,
+"tags": {
+"building": "industrial"
+}
+},
+{
+"osm": "way/204921656",
+"centroid": [
+75.0,
+-132.3
+],
+"dist": 152.1,
+"tags": {
+"building": "yes"
+}
+},
+{
+"osm": "way/100646662",
+"centroid": [
+91.5,
+122.6
+],
+"dist": 153.0,
+"tags": {
+"building": "commercial"
+}
+},
+{
+"osm": "way/204921670",
+"centroid": [
+-71.2,
+-137.7
+],
+"dist": 155.0,
+"tags": {
+"building": "industrial"
+}
+},
+{
+"osm": "way/702200295",
+"centroid": [
+100.1,
+130.4
+],
+"dist": 164.4,
+"tags": {
+"building": "commercial"
+}
+},
+{
+"osm": "way/204921664",
+"centroid": [
+111.2,
+-123.4
+],
+"dist": 166.1,
+"tags": {
+"building": "commercial",
+"ref:GB:uprn": "77119777;77119778",
+"source:name": "survey"
+}
+},
+{
+"osm": "way/705574569",
+"centroid": [
+152.8,
+67.3
+],
+"dist": 166.9,
+"tags": {
+"building": "apartments",
+"ref:GB:uprn": "10091145958"
+}
+},
+{
+"osm": "way/431832634",
+"centroid": [
+-161.8,
+-53.9
+],
+"dist": 170.5,
+"tags": {
+"addr:city": "Manchester",
+"addr:housenumber": "2",
+"addr:postcode": "M15 4FN",
+"addr:street": "Tony Wilson Place",
+"amenity": "arts_centre",
+"building": "retail",
+"building:colour": "black",
+"building:levels": "4",
+"name": "Home",
+"phone": "+44 161 200 1500",
+"source": "OS-OpenData_StreetView",
+"start_date": "2014",
+"website": "https://homemcr.org/",
+"wheelchair": "yes",
+"wikidata": "Q16994217",
+"wikipedia": "en:HOME (Manchester)"
+}
+},
+{
+"osm": "way/374924926",
+"centroid": [
+168.9,
+24.8
+],
+"dist": 170.7,
+"tags": {
+"building": "train_station",
+"note": "part on corner was cinema"
+}
+},
+{
+"osm": "way/702200294",
+"centroid": [
+126.1,
+120.2
+],
+"dist": 174.2,
+"tags": {
+"building": "commercial",
+"building:levels": "7",
+"building:material": "brick",
+"name": "Broadhurst House",
+"wikidata": "Q7824236",
+"wikipedia": "en:Tootal, Broadhurst and Lee Building, Manchester"
+}
+},
+{
+"osm": "way/734011447",
+"centroid": [
+89.0,
+-150.9
+],
+"dist": 175.2,
+"tags": {
+"building": "yes"
+}
+},
+{
+"osm": "way/136507470",
+"centroid": [
+160.1,
+-78.2
+],
+"dist": 178.1,
+"tags": {
+"addr:housenumber": "17",
+"addr:street": "New Wakefield Street",
+"building": "residential",
+"building:part": "no"
+}
+},
+{
+"osm": "way/204921672",
+"centroid": [
+-110.5,
+-140.8
+],
+"dist": 179.0,
+"tags": {
+"addr:city": "Manchester",
+"addr:housename": "Vita Student First Street",
+"addr:housenumber": "13",
+"addr:postcode": "M15 4RB",
+"addr:street": "Jack Rosenthal Street",
+"building": "dormitory",
+"name": "Vita Student First Street",
+"source": "OS-OpenData_StreetView",
+"website": "https://www.vitastudent.com/en/cities/manchester/first-street/"
+}
+},
+{
+"osm": "way/114604597",
+"centroid": [
+51.4,
+172.5
+],
+"dist": 180.0,
+"tags": {
+"building": "office",
+"heritage": "yes",
+"landuse": "commercial",
+"name": "Canada House",
+"wikidata": "Q5029388",
+"wikipedia": "en:Canada House, Manchester"
+}
+},
+{
+"osm": "way/172065476",
+"centroid": [
+-18.5,
+179.4
+],
+"dist": 180.3,
+"tags": {
+"addr:city": "Manchester",
+"addr:housenumber": "100",
+"addr:postcode": "M2 3BD",
+"addr:street": "Barbirolli Square",
+"building": "commercial",
+"name": "100 Barbirolli Square"
+}
+},
+{
+"osm": "way/204921654",
+"centroid": [
+59.8,
+-176.2
+],
+"dist": 186.0,
+"tags": {
+"addr:city": "Manchester",
+"addr:street": "Cambridge Street",
+"building": "residential",
+"name": "Chorlton Mill"
+}
+},
+{
+"osm": "way/136999895",
+"centroid": [
+188.8,
+12.6
+],
+"dist": 189.2,
+"tags": {
+"building": "yes",
+"ref:GB:uprn": "10023048066"
+}
+},
+{
+"osm": "way/1452199574",
+"centroid": [
+-49.0,
+182.9
+],
+"dist": 189.4,
+"tags": {
+"addr:housenumber": "100",
+"addr:postcode": "M2 3BD",
+"addr:street": "Barbirolli Square",
+"amenity": "food_court",
+"building": "yes",
+"internet_access": "wlan",
+"internet_access:fee": "no",
+"name": "Society",
+"opening_hours": "Su-Th 12:00-23:00, Fr,Sa 12:00-24:00",
+"operator": "Society Food Halls",
+"outdoor_seating": "yes",
+"website": "https://www.societymanchester.com/"
+}
+},
+{
+"osm": "way/204921675",
+"centroid": [
+106.1,
+-157.4
+],
+"dist": 189.8,
+"tags": {
+"building": "yes"
+}
+},
+{
+"osm": "way/204921671",
+"centroid": [
+138.7,
+-132.3
+],
+"dist": 191.7,
+"tags": {
+"building": "commercial"
+}
+},
+{
+"osm": "way/165386099",
+"centroid": [
+-131.6,
+140.3
+],
+"dist": 192.3,
+"tags": {
+"addr:city": "Manchester",
+"addr:housename": "The Bridgewater Hall",
+"addr:postcode": "M2 3WS",
+"addr:street": "Lower Mosley Street",
+"amenity": "theatre",
+"building": "yes",
+"layer": "2",
+"name": "Bridgewater Hall",
+"operator": "SMG Europe",
+"phone": "+44 844 907 9000",
+"theatre:genre": "philharmonic",
+"website": "https://www.bridgewater-hall.co.uk/",
+"wheelchair": "yes",
+"wikidata": "Q2925178",
+"wikipedia": "en:Bridgewater Hall"
+}
+},
+{
+"osm": "way/204921650",
+"centroid": [
+-181.8,
+65.0
+],
+"dist": 193.1,
+"tags": {
+"addr:city": "Manchester",
+"addr:housenumber": "56",
+"addr:postcode": "M1 5LE",
+"addr:street": "Great Bridgewater Street",
+"brand:wikipedia": "en:Leonardo Hotels",
+"building": "yes",
+"fhrs:id": "1818953",
+"name": "Leonardo Hotel Manchester Central",
+"phone": "+44 161 953 8888",
+"tourism": "hotel",
+"website": "https://www.leonardohotels.co.uk/hotels/manchester",
+"wheelchair": "yes"
+}
+},
+{
+"osm": "way/734011451",
+"centroid": [
+94.7,
+-169.1
+],
+"dist": 193.8,
+"tags": {
+"building": "apartments",
+"ref:GB:uprn": "10091145213;10091145212;10091145211;10091145210;10091145209"
+}
+},
+{
+"osm": "way/136507473",
+"centroid": [
+178.6,
+-76.0
+],
+"dist": 194.1,
+"tags": {
+"building": "retail"
+}
+},
+{
+"osm": "way/188646686",
+"centroid": [
+101.8,
+165.5
+],
+"dist": 194.4,
+"tags": {
+"access": "yes",
+"addr:housenumber": "44-50",
+"addr:street": "Oxford Street",
+"amenity": "parking",
+"building": "yes",
+"building:levels": "8",
+"fee": "yes",
+"name": "NCP Oxford Street",
+"old_name": "Gaumont Theatre",
+"operator": "National Car Parks",
+"operator:type": "private",
+"operator:wikidata": "Q6971273",
+"park_ride": "no",
+"parking": "multi-storey",
+"source": "Bing",
+"surface": "asphalt"
+}
+},
+{
+"osm": "way/374924936",
+"centroid": [
+195.7,
+-1.8
+],
+"dist": 195.7,
+"tags": {
+"building": "yes"
+}
+},
+{
+"osm": "way/714512658",
+"centroid": [
+198.3,
+24.3
+],
+"dist": 199.8,
+"tags": {
+"addr:city": "Manchester",
+"addr:country": "GB",
+"addr:housename": "Number 70",
+"addr:housenumber": "70",
+"addr:postcode": "M1 5NH",
+"addr:street": "Oxford Street",
+"building": "university",
+"name": "MMU Arts Culture & Media Hub",
+"ref:GB:uprn": "77120207",
+"wheelchair": "yes"
+}
+},
+{
+"osm": "way/100646682",
+"centroid": [
+-205.0,
+9.2
+],
+"dist": 205.2,
+"tags": {
+"building": "apartments",
+"building:levels": "12"
+}
+},
+{
+"osm": "way/204921657",
+"centroid": [
+-11.3,
+-205.1
+],
+"dist": 205.4,
+"tags": {
+"building": "yes",
+"building:levels": "4",
+"building:material": "brick",
+"ref:GB:uprn": "10023048829"
+}
+},
+{
+"osm": "way/100646623",
+"centroid": [
+34.4,
+202.8
+],
+"dist": 205.7,
+"tags": {
+"building": "commercial"
+}
+},
+{
+"osm": "way/248794455",
+"centroid": [
+205.7,
+-19.2
+],
+"dist": 206.6,
+"tags": {
+"addr:city": "Manchester",
+"addr:housenumber": "2",
+"addr:postcode": "M1 5NE",
+"addr:street": "Wakefield Street",
+"alt_name": "The Salisbury",
+"amenity": "pub",
+"building": "yes",
+"floor:material": "rough_wood;tiles",
+"food": "no",
+"name": "Salisbury Ale House",
+"real_ale": "5 handpumps, may vary",
+"real_cider": "yes",
+"ref:GB:uprn": "10023047872;10090238565",
+"wheelchair": "no",
+"wheelchair:description": "Steps at entrance",
+"wifi": "no"
+}
+},
+{
+"osm": "way/114250136",
+"centroid": [
+-166.9,
+-124.0
+],
+"dist": 207.9,
+"tags": {
+"addr:city": "Manchester",
+"addr:housename": "Number One First Street",
+"addr:housenumber": "1",
+"addr:postcode": "M15 4RP",
+"addr:street": "First Street",
+"building": "commercial",
+"building:colour": "red",
+"name": "Number One First Street"
+}
+},
+{
+"osm": "way/714512659",
+"centroid": [
+210.3,
+8.2
+],
+"dist": 210.4,
+"tags": {
+"building": "apartments"
+}
+},
+{
+"osm": "way/136507472",
+"centroid": [
+199.0,
+-74.9
+],
+"dist": 212.6,
+"tags": {
+"building": "retail"
+}
+},
+{
+"osm": "way/204921663",
+"centroid": [
+27.0,
+-211.1
+],
+"dist": 212.8,
+"tags": {
+"building": "yes",
+"ref:GB:uprn": "10023054954"
+}
+},
+{
+"osm": "way/705811426",
+"centroid": [
+-206.6,
+53.4
+],
+"dist": 213.4,
+"tags": {
+"building": "commercial"
+}
+},
+{
+"osm": "way/204921660",
+"centroid": [
+156.5,
+-148.4
+],
+"dist": 215.7,
+"tags": {
+"building": "commercial"
+}
+},
+{
+"osm": "way/714512660",
+"centroid": [
+218.5,
+-7.9
+],
+"dist": 218.6,
+"tags": {
+"building": "yes",
+"ref:GB:uprn": "77120201;10090239104"
+}
+},
+{
+"osm": "way/136999888",
+"centroid": [
+218.2,
+-39.3
+],
+"dist": 221.7,
+"tags": {
+"amenity": "pub",
+"building": "yes",
+"layer": "-1",
+"location": "surface",
+"name": "O'Connell's",
+"opening_hours": "Su-Th 11:30-24:00, Fr-Sa 11:30-25:00"
+}
+},
+{
+"osm": "way/448499600",
+"centroid": [
+-191.4,
+-115.3
+],
+"dist": 223.4,
+"tags": {
+"addr:city": "Manchester",
+"addr:housename": "Number One",
+"addr:housenumber": "1",
+"addr:street": "First Street",
+"amenity": "restaurant",
+"brand": "PizzaExpress",
+"brand:wikidata": "Q662845",
+"building": "yes",
+"building:levels": "0",
+"cuisine": "pizza",
+"name": "PizzaExpress",
+"opening_hours:signed": "no",
+"outdoor_seating": "veranda",
+"ref:GB:uprn": "10091147286",
+"website": "https://www.pizzaexpress.com/manchester-first-street",
+"wheelchair": "yes"
+}
+},
+{
+"osm": "way/454279722",
+"centroid": [
+-218.0,
+-53.9
+],
+"dist": 224.6,
+"tags": {
+"addr:city": "Manchester",
+"addr:postcode": "M15 4RP",
+"addr:street": "First Street",
+"brand": "Meli\u00e1",
+"brand:wikidata": "Q1815030",
+"building": "yes",
+"email": "innside.manchester@melia.com",
+"internet_access": "wlan",
+"level": "6",
+"name": "Innside Manchester",
+"operator": "Melia",
+"phone": "+44 161 200 2500",
+"ref:GB:uprn": "10091147287",
+"source": "OS-OpenData_StreetView",
+"tourism": "hotel",
+"website": "https://www.melia.com/en/hotels/united-kingdom/manchester/innside-manchester"
+}
+},
+{
+"osm": "way/100646677",
+"centroid": [
+56.4,
+217.9
+],
+"dist": 225.1,
+"tags": {
+"building": "commercial"
+}
+},
+{
+"osm": "way/31182346",
+"centroid": [
+92.5,
+205.6
+],
+"dist": 225.4,
+"tags": {
+"building": "commercial",
+"old_name": "Picturehouse"
+}
+},
+{
+"osm": "way/114394108",
+"centroid": [
+-56.4,
+218.3
+],
+"dist": 225.5,
+"tags": {
+"addr:city": "Manchester",
+"addr:housenumber": "101",
+"addr:postcode": "M2 3BG",
+"addr:street": "Barbirolli Square",
+"building": "office",
+"name": "101 Barbirolli Square"
+}
+},
+{
+"osm": "way/204921662",
+"centroid": [
+122.9,
+-189.4
+],
+"dist": 225.8,
+"tags": {
+"building": "yes"
+}
+},
+{
+"osm": "way/165386100",
+"centroid": [
+-207.7,
+89.9
+],
+"dist": 226.3,
+"tags": {
+"addr:city": "Manchester",
+"addr:housenumber": "50",
+"addr:postcode": "M1 5LE",
+"addr:street": "Great Bridgewater Street",
+"amenity": "pub",
+"building": "yes",
+"fhrs:id": "1816345",
+"listed_status": "Grade II",
+"name": "The Briton's Protection",
+"ref:GB:uprn": "77253336;10090238423;77099708;77099573",
+"wheelchair": "limited",
+"wikidata": "Q21647629",
+"wikipedia": "en:The Briton's Protection"
+}
+},
+{
+"osm": "way/204921681",
+"centroid": [
+-220.5,
+54.8
+],
+"dist": 227.2,
+"tags": {
+"building": "commercial"
+}
+},
+{
+"osm": "way/136507471",
+"centroid": [
+202.1,
+-110.6
+],
+"dist": 230.3,
+"tags": {
+"access": "yes",
+"amenity": "parking",
+"building": "parking",
+"note": "No idea where the entrance is, or even if it's public!",
+"parking": "multi-storey",
+"ref:GB:uprn": "10090665744"
+}
+},
+{
+"osm": "way/31178728",
+"centroid": [
+216.1,
+101.0
+],
+"dist": 238.5,
+"tags": {
+"addr:city": "Manchester",
+"addr:housenumber": "97",
+"addr:postcode": "M1 6FT",
+"addr:street": "Oxford Street",
+"amenity": "theatre",
+"building": "yes",
+"check_date": "2025-05-08",
+"name": "Palace Theatre",
+"phone": "+44 844 871 3019",
+"ref:GB:uprn": "77120569;10093688549",
+"website": "https://www.manchestertheatres.com/palacetheatre.htm",
+"wheelchair": "limited",
+"wikidata": "Q3360751",
+"wikipedia": "en:Palace Theatre, Manchester"
+}
+},
+{
+"osm": "way/204921674",
+"centroid": [
+141.6,
+-192.9
+],
+"dist": 239.3,
+"tags": {
+"addr:housename": "Lincoln Place",
+"addr:housenumber": "7",
+"addr:street": "Hulme Street",
+"building": "residential"
+}
+},
+{
+"osm": "way/985533251",
+"centroid": [
+232.4,
+-64.7
+],
+"dist": 241.3,
+"tags": {
+"building": "apartments",
+"building:levels": "32",
+"name": "Unite Students - Artisan Heights"
+}
+},
+{
+"osm": "way/204921678",
+"centroid": [
+157.5,
+-183.0
+],
+"dist": 241.5,
+"tags": {
+"addr:housenumber": "5",
+"addr:street": "Hulme Street",
+"building": "yes"
+}
+},
+{
+"osm": "way/1300529264",
+"centroid": [
+-86.2,
+-229.2
+],
+"dist": 244.9,
+"tags": {
+"building": "yes"
+}
+},
+{
+"osm": "way/204921682",
+"centroid": [
+171.4,
+-176.2
+],
+"dist": 245.8,
+"tags": {
+"building": "office",
+"building:levels": "8",
+"roof:levels": "0"
+}
+},
+{
+"osm": "way/738799441",
+"centroid": [
+144.6,
+203.1
+],
+"dist": 249.3,
+"tags": {
+"building": "commercial",
+"building:material": "brick"
+}
+},
+{
+"osm": "way/114603870",
+"centroid": [
+249.6,
+23.5
+],
+"dist": 250.7,
+"tags": {
+"addr:city": "Manchester",
+"addr:housename": "Refuge Assurance Building",
+"addr:postcode": "M60 7HA",
+"addr:street": "Oxford Street",
+"alt_name": "Refuge Building",
+"brand": "Kimpton",
+"brand:wikidata": "Q6410248",
+"building": "hotel",
+"building:part": "no",
+"name": "Kimpton Clocktower Hotel",
+"note:building": "put whole building information here, see other ways and multipolygon for 3d building info",
+"tourism": "hotel",
+"website": "https://www.kimptonclocktowerhotel.com/",
+"wikidata": "Q7307626",
+"wikipedia": "en:Kimpton Clocktower Hotel"
+}
+},
+{
+"osm": "way/31183325",
+"centroid": [
+87.4,
+235.2
+],
+"dist": 250.9,
+"tags": {
+"building": "commercial"
+}
+},
+{
+"osm": "way/738799442",
+"centroid": [
+183.5,
+175.2
+],
+"dist": 253.7,
+"tags": {
+"addr:street": "Oxford Street",
+"building": "commercial",
+"building:levels": "9",
+"building:levels:underground": "2",
+"name": "St James' Buildings",
+"roof:shape": "flat",
+"wikidata": "Q7588436",
+"wikipedia": "en:St. James Buildings, Manchester"
+}
+},
+{
+"osm": "way/151751118",
+"centroid": [
+97.3,
+-235.5
+],
+"dist": 254.8,
+"tags": {
+"building": "dormitory",
+"name": "Manchester Student Village",
+"operator": "Centurion Student Living",
+"website": "http://www.centurionstudents.co.uk/en/our-property/manchester-student-village"
+}
+},
+{
+"osm": "way/738799440",
+"centroid": [
+135.6,
+215.9
+],
+"dist": 254.9,
+"tags": {
+"building": "commercial",
+"building:material": "brick",
+"roof:shape": "hipped"
+}
+},
+{
+"osm": "way/733085843",
+"centroid": [
+248.1,
+-59.9
+],
+"dist": 255.3,
+"tags": {
+"building": "retail"
+}
+},
+{
+"osm": "way/738799439",
+"centroid": [
+148.9,
+215.1
+],
+"dist": 261.6,
+"tags": {
+"building": "commercial",
+"building:material": "brick",
+"roof:shape": "gabled"
+}
+},
+{
+"osm": "way/100646660",
+"centroid": [
+15.7,
+263.8
+],
+"dist": 264.3,
+"tags": {
+"building": "yes"
+}
+},
+{
+"osm": "way/316036817",
+"centroid": [
+-252.7,
+-81.1
+],
+"dist": 265.3,
+"tags": {
+"building": "commercial",
+"source": "EsriWorldImagery;OS-OpenData_StreetView"
+}
+},
+{
+"osm": "way/31183352",
+"centroid": [
+70.9,
+262.3
+],
+"dist": 271.7,
+"tags": {
+"addr:housename": "Princes Buildings",
+"building": "apartments"
+}
+},
+{
+"osm": "way/431832637",
+"centroid": [
+-205.7,
+-178.7
+],
+"dist": 272.5,
+"tags": {
+"addr:city": "Manchester",
+"addr:housenumber": "8",
+"addr:postcode": "M15 4RP",
+"addr:street": "First Street",
+"building": "office",
+"building:levels": "8",
+"height": "32",
+"name": "No. 8 First Street",
+"source": "DigitalGlobe-Standard"
+}
+}
+],
+"trees_lidar": [
+{
+"xy": [
+-5.94,
+256.72
+],
+"height": 6.0,
+"canopy_d": 4.5,
+"px": 16,
+"z_ground": 5.28,
+"src": "EA LIDAR 1 m DSM-DTM blob (measured)",
+"osm_match": false
+},
+{
+"xy": [
+35.97,
+241.37
+],
+"height": 9.6,
+"canopy_d": 9.3,
+"px": 68,
+"z_ground": 5.46,
+"src": "EA LIDAR 1 m DSM-DTM blob (measured)",
+"osm_match": false
+},
+{
+"xy": [
+91.32,
+229.46
+],
+"height": 8.5,
+"canopy_d": 2.5,
+"px": 5,
+"z_ground": 6.73,
+"src": "EA LIDAR 1 m DSM-DTM blob (measured)",
+"osm_match": false
+},
+{
+"xy": [
+84.72,
+226.06
+],
+"height": 8.1,
+"canopy_d": 2.5,
+"px": 5,
+"z_ground": 6.71,
+"src": "EA LIDAR 1 m DSM-DTM blob (measured)",
+"osm_match": false
+},
+{
+"xy": [
+-150.09,
+205.5
+],
+"height": 8.6,
+"canopy_d": 13.4,
+"px": 141,
+"z_ground": 3.49,
+"src": "EA LIDAR 1 m DSM-DTM blob (measured)",
+"osm_match": false
+},
+{
+"xy": [
+-26.67,
+219.28
+],
+"height": 29.9,
+"canopy_d": 7.0,
+"px": 39,
+"z_ground": 3.41,
+"src": "EA LIDAR 1 m DSM-DTM blob (measured)",
+"osm_match": false
+},
+{
+"xy": [
+-18.13,
+221.91
+],
+"height": 3.1,
+"canopy_d": 2.3,
+"px": 4,
+"z_ground": 3.53,
+"src": "EA LIDAR 1 m DSM-DTM blob (measured)",
+"osm_match": false
+},
+{
+"xy": [
+-9.88,
+220.16
+],
+"height": 4.1,
+"canopy_d": 2.8,
+"px": 6,
+"z_ground": 3.35,
+"src": "EA LIDAR 1 m DSM-DTM blob (measured)",
+"osm_match": false
+},
+{
+"xy": [
+152.86,
+164.73
+],
+"height": 29.9,
+"canopy_d": 19.7,
+"px": 305,
+"z_ground": 6.01,
+"src": "EA LIDAR 1 m DSM-DTM blob (measured)",
+"osm_match": false
+},
+{
+"xy": [
+-72.63,
+213.66
+],
+"height": 15.7,
+"canopy_d": 2.3,
+"px": 4,
+"z_ground": 7.51,
+"src": "EA LIDAR 1 m DSM-DTM blob (measured)",
+"osm_match": false
+},
+{
+"xy": [
+-5.68,
+213.86
+],
+"height": 3.6,
+"canopy_d": 2.5,
+"px": 5,
+"z_ground": 3.46,
+"src": "EA LIDAR 1 m DSM-DTM blob (measured)",
+"osm_match": false
+},
+{
+"xy": [
+-64.79,
+207.39
+],
+"height": 15.2,
+"canopy_d": 3.7,
+"px": 11,
+"z_ground": 7.56,
+"src": "EA LIDAR 1 m DSM-DTM blob (measured)",
+"osm_match": false
+},
+{
+"xy": [
+-10.13,
+207.66
+],
+"height": 26.7,
+"canopy_d": 2.3,
+"px": 4,
+"z_ground": 3.79,
+"src": "EA LIDAR 1 m DSM-DTM blob (measured)",
+"osm_match": false
+},
+{
+"xy": [
+-74.44,
+204.26
+],
+"height": 6.7,
+"canopy_d": 5.6,
+"px": 25,
+"z_ground": 7.43,
+"src": "EA LIDAR 1 m DSM-DTM blob (measured)",
+"osm_match": false
+},
+{
+"xy": [
+-36.23,
+203.21
+],
+"height": 25.5,
+"canopy_d": 5.0,
+"px": 20,
+"z_ground": 3.46,
+"src": "EA LIDAR 1 m DSM-DTM blob (measured)",
+"osm_match": false
+},
+{
+"xy": [
+-69.82,
+201.35
+],
+"height": 7.0,
+"canopy_d": 4.5,
+"px": 16,
+"z_ground": 7.54,
+"src": "EA LIDAR 1 m DSM-DTM blob (measured)",
+"osm_match": false
+},
+{
+"xy": [
+1.52,
+202.46
+],
+"height": 5.2,
+"canopy_d": 2.5,
+"px": 5,
+"z_ground": 5.12,
+"src": "EA LIDAR 1 m DSM-DTM blob (measured)",
+"osm_match": false
+},
+{
+"xy": [
+-39.38,
+195.97
+],
+"height": 27.3,
+"canopy_d": 8.1,
+"px": 52,
+"z_ground": 4.62,
+"src": "EA LIDAR 1 m DSM-DTM blob (measured)",
+"osm_match": false
+},
+{
+"xy": [
+6.85,
+198.66
+],
+"height": 10.3,
+"canopy_d": 3.7,
+"px": 11,
+"z_ground": 5.08,
+"src": "EA LIDAR 1 m DSM-DTM blob (measured)",
+"osm_match": false
+},
+{
+"xy": [
+138.62,
+197.66
+],
+"height": 19.3,
+"canopy_d": 2.3,
+"px": 4,
+"z_ground": 6.37,
+"src": "EA LIDAR 1 m DSM-DTM blob (measured)",
+"osm_match": false
+},
+{
+"xy": [
+-175.21,
+185.99
+],
+"height": 8.7,
+"canopy_d": 2.8,
+"px": 6,
+"z_ground": 3.23,
+"src": "EA LIDAR 1 m DSM-DTM blob (measured)",
+"osm_match": false
+},
+{
+"xy": [
+22.95,
+180.53
+],
+"height": 11.6,
+"canopy_d": 7.1,
+"px": 40,
+"z_ground": 4.91,
+"src": "EA LIDAR 1 m DSM-DTM blob (measured)",
+"osm_match": false
+},
+{
+"xy": [
+-198.59,
+165.5
+],
+"height": 9.1,
+"canopy_d": 14.1,
+"px": 156,
+"z_ground": 3.05,
+"src": "EA LIDAR 1 m DSM-DTM blob (measured)",
+"osm_match": false
+},
+{
+"xy": [
+-65.48,
+182.86
+],
+"height": 6.2,
+"canopy_d": 2.5,
+"px": 5,
+"z_ground": 2.48,
+"src": "EA LIDAR 1 m DSM-DTM blob (measured)",
+"osm_match": false
+},
+{
+"xy": [
+-62.88,
+177.53
+],
+"height": 5.1,
+"canopy_d": 3.2,
+"px": 8,
+"z_ground": 2.24,
+"src": "EA LIDAR 1 m DSM-DTM blob (measured)",
+"osm_match": false
+},
+{
+"xy": [
+-58.76,
+174.41
+],
+"height": 6.6,
+"canopy_d": 3.2,
+"px": 8,
+"z_ground": 2.27,
+"src": "EA LIDAR 1 m DSM-DTM blob (measured)",
+"osm_match": false
+},
+{
+"xy": [
+-99.09,
+172.23
+],
+"height": 7.1,
+"canopy_d": 4.2,
+"px": 14,
+"z_ground": 4.49,
+"src": "EA LIDAR 1 m DSM-DTM blob (measured)",
+"osm_match": false
+},
+{
+"xy": [
+19.32,
+172.66
+],
+"height": 22.9,
+"canopy_d": 2.5,
+"px": 5,
+"z_ground": 4.74,
+"src": "EA LIDAR 1 m DSM-DTM blob (measured)",
+"osm_match": false
+},
+{
+"xy": [
+-36.63,
+169.66
+],
+"height": 22.5,
+"canopy_d": 2.3,
+"px": 4,
+"z_ground": 7.43,
+"src": "EA LIDAR 1 m DSM-DTM blob (measured)",
+"osm_match": false
+},
+{
+"xy": [
+75.46,
+158.0
+],
+"height": 18.0,
+"canopy_d": 6.7,
+"px": 35,
+"z_ground": 5.2,
+"src": "EA LIDAR 1 m DSM-DTM blob (measured)",
+"osm_match": false
+},
+{
+"xy": [
+-41.48,
+165.86
+],
+"height": 6.0,
+"canopy_d": 3.6,
+"px": 10,
+"z_ground": 2.57,
+"src": "EA LIDAR 1 m DSM-DTM blob (measured)",
+"osm_match": false
+},
+{
+"xy": [
+127.37,
+165.91
+],
+"height": 20.9,
+"canopy_d": 2.3,
+"px": 4,
+"z_ground": 5.99,
+"src": "EA LIDAR 1 m DSM-DTM blob (measured)",
+"osm_match": false
+},
+{
+"xy": [
+-51.6,
+149.76
+],
+"height": 15.1,
+"canopy_d": 18.2,
+"px": 261,
+"z_ground": 1.47,
+"src": "EA LIDAR 1 m DSM-DTM blob (measured)",
+"osm_match": false
+},
+{
+"xy": [
+36.66,
+161.74
+],
+"height": 5.7,
+"canopy_d": 4.1,
+"px": 13,
+"z_ground": 4.86,
+"src": "EA LIDAR 1 m DSM-DTM blob (measured)",
+"osm_match": true
+},
+{
+"xy": [
+-82.17,
+160.23
+],
+"height": 18.1,
+"canopy_d": 3.0,
+"px": 7,
+"z_ground": 2.37,
+"src": "EA LIDAR 1 m DSM-DTM blob (measured)",
+"osm_match": false
+},
+{
+"xy": [
+116.22,
+157.96
+],
+"height": 24.3,
+"canopy_d": 5.0,
+"px": 20,
+"z_ground": 5.44,
+"src": "EA LIDAR 1 m DSM-DTM blob (measured)",
+"osm_match": false
+},
+{
+"xy": [
+7.45,
+155.72
+],
+"height": 29.7,
+"canopy_d": 4.8,
+"px": 18,
+"z_ground": 4.57,
+"src": "EA LIDAR 1 m DSM-DTM blob (measured)",
+"osm_match": false
+},
+{
+"xy": [
+-79.07,
+147.78
+],
+"height": 20.9,
+"canopy_d": 4.5,
+"px": 16,
+"z_ground": 2.17,
+"src": "EA LIDAR 1 m DSM-DTM blob (measured)",
+"osm_match": false
+},
+{
+"xy": [
+82.95,
+144.16
+],
+"height": 19.2,
+"canopy_d": 2.8,
+"px": 6,
+"z_ground": 4.75,
+"src": "EA LIDAR 1 m DSM-DTM blob (measured)",
+"osm_match": false
+},
+{
+"xy": [
+10.59,
+135.84
+],
+"height": 9.8,
+"canopy_d": 6.6,
+"px": 34,
+"z_ground": 4.51,
+"src": "EA LIDAR 1 m DSM-DTM blob (measured)",
+"osm_match": true
+},
+{
+"xy": [
+34.95,
+136.08
+],
+"height": 5.4,
+"canopy_d": 5.5,
+"px": 24,
+"z_ground": 4.69,
+"src": "EA LIDAR 1 m DSM-DTM blob (measured)",
+"osm_match": true
+},
+{
+"xy": [
+-194.48,
+134.76
+],
+"height": 7.3,
+"canopy_d": 3.6,
+"px": 10,
+"z_ground": 3.66,
+"src": "EA LIDAR 1 m DSM-DTM blob (measured)",
+"osm_match": false
+},
+{
+"xy": [
+28.66,
+132.9
+],
+"height": 5.7,
+"canopy_d": 6.9,
+"px": 37,
+"z_ground": 4.6,
+"src": "EA LIDAR 1 m DSM-DTM blob (measured)",
+"osm_match": true
+},
+{
+"xy": [
+5.87,
+133.41
+],
+"height": 3.3,
+"canopy_d": 2.3,
+"px": 4,
+"z_ground": 4.41,
+"src": "EA LIDAR 1 m DSM-DTM blob (measured)",
+"osm_match": false
+},
+{
+"xy": [
+-87.72,
+119.93
+],
+"height": 19.4,
+"canopy_d": 15.6,
+"px": 190,
+"z_ground": 3.47,
+"src": "EA LIDAR 1 m DSM-DTM blob (measured)",
+"osm_match": false
+},
+{
+"xy": [
+-25.28,
+117.9
+],
+"height": 22.8,
+"canopy_d": 10.4,
+"px": 85,
+"z_ground": 4.35,
+"src": "EA LIDAR 1 m DSM-DTM blob (measured)",
+"osm_match": false
+},
+{
+"xy": [
+-154.71,
+128.49
+],
+"height": 17.1,
+"canopy_d": 2.8,
+"px": 6,
+"z_ground": 5.87,
+"src": "EA LIDAR 1 m DSM-DTM blob (measured)",
+"osm_match": false
+},
+{
+"xy": [
+59.62,
+127.66
+],
+"height": 11.7,
+"canopy_d": 2.3,
+"px": 4,
+"z_ground": 4.13,
+"src": "EA LIDAR 1 m DSM-DTM blob (measured)",
+"osm_match": false
+},
+{
+"xy": [
+26.38,
+122.17
+],
+"height": 6.6,
+"canopy_d": 7.0,
+"px": 39,
+"z_ground": 4.35,
+"src": "EA LIDAR 1 m DSM-DTM blob (measured)",
+"osm_match": true
+},
+{
+"xy": [
+114.37,
+113.08
+],
+"height": 20.1,
+"canopy_d": 3.9,
+"px": 12,
+"z_ground": 5.38,
+"src": "EA LIDAR 1 m DSM-DTM blob (measured)",
+"osm_match": false
+},
+{
+"xy": [
+31.45,
+113.66
+],
+"height": 4.6,
+"canopy_d": 2.8,
+"px": 6,
+"z_ground": 4.14,
+"src": "EA LIDAR 1 m DSM-DTM blob (measured)",
+"osm_match": true
+},
+{
+"xy": [
+103.12,
+113.46
+],
+"height": 27.3,
+"canopy_d": 3.6,
+"px": 10,
+"z_ground": 5.15,
+"src": "EA LIDAR 1 m DSM-DTM blob (measured)",
+"osm_match": false
+},
+{
+"xy": [
+159.9,
+108.27
+],
+"height": 24.5,
+"canopy_d": 5.4,
+"px": 23,
+"z_ground": 2.84,
+"src": "EA LIDAR 1 m DSM-DTM blob (measured)",
+"osm_match": false
+},
+{
+"xy": [
+91.23,
+106.27
+],
+"height": 26.0,
+"canopy_d": 4.8,
+"px": 18,
+"z_ground": 5.1,
+"src": "EA LIDAR 1 m DSM-DTM blob (measured)",
+"osm_match": false
+},
+{
+"xy": [
+193.96,
+88.13
+],
+"height": 16.8,
+"canopy_d": 10.1,
+"px": 80,
+"z_ground": 4.9,
+"src": "EA LIDAR 1 m DSM-DTM blob (measured)",
+"osm_match": false
+},
+{
+"xy": [
+53.93,
+84.44
+],
+"height": 18.3,
+"canopy_d": 9.6,
+"px": 72,
+"z_ground": 4.13,
+"src": "EA LIDAR 1 m DSM-DTM blob (measured)",
+"osm_match": false
+},
+{
+"xy": [
+12.21,
+92.39
+],
+"height": 5.1,
+"canopy_d": 3.7,
+"px": 11,
+"z_ground": 4.24,
+"src": "EA LIDAR 1 m DSM-DTM blob (measured)",
+"osm_match": false
+},
+{
+"xy": [
+-100.88,
+90.66
+],
+"height": 4.2,
+"canopy_d": 3.0,
+"px": 7,
+"z_ground": 2.82,
+"src": "EA LIDAR 1 m DSM-DTM blob (measured)",
+"osm_match": false
+},
+{
+"xy": [
+-47.38,
+92.66
+],
+"height": 15.3,
+"canopy_d": 2.3,
+"px": 4,
+"z_ground": 4.74,
+"src": "EA LIDAR 1 m DSM-DTM blob (measured)",
+"osm_match": false
+},
+{
+"xy": [
+-124.88,
+90.16
+],
+"height": 12.5,
+"canopy_d": 2.3,
+"px": 4,
+"z_ground": 5.42,
+"src": "EA LIDAR 1 m DSM-DTM blob (measured)",
+"osm_match": false
+},
+{
+"xy": [
+-44.12,
+87.48
+],
+"height": 5.5,
+"canopy_d": 4.7,
+"px": 17,
+"z_ground": 4.66,
+"src": "EA LIDAR 1 m DSM-DTM blob (measured)",
+"osm_match": false
+},
+{
+"xy": [
+-52.38,
+86.66
+],
+"height": 13.2,
+"canopy_d": 2.3,
+"px": 4,
+"z_ground": 4.71,
+"src": "EA LIDAR 1 m DSM-DTM blob (measured)",
+"osm_match": false
+},
+{
+"xy": [
+-54.68,
+83.46
+],
+"height": 18.9,
+"canopy_d": 2.5,
+"px": 5,
+"z_ground": 4.81,
+"src": "EA LIDAR 1 m DSM-DTM blob (measured)",
+"osm_match": false
+},
+{
+"xy": [
+-100.55,
+80.49
+],
+"height": 3.5,
+"canopy_d": 2.8,
+"px": 6,
+"z_ground": 2.68,
+"src": "EA LIDAR 1 m DSM-DTM blob (measured)",
+"osm_match": false
+},
+{
+"xy": [
+-57.51,
+79.91
+],
+"height": 23.8,
+"canopy_d": 3.2,
+"px": 8,
+"z_ground": 4.91,
+"src": "EA LIDAR 1 m DSM-DTM blob (measured)",
+"osm_match": false
+},
+{
+"xy": [
+-211.38,
+78.66
+],
+"height": 3.1,
+"canopy_d": 2.3,
+"px": 4,
+"z_ground": 3.92,
+"src": "EA LIDAR 1 m DSM-DTM blob (measured)",
+"osm_match": false
+},
+{
+"xy": [
+-90.58,
+75.92
+],
+"height": 4.5,
+"canopy_d": 5.4,
+"px": 23,
+"z_ground": 2.15,
+"src": "EA LIDAR 1 m DSM-DTM blob (measured)",
+"osm_match": false
+},
+{
+"xy": [
+-66.38,
+77.36
+],
+"height": 13.6,
+"canopy_d": 3.6,
+"px": 10,
+"z_ground": 5.04,
+"src": "EA LIDAR 1 m DSM-DTM blob (measured)",
+"osm_match": false
+},
+{
+"xy": [
+22.41,
+74.66
+],
+"height": 3.8,
+"canopy_d": 3.0,
+"px": 7,
+"z_ground": 4.15,
+"src": "EA LIDAR 1 m DSM-DTM blob (measured)",
+"osm_match": false
+},
+{
+"xy": [
+-186.01,
+74.03
+],
+"height": 26.5,
+"canopy_d": 3.2,
+"px": 8,
+"z_ground": 1.93,
+"src": "EA LIDAR 1 m DSM-DTM blob (measured)",
+"osm_match": false
+},
+{
+"xy": [
+62.37,
+71.41
+],
+"height": 14.1,
+"canopy_d": 2.3,
+"px": 4,
+"z_ground": 4.05,
+"src": "EA LIDAR 1 m DSM-DTM blob (measured)",
+"osm_match": false
+},
+{
+"xy": [
+180.32,
+65.46
+],
+"height": 26.8,
+"canopy_d": 2.5,
+"px": 5,
+"z_ground": 4.08,
+"src": "EA LIDAR 1 m DSM-DTM blob (measured)",
+"osm_match": false
+},
+{
+"xy": [
+37.12,
+63.26
+],
+"height": 5.3,
+"canopy_d": 2.5,
+"px": 5,
+"z_ground": 3.76,
+"src": "EA LIDAR 1 m DSM-DTM blob (measured)",
+"osm_match": false
+},
+{
+"xy": [
+-102.07,
+39.32
+],
+"height": 25.6,
+"canopy_d": 17.6,
+"px": 244,
+"z_ground": 2.41,
+"src": "EA LIDAR 1 m DSM-DTM blob (measured)",
+"osm_match": false
+},
+{
+"xy": [
+31.92,
+62.66
+],
+"height": 5.2,
+"canopy_d": 2.5,
+"px": 5,
+"z_ground": 3.86,
+"src": "EA LIDAR 1 m DSM-DTM blob (measured)",
+"osm_match": false
+},
+{
+"xy": [
+174.89,
+61.75
+],
+"height": 29.2,
+"canopy_d": 5.3,
+"px": 22,
+"z_ground": 3.81,
+"src": "EA LIDAR 1 m DSM-DTM blob (measured)",
+"osm_match": false
+},
+{
+"xy": [
+-7.13,
+59.66
+],
+"height": 5.9,
+"canopy_d": 2.3,
+"px": 4,
+"z_ground": 4.19,
+"src": "EA LIDAR 1 m DSM-DTM blob (measured)",
+"osm_match": false
+},
+{
+"xy": [
+58.68,
+58.55
+],
+"height": 3.5,
+"canopy_d": 3.4,
+"px": 9,
+"z_ground": 2.19,
+"src": "EA LIDAR 1 m DSM-DTM blob (measured)",
+"osm_match": false
+},
+{
+"xy": [
+-50.68,
+57.66
+],
+"height": 13.6,
+"canopy_d": 2.5,
+"px": 5,
+"z_ground": 4.38,
+"src": "EA LIDAR 1 m DSM-DTM blob (measured)",
+"osm_match": false
+},
+{
+"xy": [
+166.12,
+58.16
+],
+"height": 29.5,
+"canopy_d": 2.8,
+"px": 6,
+"z_ground": 3.43,
+"src": "EA LIDAR 1 m DSM-DTM blob (measured)",
+"osm_match": false
+},
+{
+"xy": [
+161.72,
+54.96
+],
+"height": 28.1,
+"canopy_d": 3.6,
+"px": 10,
+"z_ground": 3.21,
+"src": "EA LIDAR 1 m DSM-DTM blob (measured)",
+"osm_match": false
+},
+{
+"xy": [
+36.87,
+53.41
+],
+"height": 5.4,
+"canopy_d": 2.3,
+"px": 4,
+"z_ground": 3.65,
+"src": "EA LIDAR 1 m DSM-DTM blob (measured)",
+"osm_match": false
+},
+{
+"xy": [
+-71.79,
+52.07
+],
+"height": 5.4,
+"canopy_d": 5.3,
+"px": 22,
+"z_ground": 4.24,
+"src": "EA LIDAR 1 m DSM-DTM blob (measured)",
+"osm_match": false
+},
+{
+"xy": [
+156.79,
+52.16
+],
+"height": 30.0,
+"canopy_d": 3.9,
+"px": 12,
+"z_ground": 3.03,
+"src": "EA LIDAR 1 m DSM-DTM blob (measured)",
+"osm_match": false
+},
+{
+"xy": [
+151.79,
+50.49
+],
+"height": 26.6,
+"canopy_d": 2.8,
+"px": 6,
+"z_ground": 2.93,
+"src": "EA LIDAR 1 m DSM-DTM blob (measured)",
+"osm_match": false
+},
+{
+"xy": [
+216.29,
+48.49
+],
+"height": 23.6,
+"canopy_d": 2.8,
+"px": 6,
+"z_ground": 3.63,
+"src": "EA LIDAR 1 m DSM-DTM blob (measured)",
+"osm_match": false
+},
+{
+"xy": [
+-51.81,
+44.86
+],
+"height": 6.6,
+"canopy_d": 4.4,
+"px": 15,
+"z_ground": 4.13,
+"src": "EA LIDAR 1 m DSM-DTM blob (measured)",
+"osm_match": false
+},
+{
+"xy": [
+146.29,
+46.83
+],
+"height": 25.0,
+"canopy_d": 2.8,
+"px": 6,
+"z_ground": 2.7,
+"src": "EA LIDAR 1 m DSM-DTM blob (measured)",
+"osm_match": false
+},
+{
+"xy": [
+-66.31,
+45.23
+],
+"height": 3.1,
+"canopy_d": 3.0,
+"px": 7,
+"z_ground": 5.04,
+"src": "EA LIDAR 1 m DSM-DTM blob (measured)",
+"osm_match": false
+},
+{
+"xy": [
+228.25,
+27.87
+],
+"height": 28.7,
+"canopy_d": 10.5,
+"px": 86,
+"z_ground": 2.85,
+"src": "EA LIDAR 1 m DSM-DTM blob (measured)",
+"osm_match": false
+},
+{
+"xy": [
+-60.28,
+44.86
+],
+"height": 3.1,
+"canopy_d": 2.5,
+"px": 5,
+"z_ground": 4.55,
+"src": "EA LIDAR 1 m DSM-DTM blob (measured)",
+"osm_match": false
+},
+{
+"xy": [
+-28.13,
+42.44
+],
+"height": 10.4,
+"canopy_d": 6.8,
+"px": 36,
+"z_ground": 4.08,
+"src": "EA LIDAR 1 m DSM-DTM blob (measured)",
+"osm_match": false
+},
+{
+"xy": [
+15.12,
+42.66
+],
+"height": 3.4,
+"canopy_d": 2.5,
+"px": 5,
+"z_ground": 3.21,
+"src": "EA LIDAR 1 m DSM-DTM blob (measured)",
+"osm_match": false
+},
+{
+"xy": [
+131.98,
+39.39
+],
+"height": 29.1,
+"canopy_d": 5.3,
+"px": 22,
+"z_ground": 2.18,
+"src": "EA LIDAR 1 m DSM-DTM blob (measured)",
+"osm_match": false
+},
+{
+"xy": [
+-228.59,
+39.09
+],
+"height": 20.6,
+"canopy_d": 4.2,
+"px": 14,
+"z_ground": 0.22,
+"src": "EA LIDAR 1 m DSM-DTM blob (measured)",
+"osm_match": false
+},
+{
+"xy": [
+-243.78,
+32.81
+],
+"height": 4.3,
+"canopy_d": 5.0,
+"px": 20,
+"z_ground": -0.36,
+"src": "EA LIDAR 1 m DSM-DTM blob (measured)",
+"osm_match": false
+},
+{
+"xy": [
+-237.28,
+39.36
+],
+"height": 20.5,
+"canopy_d": 3.6,
+"px": 10,
+"z_ground": 0.17,
+"src": "EA LIDAR 1 m DSM-DTM blob (measured)",
+"osm_match": false
+},
+{
+"xy": [
+-180.01,
+39.53
+],
+"height": 23.0,
+"canopy_d": 3.2,
+"px": 8,
+"z_ground": 0.81,
+"src": "EA LIDAR 1 m DSM-DTM blob (measured)",
+"osm_match": false
+},
+{
+"xy": [
+-71.41,
+34.27
+],
+"height": 5.5,
+"canopy_d": 8.1,
+"px": 51,
+"z_ground": 2.27,
+"src": "EA LIDAR 1 m DSM-DTM blob (measured)",
+"osm_match": false
+},
+{
+"xy": [
+-49.21,
+32.9
+],
+"height": 8.7,
+"canopy_d": 7.3,
+"px": 42,
+"z_ground": 3.76,
+"src": "EA LIDAR 1 m DSM-DTM blob (measured)",
+"osm_match": false
+},
+{
+"xy": [
+123.72,
+36.06
+],
+"height": 27.0,
+"canopy_d": 2.5,
+"px": 5,
+"z_ground": 1.94,
+"src": "EA LIDAR 1 m DSM-DTM blob (measured)",
+"osm_match": false
+},
+{
+"xy": [
+-21.72,
+32.13
+],
+"height": 7.9,
+"canopy_d": 4.9,
+"px": 19,
+"z_ground": 3.49,
+"src": "EA LIDAR 1 m DSM-DTM blob (measured)",
+"osm_match": false
+},
+{
+"xy": [
+-149.11,
+34.28
+],
+"height": 25.7,
+"canopy_d": 4.1,
+"px": 13,
+"z_ground": -0.17,
+"src": "EA LIDAR 1 m DSM-DTM blob (measured)",
+"osm_match": false
+},
+{
+"xy": [
+116.44,
+31.7
+],
+"height": 28.9,
+"canopy_d": 5.6,
+"px": 25,
+"z_ground": 1.78,
+"src": "EA LIDAR 1 m DSM-DTM blob (measured)",
+"osm_match": false
+},
+{
+"xy": [
+-32.19,
+31.89
+],
+"height": 6.3,
+"canopy_d": 4.1,
+"px": 13,
+"z_ground": 4.05,
+"src": "EA LIDAR 1 m DSM-DTM blob (measured)",
+"osm_match": false
+},
+{
+"xy": [
+177.12,
+24.66
+],
+"height": 4.7,
+"canopy_d": 3.0,
+"px": 7,
+"z_ground": 2.94,
+"src": "EA LIDAR 1 m DSM-DTM blob (measured)",
+"osm_match": false
+},
+{
+"xy": [
+174.31,
+10.47
+],
+"height": 4.8,
+"canopy_d": 5.2,
+"px": 21,
+"z_ground": 2.08,
+"src": "EA LIDAR 1 m DSM-DTM blob (measured)",
+"osm_match": false
+},
+{
+"xy": [
+-73.01,
+15.41
+],
+"height": 3.8,
+"canopy_d": 3.2,
+"px": 8,
+"z_ground": 1.69,
+"src": "EA LIDAR 1 m DSM-DTM blob (measured)",
+"osm_match": false
+},
+{
+"xy": [
+-63.55,
+13.66
+],
+"height": 3.9,
+"canopy_d": 3.4,
+"px": 9,
+"z_ground": 1.62,
+"src": "EA LIDAR 1 m DSM-DTM blob (measured)",
+"osm_match": false
+},
+{
+"xy": [
+-52.13,
+14.33
+],
+"height": 3.7,
+"canopy_d": 3.9,
+"px": 12,
+"z_ground": 1.87,
+"src": "EA LIDAR 1 m DSM-DTM blob (measured)",
+"osm_match": false
+},
+{
+"xy": [
+-98.08,
+12.66
+],
+"height": 4.1,
+"canopy_d": 2.5,
+"px": 5,
+"z_ground": 1.54,
+"src": "EA LIDAR 1 m DSM-DTM blob (measured)",
+"osm_match": false
+},
+{
+"xy": [
+-34.98,
+3.79
+],
+"height": 5.0,
+"canopy_d": 6.3,
+"px": 31,
+"z_ground": 0.53,
+"src": "EA LIDAR 1 m DSM-DTM blob (measured)",
+"osm_match": false
+},
+{
+"xy": [
+-26.45,
+6.23
+],
+"height": 18.1,
+"canopy_d": 4.2,
+"px": 14,
+"z_ground": 0.6,
+"src": "EA LIDAR 1 m DSM-DTM blob (measured)",
+"osm_match": false
+},
+{
+"xy": [
+238.85,
+7.21
+],
+"height": 28.2,
+"canopy_d": 3.7,
+"px": 11,
+"z_ground": 2.24,
+"src": "EA LIDAR 1 m DSM-DTM blob (measured)",
+"osm_match": false
+},
+{
+"xy": [
+15.32,
+5.16
+],
+"height": 27.1,
+"canopy_d": 3.6,
+"px": 10,
+"z_ground": 0.56,
+"src": "EA LIDAR 1 m DSM-DTM blob (measured)",
+"osm_match": false
+},
+{
+"xy": [
+187.36,
+-10.16
+],
+"height": 18.2,
+"canopy_d": 20.1,
+"px": 318,
+"z_ground": 0.28,
+"src": "EA LIDAR 1 m DSM-DTM blob (measured)",
+"osm_match": false
+},
+{
+"xy": [
+246.79,
+-6.84
+],
+"height": 27.9,
+"canopy_d": 7.1,
+"px": 40,
+"z_ground": 1.96,
+"src": "EA LIDAR 1 m DSM-DTM blob (measured)",
+"osm_match": false
+},
+{
+"xy": [
+14.26,
+-2.52
+],
+"height": 21.0,
+"canopy_d": 5.3,
+"px": 22,
+"z_ground": 0.25,
+"src": "EA LIDAR 1 m DSM-DTM blob (measured)",
+"osm_match": false
+},
+{
+"xy": [
+-187.38,
+-2.84
+],
+"height": 3.1,
+"canopy_d": 2.3,
+"px": 4,
+"z_ground": 1.32,
+"src": "EA LIDAR 1 m DSM-DTM blob (measured)",
+"osm_match": false
+},
+{
+"xy": [
+-168.01,
+-3.09
+],
+"height": 5.0,
+"canopy_d": 3.2,
+"px": 8,
+"z_ground": 1.15,
+"src": "EA LIDAR 1 m DSM-DTM blob (measured)",
+"osm_match": false
+},
+{
+"xy": [
+-128.24,
+-5.89
+],
+"height": 10.4,
+"canopy_d": 3.7,
+"px": 11,
+"z_ground": 0.79,
+"src": "EA LIDAR 1 m DSM-DTM blob (measured)",
+"osm_match": false
+},
+{
+"xy": [
+-114.88,
+-5.34
+],
+"height": 12.6,
+"canopy_d": 2.5,
+"px": 5,
+"z_ground": 0.82,
+"src": "EA LIDAR 1 m DSM-DTM blob (measured)",
+"osm_match": false
+},
+{
+"xy": [
+147.62,
+-7.09
+],
+"height": 12.4,
+"canopy_d": 3.2,
+"px": 8,
+"z_ground": 0.96,
+"src": "EA LIDAR 1 m DSM-DTM blob (measured)",
+"osm_match": false
+},
+{
+"xy": [
+241.29,
+-9.34
+],
+"height": 2.7,
+"canopy_d": 2.8,
+"px": 6,
+"z_ground": 1.76,
+"src": "EA LIDAR 1 m DSM-DTM blob (measured)",
+"osm_match": false
+},
+{
+"xy": [
+-6.98,
+-14.63
+],
+"height": 19.5,
+"canopy_d": 11.3,
+"px": 100,
+"z_ground": 0.1,
+"src": "EA LIDAR 1 m DSM-DTM blob (measured)",
+"osm_match": false
+},
+{
+"xy": [
+150.69,
+-15.63
+],
+"height": 9.9,
+"canopy_d": 4.2,
+"px": 14,
+"z_ground": 0.75,
+"src": "EA LIDAR 1 m DSM-DTM blob (measured)",
+"osm_match": false
+},
+{
+"xy": [
+253.99,
+-20.34
+],
+"height": 24.2,
+"canopy_d": 3.2,
+"px": 8,
+"z_ground": 1.54,
+"src": "EA LIDAR 1 m DSM-DTM blob (measured)",
+"osm_match": false
+},
+{
+"xy": [
+-71.68,
+-44.27
+],
+"height": 15.3,
+"canopy_d": 4.4,
+"px": 15,
+"z_ground": -0.56,
+"src": "EA LIDAR 1 m DSM-DTM blob (measured)",
+"osm_match": false
+},
+{
+"xy": [
+-198.63,
+-51.59
+],
+"height": 11.8,
+"canopy_d": 2.3,
+"px": 4,
+"z_ground": 0.02,
+"src": "EA LIDAR 1 m DSM-DTM blob (measured)",
+"osm_match": false
+},
+{
+"xy": [
+25.47,
+-55.16
+],
+"height": 15.8,
+"canopy_d": 11.5,
+"px": 104,
+"z_ground": -1.84,
+"src": "EA LIDAR 1 m DSM-DTM blob (measured)",
+"osm_match": false
+},
+{
+"xy": [
+-90.44,
+-55.23
+],
+"height": 4.2,
+"canopy_d": 3.4,
+"px": 9,
+"z_ground": 0.21,
+"src": "EA LIDAR 1 m DSM-DTM blob (measured)",
+"osm_match": false
+},
+{
+"xy": [
+41.62,
+-53.34
+],
+"height": 15.1,
+"canopy_d": 2.3,
+"px": 4,
+"z_ground": -4.93,
+"src": "EA LIDAR 1 m DSM-DTM blob (measured)",
+"osm_match": false
+},
+{
+"xy": [
+-117.88,
+-55.51
+],
+"height": 11.3,
+"canopy_d": 2.8,
+"px": 6,
+"z_ground": -0.05,
+"src": "EA LIDAR 1 m DSM-DTM blob (measured)",
+"osm_match": false
+},
+{
+"xy": [
+53.34,
+-54.78
+],
+"height": 12.6,
+"canopy_d": 3.4,
+"px": 9,
+"z_ground": -2.34,
+"src": "EA LIDAR 1 m DSM-DTM blob (measured)",
+"osm_match": false
+},
+{
+"xy": [
+13.99,
+-60.86
+],
+"height": 6.2,
+"canopy_d": 9.2,
+"px": 67,
+"z_ground": -4.39,
+"src": "EA LIDAR 1 m DSM-DTM blob (measured)",
+"osm_match": false
+},
+{
+"xy": [
+4.87,
+-63.34
+],
+"height": 5.3,
+"canopy_d": 3.2,
+"px": 8,
+"z_ground": -4.07,
+"src": "EA LIDAR 1 m DSM-DTM blob (measured)",
+"osm_match": false
+},
+{
+"xy": [
+-6.38,
+-65.34
+],
+"height": 2.9,
+"canopy_d": 2.3,
+"px": 4,
+"z_ground": -0.92,
+"src": "EA LIDAR 1 m DSM-DTM blob (measured)",
+"osm_match": false
+},
+{
+"xy": [
+-5.05,
+-77.86
+],
+"height": 21.2,
+"canopy_d": 11.5,
+"px": 103,
+"z_ground": -5.18,
+"src": "EA LIDAR 1 m DSM-DTM blob (measured)",
+"osm_match": false
+},
+{
+"xy": [
+-190.38,
+-67.34
+],
+"height": 9.4,
+"canopy_d": 2.3,
+"px": 4,
+"z_ground": 0.01,
+"src": "EA LIDAR 1 m DSM-DTM blob (measured)",
+"osm_match": false
+},
+{
+"xy": [
+6.9,
+-68.34
+],
+"height": 4.5,
+"canopy_d": 3.4,
+"px": 9,
+"z_ground": -5.76,
+"src": "EA LIDAR 1 m DSM-DTM blob (measured)",
+"osm_match": false
+},
+{
+"xy": [
+-203.38,
+-72.84
+],
+"height": 9.4,
+"canopy_d": 2.8,
+"px": 6,
+"z_ground": -0.04,
+"src": "EA LIDAR 1 m DSM-DTM blob (measured)",
+"osm_match": false
+},
+{
+"xy": [
+-74.38,
+-71.84
+],
+"height": 3.8,
+"canopy_d": 2.3,
+"px": 4,
+"z_ground": -0.48,
+"src": "EA LIDAR 1 m DSM-DTM blob (measured)",
+"osm_match": false
+},
+{
+"xy": [
+57.21,
+-74.98
+],
+"height": 5.5,
+"canopy_d": 5.3,
+"px": 22,
+"z_ground": -4.26,
+"src": "EA LIDAR 1 m DSM-DTM blob (measured)",
+"osm_match": false
+},
+{
+"xy": [
+-186.63,
+-74.59
+],
+"height": 18.0,
+"canopy_d": 2.3,
+"px": 4,
+"z_ground": 0.0,
+"src": "EA LIDAR 1 m DSM-DTM blob (measured)",
+"osm_match": false
+},
+{
+"xy": [
+-12.38,
+-75.34
+],
+"height": 2.9,
+"canopy_d": 2.3,
+"px": 4,
+"z_ground": -2.95,
+"src": "EA LIDAR 1 m DSM-DTM blob (measured)",
+"osm_match": false
+},
+{
+"xy": [
+66.32,
+-81.99
+],
+"height": 3.6,
+"canopy_d": 5.0,
+"px": 20,
+"z_ground": -2.46,
+"src": "EA LIDAR 1 m DSM-DTM blob (measured)",
+"osm_match": false
+},
+{
+"xy": [
+246.62,
+-79.84
+],
+"height": 6.4,
+"canopy_d": 3.2,
+"px": 8,
+"z_ground": -1.15,
+"src": "EA LIDAR 1 m DSM-DTM blob (measured)",
+"osm_match": false
+},
+{
+"xy": [
+-182.02,
+-81.91
+],
+"height": 17.5,
+"canopy_d": 3.0,
+"px": 7,
+"z_ground": -0.11,
+"src": "EA LIDAR 1 m DSM-DTM blob (measured)",
+"osm_match": false
+},
+{
+"xy": [
+-145.48,
+-82.54
+],
+"height": 28.3,
+"canopy_d": 2.5,
+"px": 5,
+"z_ground": 0.15,
+"src": "EA LIDAR 1 m DSM-DTM blob (measured)",
+"osm_match": false
+},
+{
+"xy": [
+205.92,
+-82.14
+],
+"height": 17.9,
+"canopy_d": 2.5,
+"px": 5,
+"z_ground": -1.97,
+"src": "EA LIDAR 1 m DSM-DTM blob (measured)",
+"osm_match": false
+},
+{
+"xy": [
+214.85,
+-85.25
+],
+"height": 4.6,
+"canopy_d": 3.7,
+"px": 11,
+"z_ground": -1.83,
+"src": "EA LIDAR 1 m DSM-DTM blob (measured)",
+"osm_match": false
+},
+{
+"xy": [
+243.62,
+-85.34
+],
+"height": 10.6,
+"canopy_d": 2.3,
+"px": 4,
+"z_ground": -1.74,
+"src": "EA LIDAR 1 m DSM-DTM blob (measured)",
+"osm_match": false
+},
+{
+"xy": [
+11.48,
+-88.98
+],
+"height": 16.3,
+"canopy_d": 6.5,
+"px": 33,
+"z_ground": -2.86,
+"src": "EA LIDAR 1 m DSM-DTM blob (measured)",
+"osm_match": false
+},
+{
+"xy": [
+34.73,
+-97.82
+],
+"height": 28.3,
+"canopy_d": 13.5,
+"px": 144,
+"z_ground": -2.02,
+"src": "EA LIDAR 1 m DSM-DTM blob (measured)",
+"osm_match": false
+},
+{
+"xy": [
+47.37,
+-87.84
+],
+"height": 29.0,
+"canopy_d": 3.2,
+"px": 8,
+"z_ground": -2.86,
+"src": "EA LIDAR 1 m DSM-DTM blob (measured)",
+"osm_match": false
+},
+{
+"xy": [
+70.98,
+-91.2
+],
+"height": 4.1,
+"canopy_d": 3.0,
+"px": 7,
+"z_ground": -0.63,
+"src": "EA LIDAR 1 m DSM-DTM blob (measured)",
+"osm_match": false
+},
+{
+"xy": [
+-67.7,
+-94.34
+],
+"height": 4.3,
+"canopy_d": 3.7,
+"px": 11,
+"z_ground": -0.99,
+"src": "EA LIDAR 1 m DSM-DTM blob (measured)",
+"osm_match": false
+},
+{
+"xy": [
+-9.88,
+-96.01
+],
+"height": 29.0,
+"canopy_d": 2.8,
+"px": 6,
+"z_ground": -1.34,
+"src": "EA LIDAR 1 m DSM-DTM blob (measured)",
+"osm_match": false
+},
+{
+"xy": [
+34.37,
+-96.59
+],
+"height": 5.0,
+"canopy_d": 2.3,
+"px": 4,
+"z_ground": -2.08,
+"src": "EA LIDAR 1 m DSM-DTM blob (measured)",
+"osm_match": false
+},
+{
+"xy": [
+-61.69,
+-104.98
+],
+"height": 7.6,
+"canopy_d": 6.8,
+"px": 36,
+"z_ground": -1.25,
+"src": "EA LIDAR 1 m DSM-DTM blob (measured)",
+"osm_match": false
+},
+{
+"xy": [
+-26.17,
+-103.9
+],
+"height": 5.5,
+"canopy_d": 7.6,
+"px": 45,
+"z_ground": -1.85,
+"src": "EA LIDAR 1 m DSM-DTM blob (measured)",
+"osm_match": false
+},
+{
+"xy": [
+-228.88,
+-105.72
+],
+"height": 7.0,
+"canopy_d": 3.2,
+"px": 8,
+"z_ground": -0.19,
+"src": "EA LIDAR 1 m DSM-DTM blob (measured)",
+"osm_match": false
+},
+{
+"xy": [
+106.83,
+-106.34
+],
+"height": 4.1,
+"canopy_d": 3.0,
+"px": 7,
+"z_ground": -1.53,
+"src": "EA LIDAR 1 m DSM-DTM blob (measured)",
+"osm_match": false
+},
+{
+"xy": [
+-5.08,
+-108.54
+],
+"height": 21.8,
+"canopy_d": 2.5,
+"px": 5,
+"z_ground": -1.42,
+"src": "EA LIDAR 1 m DSM-DTM blob (measured)",
+"osm_match": false
+},
+{
+"xy": [
+173.12,
+-107.84
+],
+"height": 5.7,
+"canopy_d": 2.3,
+"px": 4,
+"z_ground": -2.08,
+"src": "EA LIDAR 1 m DSM-DTM blob (measured)",
+"osm_match": false
+},
+{
+"xy": [
+-35.48,
+-110.94
+],
+"height": 2.8,
+"canopy_d": 2.5,
+"px": 5,
+"z_ground": -1.77,
+"src": "EA LIDAR 1 m DSM-DTM blob (measured)",
+"osm_match": false
+},
+{
+"xy": [
+27.32,
+-110.94
+],
+"height": 25.1,
+"canopy_d": 2.5,
+"px": 5,
+"z_ground": -0.38,
+"src": "EA LIDAR 1 m DSM-DTM blob (measured)",
+"osm_match": false
+},
+{
+"xy": [
+-48.1,
+-113.45
+],
+"height": 5.9,
+"canopy_d": 3.4,
+"px": 9,
+"z_ground": -1.81,
+"src": "EA LIDAR 1 m DSM-DTM blob (measured)",
+"osm_match": false
+},
+{
+"xy": [
+23.79,
+-118.01
+],
+"height": 15.9,
+"canopy_d": 3.4,
+"px": 9,
+"z_ground": -0.43,
+"src": "EA LIDAR 1 m DSM-DTM blob (measured)",
+"osm_match": false
+},
+{
+"xy": [
+-133.46,
+-119.09
+],
+"height": 5.5,
+"canopy_d": 3.9,
+"px": 12,
+"z_ground": -1.04,
+"src": "EA LIDAR 1 m DSM-DTM blob (measured)",
+"osm_match": false
+},
+{
+"xy": [
+-49.85,
+-127.53
+],
+"height": 18.3,
+"canopy_d": 12.1,
+"px": 115,
+"z_ground": -1.76,
+"src": "EA LIDAR 1 m DSM-DTM blob (measured)",
+"osm_match": false
+},
+{
+"xy": [
+78.71,
+-119.7
+],
+"height": 13.5,
+"canopy_d": 5.3,
+"px": 22,
+"z_ground": -1.68,
+"src": "EA LIDAR 1 m DSM-DTM blob (measured)",
+"osm_match": false
+},
+{
+"xy": [
+16.37,
+-122.09
+],
+"height": 28.3,
+"canopy_d": 3.2,
+"px": 8,
+"z_ground": -0.79,
+"src": "EA LIDAR 1 m DSM-DTM blob (measured)",
+"osm_match": false
+},
+{
+"xy": [
+32.62,
+-124.34
+],
+"height": 3.6,
+"canopy_d": 2.3,
+"px": 4,
+"z_ground": -3.95,
+"src": "EA LIDAR 1 m DSM-DTM blob (measured)",
+"osm_match": false
+},
+{
+"xy": [
+8.73,
+-126.12
+],
+"height": 27.0,
+"canopy_d": 4.8,
+"px": 18,
+"z_ground": -1.23,
+"src": "EA LIDAR 1 m DSM-DTM blob (measured)",
+"osm_match": false
+},
+{
+"xy": [
+-129.57,
+-127.26
+],
+"height": 5.5,
+"canopy_d": 4.1,
+"px": 13,
+"z_ground": -1.06,
+"src": "EA LIDAR 1 m DSM-DTM blob (measured)",
+"osm_match": false
+},
+{
+"xy": [
+-86.31,
+-127.63
+],
+"height": 3.1,
+"canopy_d": 3.0,
+"px": 7,
+"z_ground": -1.82,
+"src": "EA LIDAR 1 m DSM-DTM blob (measured)",
+"osm_match": false
+},
+{
+"xy": [
+-0.3,
+-150.45
+],
+"height": 13.2,
+"canopy_d": 18.6,
+"px": 273,
+"z_ground": 0.02,
+"src": "EA LIDAR 1 m DSM-DTM blob (measured)",
+"osm_match": false
+},
+{
+"xy": [
+82.32,
+-129.94
+],
+"height": 5.5,
+"canopy_d": 2.5,
+"px": 5,
+"z_ground": -1.05,
+"src": "EA LIDAR 1 m DSM-DTM blob (measured)",
+"osm_match": false
+},
+{
+"xy": [
+-46.38,
+-130.34
+],
+"height": 12.0,
+"canopy_d": 2.8,
+"px": 6,
+"z_ground": -2.0,
+"src": "EA LIDAR 1 m DSM-DTM blob (measured)",
+"osm_match": false
+},
+{
+"xy": [
+-126.01,
+-133.94
+],
+"height": 6.0,
+"canopy_d": 4.4,
+"px": 15,
+"z_ground": -1.1,
+"src": "EA LIDAR 1 m DSM-DTM blob (measured)",
+"osm_match": false
+},
+{
+"xy": [
+203.56,
+-132.78
+],
+"height": 13.4,
+"canopy_d": 3.4,
+"px": 9,
+"z_ground": 0.07,
+"src": "EA LIDAR 1 m DSM-DTM blob (measured)",
+"osm_match": false
+},
+{
+"xy": [
+-40.03,
+-146.06
+],
+"height": 18.0,
+"canopy_d": 14.4,
+"px": 163,
+"z_ground": -1.62,
+"src": "EA LIDAR 1 m DSM-DTM blob (measured)",
+"osm_match": false
+},
+{
+"xy": [
+88.2,
+-140.22
+],
+"height": 13.4,
+"canopy_d": 5.6,
+"px": 25,
+"z_ground": -1.62,
+"src": "EA LIDAR 1 m DSM-DTM blob (measured)",
+"osm_match": false
+},
+{
+"xy": [
+57.09,
+-149.35
+],
+"height": 7.4,
+"canopy_d": 12.3,
+"px": 118,
+"z_ground": -4.2,
+"src": "EA LIDAR 1 m DSM-DTM blob (measured)",
+"osm_match": false
+},
+{
+"xy": [
+198.37,
+-135.09
+],
+"height": 13.8,
+"canopy_d": 2.3,
+"px": 4,
+"z_ground": -0.05,
+"src": "EA LIDAR 1 m DSM-DTM blob (measured)",
+"osm_match": false
+},
+{
+"xy": [
+203.52,
+-136.14
+],
+"height": 4.6,
+"canopy_d": 2.5,
+"px": 5,
+"z_ground": -0.12,
+"src": "EA LIDAR 1 m DSM-DTM blob (measured)",
+"osm_match": false
+},
+{
+"xy": [
+194.95,
+-137.01
+],
+"height": 13.4,
+"canopy_d": 2.8,
+"px": 6,
+"z_ground": -0.09,
+"src": "EA LIDAR 1 m DSM-DTM blob (measured)",
+"osm_match": false
+},
+{
+"xy": [
+152.32,
+-140.74
+],
+"height": 7.7,
+"canopy_d": 3.6,
+"px": 10,
+"z_ground": -1.97,
+"src": "EA LIDAR 1 m DSM-DTM blob (measured)",
+"osm_match": false
+},
+{
+"xy": [
+190.12,
+-139.51
+],
+"height": 15.3,
+"canopy_d": 2.8,
+"px": 6,
+"z_ground": -0.12,
+"src": "EA LIDAR 1 m DSM-DTM blob (measured)",
+"osm_match": false
+},
+{
+"xy": [
+197.12,
+-139.09
+],
+"height": 4.6,
+"canopy_d": 2.3,
+"px": 4,
+"z_ground": -0.21,
+"src": "EA LIDAR 1 m DSM-DTM blob (measured)",
+"osm_match": false
+},
+{
+"xy": [
+-122.31,
+-140.84
+],
+"height": 5.7,
+"canopy_d": 4.2,
+"px": 14,
+"z_ground": -1.13,
+"src": "EA LIDAR 1 m DSM-DTM blob (measured)",
+"osm_match": false
+},
+{
+"xy": [
+185.62,
+-141.84
+],
+"height": 13.4,
+"canopy_d": 3.2,
+"px": 8,
+"z_ground": -0.22,
+"src": "EA LIDAR 1 m DSM-DTM blob (measured)",
+"osm_match": false
+},
+{
+"xy": [
+20.22,
+-147.54
+],
+"height": 29.6,
+"canopy_d": 7.1,
+"px": 40,
+"z_ground": -3.55,
+"src": "EA LIDAR 1 m DSM-DTM blob (measured)",
+"osm_match": false
+},
+{
+"xy": [
+98.29,
+-144.17
+],
+"height": 12.7,
+"canopy_d": 3.9,
+"px": 12,
+"z_ground": -2.01,
+"src": "EA LIDAR 1 m DSM-DTM blob (measured)",
+"osm_match": false
+},
+{
+"xy": [
+-118.38,
+-147.67
+],
+"height": 5.7,
+"canopy_d": 3.9,
+"px": 12,
+"z_ground": -1.19,
+"src": "EA LIDAR 1 m DSM-DTM blob (measured)",
+"osm_match": false
+},
+{
+"xy": [
+-44.38,
+-146.34
+],
+"height": 8.6,
+"canopy_d": 2.3,
+"px": 4,
+"z_ground": -1.57,
+"src": "EA LIDAR 1 m DSM-DTM blob (measured)",
+"osm_match": false
+},
+{
+"xy": [
+52.87,
+-153.09
+],
+"height": 3.2,
+"canopy_d": 2.3,
+"px": 4,
+"z_ground": -6.35,
+"src": "EA LIDAR 1 m DSM-DTM blob (measured)",
+"osm_match": false
+},
+{
+"xy": [
+-114.88,
+-156.16
+],
+"height": 5.9,
+"canopy_d": 4.7,
+"px": 17,
+"z_ground": -1.21,
+"src": "EA LIDAR 1 m DSM-DTM blob (measured)",
+"osm_match": false
+},
+{
+"xy": [
+93.32,
+-154.94
+],
+"height": 3.1,
+"canopy_d": 3.6,
+"px": 10,
+"z_ground": -1.41,
+"src": "EA LIDAR 1 m DSM-DTM blob (measured)",
+"osm_match": false
+},
+{
+"xy": [
+119.9,
+-158.23
+],
+"height": 11.5,
+"canopy_d": 4.8,
+"px": 18,
+"z_ground": -0.4,
+"src": "EA LIDAR 1 m DSM-DTM blob (measured)",
+"osm_match": false
+},
+{
+"xy": [
+-109.38,
+-159.34
+],
+"height": 2.9,
+"canopy_d": 2.3,
+"px": 4,
+"z_ground": -1.22,
+"src": "EA LIDAR 1 m DSM-DTM blob (measured)",
+"osm_match": false
+},
+{
+"xy": [
+81.72,
+-161.58
+],
+"height": 5.8,
+"canopy_d": 7.3,
+"px": 42,
+"z_ground": -3.74,
+"src": "EA LIDAR 1 m DSM-DTM blob (measured)",
+"osm_match": false
+},
+{
+"xy": [
+-109.88,
+-164.17
+],
+"height": 6.5,
+"canopy_d": 6.2,
+"px": 30,
+"z_ground": -1.26,
+"src": "EA LIDAR 1 m DSM-DTM blob (measured)",
+"osm_match": false
+},
+{
+"xy": [
+-71.68,
+-163.54
+],
+"height": 3.3,
+"canopy_d": 2.5,
+"px": 5,
+"z_ground": -1.74,
+"src": "EA LIDAR 1 m DSM-DTM blob (measured)",
+"osm_match": false
+},
+{
+"xy": [
+-125.55,
+-164.67
+],
+"height": 4.9,
+"canopy_d": 2.8,
+"px": 6,
+"z_ground": -1.15,
+"src": "EA LIDAR 1 m DSM-DTM blob (measured)",
+"osm_match": false
+},
+{
+"xy": [
+77.26,
+-166.05
+],
+"height": 6.3,
+"canopy_d": 3.0,
+"px": 7,
+"z_ground": -5.1,
+"src": "EA LIDAR 1 m DSM-DTM blob (measured)",
+"osm_match": false
+},
+{
+"xy": [
+-71.88,
+-167.34
+],
+"height": 3.5,
+"canopy_d": 2.5,
+"px": 5,
+"z_ground": -1.58,
+"src": "EA LIDAR 1 m DSM-DTM blob (measured)",
+"osm_match": false
+},
+{
+"xy": [
+-157.74,
+-169.34
+],
+"height": 29.9,
+"canopy_d": 4.2,
+"px": 14,
+"z_ground": -0.93,
+"src": "EA LIDAR 1 m DSM-DTM blob (measured)",
+"osm_match": false
+},
+{
+"xy": [
+-105.8,
+-171.22
+],
+"height": 6.4,
+"canopy_d": 5.6,
+"px": 25,
+"z_ground": -1.37,
+"src": "EA LIDAR 1 m DSM-DTM blob (measured)",
+"osm_match": false
+},
+{
+"xy": [
+65.34,
+-170.34
+],
+"height": 7.5,
+"canopy_d": 3.4,
+"px": 9,
+"z_ground": -6.1,
+"src": "EA LIDAR 1 m DSM-DTM blob (measured)",
+"osm_match": false
+},
+{
+"xy": [
+115.72,
+-171.34
+],
+"height": 16.2,
+"canopy_d": 3.6,
+"px": 10,
+"z_ground": -0.39,
+"src": "EA LIDAR 1 m DSM-DTM blob (measured)",
+"osm_match": false
+},
+{
+"xy": [
+147.12,
+-171.51
+],
+"height": 4.8,
+"canopy_d": 2.8,
+"px": 6,
+"z_ground": -0.26,
+"src": "EA LIDAR 1 m DSM-DTM blob (measured)",
+"osm_match": false
+},
+{
+"xy": [
+142.62,
+-172.84
+],
+"height": 3.4,
+"canopy_d": 2.3,
+"px": 4,
+"z_ground": -0.24,
+"src": "EA LIDAR 1 m DSM-DTM blob (measured)",
+"osm_match": false
+},
+{
+"xy": [
+-167.55,
+-174.17
+],
+"height": 27.9,
+"canopy_d": 2.8,
+"px": 6,
+"z_ground": -0.97,
+"src": "EA LIDAR 1 m DSM-DTM blob (measured)",
+"osm_match": false
+},
+{
+"xy": [
+-4.22,
+-183.29
+],
+"height": 4.5,
+"canopy_d": 8.4,
+"px": 56,
+"z_ground": -3.22,
+"src": "EA LIDAR 1 m DSM-DTM blob (measured)",
+"osm_match": false
+},
+{
+"xy": [
+-4.68,
+-179.14
+],
+"height": 3.5,
+"canopy_d": 2.5,
+"px": 5,
+"z_ground": -1.4,
+"src": "EA LIDAR 1 m DSM-DTM blob (measured)",
+"osm_match": false
+},
+{
+"xy": [
+-157.13,
+-180.59
+],
+"height": 6.8,
+"canopy_d": 3.2,
+"px": 8,
+"z_ground": -1.1,
+"src": "EA LIDAR 1 m DSM-DTM blob (measured)",
+"osm_match": false
+},
+{
+"xy": [
+36.32,
+-180.94
+],
+"height": 3.3,
+"canopy_d": 2.5,
+"px": 5,
+"z_ground": -3.04,
+"src": "EA LIDAR 1 m DSM-DTM blob (measured)",
+"osm_match": false
+},
+{
+"xy": [
+-14.98,
+-187.64
+],
+"height": 3.7,
+"canopy_d": 3.6,
+"px": 10,
+"z_ground": -2.37,
+"src": "EA LIDAR 1 m DSM-DTM blob (measured)",
+"osm_match": false
+},
+{
+"xy": [
+169.98,
+-186.48
+],
+"height": 16.5,
+"canopy_d": 3.0,
+"px": 7,
+"z_ground": -1.71,
+"src": "EA LIDAR 1 m DSM-DTM blob (measured)",
+"osm_match": false
+},
+{
+"xy": [
+-158.88,
+-189.34
+],
+"height": 6.0,
+"canopy_d": 2.5,
+"px": 5,
+"z_ground": -1.01,
+"src": "EA LIDAR 1 m DSM-DTM blob (measured)",
+"osm_match": false
+},
+{
+"xy": [
+-117.49,
+-196.24
+],
+"height": 4.7,
+"canopy_d": 8.8,
+"px": 61,
+"z_ground": -1.2,
+"src": "EA LIDAR 1 m DSM-DTM blob (measured)",
+"osm_match": false
+},
+{
+"xy": [
+-157.68,
+-192.34
+],
+"height": 3.0,
+"canopy_d": 2.5,
+"px": 5,
+"z_ground": -1.13,
+"src": "EA LIDAR 1 m DSM-DTM blob (measured)",
+"osm_match": false
+},
+{
+"xy": [
+-33.42,
+-199.85
+],
+"height": 3.6,
+"canopy_d": 7.0,
+"px": 39,
+"z_ground": -3.48,
+"src": "EA LIDAR 1 m DSM-DTM blob (measured)",
+"osm_match": false
+},
+{
+"xy": [
+73.45,
+-195.78
+],
+"height": 5.2,
+"canopy_d": 3.4,
+"px": 9,
+"z_ground": -1.09,
+"src": "EA LIDAR 1 m DSM-DTM blob (measured)",
+"osm_match": false
+},
+{
+"xy": [
+27.48,
+-200.2
+],
+"height": 5.9,
+"canopy_d": 4.2,
+"px": 14,
+"z_ground": -2.83,
+"src": "EA LIDAR 1 m DSM-DTM blob (measured)",
+"osm_match": false
+},
+{
+"xy": [
+69.12,
+-198.51
+],
+"height": 4.5,
+"canopy_d": 2.8,
+"px": 6,
+"z_ground": -0.14,
+"src": "EA LIDAR 1 m DSM-DTM blob (measured)",
+"osm_match": false
+},
+{
+"xy": [
+156.87,
+-198.59
+],
+"height": 3.5,
+"canopy_d": 2.3,
+"px": 4,
+"z_ground": 0.26,
+"src": "EA LIDAR 1 m DSM-DTM blob (measured)",
+"osm_match": false
+},
+{
+"xy": [
+-53.47,
+-207.99
+],
+"height": 3.4,
+"canopy_d": 4.7,
+"px": 17,
+"z_ground": -2.5,
+"src": "EA LIDAR 1 m DSM-DTM blob (measured)",
+"osm_match": false
+},
+{
+"xy": [
+12.39,
+-212.25
+],
+"height": 5.4,
+"canopy_d": 3.7,
+"px": 11,
+"z_ground": -2.44,
+"src": "EA LIDAR 1 m DSM-DTM blob (measured)",
+"osm_match": false
+},
+{
+"xy": [
+15.37,
+-210.59
+],
+"height": 4.5,
+"canopy_d": 2.3,
+"px": 4,
+"z_ground": -3.41,
+"src": "EA LIDAR 1 m DSM-DTM blob (measured)",
+"osm_match": false
+},
+{
+"xy": [
+1.99,
+-220.59
+],
+"height": 7.7,
+"canopy_d": 3.2,
+"px": 8,
+"z_ground": -2.59,
+"src": "EA LIDAR 1 m DSM-DTM blob (measured)",
+"osm_match": false
+},
+{
+"xy": [
+9.83,
+-222.27
+],
+"height": 4.0,
+"canopy_d": 4.2,
+"px": 14,
+"z_ground": 0.14,
+"src": "EA LIDAR 1 m DSM-DTM blob (measured)",
+"osm_match": false
+},
+{
+"xy": [
+86.72,
+-222.74
+],
+"height": 8.1,
+"canopy_d": 2.5,
+"px": 5,
+"z_ground": 0.45,
+"src": "EA LIDAR 1 m DSM-DTM blob (measured)",
+"osm_match": false
+},
+{
+"xy": [
+44.93,
+-236.27
+],
+"height": 8.9,
+"canopy_d": 13.7,
+"px": 148,
+"z_ground": 0.72,
+"src": "EA LIDAR 1 m DSM-DTM blob (measured)",
+"osm_match": false
+},
+{
+"xy": [
+90.26,
+-229.2
+],
+"height": 10.8,
+"canopy_d": 3.0,
+"px": 7,
+"z_ground": 0.63,
+"src": "EA LIDAR 1 m DSM-DTM blob (measured)",
+"osm_match": false
+},
+{
+"xy": [
+-25.38,
+-233.34
+],
+"height": 8.5,
+"canopy_d": 2.3,
+"px": 4,
+"z_ground": -3.48,
+"src": "EA LIDAR 1 m DSM-DTM blob (measured)",
+"osm_match": false
+},
+{
+"xy": [
+-20.38,
+-239.84
+],
+"height": 3.9,
+"canopy_d": 2.8,
+"px": 6,
+"z_ground": -2.16,
+"src": "EA LIDAR 1 m DSM-DTM blob (measured)",
+"osm_match": false
+}
+],
+"rails": [
+{
+"osm": "way/4947735",
+"k": "light_rail",
+"bridge": "viaduct",
+"name": "",
+"pts": [
+[
+-90.34,
+245.52
+],
+[
+-118.48,
+211.11
+],
+[
+-127.93,
+201.96
+],
+[
+-217.66,
+130.03
+],
+[
+-244.11,
+108.08
+],
+[
+-279.57,
+78.66
+],
+[
+-288.0,
+72.62
+],
+[
+-295.88,
+67.91
+],
+[
+-303.15,
+64.42
+],
+[
+-312.39,
+61.22
+],
+[
+-321.04,
+59.75
+],
+[
+-332.28,
+58.78
+],
+[
+-347.9,
+59.06
+],
+[
+-364.76,
+60.16
+],
+[
+-382.1,
+61.47
+],
+[
+-409.79,
+63.44
+],
+[
+-436.12,
+65.37
+],
+[
+-443.35,
+65.88
+],
+[
+-468.6,
+67.48
+],
+[
+-487.45,
+69.04
+],
+[
+-508.36,
+72.07
+],
+[
+-528.19,
+75.21
+],
+[
+-544.79,
+77.85
+],
+[
+-562.28,
+80.72
+]
+],
+"deck_z_dsm": [
+7.51,
+7.44,
+7.65,
+11.04,
+11.06,
+11.06,
+11.01,
+11.06,
+11.06,
+null,
+null,
+null,
+null,
+null,
+null,
+null,
+null,
+null,
+null,
+null,
+null,
+null,
+null,
+null
+]
+},
+{
+"osm": "way/31178960",
+"k": "rail",
+"bridge": "viaduct",
+"name": "",
+"pts": [
+[
+162.96,
+17.91
+],
+[
+158.19,
+15.54
+],
+[
+90.98,
+-18.0
+],
+[
+79.97,
+-22.89
+],
+[
+68.56,
+-26.94
+],
+[
+51.47,
+-30.25
+],
+[
+25.82,
+-34.08
+]
+],
+"deck_z_dsm": [
+9.25,
+8.12,
+8.37,
+8.45,
+8.5,
+8.54,
+8.55
+]
+},
+{
+"osm": "way/31179674",
+"k": "rail",
+"bridge": "viaduct",
+"name": "",
+"pts": [
+[
+-0.8,
+-35.71
+],
+[
+25.82,
+-34.08
+],
+[
+92.79,
+-32.08
+],
+[
+108.71,
+-31.87
+],
+[
+135.57,
+-33.62
+],
+[
+156.53,
+-34.98
+],
+[
+176.34,
+-36.59
+],
+[
+191.98,
+-37.07
+],
+[
+208.6,
+-37.09
+],
+[
+227.47,
+-36.58
+],
+[
+241.01,
+-35.2
+],
+[
+265.6,
+-31.17
+]
+],
+"deck_z_dsm": [
+8.61,
+8.55,
+8.5,
+8.44,
+9.6,
+8.37,
+9.12,
+8.45,
+8.82,
+9.08,
+8.7,
+8.91
+]
+},
+{
+"osm": "way/31179898",
+"k": "platform",
+"bridge": null,
+"name": "2;3",
+"pts": [
+[
+64.06,
+-38.63
+],
+[
+68.15,
+-38.11
+],
+[
+82.71,
+-37.15
+],
+[
+100.44,
+-35.6
+],
+[
+112.04,
+-35.97
+],
+[
+148.09,
+-39.06
+],
+[
+165.74,
+-40.46
+],
+[
+185.06,
+-41.7
+],
+[
+204.25,
+-41.97
+],
+[
+215.62,
+-41.96
+],
+[
+225.1,
+-41.3
+],
+[
+226.88,
+-40.97
+],
+[
+227.98,
+-43.52
+],
+[
+226.26,
+-43.99
+],
+[
+222.46,
+-44.83
+],
+[
+210.62,
+-47.09
+],
+[
+200.69,
+-48.57
+],
+[
+189.46,
+-49.64
+],
+[
+172.29,
+-50.09
+],
+[
+102.2,
+-44.38
+],
+[
+63.87,
+-42.5
+],
+[
+64.06,
+-38.63
+]
+],
+"deck_z_dsm": [
+8.43,
+8.39,
+8.42,
+17.0,
+8.36,
+8.29,
+8.31,
+8.32,
+8.44,
+8.49,
+8.65,
+8.71,
+9.07,
+8.86,
+9.5,
+9.05,
+9.0,
+9.28,
+10.63,
+10.42,
+9.53,
+8.43
+]
+},
+{
+"osm": "way/31179936",
+"k": "platform",
+"bridge": null,
+"name": "1",
+"pts": [
+[
+63.84,
+-48.46
+],
+[
+63.52,
+-52.66
+],
+[
+129.95,
+-57.64
+],
+[
+143.25,
+-58.82
+],
+[
+150.84,
+-59.06
+],
+[
+159.24,
+-59.09
+],
+[
+166.41,
+-58.5
+],
+[
+172.3,
+-58.11
+],
+[
+172.34,
+-55.88
+],
+[
+169.14,
+-55.77
+],
+[
+158.33,
+-55.38
+],
+[
+63.84,
+-48.46
+]
+],
+"deck_z_dsm": [
+8.44,
+9.41,
+8.84,
+9.35,
+9.46,
+10.53,
+9.32,
+12.27,
+16.12,
+8.25,
+8.25,
+8.44
+]
+},
+{
+"osm": "way/31180085",
+"k": "platform",
+"bridge": null,
+"name": "5",
+"pts": [
+[
+78.12,
+-25.22
+],
+[
+160.09,
+14.33
+],
+[
+161.22,
+12.05
+],
+[
+81.57,
+-27.05
+],
+[
+79.86,
+-27.72
+],
+[
+73.29,
+-30.94
+],
+[
+63.84,
+-31.38
+],
+[
+63.03,
+-29.98
+],
+[
+78.12,
+-25.22
+]
+],
+"deck_z_dsm": [
+8.4,
+8.21,
+11.48,
+9.46,
+9.43,
+9.5,
+8.91,
+8.53,
+8.4
+]
+},
+{
+"osm": "way/31231603",
+"k": "rail",
+"bridge": "viaduct",
+"name": "",
+"pts": [
+[
+-0.8,
+-35.71
+],
+[
+10.32,
+-36.57
+],
+[
+37.37,
+-37.8
+],
+[
+54.32,
+-37.6
+],
+[
+99.23,
+-34.62
+],
+[
+106.1,
+-34.75
+],
+[
+122.54,
+-35.94
+],
+[
+145.94,
+-37.69
+],
+[
+171.05,
+-39.71
+],
+[
+188.05,
+-40.46
+],
+[
+204.52,
+-40.57
+],
+[
+215.45,
+-40.62
+],
+[
+226.71,
+-39.73
+],
+[
+236.01,
+-38.34
+],
+[
+249.37,
+-35.76
+],
+[
+265.6,
+-31.17
+]
+],
+"deck_z_dsm": [
+8.61,
+8.55,
+8.57,
+8.52,
+17.01,
+16.53,
+8.4,
+8.38,
+8.37,
+8.42,
+8.5,
+8.56,
+8.58,
+8.73,
+8.79,
+8.91
+]
+},
+{
+"osm": "way/31231611",
+"k": "rail",
+"bridge": "viaduct",
+"name": "",
+"pts": [
+[
+238.22,
+-42.03
+],
+[
+222.59,
+-45.88
+],
+[
+210.95,
+-48.28
+],
+[
+200.77,
+-49.86
+],
+[
+189.86,
+-50.97
+]
+],
+"deck_z_dsm": [
+8.69,
+8.49,
+8.43,
+8.37,
+8.33
+]
+},
+{
+"osm": "way/31339893",
+"k": "platform",
+"bridge": null,
+"name": "4",
+"pts": [
+[
+201.27,
+-32.53
+],
+[
+201.23,
+-35.62
+],
+[
+190.49,
+-35.56
+],
+[
+182.16,
+-35.4
+],
+[
+167.76,
+-34.66
+],
+[
+153.58,
+-33.58
+],
+[
+119.37,
+-31.04
+],
+[
+105.76,
+-30.21
+],
+[
+97.25,
+-30.17
+],
+[
+89.32,
+-30.3
+],
+[
+73.29,
+-30.94
+],
+[
+79.86,
+-27.72
+],
+[
+81.57,
+-27.05
+],
+[
+131.09,
+-26.25
+],
+[
+147.47,
+-26.42
+],
+[
+169.53,
+-27.89
+],
+[
+172.65,
+-28.35
+],
+[
+201.27,
+-32.53
+]
+],
+"deck_z_dsm": [
+-0.59,
+9.4,
+9.4,
+9.4,
+9.36,
+9.36,
+13.61,
+16.45,
+10.82,
+9.47,
+9.5,
+9.43,
+9.46,
+13.86,
+15.66,
+7.59,
+7.34,
+-0.59
+]
+},
+{
+"osm": "way/101853634",
+"k": "rail",
+"bridge": "viaduct",
+"name": "Manchester and Ordsall Lane Junction Branch",
+"pts": [
+[
+843.03,
+182.55
+],
+[
+677.26,
+118.65
+],
+[
+609.35,
+92.5
+],
+[
+528.92,
+62.74
+],
+[
+508.55,
+55.21
+],
+[
+410.36,
+19.01
+],
+[
+383.21,
+8.98
+],
+[
+366.27,
+2.72
+],
+[
+317.71,
+-16.58
+],
+[
+283.97,
+-28.69
+],
+[
+267.85,
+-33.67
+]
+],
+"deck_z_dsm": [
+null,
+null,
+null,
+null,
+11.41,
+10.25,
+10.01,
+9.79,
+9.32,
+8.98,
+8.84
+]
+},
+{
+"osm": "way/101853635",
+"k": "rail",
+"bridge": "viaduct",
+"name": "Manchester and Ordsall Lane Junction Branch",
+"pts": [
+[
+318.45,
+-12.69
+],
+[
+409.57,
+22.1
+],
+[
+431.99,
+30.27
+],
+[
+507.25,
+58.42
+],
+[
+527.45,
+66.07
+],
+[
+676.84,
+122.73
+],
+[
+841.59,
+185.42
+]
+],
+"deck_z_dsm": [
+8.77,
+0.71,
+10.66,
+11.35,
+null,
+null,
+null
+]
+},
+{
+"osm": "way/101855024",
+"k": "rail",
+"bridge": "viaduct",
+"name": "Manchester and Ordsall Lane Junction Branch",
+"pts": [
+[
+-62.12,
+-35.79
+],
+[
+-139.67,
+-29.93
+],
+[
+-163.34,
+-28.2
+],
+[
+-234.77,
+-23.62
+],
+[
+-236.2,
+-23.53
+],
+[
+-296.6,
+-19.72
+],
+[
+-400.54,
+-13.16
+],
+[
+-453.65,
+-6.55
+],
+[
+-478.08,
+-1.86
+],
+[
+-490.57,
+1.48
+],
+[
+-513.75,
+8.34
+],
+[
+-528.63,
+13.5
+],
+[
+-542.81,
+19.1
+],
+[
+-558.34,
+25.33
+],
+[
+-576.07,
+34.32
+],
+[
+-603.06,
+48.67
+],
+[
+-630.27,
+62.77
+]
+],
+"deck_z_dsm": [
+8.48,
+8.48,
+8.53,
+8.42,
+8.38,
+8.33,
+null,
+null,
+null,
+null,
+null,
+null,
+null,
+null,
+null,
+null,
+null
+]
+},
+{
+"osm": "way/117741282",
+"k": "rail",
+"bridge": "viaduct",
+"name": "Manchester and Ordsall Lane Junction Branch",
+"pts": [
+[
+189.72,
+-53.28
+],
+[
+171.19,
+-54.45
+],
+[
+131.3,
+-52.57
+],
+[
+79.89,
+-48.11
+],
+[
+51.65,
+-45.97
+],
+[
+-9.46,
+-41.68
+],
+[
+-19.43,
+-40.66
+],
+[
+-39.75,
+-38.56
+],
+[
+-62.12,
+-35.79
+]
+],
+"deck_z_dsm": [
+8.32,
+8.26,
+8.45,
+8.42,
+8.48,
+8.52,
+8.56,
+8.52,
+8.48
+]
+},
+{
+"osm": "way/332554660",
+"k": "light_rail",
+"bridge": "viaduct",
+"name": "",
+"pts": [
+[
+-335.0,
+62.37
+],
+[
+-324.3,
+63.12
+],
+[
+-313.71,
+64.73
+],
+[
+-305.67,
+67.0
+],
+[
+-297.31,
+70.8
+],
+[
+-289.75,
+75.16
+],
+[
+-282.47,
+80.28
+],
+[
+-268.47,
+91.93
+],
+[
+-219.54,
+132.66
+],
+[
+-140.67,
+196.69
+],
+[
+-132.88,
+203.68
+],
+[
+-125.48,
+210.12
+],
+[
+-117.95,
+218.13
+],
+[
+-108.42,
+229.02
+],
+[
+-92.86,
+247.47
+]
+],
+"deck_z_dsm": [
+null,
+null,
+null,
+11.08,
+2.14,
+11.12,
+11.13,
+11.05,
+11.16,
+7.89,
+7.66,
+7.48,
+7.33,
+7.29,
+7.43
+]
+},
+{
+"osm": "way/427155418",
+"k": "rail",
+"bridge": "viaduct",
+"name": "Manchester and Ordsall Lane Junction Branch",
+"pts": [
+[
+-627.75,
+65.58
+],
+[
+-601.05,
+51.46
+],
+[
+-574.56,
+37.27
+],
+[
+-556.77,
+28.4
+],
+[
+-541.34,
+22.07
+],
+[
+-526.18,
+16.25
+],
+[
+-512.67,
+11.5
+],
+[
+-499.35,
+7.39
+],
+[
+-488.43,
+4.3
+],
+[
+-477.27,
+1.68
+],
+[
+-453.14,
+-2.74
+],
+[
+-400.51,
+-9.68
+],
+[
+-296.21,
+-16.4
+],
+[
+-163.14,
+-24.96
+],
+[
+-73.23,
+-31.36
+],
+[
+-60.26,
+-32.21
+],
+[
+-0.8,
+-35.71
+]
+],
+"deck_z_dsm": [
+null,
+null,
+null,
+null,
+null,
+null,
+null,
+null,
+null,
+null,
+null,
+null,
+8.73,
+8.53,
+8.44,
+8.64,
+8.61
+]
+},
+{
+"osm": "way/481609203",
+"k": "light_rail",
+"bridge": null,
+"name": "",
+"pts": [
+[
+11.09,
+370.74
+],
+[
+12.79,
+374.25
+],
+[
+17.74,
+384.47
+],
+[
+24.44,
+397.49
+],
+[
+33.83,
+409.96
+],
+[
+45.98,
+424.11
+],
+[
+54.26,
+433.64
+],
+[
+88.3,
+473.69
+],
+[
+89.37,
+475.01
+],
+[
+96.97,
+482.84
+]
+],
+"deck_z_dsm": [
+7.44,
+7.48,
+7.52,
+7.57,
+7.69,
+null,
+null,
+null,
+null,
+null
+]
+},
+{
+"osm": "way/481609207",
+"k": "light_rail",
+"bridge": null,
+"name": "Metrolink",
+"pts": [
+[
+99.18,
+481.35
+],
+[
+93.92,
+472.95
+],
+[
+56.03,
+429.39
+],
+[
+38.36,
+402.81
+],
+[
+35.6,
+393.12
+],
+[
+29.54,
+380.23
+]
+],
+"deck_z_dsm": [
+null,
+null,
+null,
+7.66,
+7.59,
+7.52
+]
+},
+{
+"osm": "way/614632174",
+"k": "light_rail",
+"bridge": null,
+"name": "Metrolink",
+"pts": [
+[
+6.6,
+374.14
+],
+[
+7.99,
+377.5
+],
+[
+10.73,
+384.17
+],
+[
+14.11,
+391.74
+],
+[
+20.13,
+405.67
+],
+[
+29.36,
+419.39
+],
+[
+38.09,
+429.6
+],
+[
+71.42,
+468.42
+],
+[
+80.79,
+479.6
+],
+[
+86.58,
+487.14
+]
+],
+"deck_z_dsm": [
+7.49,
+7.52,
+7.53,
+7.48,
+7.46,
+7.54,
+null,
+null,
+null,
+null
+]
+},
+{
+"osm": "way/636894320",
+"k": "rail",
+"bridge": "viaduct",
+"name": "",
+"pts": [
+[
+-236.2,
+-23.53
+],
+[
+-296.21,
+-16.4
+]
+],
+"deck_z_dsm": [
+8.38,
+8.73
+]
+},
+{
+"osm": "way/636894321",
+"k": "rail",
+"bridge": "viaduct",
+"name": "",
+"pts": [
+[
+-73.23,
+-31.36
+],
+[
+-139.67,
+-29.93
+]
+],
+"deck_z_dsm": [
+8.44,
+8.48
+]
+},
+{
+"osm": "way/636894322",
+"k": "rail",
+"bridge": "viaduct",
+"name": "",
+"pts": [
+[
+-13.17,
+-37.9
+],
+[
+-60.26,
+-32.21
+]
+],
+"deck_z_dsm": [
+8.48,
+8.64
+]
+},
+{
+"osm": "way/636894323",
+"k": "rail",
+"bridge": "viaduct",
+"name": "Manchester and Ordsall Lane Junction Branch",
+"pts": [
+[
+189.86,
+-50.97
+],
+[
+172.46,
+-51.64
+],
+[
+113.56,
+-47.64
+],
+[
+47.85,
+-42.17
+],
+[
+-13.17,
+-37.9
+]
+],
+"deck_z_dsm": [
+8.33,
+15.37,
+10.58,
+8.44,
+8.48
+]
+},
+{
+"osm": "way/636894324",
+"k": "rail",
+"bridge": "viaduct",
+"name": "",
+"pts": [
+[
+238.22,
+-42.03
+],
+[
+222.99,
+-47.09
+],
+[
+211.45,
+-50.04
+],
+[
+201.03,
+-51.85
+],
+[
+189.72,
+-53.28
+]
+],
+"deck_z_dsm": [
+8.69,
+8.61,
+8.41,
+8.42,
+8.32
+]
+},
+{
+"osm": "way/636894325",
+"k": "rail",
+"bridge": "viaduct",
+"name": "",
+"pts": [
+[
+267.85,
+-33.67
+],
+[
+263.2,
+-34.96
+],
+[
+238.22,
+-42.03
+]
+],
+"deck_z_dsm": [
+8.84,
+8.85,
+8.69
+]
+},
+{
+"osm": "way/636894326",
+"k": "rail",
+"bridge": "viaduct",
+"name": "",
+"pts": [
+[
+265.6,
+-31.17
+],
+[
+296.59,
+-20.8
+],
+[
+318.45,
+-12.69
+]
+],
+"deck_z_dsm": [
+8.91,
+6.24,
+8.77
+]
+},
+{
+"osm": "way/636894327",
+"k": "rail",
+"bridge": "viaduct",
+"name": "",
+"pts": [
+[
+366.27,
+2.72
+],
+[
+318.45,
+-12.69
+]
+],
+"deck_z_dsm": [
+9.79,
+8.77
+]
+},
+{
+"osm": "way/636894328",
+"k": "rail",
+"bridge": "viaduct",
+"name": "",
+"pts": [
+[
+431.99,
+30.27
+],
+[
+383.21,
+8.98
+]
+],
+"deck_z_dsm": [
+10.66,
+10.01
+]
+},
+{
+"osm": "way/639831601",
+"k": "light_rail",
+"bridge": null,
+"name": "Metrolink",
+"pts": [
+[
+45.98,
+424.11
+],
+[
+38.36,
+402.81
+]
+],
+"deck_z_dsm": [
+null,
+7.66
+]
+},
+{
+"osm": "way/746241388",
+"k": "light_rail",
+"bridge": null,
+"name": "",
+"pts": [
+[
+-5.92,
+340.48
+],
+[
+-17.9,
+325.82
+],
+[
+-62.65,
+274.25
+],
+[
+-68.43,
+268.16
+],
+[
+-77.21,
+259.03
+],
+[
+-83.01,
+253.35
+],
+[
+-90.34,
+245.52
+]
+],
+"deck_z_dsm": [
+7.28,
+7.29,
+7.58,
+7.61,
+7.61,
+7.57,
+7.51
+]
+},
+{
+"osm": "way/746610042",
+"k": "light_rail",
+"bridge": null,
+"name": "",
+"pts": [
+[
+-92.86,
+247.47
+],
+[
+-84.5,
+258.19
+],
+[
+-78.13,
+266.07
+],
+[
+-64.9,
+281.95
+]
+],
+"deck_z_dsm": [
+7.43,
+7.55,
+7.57,
+7.63
+]
+},
+{
+"osm": "way/1460568804",
+"k": "light_rail",
+"bridge": null,
+"name": "",
+"pts": [
+[
+58.91,
+418.26
+],
+[
+44.21,
+401.03
+],
+[
+29.54,
+380.23
+]
+],
+"deck_z_dsm": [
+7.8,
+7.65,
+7.52
+]
+},
+{
+"osm": "way/1460574144",
+"k": "light_rail",
+"bridge": null,
+"name": "",
+"pts": [
+[
+29.54,
+380.23
+],
+[
+25.17,
+373.57
+],
+[
+20.82,
+368.15
+],
+[
+17.98,
+365.28
+],
+[
+13.28,
+360.92
+],
+[
+8.47,
+356.36
+],
+[
+1.67,
+349.92
+],
+[
+-5.92,
+340.48
+]
+],
+"deck_z_dsm": [
+7.52,
+7.48,
+7.44,
+7.42,
+7.37,
+7.38,
+7.31,
+7.28
+]
+},
+{
+"osm": "way/1460574145",
+"k": "light_rail",
+"bridge": null,
+"name": "",
+"pts": [
+[
+-64.9,
+281.95
+],
+[
+-42.15,
+304.37
+],
+[
+-6.74,
+346.58
+],
+[
+3.17,
+358.8
+],
+[
+11.09,
+370.74
+]
+],
+"deck_z_dsm": [
+7.63,
+7.43,
+7.26,
+7.34,
+7.44
+]
+},
+{
+"osm": "way/1460574147",
+"k": "light_rail",
+"bridge": null,
+"name": "Metrolink",
+"pts": [
+[
+-64.9,
+281.95
+],
+[
+-42.55,
+309.61
+],
+[
+-10.43,
+348.5
+],
+[
+-4.85,
+355.43
+],
+[
+-1.0,
+361.7
+],
+[
+2.31,
+367.66
+],
+[
+6.6,
+374.14
+]
+],
+"deck_z_dsm": [
+7.63,
+7.36,
+7.23,
+7.24,
+7.3,
+7.37,
+7.49
+]
+},
+{
+"osm": "way/1513637898",
+"k": "rail",
+"bridge": "viaduct",
+"name": "Manchester and Ordsall Lane Junction Branch",
+"pts": [
+[
+-13.17,
+-37.9
+],
+[
+-62.12,
+-35.79
+]
+],
+"deck_z_dsm": [
+8.48,
+8.48
+]
+}
+],
+"viaduct": {
+"deck_z_median": 8.55,
+"n_samples": 116,
+"src": "EA LIDAR DSM along OSM railway=rail bridge=viaduct",
+"arch_span": "NOT FOUND (stand-in 9 m)",
+"pier_w": "NOT FOUND (stand-in 1.8 m)"
+},
+"not_in_osm": [
+"highway=street_lamp: 0 nodes in 250 m -> lamp positions are stand-in",
+"traffic_sign: none",
+"bin positions: 4 waste_basket only"
+]
+}

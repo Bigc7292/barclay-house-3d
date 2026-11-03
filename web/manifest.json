@@ -1,0 +1,27 @@
+[
+ {
+  "file": "index.html",
+  "data": "<!doctype html><html><head><meta charset=utf-8><meta name=viewport content=\"width=device-width,initial-scale=1\"><title>Barclay House viewer</title>\n<script type=\"module\" src=\"https://ajax.googleapis.com/ajax/libs/model-viewer/4.0.0/model-viewer.min.js\"></script>\n<style>body{margin:0;font-family:system-ui,sans-serif;display:flex;height:100vh}#v{flex:1;position:relative}model-viewer{width:100%;height:100%;background:linear-gradient(#dfe6ee,#f6f6f4)}#bar{position:absolute;top:10px;left:10px;z-index:2}button{padding:8px 14px;margin-right:6px;border:0;border-radius:6px;background:#fff;box-shadow:0 1px 4px #0003;cursor:pointer}button.on{background:#1d4ed8;color:#fff}#l{width:360px;padding:16px;font-size:13px;overflow:auto;border-left:1px solid #ddd}.nf{color:#b00;font-weight:600}.x{display:none}</style></head><body>\n<div id=v><div id=bar><button id=bi class=on onclick=\"sw('i')\">Interior: Two Bed</button><button id=be onclick=\"sw('e')\">Exterior</button><button id=ba class=on onclick=\"ar()\">Auto-orbit</button></div>\n<model-viewer id=m src=\"twobed.glb\" camera-controls auto-rotate shadow-intensity=1 exposure=1 environment-image=neutral></model-viewer></div>\n<div id=l><div id=li><h3>Two Bed apartment</h3>\n<p><b>Sourced:</b> 63 m\u00b2 average, ground floor, 2 bedrooms + separate living, allocated parking (<a href=\"https://barclay-house.com/two-bedroom-apartment/\">barclay-house.com</a>). Rightmove Apt 02 679 sq ft (<a href=\"https://www.rightmove.co.uk/properties/92163630\">92163630</a>), Apt 03 681 sq ft (<a href=\"https://www.rightmove.co.uk/properties/92161311\">92161311</a>). Floor-to-floor GF\u21921st 3.663 m (Howard &amp; Seddon E05, planning 128804/FO/2020).</p>\n<p class=nf>Total area sourced; internal layout NOT FOUND.</p>\n<p>Shown as one open 7.94 \u00d7 7.94 m volume = <span class=nf>UNSOURCED proportions</span>. Floor and wall finishes are display colours only (unsourced). Front wall cut to 1 m to see inside. No rooms or furniture modelled. Room dimensions, outline and matching planning flat number: <span class=nf>NOT FOUND</span>.</p>\n<p>Rightmove floor plan (no dimensions printed):</p><img src=\"apt02_fp.png\" width=320></div>\n<div id=le class=x><h3>Exterior</h3><p>Web version of the exterior scene: meshopt-compressed, mesh simplified (ratio 0.5, error 0.001), textures resized to max 1024 px and converted to WebP. <b>Lossy</b>: fine geometry and texture detail are reduced compared with the 103.5 MB source. See the exterior dossier for sources.</p></div></div>\n<script>const m=document.getElementById('m');function sw(k){m.src=k=='i'?'twobed.glb':'exterior.glb';bi.className=k=='i'?'on':'';be.className=k=='e'?'on':'';li.className=k=='i'?'':'x';le.className=k=='e'?'':'x'}function ar(){m.autoRotate=!m.autoRotate;ba.className=m.autoRotate?'on':''}</script></body></html>\n",
+  "encoding": "utf-8"
+ },
+ {
+  "file": "twobed.glb",
+  "data": "$file:/workspace/barclay/web/twobed.glb.b64",
+  "encoding": "base64"
+ },
+ {
+  "file": "exterior.glb",
+  "data": "$file:/workspace/barclay/web/exterior.glb.b64",
+  "encoding": "base64"
+ },
+ {
+  "file": "apt02_fp.png",
+  "data": "$file:/workspace/barclay/web/apt02_fp.png.b64",
+  "encoding": "base64"
+ },
+ {
+  "file": "latest.png",
+  "data": "$file:/workspace/barclay/web/latest.png.b64",
+  "encoding": "base64"
+ }
+]

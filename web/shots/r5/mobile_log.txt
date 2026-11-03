@@ -1,0 +1,9 @@
+room i_living ""
+room i_kitchen ""
+room i_bed1 ""
+room i_bed2 ""
+room i_bath ""
+room i_hall ""
+room i_store ""
+ext visible after back on
+

@@ -1,0 +1,8 @@
+shot facade:midday
+shot interior:midday:i
+shot i_living:midday:i
+shot i_kitchen:midday:i
+shot i_bed1:midday:i
+shot i_bed2:midday:i
+shot i_bath:midday:i
+ALLDONE
