@@ -6,3 +6,4 @@
 - Python 3: numpy, rasterio/GDAL, requests (OSM Overpass, LIDAR processing).
 - Data: EA LIDAR 1 m DSM/DTM (OGL) https://environment.data.gov.uk/survey ; OSM via Overpass; textures ambientCG / Poly Haven (CC0).
 - MCPs/plugins used by agents: Blender MCP, Playwright, GitHub, Vercel, Google Drive, X (bookmark analyst).
+- Python venv (.venv, not committed, regenerable): `python3 -m venv .venv && .venv/bin/pip install -r requirements-venv.txt`
