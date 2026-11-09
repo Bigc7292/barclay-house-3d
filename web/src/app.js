@@ -11,6 +11,7 @@ import { OutputPass } from 'three/examples/jsm/postprocessing/OutputPass.js';
 import { Water } from 'three/examples/jsm/objects/Water2.js'; // x_tricks #10: three r170 Water2 (MIT), bundled locally by esbuild, no CDN
 import canals from './canal.json'; // Canal_water triangles from out/barclay_surroundings.glb (.gltf/canal_extract.mjs)
 import lamps from './lights.json';
+import life from './life.json'; // x_tricks #9 street life: OSM Whitworth St W + viaduct rail (scene_data.json, ODbL), heights DTM / rail z
 const $=id=>document.getElementById(id), msg=$('msg');
 const say=(t,e)=>{msg.textContent=t;msg.className=e?'err':''};
 const q0=new URLSearchParams(location.search);
@@ -157,8 +158,16 @@ const groundFlags=mat=>{mat.metalness=0;mat.roughness=0.85;wp(mat,'ext7gflags',`
  vec3 col=mix(vec3(0.2,0.197,0.185),vec3(0.26,0.255,0.24),mix(h21(c+7.0),0.5,far));
  col*=0.9+0.2*fbm(vWP.xz*1.6);col*=1.0-0.35*smoothstep(0.6,0.76,fbm(vWP.xz*0.8+11.0));
  col=mix(col,vec3(0.15,0.145,0.135),joint);diffuseColor.rgb=mix(diffuseColor.rgb,col,gm);}`)};
-const asphalt=mat=>{mat.roughness=0.85;wp(mat,'ext7asph',`
- {diffuseColor.rgb*=0.62;float o=smoothstep(0.62,0.76,fbm(vec2(vWP.x*0.6,vWP.z*1.8)+5.0));diffuseColor.rgb=mix(diffuseColor.rgb,vec3(0.03),o*0.5);}`)};
+// road: Poly Haven 'Asphalt 02' (CC0, tex/LICENSES.txt), world-XZ projected 3 m tiles + large-scale variation (replaces the flat shader tint)
+const ASPH=(()=>{const m=MOB?'_m':'';return{d:tx(`tex/asphalt_02_diff${m}.jpg`,1),n:tx(`tex/asphalt_02_nor_gl${m}.jpg`,0),r:tx(`tex/asphalt_02_rough${m}.jpg`,0)}})();
+const asphalt=mat=>{mat.metalness=0;mat.roughness=1;mat.map=null;mat.color.set(0xffffff);mat.envMapIntensity=0.35;
+ mat.onBeforeCompile=sh=>{Object.assign(sh.uniforms,{uAD:{value:ASPH.d},uAN:{value:ASPH.n},uAR:{value:ASPH.r}});
+  sh.vertexShader=sh.vertexShader.replace('#include <common>','#include <common>\nvarying vec3 vWP;').replace('#include <begin_vertex>','#include <begin_vertex>\nvWP=(modelMatrix*vec4(transformed,1.0)).xyz;');
+  sh.fragmentShader=sh.fragmentShader.replace('#include <common>','#include <common>\nvarying vec3 vWP;uniform sampler2D uAD,uAN,uAR;\n'+NZ)
+   .replace('#include <map_fragment>','#include <map_fragment>\n vec2 au=vWP.xz/3.0;vec3 ac=texture2D(uAD,au).rgb;ac*=mix(0.78,1.06,fbm(vWP.xz*0.07));float wet=smoothstep(0.66,0.8,fbm(vWP.xz*0.11+9.0));diffuseColor.rgb=ac*mix(0.82,0.6,wet);')
+   .replace('#include <roughnessmap_fragment>','#include <roughnessmap_fragment>\n roughnessFactor=clamp(texture2D(uAR,au).g*mix(1.0,0.55,wet),0.3,1.0);')
+   .replace('#include <normal_fragment_begin>','#include <normal_fragment_begin>\n {vec3 an=texture2D(uAN,au).xyz*2.0-1.0;normal=normalize(mat3(viewMatrix)*normalize(vec3(an.x*0.9,an.z,-an.y*0.9)));}');};
+ mat.customProgramCacheKey=()=>'asphPH';mat.needsUpdate=true};
 // sky dome: blue gradient with drifting fbm cloud; colours set per time of day in tod()
 const SKY={zen:{value:new THREE.Color(0x2a5bb8)},hor:{value:new THREE.Color(0xa9bdd8)},cl:{value:new THREE.Color(0xf4f4f2)},cover:{value:0.5},t:{value:0}};
 const skyMesh=new THREE.Mesh(new THREE.SphereGeometry(1500,48,24),new THREE.ShaderMaterial({uniforms:SKY,side:THREE.BackSide,depthWrite:false,fog:false,
@@ -214,6 +223,7 @@ const queue=MOB?[['hero_mo3.glb',ext],['context_mo.glb',ext],['ext7_street_o.glb
 const loadNext=()=>{if(!queue.length)return;const [u,g]=queue.shift();pr[u]=0;const kind=u.startsWith('context')?'ctx':u.startsWith('hero')?'hero':u.startsWith('ext7')?'street':'in';L.load(u,x=>{pr[u]=1;prep(x.scene,kind);g.add(x.scene);if(/^Ceiling/.test(x.scene.name))ceil=x.scene;x.scene.traverse(o=>{if(/^Ceiling/.test(o.name)&&o.isMesh)ceil=o});prog();reshadow();loadNext()},e=>{if(e&&e.total){pr[u]=e.loaded/e.total;upd();say(`Loading ${MOB?'mobile ':''}3D models… ${Math.round(Object.values(pr).reduce((a,b)=>a+b,0)/need*100)}%`)}},e=>say('Could not load '+u+' ('+(e&&e.message||'network error')+'). Check your connection and reload.',1))};
 loadNext();
 const P={street:{p:[-1.41,1.7,29.79],t:[0.2,8.5,9.8],f:70},facade:{p:[-1.4,1.7,29.8],t:[-1,6.5,17.3],f:62},entrance:{p:[-0.75,1.7,21.0],t:[-0.27,3.0,15.3],f:45},aerial:{p:[24.83,120,127.14],t:[-0.2,5.4,4],f:48},viaduct:{p:[-51.07,10.31,38.93],t:[-14.9,10,21.8],f:56},interior:{p:[0.6,12,11],t:[0.2,0,-0.3],f:45},i_living:{p:[-0.5,1.5,1.91],t:[2.97,0.9,0.15],f:70},i_kitchen:{p:[-0.79,1.5,1.18],t:[3.41,1.1,2.96],f:70},i_bed1:{p:[-2.0,1.3,-0.85],t:[-2.41,0.8,-3.17],f:70},i_bed2:{p:[1.5,1.3,-1.6],t:[1.36,0.8,-3.62],f:70},i_bath:{p:[-2.08,1.55,3.83],t:[-3.02,0.9,2.88],f:80},i_hall:{p:[-0.65,1.5,4.15],t:[0.09,1.3,0.29],f:75},i_store:{p:[-1.09,1.5,1.32],t:[-3.0,1.0,1.32],f:80}};
+P.road={p:[-14,2.2,27.5],t:[6,0.2,22.5],f:60}; // URL/test-only view down Whitworth St W (no button)
 let preset='street';
 window.cam=k=>{preset=k;const v=P[k];C.position.fromArray(v.p);O.target.fromArray(v.t);C.fov=v.f;C.updateProjectionMatrix();O.update();draw=true};
 // sun elevation/azimuth = tod_panel.py sun_pos() (same NOAA formula, same preset hours, default date 21 June) so web == Blender renders
@@ -244,15 +254,16 @@ R.setAnimationLoop(()=>{skyMesh.position.copy(C.position);skyMesh.visible=!intr.
  if(document.hidden)return;
  if(O.enabled&&!fp&&!flying)O.update();
  if(flying||(O.autoRotate&&O.enabled&&!fp)){draw=true;moved()}
+ {const now=performance.now();if(lifeActive()&&now-lifeLast>=33){draw=true}}
  const still=performance.now()-lastMove>220;
  // progressive refine: SSAO is skipped while the camera moves, then one full-quality frame is drawn when it stops
  if(!draw&&refine&&still)draw=true;
  if(!draw)return;
  ssao.enabled=still;refine=!still;
  if(ceil)ceil.visible=!(preset==='interior'||C.position.y>=2.95);
- wTick();if(!MOB)comp.render();else R.render(S,C);
+ {const now=performance.now();if(lifeActive()){lifeLast=now;lifeTick(now)}else lifeG.visible=lifeOn&&ext.visible}wTick();if(!MOB)comp.render();else R.render(S,C);
  draw=false;
- const t=performance.now();if(lastT&&t-lastT<200){ft.push(t-lastT);if(ft.length>=45){ft.sort((a,b)=>a-b);const med=ft[22];ft=[];if(med>34&&dpr>1){dpr=Math.max(1,dpr-0.25);R.setPixelRatio(dpr);rs()}}}lastT=t;
+ const t=performance.now();if(lastT&&t-lastT<200){ft.push(t-lastT);if(ft.length>=45){ft.sort((a,b)=>a-b);const med=ft[22];ft=[];if(med>(lifeActive()?50:34)&&dpr>1){dpr=Math.max(1,dpr-0.25);R.setPixelRatio(dpr);rs()}}}lastT=t;
 });let ft=[],lastT=0;
 document.addEventListener('visibilitychange',()=>{if(!document.hidden)draw=true});
 window.__ready=()=>done>=need&&!!envTex;
@@ -272,7 +283,40 @@ const waterG=new THREE.Group();waterG.name='CanalWater2';ext.add(waterG);const c
 {const w=waterG.children.find(o=>o.userData.water2)||waterG.children[0];if(w){const b=new THREE.Box3().setFromObject(w),y=w.position.y;P.canal={p:[b.max.x-3,y+2.5,(b.min.z+b.max.z)/2],t:[b.min.x+20,y,(b.min.z+b.max.z)/2],f:56}}} // URL-only test view ?cam=canal (no button)
 if(q0.get('cam')==='canal')cam('canal');
 window.__water=()=>waterG.children.map(o=>({name:o.name,water2:o.userData.water2,y:+o.position.y.toFixed(2),tris:o.geometry.attributes.position.count/3}));
-let wt0=performance.now();const wTick=()=>{const t=(performance.now()-wt0)/1000;cheapW.forEach(m=>m.normalMap.offset.set(t*0.004,t*0.0025))};
+let wt0=performance.now();
+// ---- x_tricks #9 street life (web): Kenney CC0 cars on Whitworth St W lanes + 3-car train on the viaduct (web/life/, licences there).
+// Speeds, lane offset (1.8 m), sizes = STAND-INS (illustrative set dressing). Animates only while the exterior is visible and the tab is shown;
+// frames capped at 30 fps; ?life=0 or the Traffic button turns it off. No shadows from movers (shadow map stays static).
+const lifeG=new THREE.Group();lifeG.name='StreetLife';ext.add(lifeG);let lifeOn=q0.get('life')!=='0',lifeT0=performance.now(),lifeLast=0;
+const mkPath=(pts,win)=>{const P=pts.map(p=>new THREE.Vector3(...p));if(win){const y=P.map(p=>p.y);P.forEach((p,i)=>{let a=0,n=0;for(let k=Math.max(0,i-win);k<=Math.min(P.length-1,i+win);k++){a+=y[k];n++}p.y=a/n})}
+ const s=[0];for(let i=1;i<P.length;i++)s.push(s[i-1]+P[i].distanceTo(P[i-1]));return{P,s,L:s[s.length-1]}};
+const CARP=mkPath(life.car,2),TRP=mkPath(life.train,6);
+const pAt=(pa,d,side,o,dir)=>{d=((d%pa.L)+pa.L)%pa.L;let i=1;while(i<pa.s.length-1&&pa.s[i]<d)i++;const a=pa.P[i-1],b=pa.P[i],u=(d-pa.s[i-1])/Math.max(1e-6,pa.s[i]-pa.s[i-1]);
+ o.lerpVectors(a,b,u);dir.subVectors(b,a).setY(0).normalize();o.x+=dir.z*side;o.z-=dir.x*side;return d};
+const actors=[];const LL=new GLTFLoader();LL.setMeshoptDecoder(MeshoptDecoder);
+const addActor=(url,pa,speed,side,s0,scale,stretch,col)=>LL.load(url,g=>{const m=g.scene;m.traverse(o=>{if(o.isMesh){o.castShadow=false;o.receiveShadow=!MOB;if(col&&/body|paint|car/i.test(o.material.name||'')){}}});
+ const w=new THREE.Group();m.scale.set(scale,scale,scale*(stretch||1));w.add(m);lifeG.add(w);actors.push({w,pa,speed,side,s0});draw=true});
+addActor('life/sedan.glb',CARP,9,1.8,CARP.L*0.55,1.46);
+addActor('life/van.glb',CARP,-9,-1.8,CARP.L*0.2,1.3);
+addActor('life/suv.glb',CARP,8,1.8,CARP.L*0.05,1.4);
+const TLEN=2.4*2.5*2.8+0.6;['a','b','c'].forEach((k,i)=>addActor(`life/train-electric-city-${k}.glb`,TRP,12,0,TRP.L*0.35-i*TLEN,2.5,2.8));
+const _o=new THREE.Vector3(),_d=new THREE.Vector3(),_d2=new THREE.Vector3();
+const lifeTick=now=>{lifeG.visible=lifeOn;if(!lifeOn)return;const t=(now-lifeT0)/1000;
+ for(const a of actors){const d=pAt(a.pa,a.s0+a.speed*t,a.side,_o,_d);a.w.position.copy(_o);
+  // look along travel; the train averages a 6 m chord so carriages follow the curve
+  if(a.pa===TRP){pAt(a.pa,d+3,0,_d2,_d);_d.subVectors(_d2,_o).setY(0).normalize()}const f=a.speed<0?-1:1;a.w.rotation.y=Math.atan2(_d.x*f,_d.z*f);
+  a.w.visible=d>4&&d<a.pa.L-4}};
+const lifeActive=()=>lifeOn&&ext.visible&&!document.hidden&&actors.length>0;
+window.__lifeSeek=sec=>{lifeT0=performance.now()-sec*1000;draw=true};window.__lifeProbe=sec=>actors.map(a=>{pAt(a.pa,a.s0+a.speed*sec,a.side,_o,_d);return _o.toArray()});
+window.__life=()=>({on:lifeOn,actors:actors.length,pos:actors.map(a=>a.w.position.toArray().map(v=>+v.toFixed(1)))});
+window.lifeToggle=()=>{lifeOn=!lifeOn;const b=$('btr');if(b)b.className=lifeOn?'on':'';lifeT0=performance.now()-((lifeLast||lifeT0)-lifeT0);draw=true};
+{const b=$('btr');if(b)b.className=lifeOn?'on':''}
+// centre-line road markings along Whitworth St W (illustrative: UK 3 m dash / 6 m gap; road width not sourced so no edge lines)
+{const pa=CARP,pos=[],o=new THREE.Vector3(),dd=new THREE.Vector3(),o2=new THREE.Vector3();for(let d=2;d<pa.L-3;d+=9){pAt(pa,d,0,o,dd);pAt(pa,d+3,0,o2,dd);const nx=dd.z*0.06,nz=-dd.x*0.06,y1=o.y+0.04,y2=o2.y+0.04;
+  pos.push(o.x+nx,y1,o.z+nz, o.x-nx,y1,o.z-nz, o2.x+nx,y2,o2.z+nz, o2.x+nx,y2,o2.z+nz, o.x-nx,y1,o.z-nz, o2.x-nx,y2,o2.z-nz)}
+ const g=new THREE.BufferGeometry();g.setAttribute('position',new THREE.Float32BufferAttribute(pos,3));g.computeVertexNormals();
+ const m=new THREE.Mesh(g,new THREE.MeshStandardMaterial({color:0xe8e6dc,roughness:0.7,polygonOffset:true,polygonOffsetFactor:-4,polygonOffsetUnits:-4,side:THREE.DoubleSide}));m.name='Road_centre_line';m.receiveShadow=!MOB;ext.add(m)}
+const wTick=()=>{const t=(performance.now()-wt0)/1000;cheapW.forEach(m=>m.normalMap.offset.set(t*0.004,t*0.0025))};
 window.__extReady=()=>done>=3&&!!envTex;window.__dpr=()=>dpr;window.__kick=()=>{draw=true};
 const ease=t=>t<.5?4*t*t*t:1-Math.pow(-2*t+2,3)/2;
 function fly(v,dur,done){flying=true;O.enabled=false;const p0=C.position.clone(),t0=O.target.clone(),f0=C.fov,p1=new THREE.Vector3().fromArray(v.p),t1=new THREE.Vector3().fromArray(v.t),f1=v.f,st=performance.now();
