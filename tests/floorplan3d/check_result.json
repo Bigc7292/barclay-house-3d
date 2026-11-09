@@ -1,0 +1,142 @@
+{
+ "desktop": {
+  "doors": [
+   {
+    "name": "Door_-3.5",
+    "tris": 114,
+    "open": true,
+    "rot": -1.345
+   },
+   {
+    "name": "Door_-0.5",
+    "tris": 114,
+    "open": true,
+    "rot": 1.784
+   },
+   {
+    "name": "Door_-1.4",
+    "tris": 114,
+    "open": true,
+    "rot": 0.087
+   },
+   {
+    "name": "Door_-1.5",
+    "tris": 114,
+    "open": true,
+    "rot": 0.087
+   },
+   {
+    "name": "Door_entrance",
+    "tris": 108,
+    "open": true,
+    "rot": 1.396
+   }
+  ],
+  "afterFly": {
+   "mode": "walk",
+   "cam": [
+    -0.5,
+    1.5,
+    1.9100000000000001
+   ]
+  },
+  "walk1s": [
+   0.790198483222509,
+   1.5,
+   1.255605380267546
+  ],
+  "walk20s": [
+   2.8295444728322816,
+   1.5,
+   -0.7709069905168275
+  ],
+  "doorAfterToggle": {
+   "name": "Door_-3.5",
+   "tris": 114,
+   "open": false,
+   "rot": 0.313
+  },
+  "allClosed": [
+   false,
+   false,
+   false,
+   false,
+   false
+  ],
+  "errors": [],
+  "externalRequests": [
+   "blob:http://127.0.0.1:18490/089fe31d-7358-40e4-af6b-644466e0e13e",
+   "blob:http://127.0.0.1:18490/60058563-fea2-41c9-9e78-e24d50e83621"
+  ]
+ },
+ "phone": {
+  "doors": [
+   {
+    "name": "Door_-3.5",
+    "tris": 114,
+    "open": true,
+    "rot": -1.345
+   },
+   {
+    "name": "Door_-0.5",
+    "tris": 114,
+    "open": true,
+    "rot": 1.784
+   },
+   {
+    "name": "Door_-1.4",
+    "tris": 114,
+    "open": true,
+    "rot": 0.087
+   },
+   {
+    "name": "Door_-1.5",
+    "tris": 114,
+    "open": true,
+    "rot": 0.087
+   },
+   {
+    "name": "Door_entrance",
+    "tris": 108,
+    "open": true,
+    "rot": 1.396
+   }
+  ],
+  "afterFly": {
+   "mode": "walk",
+   "cam": [
+    -0.5,
+    1.5,
+    1.9100000000000001
+   ]
+  },
+  "walk1s": [
+   0.790198483222509,
+   1.5,
+   1.255605380267546
+  ],
+  "walk20s": [
+   2.8295444728322816,
+   1.5,
+   -0.7709069905168275
+  ],
+  "doorAfterToggle": {
+   "name": "Door_-3.5",
+   "tris": 114,
+   "open": false,
+   "rot": 0.313
+  },
+  "allClosed": [
+   false,
+   false,
+   false,
+   false,
+   false
+  ],
+  "errors": [],
+  "externalRequests": [
+   "blob:http://127.0.0.1:18490/2b034c90-4317-4f85-b878-a701947d0fb6",
+   "blob:http://127.0.0.1:18490/afd24722-858c-4087-a8c5-07d3dd2e6988"
+  ]
+ }
+}

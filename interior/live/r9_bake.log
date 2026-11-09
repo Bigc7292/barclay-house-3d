@@ -1,0 +1,63 @@
+/workspace/barclay/interior/build_twobed_v4.py:14: DeprecationWarning: 'Material.use_nodes' is expected to be removed in Blender 6.0
+  M=bpy.data.materials.new(n);M.use_nodes=True;N=M.node_tree.nodes;b=N["Principled BSDF"];L=M.node_tree.links
+00:42.920  render           | Saved: '/workspace/barclay/web/shots/r9/dining_top.png'
+01:07.648  render           | Saved: '/workspace/barclay/web/shots/r9/dining_34.png'
+/workspace/barclay/interior/build_twobed_v4.py:340: DeprecationWarning: 'World.use_nodes' is expected to be removed in Blender 6.0
+  sc.world=bpy.data.worlds.new("w");sc.world.use_nodes=True;bg=sc.world.node_tree.nodes['Background'];env=sc.world.node_tree.nodes.new("ShaderNodeTexEnvironment");env.image=bpy.data.images.load("/workspace/barclay/hdri.exr");sc.world.node_tree.links.new(env.outputs[0],bg.inputs[0]);bg.inputs[1].default_value=0.3
+/workspace/barclay/interior/build_twobed_v4.py:418: DeprecationWarning: 'Material.use_nodes' is expected to be removed in Blender 6.0
+  BM=bpy.data.materials.new("BAKED_lightmap");BM.use_nodes=True;N=BM.node_tree.nodes;b=N["Principled BSDF"];t=N.new("ShaderNodeTexImage");t.image=out
+CHAIR_COUNT 4
+CHAIR_CHECK name=Tub_chair_cream_boucle pos=(2.280,-3.385,0.000) rot_z=-1.5708 open_dir=(-1.000,0.000) to_table=(-1.000,0.000) dot=1.000 d_back=0.970 d_open=0.470 PASS=True
+CHAIR_CHECK name=Tub_chair_cream_boucle.001 pos=(1.560,-2.665,0.000) rot_z=0.0000 open_dir=(0.000,-1.000) to_table=(0.000,-1.000) dot=1.000 d_back=0.970 d_open=0.470 PASS=True
+CHAIR_CHECK name=Tub_chair_cream_boucle.002 pos=(0.840,-3.385,0.000) rot_z=1.5708 open_dir=(1.000,0.000) to_table=(1.000,0.000) dot=1.000 d_back=0.970 d_open=0.470 PASS=True
+CHAIR_CHECK name=Tub_chair_cream_boucle.003 pos=(1.560,-4.105,0.000) rot_z=3.1416 open_dir=(-0.000,1.000) to_table=(0.000,1.000) dot=1.000 d_back=0.970 d_open=0.470 PASS=True
+CHAIR_CHECK_ALL_PASS
+SHOT dining_top
+SHOT dining_34
+PRESET i_bed1 [-2.21, 1.3, -0.85] [-2.41, 0.8, -3.17]
+PRESET i_bed2 [1.51, 1.3, -1.6] [1.36, 0.8, -3.62]
+PRESET i_bath [-1.78, 1.55, 4.13] [-3.02, 0.9, 2.88]
+BATH -3.4734749794006348 -4.53317928314209 -1.5306838750839233 -2.3843345642089844
+Info: Baking map saved to internal image, save it externally or pack it
+BAKED
+ceil faces 10
+CEILING SPLIT 10
+ERROR Draco is not available because library could not be found at /home/box/bvenv/lib/python3.13/site-packages/bpy/lib/libbf_intern_draco_bridge.so
+ERROR MeshOptimizer is not available because library could not be found at /home/box/bvenv/lib/python3.13/site-packages/bpy/lib/libbf_intern_meshopt_bridge.so
+08:35:32 | INFO: Starting glTF 2.0 export
+08:35:32 | INFO: Extracting primitive: Floor_continuous_oak
+08:35:32 | INFO: Primitives created: 1
+08:35:32 | INFO: Extracting primitive: Floor_continuous_oak.001
+08:35:32 | INFO: Primitives created: 1
+08:35:32 | INFO: Extracting primitive: Microwave_glass_face
+08:35:32 | INFO: Primitives created: 1
+08:35:32 | INFO: Extracting primitive: Mirror_glass
+08:35:32 | INFO: Primitives created: 1
+08:35:32 | INFO: Extracting primitive: Shower_glass_edge_chrome
+08:35:32 | INFO: Primitives created: 1
+08:35:32 | INFO: Extracting primitive: Shower_glass_wall
+08:35:32 | INFO: Primitives created: 1
+08:35:32 | INFO: Extracting primitive: Window_0_POSITION_UNSOURCED_backdrop
+08:35:32 | INFO: Primitives created: 1
+08:35:32 | INFO: Extracting primitive: Window_0_POSITION_UNSOURCED_glass_arch
+08:35:32 | INFO: Primitives created: 1
+08:35:32 | INFO: Extracting primitive: Window_0_POSITION_UNSOURCED_glass_daylight
+08:35:32 | INFO: Primitives created: 1
+08:35:32 | INFO: Extracting primitive: Window_2_POSITION_UNSOURCED_backdrop
+08:35:32 | INFO: Primitives created: 1
+08:35:32 | INFO: Extracting primitive: Window_2_POSITION_UNSOURCED_glass_arch
+08:35:32 | INFO: Primitives created: 1
+08:35:32 | INFO: Extracting primitive: Window_2_POSITION_UNSOURCED_glass_daylight
+08:35:32 | INFO: Primitives created: 1
+08:35:32 | INFO: Extracting primitive: Window_3_POSITION_UNSOURCED_backdrop
+08:35:32 | INFO: Primitives created: 1
+08:35:32 | INFO: Extracting primitive: Window_3_POSITION_UNSOURCED_glass_arch
+08:35:32 | INFO: Primitives created: 1
+08:35:32 | INFO: Extracting primitive: Window_3_POSITION_UNSOURCED_glass_daylight
+08:35:32 | INFO: Primitives created: 1
+08:35:32 | INFO: Extracting primitive: WM_door_glass_dark
+08:35:32 | INFO: Primitives created: 1
+08:35:32 | INFO: Finished glTF 2.0 export in 0.5014631748199463 s
+
+EXPORTED K 0.02943622826578239 area 63.0
+EXIT 0

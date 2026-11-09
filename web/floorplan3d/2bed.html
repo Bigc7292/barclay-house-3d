@@ -1,0 +1,114 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<title>Barclay House Two Bed</title>
+<!-- Floorplan 3D interaction patterns (room fly-to, touch joystick walk, door toggle) ported from
+     https://github.com/wy51ai/floorplan-3d (MIT, (c) 2026 wuyi; see ../vendor/floorplan-3d/LICENSE).
+     three.js r160 vendored locally (MIT, see vendor/three-r160/LICENSE). No CDN. Data: 2bed.json. -->
+<style>
+html,body{margin:0;height:100%;overflow:hidden;background:#e9e6e1;font:14px system-ui,sans-serif;touch-action:none}
+#v{position:fixed;inset:0}
+#bar{position:fixed;top:8px;left:8px;right:8px;z-index:3;display:flex;flex-wrap:wrap;gap:6px}
+#bar button{padding:8px 12px;border:0;border-radius:8px;background:#fffffff0;box-shadow:0 1px 4px #0003;cursor:pointer;font:inherit}
+#bar button.on{background:#1d4ed8;color:#fff}
+#joy{position:fixed;left:24px;bottom:28px;width:120px;height:120px;border-radius:50%;background:#0003;border:2px solid #fff8;z-index:3;display:none;touch-action:none}
+#joy i{position:absolute;left:35px;top:35px;width:50px;height:50px;border-radius:50%;background:#fffd;box-shadow:0 1px 4px #0005}
+#msg{position:fixed;bottom:8px;right:8px;z-index:3;color:#b00}
+</style>
+<script type="importmap">{"imports":{"three":"./vendor/three-r160/build/three.module.js","three/addons/":"./vendor/three-r160/examples/jsm/"}}</script>
+</head><body>
+<div id="v"></div><div id="bar"><a id="b_back" href="../index.html?m=i" style="padding:8px 12px;border-radius:8px;background:#111;color:#fff;text-decoration:none;box-shadow:0 1px 4px #0003;font:inherit">← Viewer</a><button id="b_over" class="on" data-act="over">3D</button></div>
+<div id="joy"><i></i></div><div id="msg"></div>
+<script type="module">
+import * as THREE from 'three';
+import {OrbitControls} from 'three/addons/controls/OrbitControls.js';
+import {GLTFLoader} from 'three/addons/loaders/GLTFLoader.js';
+import {RoomEnvironment} from 'three/addons/environments/RoomEnvironment.js';
+import {MeshoptDecoder} from 'three/addons/libs/meshopt_decoder.module.js';
+const $=s=>document.querySelector(s), q=new URLSearchParams(location.search);
+const MOB=q.get('lq')==='1'||(q.get('lq')!=='0'&&(matchMedia('(pointer:coarse)').matches||/Android|iPhone|iPad|Mobi/i.test(navigator.userAgent)));
+const D=await (await fetch('2bed.json')).json();
+const R=new THREE.WebGLRenderer({antialias:!MOB});R.setPixelRatio(Math.min(devicePixelRatio,MOB?1.5:2));
+R.toneMapping=THREE.ACESFilmicToneMapping;R.outputColorSpace=THREE.SRGBColorSpace;$('#v').appendChild(R.domElement);
+const S=new THREE.Scene();S.background=new THREE.Color(0xe9e6e1);
+S.environment=new THREE.PMREMGenerator(R).fromScene(new RoomEnvironment(),0.04).texture;S.environmentIntensity=0.6;
+const C=new THREE.PerspectiveCamera(45,1,0.03,200);const O=new OrbitControls(C,R.domElement);O.enableDamping=true;O.maxPolarAngle=Math.PI*0.49;O.maxDistance=40;
+const L=new GLTFLoader();L.setMeshoptDecoder(MeshoptDecoder);
+const gltf=await L.loadAsync(MOB?'../twobed_m.glb':'../twobed.glb').catch(e=>{$('#msg').textContent='load error';throw e});
+const root=gltf.scene;S.add(root);root.updateMatrixWorld(true);
+let ceiling=null;
+root.traverse(o=>{if(!o.isMesh)return;
+ if(/BAKED/.test(o.material.name)){const mp=o.material.map;if(mp)mp.colorSpace=THREE.SRGBColorSpace;o.material=new THREE.MeshBasicMaterial({map:mp,toneMapped:false})}
+ else if(/backdrop/i.test(o.name)){const mp=o.material.map||o.material.emissiveMap;o.material=new THREE.MeshBasicMaterial({map:mp,toneMapped:false})}
+ else if(/glass/i.test(o.material.name)&&!/TV|Chrome/.test(o.material.name)){o.material=new THREE.MeshPhysicalMaterial({color:0xffffff,transparent:true,opacity:0.12,roughness:0.03,depthWrite:false})}
+ if(/^Ceiling/.test(o.name))ceiling=o;});
+// ---- doors: carve each door leaf out of the baked mesh by its hinge frame (data: 2bed.json), give it a pivot (Floorplan 3D pattern)
+const doors=[];
+function carveDoors(){
+ const mesh=root.getObjectByName('BAKED_interior')||(()=>{let m;root.traverse(o=>{if(o.isMesh&&/BAKED/.test(o.material.map?.name||o.name)&&!m&&!/Ceiling/.test(o.name))m=o});return m})();
+ if(!mesh)return;
+ const src=mesh.geometry.index?mesh.geometry.toNonIndexed():mesh.geometry,g=new THREE.BufferGeometry();
+ for(const k in src.attributes){const a=src.attributes[k],is=a.itemSize,f=new Float32Array(a.count*is),gt=['getX','getY','getZ','getW'];for(let i=0;i<a.count;i++)for(let e=0;e<is;e++)f[i*is+e]=a[gt[e]](i);g.setAttribute(k,new THREE.BufferAttribute(f,is))} // dequantize (KHR_mesh_quantization) before transforming
+ g.applyMatrix4(mesh.matrixWorld);
+ const pos=g.attributes.position,n=pos.count/3,owner=new Int8Array(n).fill(-1),v=new THREE.Vector3(),hv=new THREE.Vector3();
+ D.doors.forEach((d,di)=>{const h=hv.fromArray(d.hinge),c=Math.cos(-d.open_rot_y),s=Math.sin(-d.open_rot_y);
+  for(let t=0;t<n;t++){if(owner[t]>=0)continue;let ok=true;
+   for(let k=0;k<3&&ok;k++){v.fromBufferAttribute(pos,t*3+k).sub(h);const x=v.x*c+v.z*s,z=-v.x*s+v.z*c;ok=x>-0.012&&x<d.w+0.012&&Math.abs(z)<0.035&&v.y>0.004&&v.y<2.096}
+   if(ok)owner[t]=di}});
+ const pick=(want)=>{const ng=new THREE.BufferGeometry();for(const k in g.attributes){const a=g.attributes[k],is=a.itemSize,arr=[];for(let t=0;t<n;t++)if(owner[t]===want)for(let j=0;j<3;j++)for(let e=0;e<is;e++)arr.push(a.array[(t*3+j)*is+e]);ng.setAttribute(k,new THREE.BufferAttribute(new Float32Array(arr),is))}return ng};
+ const mat=mesh.material,rest=new THREE.Mesh(pick(-1),mat);rest.name='BAKED_interior_rest';
+ mesh.parent.remove(mesh);S.add(rest);
+ D.doors.forEach((d,di)=>{const dg=pick(di),cnt=dg.attributes.position.count/3;if(!cnt)return;
+  const pv=new THREE.Group();pv.position.fromArray(d.hinge);dg.translate(-d.hinge[0],-d.hinge[1],-d.hinge[2]);
+  const m=new THREE.Mesh(dg,mat);m.name=d.name;m.userData.door=di;pv.add(m);S.add(pv);
+  doors.push({d,pv,mesh:m,base:d.open_rot_y,cur:d.open_rot_y,open:true,tris:cnt})});
+}
+carveDoors();
+const walls=[];S.traverse(o=>{if(o.isMesh&&o!==ceiling&&!/backdrop/i.test(o.name))walls.push(o)});
+// ---- UI: room buttons
+const bar=$('#bar');D.rooms.forEach(r=>{const b=document.createElement('button');b.textContent=r.label;b.dataset.room=r.id;bar.appendChild(b)});
+const wb=document.createElement('button');wb.id='b_walk';wb.textContent='Walk';wb.dataset.act='walk';bar.appendChild(wb);
+const setOn=id=>bar.querySelectorAll('button').forEach(b=>b.classList.toggle('on',b.dataset.room===id||(id==='over'&&b.id==='b_over')||(b.id==='b_walk'&&mode==='walk')));
+// ---- camera fly-to (ease, same curve family as Floorplan 3D)
+const ease=t=>t<.5?4*t*t*t:1-Math.pow(-2*t+2,3)/2;let fly=null,mode='orbit';
+function flyTo(v,dur,done){const st=performance.now(),p0=C.position.clone(),t0=O.target.clone(),f0=C.fov,p1=new THREE.Vector3().fromArray(v.p),t1=new THREE.Vector3().fromArray(v.t);
+ fly={step(now){const k=Math.min(1,(now-st)/dur),e=ease(k);C.position.lerpVectors(p0,p1,e);O.target.lerpVectors(t0,t1,e);C.fov=f0+(v.f-f0)*e;C.updateProjectionMatrix();C.lookAt(O.target);if(k>=1){fly=null;done&&done()}}}}
+const eul=new THREE.Euler(0,0,0,'YXZ');
+function setWalk(on){mode=on?'walk':'orbit';O.enabled=!on;$('#joy').style.display=(on&&(MOB||matchMedia('(pointer:coarse)').matches))?'block':'none';if(on){C.position.y=Math.min(C.position.y,1.6);C.lookAt(O.target)}setOn(null);wb.classList.toggle('on',on)}
+function goRoom(id){const r=D.rooms.find(r=>r.id===id);if(!r||fly)return;const inside=mode==='walk';O.enabled=false;
+ const go=()=>flyTo(r.cam,1200,()=>{setWalk(true);setOn(id);wb.classList.add('on')});
+ if(inside){const mid={p:[(C.position.x+r.cam.p[0])/2,2.6,(C.position.z+r.cam.p[2])/2],t:r.cam.t,f:r.cam.f};flyTo(mid,450,go)}else go()}
+function goOver(){if(fly)return;setWalk(false);O.enabled=false;flyTo(D.overview,1100,()=>{O.enabled=true;O.update()});setOn('over')}
+bar.addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;if(b.dataset.room)goRoom(b.dataset.room);else if(b.dataset.act==='over')goOver();else if(b.dataset.act==='walk'){if(mode==='walk')goOver();else goRoom(D.rooms[0].id)}});
+// ---- joystick (Floorplan 3D bindJoystick pattern) + drag-to-look + WASD
+const joy={x:0,y:0,id:null};(()=>{const el=$('#joy'),kn=$('#joy i'),RR=45;
+ const upd=e=>{const r=el.getBoundingClientRect();let dx=e.clientX-(r.left+r.width/2),dy=e.clientY-(r.top+r.height/2);const l=Math.hypot(dx,dy);if(l>RR){dx*=RR/l;dy*=RR/l}joy.x=dx/RR;joy.y=dy/RR;kn.style.transform=`translate(${dx}px,${dy}px)`};
+ el.addEventListener('pointerdown',e=>{e.preventDefault();e.stopPropagation();joy.id=e.pointerId;el.setPointerCapture(e.pointerId);upd(e)});
+ el.addEventListener('pointermove',e=>{if(e.pointerId===joy.id)upd(e)});
+ const end=e=>{if(e.pointerId!==joy.id)return;joy.id=null;joy.x=joy.y=0;kn.style.transform=''};el.addEventListener('pointerup',end);el.addEventListener('pointercancel',end)})();
+const keys={};addEventListener('keydown',e=>{keys[e.code]=true;if(e.code==='KeyE'&&mode==='walk')toggleDoorAt(0,0,2.5)});addEventListener('keyup',e=>keys[e.code]=false);
+const el=R.domElement;let drag=null;
+el.addEventListener('pointerdown',e=>{drag={x:e.clientX,y:e.clientY,x0:e.clientX,y0:e.clientY,id:e.pointerId}});
+el.addEventListener('pointermove',e=>{if(!drag||e.pointerId!==drag.id||mode!=='walk')return;eul.setFromQuaternion(C.quaternion);eul.y+=(e.clientX-drag.x)*0.005;eul.x=THREE.MathUtils.clamp(eul.x+(e.clientY-drag.y)*0.005,-1.35,1.35);C.quaternion.setFromEuler(eul);drag.x=e.clientX;drag.y=e.clientY});
+el.addEventListener('pointerup',e=>{if(drag&&Math.hypot(e.clientX-drag.x0,e.clientY-drag.y0)<6){const r=el.getBoundingClientRect();toggleDoorAt((e.clientX-r.left)/r.width*2-1,-(e.clientY-r.top)/r.height*2+1,mode==='walk'?3.5:60)}drag=null});
+// ---- door tap/click/E toggles (Floorplan 3D pick pattern)
+const ray=new THREE.Raycaster();
+function toggleDoorAt(x,y,maxD){ray.setFromCamera(new THREE.Vector2(x,y),C);const h=ray.intersectObjects(walls.concat(doors.map(d=>d.mesh)),false).find(h=>h.object.material.opacity!==0.12);
+ if(h&&h.object.userData.door!==undefined&&h.distance<maxD){const d=doors[h.object.userData.door];d.open=!d.open;return true}return false}
+window.__toggleDoor=i=>{doors[i].open=!doors[i].open};
+// ---- walk with wall collision (ray at knee + chest height)
+const dirV=new THREE.Vector3(),fw=new THREE.Vector3(),rt=new THREE.Vector3(),mv=new THREE.Vector3();
+function blocked(dx,dz){const l=Math.hypot(dx,dz);if(!l)return false;dirV.set(dx/l,0,dz/l);
+ for(const y of [0.5,1.2]){ray.set(new THREE.Vector3(C.position.x,y,C.position.z),dirV);ray.far=l+0.25;if(ray.intersectObjects(walls.concat(doors.map(d=>d.mesh)),false).some(h=>h.object.material.opacity!==0.12||h.object.material.transparent))return true}return false}
+function stepWalk(dt){if(mode!=='walk'||fly)return;C.getWorldDirection(fw);fw.y=0;fw.normalize();rt.set(-fw.z,0,fw.x);mv.set(0,0,0);
+ if(keys.KeyW||keys.ArrowUp)mv.add(fw);if(keys.KeyS||keys.ArrowDown)mv.sub(fw);if(keys.KeyD||keys.ArrowRight)mv.add(rt);if(keys.KeyA||keys.ArrowLeft)mv.sub(rt);
+ mv.addScaledVector(fw,-joy.y).addScaledVector(rt,joy.x);const mag=Math.min(1,mv.length());if(mag<.05)return;mv.normalize().multiplyScalar(1.4*dt*mag);
+ if(!blocked(mv.x,0))C.position.x+=mv.x;if(!blocked(0,mv.z))C.position.z+=mv.z}
+window.__walk=(jx,jy,sec)=>{let t=0;while(t<sec){joy.x=jx;joy.y=jy;stepWalk(1/30);t+=1/30}joy.x=joy.y=0;return C.position.toArray()};
+// ---- loop
+const rs=()=>{R.setSize(innerWidth,innerHeight);C.aspect=innerWidth/innerHeight;C.updateProjectionMatrix()};addEventListener('resize',rs);rs();
+C.position.fromArray(D.overview.p);O.target.fromArray(D.overview.t);C.fov=D.overview.f;C.updateProjectionMatrix();O.update();
+let last=performance.now();
+R.setAnimationLoop(now=>{const dt=Math.min(0.1,(now-last)/1000);last=now;if(fly)fly.step(now);else if(mode==='orbit')O.update();stepWalk(dt);
+ doors.forEach(d=>{const tg=d.open?d.base:d.d.closed_rot_y;d.cur+=(tg-d.cur)*Math.min(1,dt*6);d.pv.rotation.y=d.cur});
+ if(ceiling)ceiling.visible=C.position.y<2.95;R.render(S,C)});
+window.__fp3d={ready:true,doors:()=>doors.map(d=>({name:d.d.name,tris:d.tris,open:d.open,rot:+d.cur.toFixed(3)})),mode:()=>mode,fly:()=>!!fly,goRoom,goOver,cam:()=>C.position.toArray()};
+</script></body></html>
