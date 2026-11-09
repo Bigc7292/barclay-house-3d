@@ -373,5 +373,5 @@ Progress R9 (08:21): chairs ang=a-pi/2 (geometric: opening=local -Y, backrest=+Y
 Progress R9 (08:37): chairs fixed ang=a-pi/2; 4/4 geometric PASS; top+34+viewer shots; twobed recompressed; NO deploy.
 Progress R10 (08:44): merged chair twobeds onto perf worktree; stripped debug hooks; deployed dpl_745x9tBVeNR97MqscvVLfiU45SrC; verifying.
 Progress R10 (08:47): STOP further Vercel deploys (already live dpl_745x9tBVeNR97MqscvVLfiU45SrC). Pushed origin/interior-backup @ 25d7461. No main/archive touch.
-
+Progress (08:50): pushed origin/barclay @ 25d7461bfe3feabef2a8c1313b969dc2af8f901b from main+interior-backup merge; no force; no Vercel; no archive.
 Progress (08:51 Asia/Dubai): origin/barclay created from main, contains full interior-backup tree; push non-force; no Vercel; no LFS; no files >100MB; no path conflicts with other bots.
