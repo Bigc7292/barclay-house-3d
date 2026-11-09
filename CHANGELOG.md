@@ -1,5 +1,13 @@
 # CHANGELOG
 
+## 2026-11-09 09:25 UTC+4 — viewer/unified: archive visuals + fast viewer + street life + road (merged into `barclay`)
+- Why: Colin: visuals first, speed second; live site had lost the archive look (pale facade, no BARCLAY HOUSE lettering, white glazing bars), road looked poor, no moving cars/trains.
+- Visuals taken from barclay-house-archive main 58dd6f5 (vercel-live/ + barclay/web/src/app.js): ext7 weathered cream stone/flags/asphalt/sky-dome shaders, AgX tone mapping, `hero3.glb` (dark glazing bars, granite band + raised BARCLAY HOUSE letters, Entrance view), `context_typed_opt.glb`, `ext7_street.glb` street pieces, `twobed_v5` furniture (+ teddy/oak textures), SSAO + bloom, Entrance button, video/ renders page.
+- Kept from `barclay`: tod_panel.py solar sun (sunPos), Water2 canal (desktop; phones use the cheap scrolling mesh), Walk mode link, info panel, Interior chair-fixed twobed.glb/_m (walk mode page).
+- New: street life on the web (#9): Kenney CC0 sedan/van/SUV on the real Whitworth St W lanes + 3-car electric train on the viaduct rail (OSM via scene_data.json, DTM / rail z heights; speeds/sizes stand-ins), 30 fps cap, Traffic toggle, ?life=0. Road: Poly Haven Asphalt 02 (CC0) PBR, world-projected, + illustrative centre-line dashes.
+- Speed: render on demand, static shadow map, SSAO/bloom half-res and SSAO skipped while the camera moves (full frame on stop), DPR 1.5 desktop / 1.25 phone + adaptive, per-mode near/far, phone meshopt files (hero_mo3, context_mo, ext7_street_o) and 512 px textures, bundle minified (1.31 MB -> 0.70 MB). Debug lines __lookAt/__drawcalls removed.
+- Deploy: `web/deploy.sh` (from origin/barclay, top-level files). See README "Viewer deploy".
+
 ## 2026-11-09 08:55 UTC+4 — `barclay` integration branch (Colin: all Barclay work on one branch)
 - Why: Colin ordered all Barclay House work, every file, onto branch `barclay` of Bigc7292/barclay-house-3d, pushed after every edit.
 - Merged: feat/floorplan3d-2bed, feat/refchecklist-gate, interior-backup, perf/viewer-speed, feat/streetlife-canalwater, origin/barclay (Interior bot's first push + another bot's full snapshot 485110f).
