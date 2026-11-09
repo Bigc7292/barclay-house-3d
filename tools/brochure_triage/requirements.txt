@@ -1,0 +1,10 @@
+# brochure_triage — free, open-source, CPU-only. Separate from the project's main requirements so
+# existing venvs are not changed. Install:  pip install -r tools/brochure_triage/requirements.txt \
+#   --extra-index-url https://download.pytorch.org/whl/cpu
+pymupdf>=1.24
+numpy
+pillow
+rapidocr>=3.0        # Apache-2.0, PP-OCR ONNX models (~15 MB, auto-downloaded once)
+onnxruntime          # MIT, CPU
+open_clip_torch      # MIT; ViT-B-32 laion2b weights (~600 MB, auto-downloaded once from Hugging Face)
+torch                # BSD; CPU wheel from the extra index above

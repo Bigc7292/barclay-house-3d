@@ -1,0 +1,23 @@
+{
+ "after": {
+  "floor_plan": "8/8 found, 1 false",
+  "exterior": "5/9 found, 1 false",
+  "accuracy": "31/37"
+ },
+ "after_errors": [
+  "s4c5tvdfq0sy p4: truth exterior, got other",
+  "s4c5tvdfq0sy p5: truth exterior, got other",
+  "s4c5tvdfq0sy p6: truth other, got floor_plan",
+  "s4c5tvdfq0sy p22: truth exterior, got other",
+  "s4c5tvdfq0sy p36: truth exterior, got other",
+  "s4c5tvdfq0sy p40: truth other, got exterior"
+ ],
+ "before": {
+  "floor_plan": "6/8 found, 5 false",
+  "exterior": "1/9 found, 0 false",
+  "interior": "0/0 found, 1 false",
+  "accuracy": "22/37"
+ },
+ "room_sizes_after": 3,
+ "room_sizes_with_room_name": 2
+}

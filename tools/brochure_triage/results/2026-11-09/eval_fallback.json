@@ -1,0 +1,25 @@
+{
+ "after": {
+  "floor_plan": "6/8 found, 4 false",
+  "exterior": "1/9 found, 0 false",
+  "accuracy": "23/37"
+ },
+ "after_errors": [
+  "s4c5tvdfq0sy p4: truth exterior, got other",
+  "s4c5tvdfq0sy p5: truth exterior, got other",
+  "s4c5tvdfq0sy p14: truth other, got floor_plan",
+  "s4c5tvdfq0sy p21: truth exterior, got other",
+  "s4c5tvdfq0sy p22: truth exterior, got other",
+  "s4c5tvdfq0sy p23: truth exterior, got other",
+  "s4c5tvdfq0sy p24: truth exterior, got other",
+  "s4c5tvdfq0sy p30: truth other, got floor_plan",
+  "s4c5tvdfq0sy p31: truth floor_plan, got other",
+  "s4c5tvdfq0sy p33: truth other, got floor_plan",
+  "s4c5tvdfq0sy p36: truth exterior, got other",
+  "s4c5tvdfq0sy p41: truth exterior, got other",
+  "loopnet_Barc p2: truth other, got floor_plan",
+  "loopnet_Barc p4: truth floor_plan, got other"
+ ],
+ "room_sizes_after": 1,
+ "room_sizes_with_room_name": 0
+}

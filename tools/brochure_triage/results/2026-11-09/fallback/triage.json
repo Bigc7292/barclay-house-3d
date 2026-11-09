@@ -1,0 +1,573 @@
+{
+ "status": "proposed_needs_human_review",
+ "classifier": "local",
+ "ocr": "textlayer",
+ "sources": [
+  "docs/s4c5tvdfq0syslhg.pdf",
+  "refs/loopnet_Barclay_House_Plans.pdf"
+ ],
+ "pages": [
+  {
+   "source": "s4c5tvdfq0syslhg.pdf",
+   "page": 1,
+   "label": "other",
+   "method": "local",
+   "scores": {
+    "floor_plan": 0.0,
+    "exterior": 0.0,
+    "interior": 0.0,
+    "other": 0.0
+   }
+  },
+  {
+   "source": "s4c5tvdfq0syslhg.pdf",
+   "page": 2,
+   "label": "other",
+   "method": "local",
+   "scores": {
+    "floor_plan": 0.0,
+    "exterior": 0.0,
+    "interior": 0.0,
+    "other": 0.0
+   }
+  },
+  {
+   "source": "s4c5tvdfq0syslhg.pdf",
+   "page": 3,
+   "label": "other",
+   "method": "local",
+   "scores": {
+    "floor_plan": 0.0,
+    "exterior": 0.0,
+    "interior": 0.0,
+    "other": 0.0
+   }
+  },
+  {
+   "source": "s4c5tvdfq0syslhg.pdf",
+   "page": 4,
+   "label": "other",
+   "method": "local",
+   "scores": {
+    "floor_plan": 0.0,
+    "exterior": 0.0,
+    "interior": 0.0,
+    "other": 0.0
+   }
+  },
+  {
+   "source": "s4c5tvdfq0syslhg.pdf",
+   "page": 5,
+   "label": "other",
+   "method": "local",
+   "scores": {
+    "floor_plan": 0.0,
+    "exterior": 0.0,
+    "interior": 0.0,
+    "other": 0.0
+   }
+  },
+  {
+   "source": "s4c5tvdfq0syslhg.pdf",
+   "page": 6,
+   "label": "other",
+   "method": "local",
+   "scores": {
+    "floor_plan": 0.0,
+    "exterior": 0.0,
+    "interior": 0.0,
+    "other": 0.0
+   }
+  },
+  {
+   "source": "s4c5tvdfq0syslhg.pdf",
+   "page": 7,
+   "label": "other",
+   "method": "local",
+   "scores": {
+    "floor_plan": 0.0,
+    "exterior": 0.0,
+    "interior": 0.0,
+    "other": 0.0
+   }
+  },
+  {
+   "source": "s4c5tvdfq0syslhg.pdf",
+   "page": 8,
+   "label": "other",
+   "method": "local",
+   "scores": {
+    "floor_plan": 0.0,
+    "exterior": 0.0,
+    "interior": 0.0,
+    "other": 0.0
+   }
+  },
+  {
+   "source": "s4c5tvdfq0syslhg.pdf",
+   "page": 9,
+   "label": "other",
+   "method": "local",
+   "scores": {
+    "floor_plan": 0.0,
+    "exterior": 0.0,
+    "interior": 0.0,
+    "other": 0.0
+   }
+  },
+  {
+   "source": "s4c5tvdfq0syslhg.pdf",
+   "page": 10,
+   "label": "other",
+   "method": "local",
+   "scores": {
+    "floor_plan": 0.0,
+    "exterior": 0.0,
+    "interior": 0.0,
+    "other": 0.0
+   }
+  },
+  {
+   "source": "s4c5tvdfq0syslhg.pdf",
+   "page": 11,
+   "label": "other",
+   "method": "local",
+   "scores": {
+    "floor_plan": 0.0,
+    "exterior": 0.0,
+    "interior": 0.0,
+    "other": 0.0
+   }
+  },
+  {
+   "source": "s4c5tvdfq0syslhg.pdf",
+   "page": 12,
+   "label": "other",
+   "method": "local",
+   "scores": {
+    "floor_plan": 0.0,
+    "exterior": 0.0,
+    "interior": 0.0,
+    "other": 0.0
+   }
+  },
+  {
+   "source": "s4c5tvdfq0syslhg.pdf",
+   "page": 13,
+   "label": "other",
+   "method": "local",
+   "scores": {
+    "floor_plan": 0.0,
+    "exterior": 0.0,
+    "interior": 0.0,
+    "other": 0.0
+   }
+  },
+  {
+   "source": "s4c5tvdfq0syslhg.pdf",
+   "page": 14,
+   "label": "floor_plan",
+   "method": "local",
+   "scores": {
+    "floor_plan": 1.5,
+    "exterior": 0.0,
+    "interior": 0.0,
+    "other": 0.0
+   }
+  },
+  {
+   "source": "s4c5tvdfq0syslhg.pdf",
+   "page": 15,
+   "label": "other",
+   "method": "local",
+   "scores": {
+    "floor_plan": 0.0,
+    "exterior": 0.0,
+    "interior": 0.0,
+    "other": 0.0
+   }
+  },
+  {
+   "source": "s4c5tvdfq0syslhg.pdf",
+   "page": 16,
+   "label": "floor_plan",
+   "method": "local",
+   "scores": {
+    "floor_plan": 1.5,
+    "exterior": 0.0,
+    "interior": 0.0,
+    "other": 0.0
+   }
+  },
+  {
+   "source": "s4c5tvdfq0syslhg.pdf",
+   "page": 17,
+   "label": "floor_plan",
+   "method": "local",
+   "scores": {
+    "floor_plan": 2.5,
+    "exterior": 0.0,
+    "interior": 0.0,
+    "other": 0.0
+   }
+  },
+  {
+   "source": "s4c5tvdfq0syslhg.pdf",
+   "page": 18,
+   "label": "other",
+   "method": "local",
+   "scores": {
+    "floor_plan": 0.0,
+    "exterior": 0.0,
+    "interior": 0.0,
+    "other": 0.0
+   }
+  },
+  {
+   "source": "s4c5tvdfq0syslhg.pdf",
+   "page": 19,
+   "label": "floor_plan",
+   "method": "local",
+   "scores": {
+    "floor_plan": 1.5,
+    "exterior": 0.0,
+    "interior": 1.2,
+    "other": 0.0
+   }
+  },
+  {
+   "source": "s4c5tvdfq0syslhg.pdf",
+   "page": 20,
+   "label": "floor_plan",
+   "method": "local",
+   "scores": {
+    "floor_plan": 1.5,
+    "exterior": 0.0,
+    "interior": 0.0,
+    "other": 0.0
+   }
+  },
+  {
+   "source": "s4c5tvdfq0syslhg.pdf",
+   "page": 21,
+   "label": "other",
+   "method": "local",
+   "scores": {
+    "floor_plan": 0.0,
+    "exterior": 0.0,
+    "interior": 1.2,
+    "other": 0.0
+   }
+  },
+  {
+   "source": "s4c5tvdfq0syslhg.pdf",
+   "page": 22,
+   "label": "other",
+   "method": "local",
+   "scores": {
+    "floor_plan": 0.0,
+    "exterior": 0.0,
+    "interior": 1.2,
+    "other": 0.0
+   }
+  },
+  {
+   "source": "s4c5tvdfq0syslhg.pdf",
+   "page": 23,
+   "label": "other",
+   "method": "local",
+   "scores": {
+    "floor_plan": 0.0,
+    "exterior": 0.0,
+    "interior": 0.0,
+    "other": 0.0
+   }
+  },
+  {
+   "source": "s4c5tvdfq0syslhg.pdf",
+   "page": 24,
+   "label": "other",
+   "method": "local",
+   "scores": {
+    "floor_plan": 0.0,
+    "exterior": 0.0,
+    "interior": 0.0,
+    "other": 0.0
+   }
+  },
+  {
+   "source": "s4c5tvdfq0syslhg.pdf",
+   "page": 25,
+   "label": "other",
+   "method": "local",
+   "scores": {
+    "floor_plan": 0.0,
+    "exterior": 0.0,
+    "interior": 0.0,
+    "other": 0.0
+   }
+  },
+  {
+   "source": "s4c5tvdfq0syslhg.pdf",
+   "page": 26,
+   "label": "exterior",
+   "method": "local",
+   "scores": {
+    "floor_plan": 0.0,
+    "exterior": 1.5,
+    "interior": 0.0,
+    "other": 0.0
+   }
+  },
+  {
+   "source": "s4c5tvdfq0syslhg.pdf",
+   "page": 27,
+   "label": "floor_plan",
+   "method": "local",
+   "scores": {
+    "floor_plan": 1.5,
+    "exterior": 0.0,
+    "interior": 0.0,
+    "other": 0.0
+   }
+  },
+  {
+   "source": "s4c5tvdfq0syslhg.pdf",
+   "page": 28,
+   "label": "floor_plan",
+   "method": "local",
+   "scores": {
+    "floor_plan": 1.5,
+    "exterior": 0.0,
+    "interior": 0.0,
+    "other": 0.0
+   }
+  },
+  {
+   "source": "s4c5tvdfq0syslhg.pdf",
+   "page": 29,
+   "label": "other",
+   "method": "local",
+   "scores": {
+    "floor_plan": 0.0,
+    "exterior": 0.0,
+    "interior": 0.0,
+    "other": 0.0
+   }
+  },
+  {
+   "source": "s4c5tvdfq0syslhg.pdf",
+   "page": 30,
+   "label": "floor_plan",
+   "method": "local",
+   "scores": {
+    "floor_plan": 3.0,
+    "exterior": 0.0,
+    "interior": 0.0,
+    "other": 0.0
+   }
+  },
+  {
+   "source": "s4c5tvdfq0syslhg.pdf",
+   "page": 31,
+   "label": "other",
+   "method": "local",
+   "scores": {
+    "floor_plan": 1.0,
+    "exterior": 0.0,
+    "interior": 0.0,
+    "other": 0.0
+   }
+  },
+  {
+   "source": "s4c5tvdfq0syslhg.pdf",
+   "page": 32,
+   "label": "floor_plan",
+   "method": "local",
+   "scores": {
+    "floor_plan": 4.167,
+    "exterior": 0.0,
+    "interior": 0.0,
+    "other": 0.0
+   }
+  },
+  {
+   "source": "s4c5tvdfq0syslhg.pdf",
+   "page": 33,
+   "label": "floor_plan",
+   "method": "local",
+   "scores": {
+    "floor_plan": 2.833,
+    "exterior": 0.0,
+    "interior": 0.0,
+    "other": 0.0
+   }
+  },
+  {
+   "source": "s4c5tvdfq0syslhg.pdf",
+   "page": 34,
+   "label": "other",
+   "method": "local",
+   "scores": {
+    "floor_plan": 0.0,
+    "exterior": 0.0,
+    "interior": 0.0,
+    "other": 0.0
+   }
+  },
+  {
+   "source": "s4c5tvdfq0syslhg.pdf",
+   "page": 35,
+   "label": "other",
+   "method": "local",
+   "scores": {
+    "floor_plan": 0.0,
+    "exterior": 0.0,
+    "interior": 0.0,
+    "other": 0.0
+   }
+  },
+  {
+   "source": "s4c5tvdfq0syslhg.pdf",
+   "page": 36,
+   "label": "other",
+   "method": "local",
+   "scores": {
+    "floor_plan": 0.0,
+    "exterior": 0.0,
+    "interior": 0.0,
+    "other": 0.0
+   }
+  },
+  {
+   "source": "s4c5tvdfq0syslhg.pdf",
+   "page": 37,
+   "label": "other",
+   "method": "local",
+   "scores": {
+    "floor_plan": 0.0,
+    "exterior": 0.0,
+    "interior": 0.0,
+    "other": 0.0
+   }
+  },
+  {
+   "source": "s4c5tvdfq0syslhg.pdf",
+   "page": 38,
+   "label": "other",
+   "method": "local",
+   "scores": {
+    "floor_plan": 0.0,
+    "exterior": 0.0,
+    "interior": 0.0,
+    "other": 0.0
+   }
+  },
+  {
+   "source": "s4c5tvdfq0syslhg.pdf",
+   "page": 39,
+   "label": "other",
+   "method": "local",
+   "scores": {
+    "floor_plan": 0.0,
+    "exterior": 0.0,
+    "interior": 0.0,
+    "other": 0.0
+   }
+  },
+  {
+   "source": "s4c5tvdfq0syslhg.pdf",
+   "page": 40,
+   "label": "other",
+   "method": "local",
+   "scores": {
+    "floor_plan": 0.0,
+    "exterior": 0.0,
+    "interior": 0.0,
+    "other": 0.0
+   }
+  },
+  {
+   "source": "s4c5tvdfq0syslhg.pdf",
+   "page": 41,
+   "label": "other",
+   "method": "local",
+   "scores": {
+    "floor_plan": 0.0,
+    "exterior": 0.0,
+    "interior": 0.0,
+    "other": 0.0
+   }
+  },
+  {
+   "source": "loopnet_Barclay_House_Plans.pdf",
+   "page": 1,
+   "label": "exterior",
+   "method": "local",
+   "scores": {
+    "floor_plan": 0.0,
+    "exterior": 1.4,
+    "interior": 0.0,
+    "other": 0.0
+   }
+  },
+  {
+   "source": "loopnet_Barclay_House_Plans.pdf",
+   "page": 2,
+   "label": "floor_plan",
+   "method": "local",
+   "scores": {
+    "floor_plan": 3.0,
+    "exterior": 0.0,
+    "interior": 0.0,
+    "other": 0.0
+   }
+  },
+  {
+   "source": "loopnet_Barclay_House_Plans.pdf",
+   "page": 3,
+   "label": "floor_plan",
+   "method": "local",
+   "scores": {
+    "floor_plan": 1.5,
+    "exterior": 0.0,
+    "interior": 0.0,
+    "other": 0.0
+   }
+  },
+  {
+   "source": "loopnet_Barclay_House_Plans.pdf",
+   "page": 4,
+   "label": "other",
+   "method": "local",
+   "scores": {
+    "floor_plan": 1.0,
+    "exterior": 0.0,
+    "interior": 0.0,
+    "other": 0.0
+   }
+  }
+ ],
+ "plan_dims": [
+  {
+   "room_guess": null,
+   "dims": "2040 × 1389",
+   "ocr_conf": 1.0,
+   "bbox_norm": [
+    0.4969,
+    0.2244,
+    0.5036,
+    0.2289
+   ],
+   "method": "textlayer",
+   "source": "loopnet_Barclay_House_Plans.pdf",
+   "page": 3
+  }
+ ],
+ "timing_s": {
+  "model_load": 0.0,
+  "classify": 1.0,
+  "plan_ocr": 0.1,
+  "total": 1.1
+ }
+}

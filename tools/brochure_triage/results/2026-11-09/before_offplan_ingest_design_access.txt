@@ -1,0 +1,152 @@
+JOB 20261109-4ae88679 review create:done ingest:done classify:done extract:done review:waiting reconstruct:pending export:pending
+p1 unit_plan  | text_layer DESIGN and Access STATEMENT /  / PROJECT: /  / PROPOSED CONVERSION &
+p2 location  | text_layer INTRODUCTION /  / This Design and Access Statement has been prep
+p3 other  | text_layer CONTEXT /  / The application site covers approximately 0.13ha, a
+p4 location  | text_layer Barclay House is not listed, and is not located within /  / the 
+p5 masterplan  | text_layer ground floor with the upper floors comprising residential /  / a
+p6 furniture_layout,location  | text_layer Within the wider setting of the application site, to the eas
+p7 location  | text_layer PLANNING POLCIY /  / This section appraises the application prop
+p8 other  | text_layer THE NATIONAL PLANNING POLICY FRAMEWORK /  / The National Plannin
+p9 location  | text_layer The NPPF articulates the priorities of the Plan for Growth w
+p10 location  | text_layer The application site is very conveniently located for shoppi
+p11 location  | text_layer The Core Strategy sets out that approximately 60,000 new dwe
+p12 location  | text_layer Policy CC10 A Place for Everyone /  / The City Centre will devel
+p13 location  | text_layer Policy EN3 Heritage /  / Throughout the City, the Council will e
+p14 unit_plan  | text_layer Guide to Development in Manchester SPD (2007) /  / The Guide to 
+p15 location  | text_layer Make it Manchester /  / The design for the proposed development 
+p16 unit_plan  | text_layer Above is an extract from the proposed ground floor /  / plan sho
+p17 unit_plan,location  | text_layer PROPOSAL /  / The proposed scheme consists of the conversion of 
+p18 other  | text_layer TWO STOREY ROOF TOP EXTENSION /  / A two-storey roof top extensi
+p19 unit_plan  | text_layer DESIGN EVOLUTION – FIRST DESIGN /  / FOUR STOREY OPTION /  / The ini
+p20 unit_plan  | text_layer Images below showing the proposed floor plans for the origin
+p21 other  | text_layer The CGI’s on this page show three variations of the proposed
+p22 cgi_interior,material_board  | text_layer DESIGN EVOLUTION - INITIAL TWO STOREY ROOFTOP EXTENSION OPTI
+p23 other  | text_layer Stone Extrusion Option /  / This design was based on the same na
+p24 other  | text_layer Undulating Timber Option /  / The final concept was an exciting 
+p25 other  | text_layer Above are images / descriptions of the materials proposed fo
+p26 unit_plan,elevation,material_board  | text_layer DESIGN EVOLUTION - FINAL DESIGN /  / Following further discussio
+p27 unit_plan  | text_layer The proposed roof extension has been designed for two reason
+p28 unit_plan  | text_layer The apartments are designed as zoned "rooms" set over two le
+p29 other  | text_layer AMOUNT /  / Each proposed unit within the roof top extension wil
+p30 unit_plan  | text_layer ACCESS /  / The proposals will create an inclusive environment b
+p31 other  | text_layer Access Route B: /  / A secondary wheelchair accessible platform 
+p32 unit_plan  | text_layer The proposed new apartments will be fully compliant with Par
+p33 unit_plan  | text_layer CYCLING & WALKING /  / The proposal includes a dedicated secure 
+p34 location  | text_layer CONCLUSION: /  / The proposed scheme will convert the existing r
+p35 other  | text_layer APPENDIX A – REFERENCE IMAGES FOR THE FINAL DESIGN
+p36 other  | none 
+p37 legal_disclaimer  | text_layer APPENDIX B – /  / PROPOSED MATERIALS & INDICATIVE DETAILS FOR TH
+p38 other  | none 
+p39 other  | none 
+p40 other  | none 
+p41 other  | none 
+project undefined | location Plan
+facts view_claim=Rochdale canal view of Barclay House Whitworth Street view of Barclay House General view of Barclay House
+  location=Plan
+  location=of nearby listed buildings indicated with blue triangles.
+  location=.
+  location=. It is considered that the application site has been utilised to its full potential with the proposed scheme.
+  unit.type=TYPES
+  percent.co_emissions_for_all_phases_of=15%
+  percent.manchester_core_policy_en_stat=15%
+  percent.the_proposals_benefit_from_a_w=10%
+  unit.type=APARTMENT TYPES
+  building_form=duplex
+  view_claim=existing building facing the canal, located away from the traffic on Whitworth
+  view_claim=street scene. On the northern facade facing the canal, the extension
+  building_form=penthouse
+  view_claim=duplexes, "sleepers" offer exciting views of the night sky, while the private
+  view_claim=wet rooms are each assigned to the facing terraces. Sloping glazing could
+  percent.each_floor_the_corridors_link_=10%
+  percent.in_terms_of_the_buildings_envi=15%
+  percent.electric_heating_and_hot_water=00%
+  view_claim=The proposed scheme will convert the existing redundant internal car parking area, located to the north of the existing building facing the canal into residential apartments, and construct a two-
+  view_claim=The proposed car park conversion will create four duplex apartments located to the rear of the existing building facing the canal. It is considered that this is an ideal location, away from traffic
+  lighting.mood=day
+unitTypes [{"id":"ut-types","code":"TYPES","levelIds":[]},{"id":"ut-apartment-types","code":"APARTMENT TYPES","levelIds":[]},{"id":"ut-unassigned-plans","code":"Unassigned plans","levelIds":["L-p1-1","L-p1-2","L-p6-1","L-p14-1","L-p16-1","L-p17-1","L-p19-2","L-p19-1","L-p20-3","L-p20-1","L-p20-2","L-p26-1","L-p26-2","L-p27-1","L-p28-1","L-p30-1","L-p32-1","L-p33-1"],"primaryPlanAssetId":"a1-80808084"}]
+levels Plan (page 1) @0 rooms:
+  Plan (page 1) @0 rooms:
+  Plan (page 6) @0 rooms:
+  Plan (page 14) @0 rooms:
+  Plan (page 16) @0 rooms:
+  Rooftop @3.5 rooms:bedroom|bedroom apartment
+  Roof @3.5 rooms:bedroom|bedroom a|bedroom
+  Plan (page 19) @0 rooms:
+  Plan (page 20) @0 rooms:
+  Plan (page 20) @0 rooms:
+  Plan (page 20) @0 rooms:
+  Roof @3.5 rooms:
+  Plan (page 26) @0 rooms:
+  Plan (page 27) @0 rooms:
+  Plan (page 28) @0 rooms:
+  Plan (page 30) @0 rooms:
+  Plan (page 32) @0 rooms:
+  Plan (page 33) @0 rooms:
+materials 
+assets a1-80808084:unit_plan:ESIGN
+  a1-00480094:logo:
+  a1-00d068e0:unit_plan:
+  a1-ece6e7a7:photo:
+  a2-1ec7dd2d:photo:Rochdale canal view
+  a2-66f276f6:other:Whitworth Street view
+  a2-83a7ce26:photo:General view of Barclay House
+  a2-cd332650:other:Location Plan
+  a3-74eeb3b3:photo:Above is an aerial image showing t
+  a4-dec73310:other:41 Whitworth Street West
+  a4-f7f3f1f1:photo:33 Whitworth Street West
+  a5-11256ced:photo:Above is a photograph of the O
+  a6-c6c848c2:unit_plan:The image
+  a7-68b2a62e:other:Above is an image showing Barclay House (Red block) with the
+  a16-c49cfcec:unit_plan:Above is an extract from the proposed ground
+  a17-a8b8fccc:unit_plan:Above is an extract from
+  a19-70707171:unit_plan:
+  a19-68707171:unit_plan:
+  a20-8bd368e0:unit_plan:
+  a20-32316970:unit_plan:
+  a20-4acc8ccc:unit_plan:
+  a21-60e0d89c:other:
+  a21-62e0d89c:other:
+  a22-0667d3d9:cgi_interior:were produced to provide an alternative to the previous
+  a25-96963091:other:Above
+  a26-6ce46470:unit_plan:Above is an image of the front elevation of Barclay House with the proposed
+  a26-aba8a8a6:unit_plan:
+  a27-10f088a0:unit_plan:Above is an image of the proposed fifth floor plan layout
+  a28-30f288ac:unit_plan:Above is an image of the proposed sixth floor plan layout
+  a31-30c868e0:other:
+  a31-58fcd852:photo:Above is an image of a typical platform lift
+  a32-9a96a5b5:unit_plan:ove is an image of the proposed layout
+  a35-98616826:other:APPENDIX A
+  a36-ddd44243:photo:
+  a37-aaaaaac2:other:MATERIALS
+  a38-7471f363:other:
+  a39-07034765:photo:
+  a40-0104162a:photo:
+  page-8:other:
+  page-9:other:
+  page-10:other:
+  page-11:other:
+  page-12:other:
+  page-13:other:
+  page-14:unit_plan:
+  page-15:other:
+  page-18:other:
+  page-23:other:
+  page-24:other:
+  page-29:other:
+  page-30:unit_plan:
+  page-33:unit_plan:
+  page-34:other:
+  page-41:other:
+warnings Page 17: the drawing is captioned "roof top extension" but the list beside it is headed "GROUND FLOOR". The level is named from the drawing caption; please confirm which floor it is.
+  2 plans are labelled "Plan (page 1)" (page 1, page 1). Rename or delete the wrong one in review; plans are never merged.
+  2 plans are labelled "Roof" (page 19, page 26). Rename or delete the wrong one in review; plans are never merged.
+  3 plans are labelled "Plan (page 20)" (page 20, page 20, page 20). Rename or delete the wrong one in review; plans are never merged.
+  Level elevations use a default 3.5 m floor-to-floor (not printed in the brochure).
+  1 render(s) are artist impressions; finishes shown may differ from the delivered unit.
+completeness {
+  hasPlan: true,
+  hasScale: false,
+  hasDimensions: false,
+  hasCgi: true,
+  hasFinishSchedule: false
+}

@@ -1,0 +1,26 @@
+JOB 20261109-70933b14 review create:done ingest:done classify:done extract:done review:waiting reconstruct:pending export:pending
+p1 cgi_exterior  | none 
+p2 unit_plan,specs_schedule  | text_layer Barclay House /  / created on /  / Plotted Scale - 1:2,000 / VOCO MANC
+p3 unit_plan,location  | text_layer PROPOSED BASEMENT PLAN /  / DRAWING KEY: /  / ACCESS FROM / WHITWORTH 
+p4 location  | text_layer PROPOSED BASEMENT PLAN /  / DRAWING KEY: /  / ACCESS FROM / WHITWORTH 
+project PROPOSED BASEMENT PLAN | location undefined
+facts building_form=townhouse
+  project.name=PROPOSED BASEMENT PLAN
+  lighting.mood=day
+unitTypes [{"id":"ut-unassigned-plans","code":"Unassigned plans","levelIds":["L-p2-1","L-p3-1"],"primaryPlanAssetId":"page-2"}]
+levels Plan (page 2) @0 rooms:
+  Plan (page 3) @0 rooms:
+materials 
+assets a1-060653d3:cgi_exterior:
+  page-2:unit_plan:
+  page-3:unit_plan:
+  page-4:other:
+warnings Level elevations use a default 3.5 m floor-to-floor (not printed in the brochure).
+  1 render(s) are artist impressions; finishes shown may differ from the delivered unit.
+completeness {
+  hasPlan: true,
+  hasScale: false,
+  hasDimensions: false,
+  hasCgi: true,
+  hasFinishSchedule: false
+}
