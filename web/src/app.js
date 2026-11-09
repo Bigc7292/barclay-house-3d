@@ -112,7 +112,7 @@ const VIEW=(()=>{const c=document.createElement('canvas');c.width=c.height=512;c
  const t=new THREE.CanvasTexture(c);t.colorSpace=THREE.SRGBColorSpace;return t})();
 const TL=new THREE.TextureLoader();
 function tx(url,srgb,rep){const t=TL.load(url,()=>{draw=true});t.wrapS=t.wrapT=THREE.RepeatWrapping;t.anisotropy=MOB?1:8;t.colorSpace=srgb?THREE.SRGBColorSpace:THREE.LinearSRGBColorSpace;if(rep)t.repeat.set(rep,rep);return t}
-let FAB=null,OAK=null;const texIn=()=>{if(FAB)return;FAB={d:tx('tex/teddy_d.jpg',1,2.2),n:tx('tex/teddy_n.jpg',0,2.2),r:tx('tex/teddy_r.jpg',0,2.2)};OAK={n:tx('tex/oak_n.jpg',0,3),r:tx('tex/oak_r.jpg',0,3)}};
+let FAB=null,OAK=null;const texIn=()=>{if(FAB)return;const m=MOB?'_m':'';FAB={d:tx(`tex/teddy_d${m}.jpg`,1,2.2),n:tx(`tex/teddy_n${m}.jpg`,0,2.2),r:tx(`tex/teddy_r${m}.jpg`,0,2.2)};OAK={n:tx(`tex/oak_n${m}.jpg`,0,3),r:tx(`tex/oak_r${m}.jpg`,0,3)}};
 const STREET=tx('tex/whitworth.jpg',1);
 // ---- 7-step exterior look (barclay/ext7): weathered cream stone, stone flags, darker asphalt, cloud sky.
 // All world-position noise: nothing tiles on the hero (no grid; see AGENTS.md lessons).
@@ -238,12 +238,17 @@ window.ar=()=>{O.autoRotate=!O.autoRotate;draw=true;$('ba').className=O.autoRota
 const rs=()=>{const w=$('v').clientWidth,h=$('v').clientHeight;R.setSize(w,h);comp.setSize(w,h);C.aspect=w/h;C.updateProjectionMatrix();draw=true};addEventListener('resize',rs);if(window.ResizeObserver)new ResizeObserver(rs).observe($('v'));rs();
 const q=new URLSearchParams(location.search);mode(q.get('m')||'e');if(q.get('cam'))cam(q.get('cam'));if(q.get('tod')){$('tod').value=q.get('tod')}tod($('tod').value);
 let fp=false,flying=false,lastExt={p:[-1.41,1.7,29.79],t:[0.2,8.5,9.8],f:70},yaw=0,pitch=0,curRoom=null;
-O.addEventListener('change',()=>{draw=true});
+let lastMove=0,refine=false;const moved=()=>{lastMove=performance.now()};
+O.addEventListener('change',()=>{draw=true;moved()});
 R.setAnimationLoop(()=>{skyMesh.position.copy(C.position);skyMesh.visible=!intr.visible;
  if(document.hidden)return;
  if(O.enabled&&!fp&&!flying)O.update();
- if(flying||(O.autoRotate&&O.enabled&&!fp))draw=true;
+ if(flying||(O.autoRotate&&O.enabled&&!fp)){draw=true;moved()}
+ const still=performance.now()-lastMove>220;
+ // progressive refine: SSAO is skipped while the camera moves, then one full-quality frame is drawn when it stops
+ if(!draw&&refine&&still)draw=true;
  if(!draw)return;
+ ssao.enabled=still;refine=!still;
  if(ceil)ceil.visible=!(preset==='interior'||C.position.y>=2.95);
  wTick();if(!MOB)comp.render();else R.render(S,C);
  draw=false;
@@ -273,7 +278,7 @@ const ease=t=>t<.5?4*t*t*t:1-Math.pow(-2*t+2,3)/2;
 function fly(v,dur,done){flying=true;O.enabled=false;const p0=C.position.clone(),t0=O.target.clone(),f0=C.fov,p1=new THREE.Vector3().fromArray(v.p),t1=new THREE.Vector3().fromArray(v.t),f1=v.f,st=performance.now();
  (function step(){const k=Math.min(1,(performance.now()-st)/dur),e=ease(k);C.position.lerpVectors(p0,p1,e);O.target.lerpVectors(t0,t1,e);C.fov=f0+(f1-f0)*e;C.updateProjectionMatrix();C.lookAt(O.target);draw=true;if(k<1)requestAnimationFrame(step);else{flying=false;draw=true;done&&done()}})()}
 function enterFP(){fp=true;O.enabled=false;const d=O.target.clone().sub(C.position).normalize();yaw=Math.atan2(-d.x,-d.z);pitch=Math.asin(d.y);nf(1);applyLook();$('fph').className=''}
-function applyLook(){C.rotation.set(pitch,yaw,0,'YXZ');draw=true}
+function applyLook(){C.rotation.set(pitch,yaw,0,'YXZ');draw=true;moved()}
 function setRoomUI(r){document.querySelectorAll('#rooms button[data-r]').forEach(b=>b.className=b.dataset.r===r?'on':'');$('bx').className='';}
 window.goRoom=r=>{if(flying)return;const wasExt=ext.visible;if(wasExt){lastExt={p:C.position.toArray(),t:O.target.toArray(),f:C.fov};mode('i')}
  preset=r;
