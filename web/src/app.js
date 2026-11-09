@@ -76,3 +76,5 @@ el.addEventListener('pointermove',e=>{if(!fp||!pts.has(e.pointerId))return;const
 const up=e=>{pts.delete(e.pointerId);if(pts.size<2)pd0=0};el.addEventListener('pointerup',up);el.addEventListener('pointercancel',up);
 el.addEventListener('wheel',e=>{if(!fp)return;e.preventDefault();C.fov=Math.max(30,Math.min(95,C.fov*(1+Math.sign(e.deltaY)*0.08)));C.updateProjectionMatrix()},{passive:false});
 window.__fp=()=>fp&&!flying;window.__flying=()=>flying;
+window.__lookAt=(p,t,f)=>{C.position.fromArray(p);O.target.fromArray(t);if(f){C.fov=f;C.updateProjectionMatrix()}if(O.enabled)O.update();else C.lookAt(O.target)};
+window.__drawcalls=()=>R.info.render.calls;window.__tris=()=>R.info.render.triangles;
