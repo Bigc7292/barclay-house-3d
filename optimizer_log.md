@@ -34,3 +34,14 @@ FAIL: both mobile GLBs are stale (07:12, built from the 06:37 export; hero/surr 
 AGENTS.md: export step now runs validate.sh; Lesson added. Copies synced to CLAUDE/GROK.md.
 Still open from R3 critic: neighbour roofs pale, viaduct parapet salmon (material not taking effect).
 Next: render-time logging, archive old scripts to old/, 1464 hero prims (join by material for desktop), unify critic logs.
+
+## 2026-11-07 12:10 Asia/Dubai: Run 3 (no-op)
+Project idle since 2026-11-03 09:41 (last 4K renders); no file changes since. Latest validator (tests/validate_20261103_0855.jsonl): all pass, 0 errors. Hero 3.67 MB / 16 draw calls (was 1464, fixed), mobile hero 1.67 MB, mobile surr 4.51 MB, full surr 34.5 MB. Mobile GLBs re-exported 08:55, so the stale-mobile defect is closed.
+Still open (builder's call, already logged by critic): viaduct parapet salmon top faces; meshopt/KTX2 pending viewer decoder.
+No changes made. Next: skip audits until files change (suggest pausing/slowing this routine while idle).
+
+## 2026-11-07 14:06 Asia/Dubai: Run 4 (no-op)
+No files changed since Run 3; nothing to audit. No changes.
+
+## 2026-11-07 16:08 Asia/Dubai: Run 5 (no-op)
+No files changed since Run 4 (project idle since 2026-11-03 09:41). Budgets still OK from last validate (hero 3.67 MB, mobile hero 1.67 MB, mobile surr 4.51 MB, 0 errors). Open builder items unchanged: viaduct parapet salmon tops. Slowed routine from every 2h to weekdays 10:00 Asia/Dubai while idle.
