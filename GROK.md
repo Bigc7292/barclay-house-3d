@@ -13,6 +13,7 @@ Read this FIRST on every task. CLAUDE.md and GROK.md are copies/symlinks of this
 - Build: build_scene.py, tod_panel.py via Blender 4.2.3 (-y). Blender MCP (port 9876) for live inspection/edits.
 - Check: camera_match.py -> ref_check.py against refs/. Render: Cycles 128 samples + denoise.
 - Export: export_glb.py -> make_mobile.sh (hero + surroundings, full + mobile). Then ./validate.sh (Khronos validator + size budgets + stale-mobile check; must PASS).
+- Interior walk page (trick #14, CERTIFIED): web/floorplan3d/2bed.html + 2bed.json (rooms, fly-to cams, door hinges recomputed from interior/build_twobed_v4.py). three r160 vendored in web/floorplan3d/vendor/three-r160 (no CDN). Test: node tests/floorplan3d/check.cjs (serve repo root on :18490).
 - Ideas: x_tricks.md and x_workflows.md (from X Bookmark Analyst). Skills: teardown, canvas, box-desktop.
 
 ## The pipeline (same order every time)
@@ -21,7 +22,7 @@ Read this FIRST on every task. CLAUDE.md and GROK.md are copies/symlinks of this
 2. BUILD: one change set only, from the latest critic defect list. One thing per pass where possible (locked camera).
 3. CHECK: render preview from locked camera, run ref_check.py vs reference photo. Compare to refs/ side by side.
 4. CRITIC: independent critic (separate executor or Interior bot) scores and lists defects. Log in critic_log.md (round, score, defects, fix, applied tricks, skipped tricks + why).
-5. EXPORT: GLB hero + surroundings, then make_mobile.sh; validate; tell Interior bot to redeploy viewer.
+5. EXPORT: GLB hero + surroundings, then make_mobile.sh; validate; if twobed.glb or door/room layout changed, regenerate web/floorplan3d/2bed.json and run tests/floorplan3d/check.cjs (0 console errors, 5 doors carved, walk blocked by walls); tell Interior bot to redeploy viewer.
 6. DELIVER: 4K stills only when critic score meets target (>= online photos). One short message to Colin.
 Loop 2-5 until target met. Every round the critic_log must list which rules/MCPs/skills/tricks were used.
 
@@ -36,8 +37,11 @@ After each round, add any repeated mistake as a rule (one line) under "Lessons".
 - Don't message a running executor mid-task; it interrupts.
 - Every hero/surroundings re-export must be followed by ./make_mobile.sh then ./validate.sh; R3 left mobile GLBs built from the 06:37 export.
 
+- Quantized/meshopt GLB geometry (int16) must be dequantized to Float32 before applyMatrix4 or splitting, else the mesh collapses (floorplan3d R1 bug).
+
 ## Bookmark-trick intake gate (Colin's rule, 2026-11-03)
 Every item X Bookmark Analyst adds to x_tricks.md is NOT adopted until Barclay House 3D has: (1) read the source + doc, (2) verified it's free and licence-OK, (3) checked where it fits (script/step/bot), (4) tested it on a copy in tests/, (5) certified it (PASS/FAIL with measured result, validate.sh must pass for exports), (6) integrated it into AGENTS.md pipeline or tool map, and (7) told all bots. Record each in /workspace/barclay/tricks_register.md: id, source, status (NEW/TESTING/CERTIFIED/REJECTED), test result, where integrated, date. Never leave a trick as NEW for more than one round.
+- Certified tricks (see tricks_register.md / tricks_for_bots.md): phone files via ./make_mobile_v2.sh (dedup+meshopt; viewer must use LOCAL meshopt_decoder.js); KTX2 off (bigger downloads); instancing needs linked mesh data in build_scene.py first.
 
 ## Backup rule
 - After EVERY change set or round, run ./backup.sh "<msg>" and confirm it prints PUSH OK. Never add files >99 MB (backup.sh blocks them).
