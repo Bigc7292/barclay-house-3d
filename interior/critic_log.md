@@ -364,3 +364,11 @@ The building's identity rests on three things:
 
 Our ground floor texture and the glazed strips are actively wrong, not just simplified. Fixing items 1 and 2 would lift it to about 7.5/10. Everything else is polish.
 Progress R6 (08:50): live verified desktop + Galaxy S9+ (facade/aerial/street + Living & Bedroom 2 first-person), live hero.glb/hero_m.glb sha match uploads; shots in web/shots/r6/.
+Progress R7/R8 (07:37): r7 already live (app.js?v=35, #bin info closed-by-default, #fph caption hidden). Confirming with live shots then integrating Floorplan 3D Walk mode.
+Progress R8 (07:38): Floorplan 3D Walk mode added (link from room menu -> floorplan3d/2bed.html); MIT LICENSE at web/vendor/floorplan-3d/; joystick mobile-only; no m2 labels in UI (das_unit_areas has no Two Bed room m2; 2bed.json already hides per-room m2). Deployed dpl_Bpvq6rbwgGn22Suf5iuu9STmudYg.
+Progress R8 (07:49): dining tub chairs rotated to face table (ang = pi/2 - a; was a+pi/2 which faced outwards). Rebuilding bake.
+Progress R8 (08:01): HOLD deploys. Chair-fixed bake done locally; compressing; measuring FPS; no Vercel push.
+Progress R8 (08:05): LOCAL ONLY — chairs fixed+baked (twobed 1.47MB / twobed_m 1.34MB); dining.png confirms inward; walk mode load ~2.9MB / 2–3 drawcalls vs main ~7.2MB / 3–4; SwiftShader FPS walk>=main. NO deploy.
+Progress R9 (08:21): chairs ang=a-pi/2 (geometric: opening=local -Y, backrest=+Y; verified 4/4). Rebuilding; NO deploy.
+Progress R9 (08:37): chairs fixed ang=a-pi/2; 4/4 geometric PASS; top+34+viewer shots; twobed recompressed; NO deploy.
+Progress R10 (08:44): merged chair twobeds onto perf worktree; stripped debug hooks; deployed dpl_745x9tBVeNR97MqscvVLfiU45SrC; verifying.

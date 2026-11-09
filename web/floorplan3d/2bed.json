@@ -1,0 +1,202 @@
+{
+ "_provenance": {
+  "model": "web/twobed.glb (Barclay House Interior bot, built by interior/build_twobed_v4.py, baked lightmap, meshopt). Mobile: web/twobed_m.glb.",
+  "total_area": "63 m2 average two-bed, SOURCED https://barclay-house.com/two-bedroom-apartment/ (Rightmove Apt 02 679 sq ft https://www.rightmove.co.uk/properties/92163630)",
+  "layout": "Outline, partitions and door positions are SCALED FROM the Rightmove plan image interior/twobed/apt02_fp.png (no dimensions printed) and fitted to the sourced 63 m2: APPROXIMATE, NOT sourced room dimensions. No per-room m2 is shown because none is sourced.",
+  "room_names": "from interior/build_twobed_v4.py / Interior viewer room menu",
+  "room_cams": "camera presets copied from web/src/app.js (Interior bot) so fly-to targets match the live viewer",
+  "doors": "hinge, width and open angle recomputed from interior/build_twobed_v4.py (door(), door_in(); 0.8 m internal, 0.9 m entrance = modelling values, UNSOURCED). Doors are exported open; closed angle = wall direction.",
+  "not_from": "no sample data from wy51ai/floorplan-3d is used"
+ },
+ "rooms": [
+  {
+   "id": "i_living",
+   "label": "Living",
+   "cam": {
+    "p": [
+     -0.5,
+     1.5,
+     1.91
+    ],
+    "t": [
+     2.97,
+     0.9,
+     0.15
+    ],
+    "f": 70
+   }
+  },
+  {
+   "id": "i_kitchen",
+   "label": "Kitchen",
+   "cam": {
+    "p": [
+     -0.79,
+     1.5,
+     1.18
+    ],
+    "t": [
+     3.41,
+     1.1,
+     2.96
+    ],
+    "f": 70
+   }
+  },
+  {
+   "id": "i_bed1",
+   "label": "Bedroom 1",
+   "cam": {
+    "p": [
+     -2.0,
+     1.3,
+     -0.85
+    ],
+    "t": [
+     -2.41,
+     0.8,
+     -3.17
+    ],
+    "f": 70
+   }
+  },
+  {
+   "id": "i_bed2",
+   "label": "Bedroom 2",
+   "cam": {
+    "p": [
+     1.5,
+     1.3,
+     -1.6
+    ],
+    "t": [
+     1.36,
+     0.8,
+     -3.62
+    ],
+    "f": 70
+   }
+  },
+  {
+   "id": "i_bath",
+   "label": "Bathroom",
+   "cam": {
+    "p": [
+     -2.08,
+     1.55,
+     3.83
+    ],
+    "t": [
+     -3.02,
+     0.9,
+     2.88
+    ],
+    "f": 80
+   }
+  },
+  {
+   "id": "i_hall",
+   "label": "Hall",
+   "cam": {
+    "p": [
+     -0.65,
+     1.5,
+     4.15
+    ],
+    "t": [
+     0.09,
+     1.3,
+     0.29
+    ],
+    "f": 75
+   }
+  },
+  {
+   "id": "i_store",
+   "label": "Storage",
+   "cam": {
+    "p": [
+     -1.09,
+     1.5,
+     1.32
+    ],
+    "t": [
+     -3.0,
+     1.0,
+     1.32
+    ],
+    "f": 80
+   }
+  }
+ ],
+ "overview": {
+  "p": [
+   0.6,
+   12,
+   11
+  ],
+  "t": [
+   0.2,
+   0,
+   -0.3
+  ],
+  "f": 45
+ },
+ "doors": [
+  {
+   "name": "Door_-3.5",
+   "hinge": [
+    -1.5053,
+    0,
+    -0.7935
+   ],
+   "w": 0.8,
+   "closed_rot_y": 0.3129,
+   "open_rot_y": -1.34516
+  },
+  {
+   "name": "Door_-0.5",
+   "hinge": [
+    -0.3628,
+    0,
+    -1.136
+   ],
+   "w": 0.8,
+   "closed_rot_y": 0.12565,
+   "open_rot_y": 1.78371
+  },
+  {
+   "name": "Door_-1.4",
+   "hinge": [
+    -1.3835,
+    0,
+    0.8996
+   ],
+   "w": 0.8,
+   "closed_rot_y": -1.5708,
+   "open_rot_y": 0.08727
+  },
+  {
+   "name": "Door_-1.5",
+   "hinge": [
+    -1.5012,
+    0,
+    3.2545
+   ],
+   "w": 0.8,
+   "closed_rot_y": -1.5708,
+   "open_rot_y": 0.08727
+  },
+  {
+   "name": "Door_entrance",
+   "hinge": [
+    -1.0891,
+    0,
+    4.5626
+   ],
+   "w": 0.9,
+   "closed_rot_y": 0,
+   "open_rot_y": 1.39626
+  }
+ ]
+}

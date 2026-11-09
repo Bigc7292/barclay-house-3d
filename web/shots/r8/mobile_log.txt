@@ -1,0 +1,3 @@
+mobile ready mode= orbit doors= 5 mobileUA= true
+mobile after living: mode= walk joyDisplay= block
+mobile Walk mode href= floorplan3d/2bed.html errs= 0 []

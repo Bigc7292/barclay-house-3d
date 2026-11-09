@@ -67,4 +67,31 @@ What: `gsl-build-lod` turns PLY/SPZ into streamed LOD RAD with SH codebooks (~56
 Free? Yes – npm `gaussian-splat-lite`, Node ≥22.12, three ≥0.187.
 Apply: after OpenSplat (`TOOLS.md`) on real street photos: `npx --package gaussian-splat-lite gsl-build-lod out.ply --max-sh 0 -o web/context.rad`; load with `RadStreamScheduler` beside `hero.glb`. Test now on `tests/sfm/splat_test.ply`; real use blocked until Colin has site photos/video.
 
+## 12. Geometry-aware procedural grime (soot in crevices, drips under sills) + close-up critique
+Source: https://x.com/sidahuj/status/2117640443345379421 → https://www.mcp-for-blender.com/blog/photorealistic-renders/ (steps 4 + 6; Opus/ChatGPT in the recipe = paid, not needed)
+What: wear placed where it really collects — AO-masked crevice soot, Pointiness edge wear, gravity drip streaks below overhangs — all shader nodes, no textures; then close-up crops critiqued one fix per pass.
+Free? Yes – Blender (GPL) + mcp-for-blender (MIT, already on port 9876).
+Apply: `build_scene.py` add `weather2()` after existing `weather()` (keep it; hybrid) behind `BWEATHER2=1`; AO node (0.3 m) inverted → soot, Z-stretched noise × below-sill/cornice mask (heights from `scene_data.json`) → drips, +0.1 roughness in grime. Apply to faience/terracotta/stone/`Viaduct_brick` (AO darkens the salmon parapet tops). Close-ups from `camera_match.py` cams → `ref_check.py`. AO is Cycles-only: stills/flythrough first, GLB only if baked within budget. Doc: /home/box/x-bookmarks/implementations/barclay/2026-11-07-procedural-weathering.md
+
+## 13. Prop-kit normaliser + lineup with scale bar (street props)
+Source: https://x.com/apekshik/status/2117798412703953143 → https://github.com/apekshik/anykit (MIT; the tool itself runs on fal+Meshy+Tripo ≈$25/kit = blocked: cost → method only)
+What: every prop at real-world size, bottom-centre origin, front −Y, LOD1 ≈25% tris, shared material palette, one lineup render with a 1 m scale bar checked before placing.
+Free? Yes – Blender script + CC0 props (Poly Haven/Kenney) + gltf-transform dedup (certified #2a).
+Apply: new `props_normalize.py` for lamps/bollards/bins/vehicles used by `build_surroundings.py` and street-life `--life` (#9); heights from a sourced `props_dims.json` (URL per row, else "stand-in"); lineup render to `out/props_lineup.png`; LOD1 for `surr_mobile`. Map prop materials to ≤6 shared materials so dedup merges them.
+
+## 14. Interior viewer: room fly-to buttons + touch walk (Interior bot)
+Source: https://x.com/bkdgiffug/status/2117486428645138512 → https://github.com/wy51ai/floorplan-3d (MIT, 3.6k★; live https://wy51ai.github.io/floorplan-3d/)
+What: list of rooms → camera flies into that room; first-person walk with on-screen joystick on phones; cut-away walls toggle.
+Free? Yes – MIT patterns; model-viewer camera-target/camera-orbit (already used) or a tiny three.js PointerLock/joystick page.
+Apply: `interior/live/index.html` (model-viewer on `twobed.glb`, orbit only today): add room buttons that set `camera-target`/`camera-orbit` per room (room centres from `build_twobed_v4.py` / `das_unit_areas.txt`, show sourced m²); optional walk page with joystick + wall collision. Validate on Samsung via `mobile_shots.cjs`.
+
 Skipped: 22 earlier + 9 of 14 new (2026-11-03: 3D World Simulator, DetailCraft, SUAPP, SimReady studio, quantity estimator, PlanFinder, Unreal sun loop (tod_panel.py already does sun path), cfenghub/Codestudiopjbk three.js dupes) (already covered in x_workflows.md/TOOLS.md, interior/off-plan only, paid/proprietary, or spam).
+2026-11-07 skipped: ageospatial (paid SaaS), PhysAg3D (paid model + 28 GB GPU), Scenario 3D OS repost (dup, paid credits), Roomtone v2 (no licence; dusk = #9).
+
+## 15. Reference-checklist gate (per-element yes/partial/no + pixel-stat threshold + done criteria)
+Source: https://x.com/i/status/2119285434060603642 → https://x.com/rektwild/status/2119281630632145093 (Claude+Blender article; bridge https://github.com/ahujasid/mcp-for-blender MIT). The advertised 'cutaway' skill repo could not be found/licence unknown → method only.
+What: each locked-camera render scored per named element vs refs/ crops (yes/partial/no) plus a numeric threshold (≥80% of the reference stat, e.g. dark-pixel share) that must pass; explicit done criteria so the agent can't stop early.
+Free? Yes – numpy/Pillow + existing Blender MCP; no ChatGPT/audio steps.
+Apply: new `checks.py` + `refs/checklist_<cam>.json` (elements only from sourced ref photos), called after `ref_check.py` (hybrid, keep it); gate = no "no" rows; done-criteria block in AGENTS.md step 6; Interior bot builds rows from the approved CAD plan. Doc: /home/box/x-bookmarks/implementations/barclay/2026-11-09-reference-checklist-gate.md
+
+2026-11-09 skipped: free .edu.kg mail (not relevant, privacy risk), tinyrj pixel-art map, Claude MEP demo (no services in scope), Steam arch tool (unnamed, closed, likely paid), 67.js (Blender covers; licence NOASSERTION).
