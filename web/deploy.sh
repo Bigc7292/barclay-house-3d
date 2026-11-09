@@ -30,6 +30,9 @@ FILES=(
   tex/oak_n.jpg tex/oak_r.jpg tex/teddy_d.jpg tex/teddy_n.jpg tex/teddy_r.jpg tex/whitworth.jpg
   tex/oak_n_m.jpg tex/oak_r_m.jpg tex/teddy_d_m.jpg tex/teddy_n_m.jpg tex/teddy_r_m.jpg
   water/Water_1_M_Normal.jpg water/Water_2_M_Normal.jpg water/LICENSE-three.js.txt
+  tex/asphalt_02_diff.jpg tex/asphalt_02_nor_gl.jpg tex/asphalt_02_rough.jpg tex/asphalt_02_diff_m.jpg tex/asphalt_02_nor_gl_m.jpg tex/asphalt_02_rough_m.jpg tex/LICENSES.txt
+  life/sedan.glb life/van.glb life/suv.glb life/train-electric-city-a.glb life/train-electric-city-b.glb life/train-electric-city-c.glb
+  life/LICENSE-kenney-car-kit.txt life/LICENSE-kenney-train-kit.txt
   video/index.html video/barclay_exterior_step7.mp4 video/img/aerial.jpg video/img/compare_corner.jpg video/img/corner.jpg
   video/img/entrance.jpg video/img/front.jpg video/img/lintel.jpg video/img/pole.jpg
   floorplan3d/2bed.html floorplan3d/2bed.json vendor/floorplan-3d/LICENSE
@@ -43,6 +46,7 @@ FILES=(
   floorplan3d/vendor/three-r160/examples/jsm/renderers/CSS2DRenderer.js
   floorplan3d/vendor/three-r160/examples/jsm/geometries/RoundedBoxGeometry.js
 )
+for a in $(grep -oE "['\`](life|tex|water)/[A-Za-z0-9_./-]+\.(glb|jpg|png)" src/app.js | tr -d "'\`" | sort -u); do [[ " ${FILES[*]} " == *" $a "* ]] || { echo "deploy.sh FILES is missing $a (referenced by src/app.js)"; exit 1; }; done
 rm -rf "$OUT"; mkdir -p "$OUT/b64"
 python3 - "$OUT" "${FILES[@]}" <<'P'
 import sys,hashlib,base64,json,os
