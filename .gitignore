@@ -1,3 +1,5 @@
+
 # only editor temp/lock files
 *.blend@
 *.blend~
+__pycache__/

@@ -1,0 +1,105 @@
+{
+  "cam": "street",
+  "locked_camera": "Cam_Match_geograph",
+  "render": "out/render_street_4096x2304.png",
+  "ref": "refs/critic1/real_geograph.jpg",
+  "ref_source": "https://www.geograph.org.uk/ (real_geograph.jpg, Jul 2025 Whitworth St W)",
+  "notes": "Crops are normalised fractions of each image; cameras are approximately matched (critic_log R4 rms 14.2 px). Elements tied to critic R4 / interior critic open defects.",
+  "elements": [
+    {
+      "element": "ground_floor_ashlar",
+      "rule": "hf_excess",
+      "render_crop": [
+        0.22,
+        0.52,
+        0.78,
+        0.72
+      ],
+      "ref_crop": [
+        0.05,
+        0.35,
+        0.8,
+        0.55
+      ],
+      "critic_note": "R4/interior: stone must read as smooth banded Portland ashlar with channelled joints, not rubble/brick-like tiling",
+      "source": "real_geograph.jpg + Heritage Statement Portland stone",
+      "status": "open"
+    },
+    {
+      "element": "arcade",
+      "rule": "arcade_quality",
+      "render_crop": [
+        0.25,
+        0.55,
+        0.75,
+        0.78
+      ],
+      "ref_crop": [
+        0.1,
+        0.38,
+        0.75,
+        0.58
+      ],
+      "critic_note": "R4/interior HIGH: arcade too weak \u2014 need deep voussoirs, keystones, dark set-back glazing",
+      "source": "real_geograph.jpg arched bays",
+      "status": "open"
+    },
+    {
+      "element": "glazing",
+      "rule": "edge_ratio",
+      "render_crop": [
+        0.28,
+        0.18,
+        0.72,
+        0.48
+      ],
+      "ref_crop": [
+        0.1,
+        0.12,
+        0.7,
+        0.38
+      ],
+      "critic_note": "R4: white multi-pane sashes / fanlight bars must be legible vs flat single panes",
+      "source": "real_geograph.jpg upper windows",
+      "status": "open"
+    },
+    {
+      "element": "rb_shields",
+      "rule": "relief_detail",
+      "render_crop": [
+        0.3,
+        0.28,
+        0.42,
+        0.42
+      ],
+      "ref_crop": [
+        0.62,
+        0.28,
+        0.78,
+        0.48
+      ],
+      "critic_note": "R4 MED: plain white discs read as satellite dishes; real = carved stone shield relief",
+      "source": "real_geograph.jpg crest / Commons RB monogram shields",
+      "status": "open"
+    },
+    {
+      "element": "parapet_colour",
+      "rule": "max_salmon",
+      "render_crop": [
+        0.2,
+        0.02,
+        0.8,
+        0.12
+      ],
+      "ref_crop": [
+        0.05,
+        0.02,
+        0.7,
+        0.12
+      ],
+      "critic_note": "Building parapet is stone (not brick). Flag washed salmon/orange under double-sun (pre-R4 failure mode)",
+      "source": "real_geograph.jpg roofline",
+      "status": "open"
+    }
+  ]
+}

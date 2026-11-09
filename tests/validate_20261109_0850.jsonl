@@ -1,0 +1,4 @@
+{"file":"out/barclay_hero.glb","MB":3.67,"budget":5,"errors":0,"warnings":3,"primitives_drawcalls":16,"materials":10,"textures":3,"ok":true}
+{"file":"out/mobile/barclay_hero_mobile.glb","MB":1.67,"budget":2,"errors":0,"warnings":1,"primitives_drawcalls":9,"materials":9,"textures":3,"ok":true}
+{"file":"out/mobile/barclay_surroundings_mobile.glb","MB":4.51,"budget":6,"errors":0,"warnings":4,"primitives_drawcalls":20,"materials":20,"textures":12,"ok":true}
+{"file":"out/barclay_surroundings.glb","MB":34.5,"budget":null,"errors":0,"warnings":3,"primitives_drawcalls":5453,"materials":21,"textures":12,"ok":true}
