@@ -1,0 +1,21 @@
+{"url":"/?m=i&cam=i_living&tod=midday","loadMs":1145,"totalKb":7222,"res":[{"n":"env.hdr","kb":1457.4},{"n":"hero.glb","kb":1882.9},{"n":"context.glb","kb":2445.4},{"n":"twobed.glb","kb":1436.4}]}
+{"label":"desktop_main_viewer","fps":{"avg":4,"p10":2.5,"p50":3.5},"draw":{"calls":4,"tris":69656,"mem":23.1}}
+{"url":"/floorplan3d/2bed.html","loadMs":2435,"totalKb":2879,"res":[{"n":"three.module.js","kb":1243.4},{"n":"OrbitControls.js","kb":29.5},{"n":"GLTFLoader.js","kb":106.3},{"n":"RoomEnvironment.js","kb":3.9},{"n":"meshopt_decoder.module.js","kb":24.6},{"n":"BufferGeometryUtils.js","kb":31.5},{"n":"2bed.json","kb":3.5},{"n":"twobed.glb","kb":1436.4}]}
+node:internal/modules/run_main:107
+    triggerUncaughtException(
+    ^
+
+page.evaluate: TypeError: Cannot read properties of undefined (reading 'goRoom')
+    at eval (eval at evaluate (:234:30), <anonymous>:1:19)
+    at UtilityScript.evaluate (<anonymous>:236:17)
+    at UtilityScript.<anonymous> (<anonymous>:1:44)
+    at /tmp/pw/dining_perf.mjs:38:12
+
+Node.js v24.22.1
+{"kind":"desktop","loadMs":3542,"totalKb":2879,"res":[{"n":"three.module.js","kb":1243.4},{"n":"OrbitControls.js","kb":29.5},{"n":"GLTFLoader.js","kb":106.3},{"n":"RoomEnvironment.js","kb":3.9},{"n":"meshopt_decoder.module.js","kb":24.6},{"n":"BufferGeometryUtils.js","kb":31.5},{"n":"2bed.json","kb":3.5},{"n":"twobed.glb","kb":1436.4}],"errs":[]}
+{"kind":"desktop","joy":"none","mode":"walk"}
+{"label":"desktop_walk_mode","fps":{"avg":8,"p10":4.3,"p50":7.5},"draw":{"calls":3,"tris":69080,"mem":31.2}}
+{"kind":"mobile","loadMs":3770,"totalKb":2747,"res":[{"n":"three.module.js","kb":1243.4},{"n":"GLTFLoader.js","kb":106.3},{"n":"OrbitControls.js","kb":29.5},{"n":"RoomEnvironment.js","kb":3.9},{"n":"meshopt_decoder.module.js","kb":24.6},{"n":"BufferGeometryUtils.js","kb":31.5},{"n":"2bed.json","kb":3.5},{"n":"twobed_m.glb","kb":1304.7}],"errs":[]}
+{"kind":"mobile","joy":"block","mode":"walk"}
+{"label":"mobile_walk_mode","fps":{"avg":14.5,"p10":10,"p50":15},"draw":{"calls":2,"tris":68924,"mem":27.6}}
+{"label":"mobile_main_viewer","fps":{"avg":9.6,"p10":6.7,"p50":8.6},"draw":{"calls":3,"tris":69500,"mem":27.6}}

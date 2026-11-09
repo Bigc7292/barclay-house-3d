@@ -1,7 +1,7 @@
 <!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
 <title>Barclay House Two Bed</title>
 <!-- Floorplan 3D interaction patterns (room fly-to, touch joystick walk, door toggle) ported from
-     https://github.com/wy51ai/floorplan-3d (MIT, (c) 2026 wuyi; see ../../vendor/floorplan-3d/LICENSE).
+     https://github.com/wy51ai/floorplan-3d (MIT, (c) 2026 wuyi; see ../vendor/floorplan-3d/LICENSE).
      three.js r160 vendored locally (MIT, see vendor/three-r160/LICENSE). No CDN. Data: 2bed.json. -->
 <style>
 html,body{margin:0;height:100%;overflow:hidden;background:#e9e6e1;font:14px system-ui,sans-serif;touch-action:none}
@@ -15,7 +15,7 @@ html,body{margin:0;height:100%;overflow:hidden;background:#e9e6e1;font:14px syst
 </style>
 <script type="importmap">{"imports":{"three":"./vendor/three-r160/build/three.module.js","three/addons/":"./vendor/three-r160/examples/jsm/"}}</script>
 </head><body>
-<div id="v"></div><div id="bar"><button id="b_over" class="on" data-act="over">3D</button></div>
+<div id="v"></div><div id="bar"><a id="b_back" href="../index.html?m=i" style="padding:8px 12px;border-radius:8px;background:#111;color:#fff;text-decoration:none;box-shadow:0 1px 4px #0003;font:inherit">← Viewer</a><button id="b_over" class="on" data-act="over">3D</button></div>
 <div id="joy"><i></i></div><div id="msg"></div>
 <script type="module">
 import * as THREE from 'three';
@@ -26,7 +26,7 @@ import {MeshoptDecoder} from 'three/addons/libs/meshopt_decoder.module.js';
 const $=s=>document.querySelector(s), q=new URLSearchParams(location.search);
 const MOB=q.get('lq')==='1'||(q.get('lq')!=='0'&&(matchMedia('(pointer:coarse)').matches||/Android|iPhone|iPad|Mobi/i.test(navigator.userAgent)));
 const D=await (await fetch('2bed.json')).json();
-const R=new THREE.WebGLRenderer({antialias:!MOB,preserveDrawingBuffer:true});R.setPixelRatio(Math.min(devicePixelRatio,2));
+const R=new THREE.WebGLRenderer({antialias:!MOB});R.setPixelRatio(Math.min(devicePixelRatio,MOB?1.5:2));
 R.toneMapping=THREE.ACESFilmicToneMapping;R.outputColorSpace=THREE.SRGBColorSpace;$('#v').appendChild(R.domElement);
 const S=new THREE.Scene();S.background=new THREE.Color(0xe9e6e1);
 S.environment=new THREE.PMREMGenerator(R).fromScene(new RoomEnvironment(),0.04).texture;S.environmentIntensity=0.6;
@@ -72,7 +72,7 @@ const ease=t=>t<.5?4*t*t*t:1-Math.pow(-2*t+2,3)/2;let fly=null,mode='orbit';
 function flyTo(v,dur,done){const st=performance.now(),p0=C.position.clone(),t0=O.target.clone(),f0=C.fov,p1=new THREE.Vector3().fromArray(v.p),t1=new THREE.Vector3().fromArray(v.t);
  fly={step(now){const k=Math.min(1,(now-st)/dur),e=ease(k);C.position.lerpVectors(p0,p1,e);O.target.lerpVectors(t0,t1,e);C.fov=f0+(v.f-f0)*e;C.updateProjectionMatrix();C.lookAt(O.target);if(k>=1){fly=null;done&&done()}}}}
 const eul=new THREE.Euler(0,0,0,'YXZ');
-function setWalk(on){mode=on?'walk':'orbit';O.enabled=!on;$('#joy').style.display=on?'block':'none';if(on){C.position.y=Math.min(C.position.y,1.6);C.lookAt(O.target)}setOn(null);wb.classList.toggle('on',on)}
+function setWalk(on){mode=on?'walk':'orbit';O.enabled=!on;$('#joy').style.display=(on&&(MOB||matchMedia('(pointer:coarse)').matches))?'block':'none';if(on){C.position.y=Math.min(C.position.y,1.6);C.lookAt(O.target)}setOn(null);wb.classList.toggle('on',on)}
 function goRoom(id){const r=D.rooms.find(r=>r.id===id);if(!r||fly)return;const inside=mode==='walk';O.enabled=false;
  const go=()=>flyTo(r.cam,1200,()=>{setWalk(true);setOn(id);wb.classList.add('on')});
  if(inside){const mid={p:[(C.position.x+r.cam.p[0])/2,2.6,(C.position.z+r.cam.p[2])/2],t:r.cam.t,f:r.cam.f};flyTo(mid,450,go)}else go()}

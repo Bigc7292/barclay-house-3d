@@ -87,3 +87,11 @@ Apply: `interior/live/index.html` (model-viewer on `twobed.glb`, orbit only toda
 
 Skipped: 22 earlier + 9 of 14 new (2026-11-03: 3D World Simulator, DetailCraft, SUAPP, SimReady studio, quantity estimator, PlanFinder, Unreal sun loop (tod_panel.py already does sun path), cfenghub/Codestudiopjbk three.js dupes) (already covered in x_workflows.md/TOOLS.md, interior/off-plan only, paid/proprietary, or spam).
 2026-11-07 skipped: ageospatial (paid SaaS), PhysAg3D (paid model + 28 GB GPU), Scenario 3D OS repost (dup, paid credits), Roomtone v2 (no licence; dusk = #9).
+
+## 15. Reference-checklist gate (per-element yes/partial/no + pixel-stat threshold + done criteria)
+Source: https://x.com/i/status/2119285434060603642 → https://x.com/rektwild/status/2119281630632145093 (Claude+Blender article; bridge https://github.com/ahujasid/mcp-for-blender MIT). The advertised 'cutaway' skill repo could not be found/licence unknown → method only.
+What: each locked-camera render scored per named element vs refs/ crops (yes/partial/no) plus a numeric threshold (≥80% of the reference stat, e.g. dark-pixel share) that must pass; explicit done criteria so the agent can't stop early.
+Free? Yes – numpy/Pillow + existing Blender MCP; no ChatGPT/audio steps.
+Apply: new `checks.py` + `refs/checklist_<cam>.json` (elements only from sourced ref photos), called after `ref_check.py` (hybrid, keep it); gate = no "no" rows; done-criteria block in AGENTS.md step 6; Interior bot builds rows from the approved CAD plan. Doc: /home/box/x-bookmarks/implementations/barclay/2026-11-09-reference-checklist-gate.md
+
+2026-11-09 skipped: free .edu.kg mail (not relevant, privacy risk), tinyrj pixel-art map, Claude MEP demo (no services in scope), Steam arch tool (unnamed, closed, likely paid), 67.js (Blender covers; licence NOASSERTION).

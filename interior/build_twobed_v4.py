@@ -233,7 +233,49 @@ def tub(c,ang):
     bk=obj_from(bm,"Tub_back",BOUC);bk.location=(0,0,0.67);bk.parent=e;md=bk.modifiers.new("s","SOLIDIFY");md.thickness=0.06
     for a in range(4): q=a*math.pi/2+math.pi/4; cyl("Tub_leg_black",(0.2*math.cos(q),0.2*math.sin(q),0.2),0.012,0.4,BMET).parent=e
     e.location=c;e.rotation_euler[2]=ang
-for j,a in enumerate((0,math.pi/2,math.pi,3*math.pi/2)): tub((dc.x+0.72*math.cos(a),dc.y+0.72*math.sin(a),0),a+math.pi/2)
+for j,a in enumerate((0,math.pi/2,math.pi,3*math.pi/2)): tub((dc.x+0.72*math.cos(a),dc.y+0.72*math.sin(a),0),a-math.pi/2)
+
+# --- geometric chair facing check (print + assert) ---
+_chairs=[o for o in sc.objects if o.name.startswith("Tub_chair_cream_boucle") and o.parent is None]
+print("CHAIR_COUNT",len(_chairs))
+assert len(_chairs)==4, f"expected 4 chairs, got {len(_chairs)}"
+for e in _chairs:
+    ang=e.rotation_euler[2]; pos=e.location.copy()
+    # opening = local -Y after Z rot; backrest = local +Y
+    open_dir=Vector((math.sin(ang),-math.cos(ang),0)).normalized()
+    back_dir=Vector((-math.sin(ang),math.cos(ang),0)).normalized()
+    to_table=(dc-pos); to_table.z=0; to_table.normalize()
+    dot=open_dir.dot(to_table)
+    d_back=(pos+back_dir*0.25-dc).length; d_open=(pos+open_dir*0.25-dc).length
+    ok=dot>0.9 and d_back>d_open
+    print(f"CHAIR_CHECK name={e.name} pos=({pos.x:.3f},{pos.y:.3f},{pos.z:.3f}) rot_z={ang:.4f} open_dir=({open_dir.x:.3f},{open_dir.y:.3f}) to_table=({to_table.x:.3f},{to_table.y:.3f}) dot={dot:.3f} d_back={d_back:.3f} d_open={d_open:.3f} PASS={ok}")
+    assert ok, "chair facing failed geometric check"
+print("CHAIR_CHECK_ALL_PASS")
+# dining top-down + 3/4 Blender stills (always, even with --noshots)
+import os
+os.makedirs("/workspace/barclay/web/shots/r9",exist_ok=True)
+_sc=sc; _sc.render.engine='CYCLES'; _sc.cycles.samples=24; _sc.cycles.use_denoising=True
+_sc.render.resolution_x=1200; _sc.render.resolution_y=1200
+# top-down
+bpy.ops.object.camera_add(location=(dc.x,dc.y,4.2)); cam=bpy.context.object
+cam.rotation_euler=(0,0,0); cam.data.type='ORTHO'; cam.data.ortho_scale=3.2; _sc.camera=cam
+# look down: track -Z toward table
+cam.rotation_euler=(0,0,0); # wrong - need to point down
+cam.location=(dc.x,dc.y,5.0); cam.rotation_euler=(0,0,0)
+# Blender camera looks along -Z of camera; set rotation to look down
+from mathutils import Euler
+cam.rotation_euler=Euler((0,0,0),'XYZ')  # default looks -Z which is down if we use track
+# Actually default camera at (0,0,5) with rot (0,0,0) looks toward -Z world = down. Good for top-down if Z is up.
+# Our scene uses Z-up. Camera default faces -Z, so from z=5 looking -Z sees the XY plane. Perfect.
+_sc.render.filepath="/workspace/barclay/web/shots/r9/dining_top.png"; bpy.ops.render.render(write_still=True); print("SHOT dining_top")
+# 3/4 view
+cam.data.type='PERSP'; cam.data.lens=35
+cam.location=(dc.x+1.8, dc.y-1.8, 1.6)
+cam.rotation_euler=(Vector((dc.x,dc.y,0.7))-cam.location).to_track_quat('-Z','Y').to_euler()
+_sc.render.resolution_x=1400; _sc.render.resolution_y=1000
+_sc.render.filepath="/workspace/barclay/web/shots/r9/dining_34.png"; bpy.ops.render.render(write_still=True); print("SHOT dining_34")
+bpy.data.objects.remove(cam, do_unlink=True)
+
 cyl("Pendant_cord",(dc.x,dc.y,(CEIL+1.75)/2),0.004,CEIL-1.75,BMET); sph("Globe_pendant_white",(dc.x,dc.y,1.6),0.2,GLOBE)
 bpy.ops.object.light_add(type='POINT',location=(dc.x,dc.y,1.55));bpy.context.object.name="Pendant_light";bpy.context.object.data.energy=40;bpy.context.object.data.color=(1,0.78,0.55)
 # ---------- BEDROOMS
