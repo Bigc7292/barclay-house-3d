@@ -26,7 +26,7 @@ import {MeshoptDecoder} from 'three/addons/libs/meshopt_decoder.module.js';
 const $=s=>document.querySelector(s), q=new URLSearchParams(location.search);
 const MOB=q.get('lq')==='1'||(q.get('lq')!=='0'&&(matchMedia('(pointer:coarse)').matches||/Android|iPhone|iPad|Mobi/i.test(navigator.userAgent)));
 const D=await (await fetch('2bed.json')).json();
-const R=new THREE.WebGLRenderer({antialias:!MOB,preserveDrawingBuffer:true});R.setPixelRatio(Math.min(devicePixelRatio,2));
+const R=new THREE.WebGLRenderer({antialias:!MOB});R.setPixelRatio(Math.min(devicePixelRatio,MOB?1.5:2));
 R.toneMapping=THREE.ACESFilmicToneMapping;R.outputColorSpace=THREE.SRGBColorSpace;$('#v').appendChild(R.domElement);
 const S=new THREE.Scene();S.background=new THREE.Color(0xe9e6e1);
 S.environment=new THREE.PMREMGenerator(R).fromScene(new RoomEnvironment(),0.04).texture;S.environmentIntensity=0.6;
@@ -110,5 +110,5 @@ let last=performance.now();
 R.setAnimationLoop(now=>{const dt=Math.min(0.1,(now-last)/1000);last=now;if(fly)fly.step(now);else if(mode==='orbit')O.update();stepWalk(dt);
  doors.forEach(d=>{const tg=d.open?d.base:d.d.closed_rot_y;d.cur+=(tg-d.cur)*Math.min(1,dt*6);d.pv.rotation.y=d.cur});
  if(ceiling)ceiling.visible=C.position.y<2.95;R.render(S,C)});
-window.__lookAt=(p,t,f)=>{C.position.fromArray(p);O.target.fromArray(t);if(f){C.fov=f;C.updateProjectionMatrix()}C.lookAt(O.target)};window.__drawcalls=()=>R.info.render.calls;window.__tris=()=>R.info.render.triangles;window.__fp3d={ready:true,doors:()=>doors.map(d=>({name:d.d.name,tris:d.tris,open:d.open,rot:+d.cur.toFixed(3)})),mode:()=>mode,fly:()=>!!fly,goRoom,goOver,cam:()=>C.position.toArray()};
+window.__fp3d={ready:true,doors:()=>doors.map(d=>({name:d.d.name,tris:d.tris,open:d.open,rot:+d.cur.toFixed(3)})),mode:()=>mode,fly:()=>!!fly,goRoom,goOver,cam:()=>C.position.toArray()};
 </script></body></html>
