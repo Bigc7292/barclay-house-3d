@@ -1,7 +1,9 @@
 # blender -b out/barclay_scene.blend -P export_glb.py  -> out/barclay_hero.glb, out/barclay_surroundings.glb, out/viewer_assets.json
 import bpy, bmesh, os, json, math, mathutils
-HERE = "/workspace/barclay"; TX = HERE + "/textures/export/"; OUT = HERE + "/out/"
+HERE = os.path.dirname(os.path.abspath(__file__)); TX = HERE + "/textures/export/"; OUT = os.environ.get("BOUT", HERE + "/out/")   # BOUT=tests/x/ for test exports
 sc = bpy.context.scene
+# 0. street-life actors (life_paths.py, LIFE collection) are render-only set dressing: never exported
+for o in [o for o in bpy.data.objects if any(c.name == "LIFE" for c in o.users_collection)]: bpy.data.objects.remove(o)
 # 1. remove cutters, apply modifiers on everything (booleans/solidify/displace)
 dg = bpy.context.evaluated_depsgraph_get()
 for o in [o for o in sc.objects if o.type == "MESH" and o.modifiers]:

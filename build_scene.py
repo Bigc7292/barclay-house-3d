@@ -403,6 +403,7 @@ ROAD_W = {"primary":10,"secondary":9,"tertiary":8,"residential":6,"unclassified"
 def main():
     bpy.ops.wm.read_factory_settings(use_empty=True)
     M = mats(); sc = bpy.context.scene
+    sys.path.insert(0, HERE); import water_ripple; water_ripple.ripple(M["water"])   # x_tricks #10: Noise->Bump 0.05 on Canal_water (tests/streetwater)
     CB, CR, CT, CH, CN = coll("Buildings"), coll("Roads_Terrain_Water"), coll("Rail_Viaduct"), coll("Hero"), coll("Trees_Furniture")
     R, Cc, st = DT["rows"], DT["cols"], DT["step"]; v = []; f = []
     for r in range(R):
@@ -446,6 +447,7 @@ def main():
             z = min(ground(*p) for p in wt["pts"]) - 0.4
             prism("canal_"+wt["id"], wt["pts"], z-0.5, z, M["water"], CR)
         elif wt["k"] == "canal": ribbon("canal_"+wt["id"], wt["pts"], 6, M["water"], CR, -1.0)
+    water_ripple.cut_terrain(bpy.data.objects["Terrain_EA_DTM"], [o for o in CR.objects if o.name.startswith("canal_")])   # x_tricks #10: canal was hidden under the DTM
     tx = bpy.data.textures.new("treeN", "CLOUDS"); tx.noise_scale = 1.0
     for x, y, h in D["trees"]:
         h = h if h and 3 < h < 25 else 6.0; g = ground(x, y)
