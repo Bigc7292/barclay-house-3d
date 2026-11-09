@@ -19,3 +19,4 @@
 | 4 | x_tricks #4 render-check gate before animation (exterior executor) | SKIPPED | no flythrough this round | - | 2026-11-03 |
 | 5 | x_tricks #5 clickable floors (exterior executor) | SKIPPED | viewer feature; unit-to-floor data NOT FOUND | - | 2026-11-03 |
 | 6 | x_tricks #6 mcp-for-blender-pro (exterior executor) | SKIPPED | licence unverified; existing Blender MCP + scripts suffice | - | 2026-11-03 |
+| 15 | Reference-checklist gate (per-element yes/partial/no + pixel-stat threshold, hybrid with ref_check.py) | CERTIFIED | checks.py + refs/checklist_{street,hero,viaduct}.json. R4 street FAIL (ashlar no, arcade no, shields partial) matches critic; R4 viaduct FAIL parapet salmon_frac=0.395; R4 building parapet YES; R3 street FAIL salmon=0.446 (pre-R4); synthetic salmon FAIL; --all 15.3 s. Cutaway skill NOT used (unverified). MIT mcp-for-blender method-only. £0 numpy/Pillow. | AGENTS.md step 3+6 done-criteria; out/checklist_<cam>.md | 2026-11-09 |

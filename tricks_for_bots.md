@@ -14,3 +14,10 @@
 - Run make_mobile_v2.sh then validate.sh; budget check v2 files. Add a headless load check (tests/trickcheck/load.cjs) — a meshopt file without local decoder fails silently with ERR.
 - Track draw calls (hero 1466, surr 5453) until linked-duplicates/join-by-material lands.
 - Never adopt a trick without a register row (AGENTS.md intake gate).
+
+## All bots — trick #15 reference-checklist gate (CERTIFIED 2026-11-09)
+- Run `python3 checks.py --cam street --cam hero` (add `--cam viaduct` while parapet colour is open) after every locked-camera still. Gate PASS = no "no" rows and ≤2 "partial".
+- Reports: out/checklist_<cam>.md (+ hybrid ref_check sheet). Crops live in refs/checklist_<cam>.json (sourced photos only).
+- Critic_log should cite checklist rows (ashlar / arcade / glazing / rb_shields / parapet_colour) instead of prose when possible.
+- Interior: when adapting, drive rows from the approved CAD plan (room counts/sizes/doors), not facade photos.
+- Do NOT use the unverified 'cutaway' skill repo; method re-implemented in checks.py (numpy/Pillow only).
