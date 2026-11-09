@@ -1,0 +1,52 @@
+{
+ "merged_desktop_canal": {
+  "ready": true,
+  "load_s": 9.771,
+  "fps_swiftshader": 60.3,
+  "errors": [],
+  "water": [
+   {
+    "name": "Canal_water2_canal_243445859",
+    "water2": true,
+    "y": -0.91,
+    "tris": 26
+   },
+   {
+    "name": "Canal_water_cheap",
+    "water2": false,
+    "y": 0,
+    "tris": 229
+   }
+  ],
+  "sun_midday": [
+   50.13353250382634,
+   235.00623757535027
+  ],
+  "shot": "/workspace/barclay-wt-main/tests/barclay_merge/web_merged_desktop_canal.png"
+ },
+ "merged_mobile_street": {
+  "ready": true,
+  "load_s": 7.182,
+  "fps_swiftshader": 60.3,
+  "errors": [],
+  "water": [
+   {
+    "name": "Canal_water2_canal_243445859",
+    "water2": true,
+    "y": -0.91,
+    "tris": 26
+   },
+   {
+    "name": "Canal_water_cheap",
+    "water2": false,
+    "y": 0,
+    "tris": 229
+   }
+  ],
+  "sun_midday": [
+   50.13353250382634,
+   235.00623757535027
+  ],
+  "shot": "/workspace/barclay-wt-main/tests/barclay_merge/web_merged_mobile_street.png"
+ }
+}

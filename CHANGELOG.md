@@ -1,5 +1,14 @@
 # CHANGELOG
 
+## 2026-11-09 08:55 UTC+4 — `barclay` integration branch (Colin: all Barclay work on one branch)
+- Why: Colin ordered all Barclay House work, every file, onto branch `barclay` of Bigc7292/barclay-house-3d, pushed after every edit.
+- Merged: feat/floorplan3d-2bed, feat/refchecklist-gate, interior-backup, perf/viewer-speed, feat/streetlife-canalwater, origin/barclay (Interior bot's first push).
+- Conflicts resolved: tricks_register.md (kept all rows; #15 CERTIFIED); CHANGELOG.md (kept both); AGENTS.md/CLAUDE.md/GROK.md (kept all step 3/5 additions, three files identical); web/src/app.js (perf render-on-demand + Interior chairs kept, Water2 canal + tod_panel sun added; water animates only on rendered frames so idle cost stays zero); web/index.html (app.js?v=39); web/app.js rebuilt with esbuild.
+- Checks: ./validate.sh PASS; node --check web/app.js OK; headless Chromium desktop+phone 0 console errors, Water2 present (tests/barclay_merge/).
+- Known: web canal still sits under the old context_mo terrain until the next full re-export (terrain cut is in build_scene.py); not deployed.
+- Tracked previously ignored out/checklist_*_refcheck.png. No Git LFS, no files >100 MB.
+- Box sweep: see README "Box sweep".
+
 ## 2026-11-09 — interior-backup branch
 
 - Branch `interior-backup`: Interior bot backup (Two Bed bake, viewer, Floorplan 3D Walk mode, shots, FINDINGS/critic_log).

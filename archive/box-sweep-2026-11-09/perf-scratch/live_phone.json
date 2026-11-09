@@ -1,0 +1,1 @@
+{"kind":"phone","url":"https://barclay-house-viewer.vercel.app/","readyMs":5550,"fps":0.3,"drawsPerFrame":29,"trisPerFrame":97124,"idleFps":5,"idleDraws":435,"canvas":[824,1678],"dpr":2.625,"mobileFlag":true,"threeRevs":[],"totalMB":4.02,"big":["/hero_m.glb 0.87MB","/twobed_m.glb 0.67MB","/context_m.glb 1.97MB"],"reqs":24,"fp3dReqs":0,"s404":[],"errs":[],"warns":[]}
