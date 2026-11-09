@@ -28,6 +28,8 @@ FILES=(
   hero3.glb hero_mo3.glb context_typed_opt.glb context_mo.glb ext7_street.glb ext7_street_o.glb
   twobed_v5.glb twobed_v5_m.glb twobed.glb twobed_m.glb
   tex/oak_n.jpg tex/oak_r.jpg tex/teddy_d.jpg tex/teddy_n.jpg tex/teddy_r.jpg tex/whitworth.jpg
+  tex/oak_n_m.jpg tex/oak_r_m.jpg tex/teddy_d_m.jpg tex/teddy_n_m.jpg tex/teddy_r_m.jpg
+  water/Water_1_M_Normal.jpg water/Water_2_M_Normal.jpg water/LICENSE-three.js.txt
   video/index.html video/barclay_exterior_step7.mp4 video/img/aerial.jpg video/img/compare_corner.jpg video/img/corner.jpg
   video/img/entrance.jpg video/img/front.jpg video/img/lintel.jpg video/img/pole.jpg
   floorplan3d/2bed.html floorplan3d/2bed.json vendor/floorplan-3d/LICENSE
