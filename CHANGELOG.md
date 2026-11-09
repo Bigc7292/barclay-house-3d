@@ -57,3 +57,8 @@ Measured (headless Chromium, SwiftShader software GL, so absolute FPS is low; co
 - Desktop 1600x900: load 5.36 → 5.36 MB; ready 2.8 → 2.4 s (first view); orbit FPS 0.1 → 1.6; draws/frame 20 → 11; tris/frame 322k → 162k; idle redraws ~93/s → 0.
 - Pixel 7 + 4x CPU throttle: load 4.02 → 2.97 MB; ready 5.6 → 2.8 s; FPS 0.3 → 3.8; canvas 824x1678 → 618x1258; idle redraws ~145/s → 0.
 - Walk mode (phone): FPS 4.9 → 13.3. Console errors: 0 before and after.
+
+## 2026-11-09 ~13:20 UTC+4 — production deploy dpl_H7TqPZYWijdZAYP5PnbDbDVkMnNd (barclay 56464d9c, app.js?v=41)
+- Deployed via web/deploy.sh + Vercel connector, top-level paths, 67 files. All probed paths 200, 0 console errors desktop + Pixel 7.
+- Live verify: facade colour/glazing match archive dpl_6so3k (street/night/aerial side-by-side), BARCLAY HOUSE lettering visible (Entrance), CC0 asphalt + centre dashes, Kenney cars on Whitworth St W + train on viaduct (Traffic toggle).
+- Live metrics (SwiftShader headless, ratios only): desktop 10.1 MB transferred, 157 draws, ready 5.2 s; phone 5.0 MB, 56 draws, ready 5.6 s, first view 4.6 s.
