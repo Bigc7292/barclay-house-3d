@@ -3,6 +3,8 @@ import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
 import { RGBELoader } from 'three/examples/jsm/loaders/RGBELoader.js';
 import { MeshoptDecoder } from 'three/examples/jsm/libs/meshopt_decoder.module.js';
+import { Water } from 'three/examples/jsm/objects/Water2.js'; // x_tricks #10: three r170 Water2 (MIT), bundled locally by esbuild, no CDN
+import canals from './canal.json'; // Canal_water triangles from out/barclay_surroundings.glb (.gltf/canal_extract.mjs)
 import cams from './cams.json';
 import lamps from './lights.json';
 const $=id=>document.getElementById(id), msg=$('msg');
@@ -42,10 +44,17 @@ function loadIntr(){if(intrReq)return;intrReq=true;load(MOB?'twobed_m.glb':'twob
 if(new URLSearchParams(location.search).get('m')==='i')loadIntr();
 if(MOB){load('hero_mo.glb',ext,false);load('context_mo.glb',ext,false)}else{load('hero.glb',ext,true);load('context.glb',ext,true)}
 const P={street:{p:[-1.41,1.7,29.79],t:[0.2,8.5,9.8],f:70},facade:{p:[-1.4,1.7,29.8],t:[-1,6.5,17.3],f:62},aerial:{p:[24.83,120,127.14],t:[-0.2,5.4,4],f:48},viaduct:{p:[-51.07,10.31,38.93],t:[-14.9,10,21.8],f:56},interior:{p:[0.6,12,11],t:[0.2,0,-0.3],f:45},i_living:{p:[-0.5,1.5,1.91],t:[2.97,0.9,0.15],f:70},i_kitchen:{p:[-0.79,1.5,1.18],t:[3.41,1.1,2.96],f:70},i_bed1:{p:[-2.0,1.3,-0.85],t:[-2.41,0.8,-3.17],f:70},i_bed2:{p:[1.5,1.3,-1.6],t:[1.36,0.8,-3.62],f:70},i_bath:{p:[-2.08,1.55,3.83],t:[-3.02,0.9,2.88],f:80},i_hall:{p:[-0.65,1.5,4.15],t:[0.09,1.3,0.29],f:75},i_store:{p:[-1.09,1.5,1.32],t:[-3.0,1.0,1.32],f:80}};
-window.cam=k=>{const v=P[k];C.position.fromArray(v.p);O.target.fromArray(v.t);C.fov=v.f;C.updateProjectionMatrix();O.update()};
-// illustrative sun positions (elevation, azimuth from north, deg); not an ephemeris
+window.cam=k=>{const v=P[k];if(!v)return;C.position.fromArray(v.p);O.target.fromArray(v.t);C.fov=v.f;C.updateProjectionMatrix();O.update()};
+// sun elevation/azimuth = tod_panel.py sun_pos() (same NOAA formula, same preset hours, default date 21 June) so web == Blender renders
+const LAT=53.4741,LON=-2.2442,TODH={sunrise:6.75,morning:9.0,midday:15.5,golden:18.5,dusk:19.75,night:23.0};
+function sunPos(h,mo=6,dy=21){const n=[31,28,31,30,31,30,31,31,30,31,30,31].slice(0,mo-1).reduce((a,b)=>a+b,0)+dy,bst=(mo>3||(mo==3&&dy>=29))&&(mo<10||(mo==10&&dy<25)),hr=h-(bst?1:0),g=2*Math.PI/365*(n-1+(hr-12)/24),
+ eqt=229.18*(0.000075+0.001868*Math.cos(g)-0.032077*Math.sin(g)-0.014615*Math.cos(2*g)-0.040849*Math.sin(2*g)),
+ dec=0.006918-0.399912*Math.cos(g)+0.070257*Math.sin(g)-0.006758*Math.cos(2*g)+0.000907*Math.sin(2*g)-0.002697*Math.cos(3*g)+0.00148*Math.sin(3*g),
+ ha=THREE.MathUtils.degToRad((hr*60+eqt+4*LON)/4-180),la=THREE.MathUtils.degToRad(LAT),el=Math.asin(Math.max(-1,Math.min(1,Math.sin(la)*Math.sin(dec)+Math.cos(la)*Math.cos(dec)*Math.cos(ha)))),
+ az=Math.atan2(Math.sin(ha),Math.cos(ha)*Math.sin(la)-Math.tan(dec)*Math.cos(la))+Math.PI;return [THREE.MathUtils.radToDeg(el),(THREE.MathUtils.radToDeg(az)%360+360)%360]}
+window.__sunPos=sunPos;
 const T={sunrise:[3,120,0xffb070,1.2,0.35],morning:[18,145,0xfff0d8,2.6,0.8],midday:[30,180,0xffffff,3.4,1],golden:[8,225,0xffc080,2.0,0.6],dusk:[-2,245,0xff9a6a,0.25,0.25],night:[-20,0,0x8090c0,0.04,0.05]};
-let lampOn=false;window.tod=k=>{const [el,az,col,I,env]=T[k];const e=THREE.MathUtils.degToRad(Math.max(el,1)),a=THREE.MathUtils.degToRad(az);
+let lampOn=false;window.tod=k=>{let [el,az,col,I,env]=T[k];[el,az]=sunPos(TODH[k]);const e=THREE.MathUtils.degToRad(Math.max(el,1)),a=THREE.MathUtils.degToRad(az);
  sun.position.set(200*Math.cos(e)*Math.sin(a),200*Math.sin(e),3+200*Math.cos(e)*Math.cos(a));sun.target.position.set(0,0,0);
  // three +z = blender -y = south; az measured from north => south (180) maps to +z
  sun.position.z=-200*Math.cos(e)*Math.cos(a);sun.color.set(col);sun.intensity=I;S.environmentIntensity=env;S.backgroundIntensity=Math.max(env,0.06);
@@ -56,12 +65,29 @@ const rs=()=>{const w=$('v').clientWidth,h=$('v').clientHeight;R.setSize(w,h);C.
 const q=new URLSearchParams(location.search);mode(q.get('m')||'e');if(q.get('cam'))cam(q.get('cam'));if(q.get('tod')){$('tod').value=q.get('tod')}tod($('tod').value);
 let ceil=null,ft=[],lastT=0;
 R.setAnimationLoop(t=>{if(document.hidden)return;if(O.enabled&&!fp&&!flying&&O.update())kick();if(flying||O.autoRotate)kick();if(dirty<=0){lastT=0;return}
- if(!ceil&&intr.children.length)intr.traverse(o=>{if(/^Ceiling/.test(o.name)&&o.isMesh)ceil=o});if(ceil)ceil.visible=C.position.y<2.95;R.render(S,C);dirty--;
+ if(!ceil&&intr.children.length)intr.traverse(o=>{if(/^Ceiling/.test(o.name)&&o.isMesh)ceil=o});if(ceil)ceil.visible=C.position.y<2.95;wTick&&wTick();R.render(S,C);dirty--;
  // adaptive resolution: if continuous motion runs below ~30 fps, step pixel ratio down (never below 1)
  if(lastT){ft.push(t-lastT);if(ft.length>=45){ft.sort((a,b)=>a-b);const med=ft[22];ft=[];if(med>34&&dpr>1){dpr=Math.max(1,dpr-0.25);R.setPixelRatio(dpr);rs()}}}lastT=t});
 document.addEventListener('visibilitychange',()=>{if(!document.hidden)kick()});
 window.__ready=()=>done>=need&&!!envTex;window.__extReady=()=>extDone>=needExt&&!!envTex;window.__dpr=()=>dpr;
 
+// ---- x_tricks #10 canal water: Water2 on the flat OSM canal/basin tops (nearest first; 2 on desktop, 1 on phones), others get the
+// same normal maps scrolling on a cheap standard material. Water2 has no sun input: it reflects the scene, whose sun follows tod_panel.py.
+const wl=new THREE.TextureLoader(),wn=[wl.load('water/Water_1_M_Normal.jpg'),wl.load('water/Water_2_M_Normal.jpg')];wn.forEach(t=>{t.wrapS=t.wrapT=THREE.RepeatWrapping});
+const waterG=new THREE.Group();waterG.name='CanalWater2';ext.add(waterG);const cheapW=[];
+(()=>{const NW=q0.get('water')==='0'?0:1; // ?water=0 = no Water2 (cheap mesh only); // canal.json = only the canal triangles with open sky above (canal_web.py); Water2 (2 extra scene passes) for the OSM canal way nearest the hero, the rest merged into ONE cheap mesh (1 draw call)
+ const G=canals.map(c=>{const ys=[];for(let i=1;i<c.v.length;i+=3)ys.push(c.v[i]);ys.sort((a,b)=>a-b);let d=1e9;for(let i=0;i<c.v.length;i+=3)d=Math.min(d,Math.hypot(c.v[i],c.v[i+2]));return {c,y:ys[ys.length>>1],d}}).sort((a,b)=>a.d-b.d);
+ const geoOf=(list,plane)=>{const pos=[],uv=[];for(const g of list){const v=g.c.v,I=g.c.i,y0=plane?g.y:0;
+   for(let i=0;i<I.length;i+=3){const P=[0,1,2].map(j=>{const q=I[i+j]*3;return [v[q],-v[q+2],v[q+1]-y0]}),cz=(P[1][0]-P[0][0])*(P[2][1]-P[0][1])-(P[1][1]-P[0][1])*(P[2][0]-P[0][0]);
+    (cz<0?[0,2,1]:[0,1,2]).forEach(j=>{pos.push(...P[j]);uv.push(P[j][0]/4,P[j][1]/4)})}} // local XY plane, wound to +Z (= world up after rotation.x=-PI/2)
+  const geo=new THREE.BufferGeometry();geo.setAttribute('position',new THREE.Float32BufferAttribute(pos,3));geo.setAttribute('uv',new THREE.Float32BufferAttribute(uv,2));geo.computeVertexNormals();return geo};
+ const put=(m,y,name,w2)=>{m.rotation.x=-Math.PI/2;m.position.y=y;m.name=name;m.userData.water2=w2;waterG.add(m)};
+ G.slice(0,NW).forEach(g=>put(new Water(geoOf([g],true),{color:0x9fb3aa,scale:1,flowDirection:new THREE.Vector2(1,0.3),flowSpeed:0.012,reflectivity:0.04,textureWidth:MOB?256:512,textureHeight:MOB?256:512,normalMap0:wn[0],normalMap1:wn[1]}),g.y,'Canal_water2_'+g.c.name,true));
+ if(G.length>NW){const mat=new THREE.MeshStandardMaterial({color:0x07100e,roughness:0.06,metalness:0,normalMap:wn[0].clone(),normalScale:new THREE.Vector2(0.35,0.35)});mat.normalMap.wrapS=mat.normalMap.wrapT=THREE.RepeatWrapping;cheapW.push(mat);put(new THREE.Mesh(geoOf(G.slice(NW),false),mat),0,'Canal_water_cheap',false)}})();
+{const w=waterG.children.find(o=>o.userData.water2)||waterG.children[0];if(w){const b=new THREE.Box3().setFromObject(w),y=w.position.y;P.canal={p:[b.max.x-3,y+2.5,(b.min.z+b.max.z)/2],t:[b.min.x+20,y,(b.min.z+b.max.z)/2],f:56}}} // URL-only test view ?cam=canal (no button)
+if(q0.get('cam')==='canal')cam('canal');
+window.__water=()=>waterG.children.map(o=>({name:o.name,water2:o.userData.water2,y:+o.position.y.toFixed(2),tris:o.geometry.attributes.position.count/3}));
+let wt0=performance.now();const wTick=()=>{const t=(performance.now()-wt0)/1000;cheapW.forEach(m=>m.normalMap.offset.set(t*0.004,t*0.0025))};
 // ---- room menu: fly-in + first-person look ----
 let fp=false,flying=false,lastExt={p:[-1.41,1.7,29.79],t:[0.2,8.5,9.8],f:70},yaw=0,pitch=0,curRoom=null;
 const ease=t=>t<.5?4*t*t*t:1-Math.pow(-2*t+2,3)/2;

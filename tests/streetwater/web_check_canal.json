@@ -1,0 +1,52 @@
+{
+ "aftercut_desktop_canal": {
+  "ready": true,
+  "load_s": 225.111,
+  "fps_swiftshader": 0.7,
+  "errors": [],
+  "water": [
+   {
+    "name": "Canal_water2_canal_243445859",
+    "water2": true,
+    "y": -0.91,
+    "tris": 26
+   },
+   {
+    "name": "Canal_water_cheap",
+    "water2": false,
+    "y": 0,
+    "tris": 229
+   }
+  ],
+  "sun_midday": [
+   50.13353250382634,
+   235.00623757535027
+  ],
+  "shot": "/workspace/barclay-wt-streetwater/tests/streetwater/web_aftercut_desktop_canal.png"
+ },
+ "after_desktop_canal": {
+  "ready": true,
+  "load_s": 196.275,
+  "fps_swiftshader": 0.3,
+  "errors": [],
+  "water": [
+   {
+    "name": "Canal_water2_canal_243445859",
+    "water2": true,
+    "y": -0.91,
+    "tris": 26
+   },
+   {
+    "name": "Canal_water_cheap",
+    "water2": false,
+    "y": 0,
+    "tris": 229
+   }
+  ],
+  "sun_midday": [
+   50.13353250382634,
+   235.00623757535027
+  ],
+  "shot": "/workspace/barclay-wt-streetwater/tests/streetwater/web_after_desktop_canal.png"
+ }
+}
