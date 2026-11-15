@@ -8,4 +8,8 @@ chk $O/mobile/barclay_hero_mobile.glb 2
 chk $O/mobile/barclay_surroundings_mobile.glb 6
 chk $O/barclay_surroundings.glb
 for p in hero surroundings; do [ $O/barclay_$p.glb -nt $O/mobile/barclay_${p}_mobile.glb ] && { echo "STALE: $O/mobile/barclay_${p}_mobile.glb older than $O/barclay_$p.glb -> run ./make_mobile.sh"; rc=1; }; done
+# trick #16: required parts_plan.json names in the hero GLB, 0 stray *.001
+if [ -f parts_plan.json ]; then
+  node .gltf/check_parts.mjs $O/barclay_hero.glb parts_plan.json | tee -a $L || rc=1
+fi
 echo "report: $L  result: $([ $rc = 0 ] && echo PASS || echo FAIL)"; exit $rc

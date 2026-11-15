@@ -1,3 +1,6 @@
+# Critic log
+
+Format from trick #17 (see critic_prompt.md): a fresh critic (no critic_log as input) writes a yes/no verdict, ≤5 ranked problems each with a numeric fix, optional A/B taste, and the builder applies rank-1 only. Older rounds below keep their original prose format.
 
 ## Round 1 (critic, 2026-11-03 ~03:30 Asia/Dubai)
 
@@ -134,3 +137,24 @@ Tricks from /home/box/x-bookmarks/:
   - Aerial: worked. Neighbour roofs now read dark grey or slate, and the viaduct deck and arches read red brick.
   - Viaduct close-up: only partly. The parapet's side faces are red, but its sunlit top and inner faces still read salmon or orange under direct sun. Open: darken the albedo further, or add brick texture variation (stand-in).
 - ./validate.sh: PASS (tests/validate_20261103_0841.jsonl). 0 errors, and all files are within budget: hero 4.61 MB, mobile hero 1.66 MB, mobile surroundings 4.51 MB, surroundings 34.5 MB.
+
+## Critic round 17-trial (fresh, 2026-11-15 20:54 Asia/Dubai)
+Camera: street (Cam_Match_geograph)   Render: tests/match_geograph_p3_oriel3.png   Ref: refs/critic1/real_geograph.jpg (https://www.geograph.org.uk/photo/8144686)
+checks.py: gate FAIL (no=2, partial=1); rows: ground_floor_ashlar=no, arcade=no, glazing=yes, rb_shields=partial, parapet_colour=yes
+Verdict: no
+
+Problems (≤5, worst first). Each fix must be numeric (a value, not prose):
+1. ground_floor_ashlar — checks.py **no**, hf 5.76/3.46=1.67. The Portland base reads as thin brick-like courses; the Geograph ref is smooth banded ashlar with fewer, deeper channels. Fix: rustication groove spacing 0.55 m → 0.80 m and Portland bump strength 0.30 → 0.08 (both stand-ins; E05 shows channelled ashlar but does not dimension the pitch). Target hf ratio 1.67 → ≤1.25 (partial) / ≤1.00 (yes).
+2. arcade — checks.py **no**, edge=1.19 hf_excess=1.69. Voussoirs and keystones are present but the reveal is shallow and the arch glass is not as dark or set back as the ref. Fix: glass depth −0.12 m → −0.40 m and non-keystone voussoir radial extent 1.0 m → 1.2 m (stand-ins; E05 shows a deep reveal, not a dimension). Target arcade hf_excess 1.69 → ≤1.25.
+3. rb_shields — checks.py **partial**, edge=1.61 hf_excess=1.58. The discs are still plain; the ref has carved monogram relief. Fix: monogram relief depth 0.00 m → 0.08 m (stand-in; not dimensioned in any source). Target hf_excess 1.58 → ≤1.25.
+4. Entrance doorcase — the dark double doors are in the right place at pavement level, but the opening reads as a flat grey recess against the ref's deeper, moulded doorcase. Fix: door leaf plane y −0.22 m → −0.45 m (stand-in depth). No checks.py row.
+5. (stop) No fifth sourced defect with a numeric fix on this still. Summer-vs-November sun and the temporary hoarding in the 2025 photo are not defects to match.
+
+Already good:
+- Glazing: checks.py **yes** (edge 0.2167/0.1876=1.16); white multi-pane sashes and fan bars are legible.
+- Parapet colour: checks.py **yes** (salmon_frac=0.000); the building parapet is not in the pre-R4 salmon-wash state.
+- Bay rhythm, oriels over floors 1–3, attic row, and a pavement-level central entrance all match the Geograph still at a massing level.
+
+Taste A/B: facade warmth under the November sun vs the July photo is not a sourced target. A: keep current buff faience (linear 0.55/0.47/0.33). B: cool the Portland base 0.58/0.52/0.40 → 0.52/0.50/0.45 to chase the photo. Pick: A. Why: the lighting season is already documented as incomparable; do not retint to a July sun.
+
+Applied this pass: none (intake trial of the loop only; rank-1 is reserved for a later visual pass under trick #1). Other ranks wait.

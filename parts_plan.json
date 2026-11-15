@@ -1,0 +1,76 @@
+{
+  "trick": 16,
+  "title": "Named part hierarchy (Building > Floor_* > Facade/Window/Door/Cornice/Parapet)",
+  "note": "Boundaries decided before geometry. Each node has a source URL or the string stand-in. Facade_02..05 share the unsplit upper-facade mesh Facade_upper (HERO_front_terracotta); they are not split this pass (no geometry change). Floor_00 basement level is NOT FOUND.",
+  "required_in_glb": [
+    "Building",
+    "Floor_00", "Floor_01", "Floor_02", "Floor_03", "Floor_04", "Floor_05",
+    "Door_entrance_L_leaf",
+    "Door_entrance_R_leaf",
+    "Door_entrance_frame"
+  ],
+  "sources": {
+    "E05": "https://docs.planning.org.uk/20210803/27/QKTOMYBCKT600/goza3b6sv2a2q83u.pdf",
+    "DAS": "https://docs.planning.org.uk/20210803/27/QKTOMYBCKT600/s4c5tvdfq0syslhg.pdf",
+    "OSM": "https://www.openstreetmap.org/way/100646649",
+    "Geograph": "https://www.geograph.org.uk/photo/8144686",
+    "Commons": "https://commons.wikimedia.org/wiki/File:Barclay_House,_Manchester.jpg"
+  },
+  "tree": {
+    "name": "Building",
+    "source": "https://www.openstreetmap.org/way/100646649",
+    "children": [
+      {
+        "name": "Floor_00",
+        "source": "stand-in",
+        "note": "Basement floor level NOT FOUND; slab is at street 0.0 as a stand-in.",
+        "children": []
+      },
+      {
+        "name": "Floor_01",
+        "source": "https://docs.planning.org.uk/20210803/27/QKTOMYBCKT600/goza3b6sv2a2q83u.pdf",
+        "note": "Ground floor. Slab at DAS lobby 102.20 m AOD minus street 100.10 m AOD (https://docs.planning.org.uk/20210803/27/QKTOMYBCKT600/s4c5tvdfq0syslhg.pdf).",
+        "children": [
+          {"name": "Facade_01", "source": "https://docs.planning.org.uk/20210803/27/QKTOMYBCKT600/goza3b6sv2a2q83u.pdf", "note": "Portland stone base (E05)."},
+          {"name": "Window_01", "source": "https://docs.planning.org.uk/20210803/27/QKTOMYBCKT600/goza3b6sv2a2q83u.pdf", "note": "GF arches and end-bay windows; pane counts are stand-ins. Also https://www.geograph.org.uk/photo/8144686"},
+          {"name": "Door_entrance_L_leaf", "source": "https://www.geograph.org.uk/photo/8144686"},
+          {"name": "Door_entrance_R_leaf", "source": "https://www.geograph.org.uk/photo/8144686"},
+          {"name": "Door_entrance_frame", "source": "https://www.geograph.org.uk/photo/8144686", "note": "Lintel + doorcase; moulding profile is a stand-in."},
+          {"name": "Cornice_01", "source": "https://docs.planning.org.uk/20210803/27/QKTOMYBCKT600/goza3b6sv2a2q83u.pdf", "note": "First-floor band / cornice at LEVELS[1]."}
+        ]
+      },
+      {
+        "name": "Floor_02",
+        "source": "https://docs.planning.org.uk/20210803/27/QKTOMYBCKT600/goza3b6sv2a2q83u.pdf",
+        "children": [
+          {"name": "Facade_upper", "source": "https://docs.planning.org.uk/20210803/27/QKTOMYBCKT600/goza3b6sv2a2q83u.pdf", "note": "Shared unsplit terracotta/faience from first-floor band to roof; not split per floor this pass."},
+          {"name": "Window_02", "source": "https://commons.wikimedia.org/wiki/File:Barclay_House,_Manchester.jpg"}
+        ]
+      },
+      {
+        "name": "Floor_03",
+        "source": "https://docs.planning.org.uk/20210803/27/QKTOMYBCKT600/goza3b6sv2a2q83u.pdf",
+        "children": [
+          {"name": "Window_03", "source": "https://commons.wikimedia.org/wiki/File:Barclay_House,_Manchester.jpg"}
+        ]
+      },
+      {
+        "name": "Floor_04",
+        "source": "https://docs.planning.org.uk/20210803/27/QKTOMYBCKT600/goza3b6sv2a2q83u.pdf",
+        "children": [
+          {"name": "Window_04", "source": "https://commons.wikimedia.org/wiki/File:Barclay_House,_Manchester.jpg"}
+        ]
+      },
+      {
+        "name": "Floor_05",
+        "source": "https://docs.planning.org.uk/20210803/27/QKTOMYBCKT600/goza3b6sv2a2q83u.pdf",
+        "note": "Attic storey (E05). Slab at LEVELS[4]; roof is LEVELS[5], not a floor node.",
+        "children": [
+          {"name": "Window_05", "source": "https://docs.planning.org.uk/20210803/27/QKTOMYBCKT600/goza3b6sv2a2q83u.pdf"},
+          {"name": "Cornice", "source": "https://docs.planning.org.uk/20210803/27/QKTOMYBCKT600/goza3b6sv2a2q83u.pdf"},
+          {"name": "Parapet", "source": "https://docs.planning.org.uk/20210803/27/QKTOMYBCKT600/goza3b6sv2a2q83u.pdf"}
+        ]
+      }
+    ]
+  }
+}

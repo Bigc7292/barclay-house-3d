@@ -1,0 +1,5 @@
+{"file":"/workspace/barclay-wt-main/tests/parthierarchy/out/barclay_hero.glb","MB":0.04,"budget":5,"errors":0,"warnings":0,"primitives_drawcalls":21,"materials":6,"textures":0,"ok":true}
+{"file":"/workspace/barclay-wt-main/tests/parthierarchy/out/mobile/barclay_hero_mobile.glb","MB":0.03,"budget":2,"errors":0,"warnings":0,"primitives_drawcalls":21,"materials":6,"textures":0,"ok":true}
+{"file":"/workspace/barclay-wt-main/tests/parthierarchy/out/mobile/barclay_surroundings_mobile.glb","MB":0,"budget":6,"errors":0,"warnings":0,"primitives_drawcalls":1,"materials":1,"textures":0,"ok":true}
+{"file":"/workspace/barclay-wt-main/tests/parthierarchy/out/barclay_surroundings.glb","MB":0,"budget":null,"errors":0,"warnings":0,"primitives_drawcalls":1,"materials":1,"textures":0,"ok":true}
+{"file":"/workspace/barclay-wt-main/tests/parthierarchy/out/barclay_hero.glb","check":"parts_plan_nodes","required":10,"present":10,"missing":[],"stray_dot001":[],"stray_count":0,"node_count":22,"ok":true}

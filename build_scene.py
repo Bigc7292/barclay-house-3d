@@ -7,6 +7,8 @@ Every hero number below is SOURCED; see SOURCES. Values with no source are marke
 and only drive set dressing, never the hero massing."""
 import bpy, json, math, os, sys, mathutils
 HERE = os.path.dirname(os.path.abspath(__file__))
+sys.path.insert(0, HERE)
+import parts_plan
 # ---------------- HERO PARAMETERS (all sourced) ----------------
 SOURCES = {
  "E05": "Howard & Seddon dwg 12,982 E05 rev C 'Existing Front Elevation' https://docs.planning.org.uk/20210803/27/QKTOMYBCKT600/goza3b6sv2a2q83u.pdf",
@@ -263,9 +265,9 @@ def hero(M, C, pts):
     # projecting entrance porch (E05 + CGI): pilasters, recessed glazed door, framed panel above, steps
     ex = ENTRANCE[0]*W; ew = ENTRANCE[1]
     cutter(ex-ew/2, ex+ew/2, 0.0, LEVELS[1]-0.8); openings.append((ex-ew/2-0.9, ex+ew/2+0.9, LEVELS[1]))
-    box("HERO_door_left", ex-ew/2+0.1, ex-0.01, -0.30, -0.22, 0.0, 3.4, M["door"], C, fr)   # Geograph 2025: dark double doors at pavement
-    box("HERO_door_right", ex+0.01, ex+ew/2-0.1, -0.30, -0.22, 0.0, 3.4, M["door"], C, fr)
-    box("HERO_door_lintel", ex-ew/2, ex+ew/2, -0.45, -0.22, 3.4, 3.7, M["stone"], C, fr)
+    box("Door_entrance_L_leaf", ex-ew/2+0.1, ex-0.01, -0.30, -0.22, 0.0, 3.4, M["door"], C, fr)   # Geograph 2025: dark double doors at pavement
+    box("Door_entrance_R_leaf", ex+0.01, ex+ew/2-0.1, -0.30, -0.22, 0.0, 3.4, M["door"], C, fr)
+    box("Door_entrance_frame", ex-ew/2, ex+ew/2, -0.45, -0.22, 3.4, 3.7, M["stone"], C, fr)
     glass(ex-ew/2+0.2, ex+ew/2-0.2, 3.7, LEVELS[1]-0.9, depth=-0.25, panes=(4, 1))
     for sgn in (-1, 1):
         xp = ex + sgn*(ew/2+0.45)
@@ -370,6 +372,8 @@ def hero(M, C, pts):
     for o in (base, upper):  # restore window/arch booleans (lost in R1 hero rewrite)
         bm = o.modifiers.new("windows", "BOOLEAN"); bm.operation = "DIFFERENCE"; bm.operand_type = "COLLECTION"; bm.collection = cut; bm.solver = "EXACT"
     for o_ in cut.objects: o_.hide_render = True; o_.display_type = "WIRE"
+    # trick #16: name/parent from parts_plan.json (no geometry change)
+    parts_plan.apply(bpy, collection=C)
     return fr, W
 def viaduct(name, pts, zs, M, C):
     zz = sorted(z for z in zs if z is not None and 5 < z < 16); deck = zz[len(zz)//2] if zz else 8.55
@@ -521,7 +525,7 @@ def main():
     TOD["apply"](None, bpy.context)
     if "BRES" in os.environ: r.resolution_x, r.resolution_y = RES
     if "BSAMPLES" in os.environ: sc.cycles.samples = SAMPLES
-    out = os.path.join(HERE, "out"); os.makedirs(out, exist_ok=True)
+    out = os.environ.get("BOUT") or os.path.join(HERE, "out"); os.makedirs(out, exist_ok=True)
     bpy.ops.wm.save_as_mainfile(filepath=os.path.join(out, "barclay_scene.blend"))
     if "--noexport" not in sys.argv:
         bpy.ops.export_scene.gltf(filepath=os.path.join(out, "barclay_scene.glb"), export_apply=True)

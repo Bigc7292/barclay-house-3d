@@ -1,5 +1,12 @@
 # CHANGELOG
 
+## 2026-11-15 20:54 UTC+4 — tricks #16 named part hierarchy + #17 fresh-critic loop (barclay)
+- Why: Colin's standing intake gate (every bookmark trick checked, tested on a copy, certified or rejected, integrated, bots informed). X Bookmark Analyst intake 2026-11-15, items #16–#17 (#18 is the Interior bot's).
+- #16 CERTIFIED: new `parts_plan.json` (Building > Floor_00..05 > Facade/Window/Door_*/Cornice/Parapet, each with a source URL or `stand-in`); `parts_plan.py` names/parents in `build_scene.py` with no geometry change; `export_glb.py` and `make_mobile.mjs` no longer join across Floor_* or Door_*; `validate.sh` checks required node names and rejects stray `*.001`. Copy-test `tests/parthierarchy/run.sh` PASS (10/10 names in the test hero GLB, Floor_* and Door_* kept on mobile, Khronos 0 errors). Register #5 moved to CERTIFIED for the export pipeline. Live `web/hero3.glb` / `web/hero_mo3.glb` were not rebuilt or deployed.
+- #17 CERTIFIED (method): `critic_prompt.md`; AGENTS.md, CLAUDE.md and GROK.md step 4 updated identically; trial pass on `tests/match_geograph_p3_oriel3.png` + Geograph ref + `checks.py` logged in `critic_log.md` (verdict no, rank-1 ashlar hf 1.67, not applied this intake).
+- No viewer redeploy.
+
+
 ## 2026-11-09 09:25 UTC+4 — viewer/unified: archive visuals + fast viewer + street life + road (merged into `barclay`)
 - Why: Colin: visuals first, speed second; live site had lost the archive look (pale facade, no BARCLAY HOUSE lettering, white glazing bars), road looked poor, no moving cars/trains.
 - Visuals taken from barclay-house-archive main 58dd6f5 (vercel-live/ + barclay/web/src/app.js): ext7 weathered cream stone/flags/asphalt/sky-dome shaders, AgX tone mapping, `hero3.glb` (dark glazing bars, granite band + raised BARCLAY HOUSE letters, Entrance view), `context_typed_opt.glb`, `ext7_street.glb` street pieces, `twobed_v5` furniture (+ teddy/oak textures), SSAO + bloom, Entrance button, video/ renders page.

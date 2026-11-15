@@ -95,3 +95,18 @@ Free? Yes – numpy/Pillow + existing Blender MCP; no ChatGPT/audio steps.
 Apply: new `checks.py` + `refs/checklist_<cam>.json` (elements only from sourced ref photos), called after `ref_check.py` (hybrid, keep it); gate = no "no" rows; done-criteria block in AGENTS.md step 6; Interior bot builds rows from the approved CAD plan. Doc: /home/box/x-bookmarks/implementations/barclay/2026-11-09-reference-checklist-gate.md
 
 2026-11-09 skipped: free .edu.kg mail (not relevant, privacy risk), tinyrj pixel-art map, Claude MEP demo (no services in scope), Steam arch tool (unnamed, closed, likely paid), 67.js (Blender covers; licence NOASSERTION).
+
+## 16. Named part hierarchy (plan → split → build)
+Source: https://x.com/0xWast3/status/2119837465821499885 · method only · licences: Blender GPL, mcp-for-blender MIT (https://github.com/ahujasid/mcp-for-blender), gltf-transform MIT
+What: decide object boundaries before geometry; output a named tree so doors are separate from frames and floors from facade, each part editable/clickable.
+Free? Yes – £0.
+Apply: parts_plan.json + parts_plan.py; build_scene.py names/parents; export_glb.py and make_mobile.mjs do not join across Floor_*/Door_*; validate.sh node-name check. CERTIFIED 2026-11-15 (copy-test tests/parthierarchy; live web GLBs unchanged). Doc: /home/box/x-bookmarks/implementations/barclay/2026-11-15-part-hierarchy.md
+
+## 17. Fresh-critic loop with numeric fixes + A/B
+Source: https://x.com/everestchris6/status/2120175941616128277 · method only · £0 (paid GPT image / Seedance tools in the post are not used)
+What: builder never grades itself; each round a new critic with no history gets render + ref crop + checks.py report → yes/no, ≤5 ranked problems each with a numeric fix; taste as A/B; fix only the top item per pass.
+Free? Yes – existing agents, no paid image models.
+Apply: critic_prompt.md; AGENTS.md/CLAUDE.md/GROK.md step 4; critic_log.md schema. CERTIFIED (method) 2026-11-15 after one trial on the locked-cam Geograph still. Doc: /home/box/x-bookmarks/implementations/barclay/2026-11-15-fresh-critic-loop.md
+
+## 18. Interior plan-overlay check (Interior bot)
+Owned by the Interior bot. Not implemented here. Doc: /home/box/x-bookmarks/implementations/barclay/2026-11-15-plan-overlay-gate.md
