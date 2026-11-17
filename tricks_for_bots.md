@@ -1,4 +1,4 @@
-# Certified tricks per bot (updated 2026-11-15, from tricks_register.md)
+# Certified tricks per bot (updated 2026-11-17, from tricks_register.md)
 ## Barclay House Interior (viewer)
 - #2 meshopt: load out/mobile/*_mobile_v2.glb (-47%/-62%). MUST host web/meshopt_decoder.js locally: model-viewer `meshoptDecoderLocation='./meshopt_decoder.js'` or three `loader.setMeshoptDecoder(MeshoptDecoder)`; CDN default failed in test.
 - #3 glass: swap Glass_dark to MeshPhysicalMaterial (transmission 0.9 desktop / off on phones) + RoomEnvironment; faience clearcoat already in GLB. Code: tests/trickcheck/snippets.js
@@ -23,3 +23,9 @@
 - Critic_log should cite checklist rows (ashlar / arcade / glazing / rb_shields / parapet_colour) instead of prose when possible.
 - Interior: when adapting, drive rows from the approved CAD plan (room counts/sizes/doors), not facade photos.
 - Do NOT use the unverified 'cutaway' skill repo; method re-implemented in checks.py (numpy/Pillow only).
+
+## All bots — trick #19 mesh-health gate (CERTIFIED 2026-11-17)
+- `blender -b out/barclay_scene.blend --python mesh_health.py` is read-only (bmesh copies only; it must never save the .blend). Writes `out/mesh_health.{md,json}`.
+- Severity: Blocker = flipped/inconsistent normals on visible Hero faces, true non-manifold (3+ faces) on Hero, or negative scale. PASS/FAIL follows Blocker count. Done-criteria: `mesh_health 0 Blockers`.
+- Hook: `MESHHEALTH=1 ./validate.sh` (default off, so a plain `./validate.sh` stays a GLB/size check). Interior bot can run the same script on an interior/twobed blend (`MH_OUT=… MESHHEALTH_BLEND=…`).
+- Current scene (2026-11-17): 0 Blockers, 22 unshared duplicate-mesh groups (150 objects) for register #7 instancing — mostly `tree_crown*` and viaduct piers that do not share datablocks yet. Surroundings/Optimizer: linking those meshes is the next #7 step. Do not apply rotation as a "fix"; objects are parented/placed on purpose.

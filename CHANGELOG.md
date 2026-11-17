@@ -1,5 +1,12 @@
 # CHANGELOG
 
+## 2026-11-17 20:21 UTC+4 — trick #19 mesh-health gate (barclay)
+- Why: X Bookmark Analyst intake 2026-11-17. validate.sh already checked glTF + size; checks.py checked pixels; nothing checked topology, normals, transforms, or unshared duplicate meshes (#7).
+- #19 CERTIFIED: new `mesh_health.py` (Blender 4.2.3, bmesh only, read-only, never saves the .blend; checklist idea from arjun988/blender-skills MIT, £0). Writes `out/mesh_health.{md,json}`. Hook: `MESHHEALTH=1 ./validate.sh`. AGENTS.md, CLAUDE.md and GROK.md done-criteria now include "mesh_health 0 Blockers" (three files kept identical).
+- Current scene report (copy-test + official blend): 8.81s / 9.11s, Blockers 0, Majors 1442, Minors 3351, 22 unshared duplicate-mesh groups (150 objects) for #7. Official `out/barclay_scene.blend` mtime unchanged. No Blocker to fix this pass; `./validate.sh` still PASS. Live web GLBs unchanged, not redeployed.
+- Register rows 16 and 17 were already CERTIFIED on 2026-11-15 (commit 2cbdfe45) and are left as such.
+
+
 ## 2026-11-15 20:54 UTC+4 — tricks #16 named part hierarchy + #17 fresh-critic loop (barclay)
 - Why: Colin's standing intake gate (every bookmark trick checked, tested on a copy, certified or rejected, integrated, bots informed). X Bookmark Analyst intake 2026-11-15, items #16–#17 (#18 is the Interior bot's).
 - #16 CERTIFIED: new `parts_plan.json` (Building > Floor_00..05 > Facade/Window/Door_*/Cornice/Parapet, each with a source URL or `stand-in`); `parts_plan.py` names/parents in `build_scene.py` with no geometry change; `export_glb.py` and `make_mobile.mjs` no longer join across Floor_* or Door_*; `validate.sh` checks required node names and rejects stray `*.001`. Copy-test `tests/parthierarchy/run.sh` PASS (10/10 names in the test hero GLB, Floor_* and Door_* kept on mobile, Khronos 0 errors). Register #5 moved to CERTIFIED for the export pipeline. Live `web/hero3.glb` / `web/hero_mo3.glb` were not rebuilt or deployed.

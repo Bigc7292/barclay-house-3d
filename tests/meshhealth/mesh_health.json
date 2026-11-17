@@ -1,0 +1,740 @@
+{
+ "trick": 19,
+ "source": "https://github.com/arjun988/blender-skills (MIT, checklist idea only)",
+ "blend": "tests/meshhealth/barclay_scene.blend",
+ "seconds": 8.814,
+ "objects_checked": 6619,
+ "hero_objects": 1471,
+ "status": "PASS",
+ "blockers": 0,
+ "majors": 1442,
+ "minors": 3351,
+ "counts_by_check": {
+  "Blocker": {},
+  "Major": {
+   "dot001_name": 1430,
+   "duplicate_verts": 6,
+   "zero_area_faces": 6
+  },
+  "Minor": {
+   "dot001_name": 3329,
+   "duplicate_mesh_unshared": 22
+  }
+ },
+ "duplicate_groups_total": 22,
+ "duplicate_groups_unshared": 22,
+ "duplicate_objects_unshared": 150,
+ "duplicate_groups_already_shared": 0,
+ "issues": {
+  "blockers": [],
+  "majors_by_check": {
+   "dot001_name": {
+    "count": 1430,
+    "sample": [
+     {
+      "object": "HERO_cartouche.001",
+      "collection": "Hero",
+      "hero": true,
+      "severity": "Major",
+      "check": "dot001_name",
+      "count": 1,
+      "detail": "HERO_cartouche.001"
+     },
+     {
+      "object": "HERO_cartouche_frame.001",
+      "collection": "Hero",
+      "hero": true,
+      "severity": "Major",
+      "check": "dot001_name",
+      "count": 1,
+      "detail": "HERO_cartouche_frame.001"
+     },
+     {
+      "object": "HERO_cornice.001",
+      "collection": "Hero",
+      "hero": true,
+      "severity": "Major",
+      "check": "dot001_name",
+      "count": 1,
+      "detail": "HERO_cornice.001"
+     },
+     {
+      "object": "HERO_cornice.002",
+      "collection": "Hero",
+      "hero": true,
+      "severity": "Major",
+      "check": "dot001_name",
+      "count": 1,
+      "detail": "HERO_cornice.002"
+     },
+     {
+      "object": "HERO_cornice_drip.001",
+      "collection": "Hero",
+      "hero": true,
+      "severity": "Major",
+      "check": "dot001_name",
+      "count": 1,
+      "detail": "HERO_cornice_drip.001"
+     },
+     {
+      "object": "HERO_cornice_drip.002",
+      "collection": "Hero",
+      "hero": true,
+      "severity": "Major",
+      "check": "dot001_name",
+      "count": 1,
+      "detail": "HERO_cornice_drip.002"
+     },
+     {
+      "object": "HERO_doorcase.001",
+      "collection": "Hero",
+      "hero": true,
+      "severity": "Major",
+      "check": "dot001_name",
+      "count": 1,
+      "detail": "HERO_doorcase.001"
+     },
+     {
+      "object": "HERO_doorcase.002",
+      "collection": "Hero",
+      "hero": true,
+      "severity": "Major",
+      "check": "dot001_name",
+      "count": 1,
+      "detail": "HERO_doorcase.002"
+     },
+     {
+      "object": "HERO_doorcase.003",
+      "collection": "Hero",
+      "hero": true,
+      "severity": "Major",
+      "check": "dot001_name",
+      "count": 1,
+      "detail": "HERO_doorcase.003"
+     },
+     {
+      "object": "HERO_doorcase.004",
+      "collection": "Hero",
+      "hero": true,
+      "severity": "Major",
+      "check": "dot001_name",
+      "count": 1,
+      "detail": "HERO_doorcase.004"
+     },
+     {
+      "object": "HERO_doorcase.005",
+      "collection": "Hero",
+      "hero": true,
+      "severity": "Major",
+      "check": "dot001_name",
+      "count": 1,
+      "detail": "HERO_doorcase.005"
+     },
+     {
+      "object": "HERO_doorcase_head.001",
+      "collection": "Hero",
+      "hero": true,
+      "severity": "Major",
+      "check": "dot001_name",
+      "count": 1,
+      "detail": "HERO_doorcase_head.001"
+     },
+     {
+      "object": "HERO_doorcase_head.002",
+      "collection": "Hero",
+      "hero": true,
+      "severity": "Major",
+      "check": "dot001_name",
+      "count": 1,
+      "detail": "HERO_doorcase_head.002"
+     },
+     {
+      "object": "HERO_fan_bar.001",
+      "collection": "Hero",
+      "hero": true,
+      "severity": "Major",
+      "check": "dot001_name",
+      "count": 1,
+      "detail": "HERO_fan_bar.001"
+     },
+     {
+      "object": "HERO_fan_bar.002",
+      "collection": "Hero",
+      "hero": true,
+      "severity": "Major",
+      "check": "dot001_name",
+      "count": 1,
+      "detail": "HERO_fan_bar.002"
+     }
+    ]
+   },
+   "duplicate_verts": {
+    "count": 6,
+    "sample": [
+     {
+      "object": "HERO_fan_hub",
+      "collection": "Hero",
+      "hero": true,
+      "severity": "Major",
+      "check": "duplicate_verts",
+      "count": 2,
+      "detail": "2 verts within 0.1 mm"
+     },
+     {
+      "object": "HERO_fan_hub.001",
+      "collection": "Hero",
+      "hero": true,
+      "severity": "Major",
+      "check": "duplicate_verts",
+      "count": 2,
+      "detail": "2 verts within 0.1 mm"
+     },
+     {
+      "object": "HERO_fan_hub.002",
+      "collection": "Hero",
+      "hero": true,
+      "severity": "Major",
+      "check": "duplicate_verts",
+      "count": 2,
+      "detail": "2 verts within 0.1 mm"
+     },
+     {
+      "object": "HERO_fan_hub.003",
+      "collection": "Hero",
+      "hero": true,
+      "severity": "Major",
+      "check": "duplicate_verts",
+      "count": 2,
+      "detail": "2 verts within 0.1 mm"
+     },
+     {
+      "object": "HERO_fan_hub.004",
+      "collection": "Hero",
+      "hero": true,
+      "severity": "Major",
+      "check": "duplicate_verts",
+      "count": 2,
+      "detail": "2 verts within 0.1 mm"
+     },
+     {
+      "object": "HERO_fan_hub.005",
+      "collection": "Hero",
+      "hero": true,
+      "severity": "Major",
+      "check": "duplicate_verts",
+      "count": 2,
+      "detail": "2 verts within 0.1 mm"
+     }
+    ]
+   },
+   "zero_area_faces": {
+    "count": 6,
+    "sample": [
+     {
+      "object": "HERO_fan_hub",
+      "collection": "Hero",
+      "hero": true,
+      "severity": "Major",
+      "check": "zero_area_faces",
+      "count": 3,
+      "detail": "3 faces with area < 1e-12"
+     },
+     {
+      "object": "HERO_fan_hub.001",
+      "collection": "Hero",
+      "hero": true,
+      "severity": "Major",
+      "check": "zero_area_faces",
+      "count": 3,
+      "detail": "3 faces with area < 1e-12"
+     },
+     {
+      "object": "HERO_fan_hub.002",
+      "collection": "Hero",
+      "hero": true,
+      "severity": "Major",
+      "check": "zero_area_faces",
+      "count": 3,
+      "detail": "3 faces with area < 1e-12"
+     },
+     {
+      "object": "HERO_fan_hub.003",
+      "collection": "Hero",
+      "hero": true,
+      "severity": "Major",
+      "check": "zero_area_faces",
+      "count": 3,
+      "detail": "3 faces with area < 1e-12"
+     },
+     {
+      "object": "HERO_fan_hub.004",
+      "collection": "Hero",
+      "hero": true,
+      "severity": "Major",
+      "check": "zero_area_faces",
+      "count": 3,
+      "detail": "3 faces with area < 1e-12"
+     },
+     {
+      "object": "HERO_fan_hub.005",
+      "collection": "Hero",
+      "hero": true,
+      "severity": "Major",
+      "check": "zero_area_faces",
+      "count": 3,
+      "detail": "3 faces with area < 1e-12"
+     }
+    ]
+   }
+  },
+  "minors_by_check": {
+   "dot001_name": 3329,
+   "duplicate_mesh_unshared": 22
+  },
+  "minors_sample": [
+   {
+    "object": "tree_crown.002",
+    "collection": "",
+    "hero": false,
+    "severity": "Minor",
+    "check": "duplicate_mesh_unshared",
+    "count": 106,
+    "detail": "106 copies, 106 unique datablocks (instancing candidate)"
+   },
+   {
+    "object": "tree_crown.051",
+    "collection": "",
+    "hero": false,
+    "severity": "Minor",
+    "check": "duplicate_mesh_unshared",
+    "count": 3,
+    "detail": "3 copies, 3 unique datablocks (instancing candidate)"
+   },
+   {
+    "object": "tree_crown.083",
+    "collection": "",
+    "hero": false,
+    "severity": "Minor",
+    "check": "duplicate_mesh_unshared",
+    "count": 2,
+    "detail": "2 copies, 2 unique datablocks (instancing candidate)"
+   },
+   {
+    "object": "tree_crown.095",
+    "collection": "",
+    "hero": false,
+    "severity": "Minor",
+    "check": "duplicate_mesh_unshared",
+    "count": 2,
+    "detail": "2 copies, 2 unique datablocks (instancing candidate)"
+   },
+   {
+    "object": "viaduct_101853634_pier.040",
+    "collection": "",
+    "hero": false,
+    "severity": "Minor",
+    "check": "duplicate_mesh_unshared",
+    "count": 2,
+    "detail": "2 copies, 2 unique datablocks (instancing candidate)"
+   },
+   {
+    "object": "viaduct_101853634_pier.126",
+    "collection": "",
+    "hero": false,
+    "severity": "Minor",
+    "check": "duplicate_mesh_unshared",
+    "count": 2,
+    "detail": "2 copies, 2 unique datablocks (instancing candidate)"
+   },
+   {
+    "object": "viaduct_101855024_pier",
+    "collection": "",
+    "hero": false,
+    "severity": "Minor",
+    "check": "duplicate_mesh_unshared",
+    "count": 3,
+    "detail": "3 copies, 3 unique datablocks (instancing candidate)"
+   },
+   {
+    "object": "viaduct_101855024_pier.042",
+    "collection": "",
+    "hero": false,
+    "severity": "Minor",
+    "check": "duplicate_mesh_unshared",
+    "count": 2,
+    "detail": "2 copies, 2 unique datablocks (instancing candidate)"
+   },
+   {
+    "object": "viaduct_101855024_pier.106",
+    "collection": "",
+    "hero": false,
+    "severity": "Minor",
+    "check": "duplicate_mesh_unshared",
+    "count": 2,
+    "detail": "2 copies, 2 unique datablocks (instancing candidate)"
+   },
+   {
+    "object": "viaduct_101855024_pier.118",
+    "collection": "",
+    "hero": false,
+    "severity": "Minor",
+    "check": "duplicate_mesh_unshared",
+    "count": 2,
+    "detail": "2 copies, 2 unique datablocks (instancing candidate)"
+   },
+   {
+    "object": "viaduct_117741282_pier.024",
+    "collection": "",
+    "hero": false,
+    "severity": "Minor",
+    "check": "duplicate_mesh_unshared",
+    "count": 2,
+    "detail": "2 copies, 2 unique datablocks (instancing candidate)"
+   },
+   {
+    "object": "viaduct_31178960_pier.020",
+    "collection": "",
+    "hero": false,
+    "severity": "Minor",
+    "check": "duplicate_mesh_unshared",
+    "count": 2,
+    "detail": "2 copies, 2 unique datablocks (instancing candidate)"
+   },
+   {
+    "object": "viaduct_31179674_pier.020",
+    "collection": "",
+    "hero": false,
+    "severity": "Minor",
+    "check": "duplicate_mesh_unshared",
+    "count": 2,
+    "detail": "2 copies, 2 unique datablocks (instancing candidate)"
+   },
+   {
+    "object": "viaduct_31179674_pier.042",
+    "collection": "",
+    "hero": false,
+    "severity": "Minor",
+    "check": "duplicate_mesh_unshared",
+    "count": 2,
+    "detail": "2 copies, 2 unique datablocks (instancing candidate)"
+   },
+   {
+    "object": "viaduct_31231603_pier.002",
+    "collection": "",
+    "hero": false,
+    "severity": "Minor",
+    "check": "duplicate_mesh_unshared",
+    "count": 2,
+    "detail": "2 copies, 2 unique datablocks (instancing candidate)"
+   },
+   {
+    "object": "viaduct_31231603_pier.012",
+    "collection": "",
+    "hero": false,
+    "severity": "Minor",
+    "check": "duplicate_mesh_unshared",
+    "count": 2,
+    "detail": "2 copies, 2 unique datablocks (instancing candidate)"
+   },
+   {
+    "object": "viaduct_31231603_pier.044",
+    "collection": "",
+    "hero": false,
+    "severity": "Minor",
+    "check": "duplicate_mesh_unshared",
+    "count": 2,
+    "detail": "2 copies, 2 unique datablocks (instancing candidate)"
+   },
+   {
+    "object": "viaduct_31231611_pier.004",
+    "collection": "",
+    "hero": false,
+    "severity": "Minor",
+    "check": "duplicate_mesh_unshared",
+    "count": 2,
+    "detail": "2 copies, 2 unique datablocks (instancing candidate)"
+   },
+   {
+    "object": "viaduct_427155418_pier.006",
+    "collection": "",
+    "hero": false,
+    "severity": "Minor",
+    "check": "duplicate_mesh_unshared",
+    "count": 2,
+    "detail": "2 copies, 2 unique datablocks (instancing candidate)"
+   },
+   {
+    "object": "viaduct_427155418_pier.020",
+    "collection": "",
+    "hero": false,
+    "severity": "Minor",
+    "check": "duplicate_mesh_unshared",
+    "count": 2,
+    "detail": "2 copies, 2 unique datablocks (instancing candidate)"
+   },
+   {
+    "object": "viaduct_636894323_pier.018",
+    "collection": "",
+    "hero": false,
+    "severity": "Minor",
+    "check": "duplicate_mesh_unshared",
+    "count": 2,
+    "detail": "2 copies, 2 unique datablocks (instancing candidate)"
+   },
+   {
+    "object": "viaduct_636894324_pier.004",
+    "collection": "",
+    "hero": false,
+    "severity": "Minor",
+    "check": "duplicate_mesh_unshared",
+    "count": 2,
+    "detail": "2 copies, 2 unique datablocks (instancing candidate)"
+   }
+  ],
+  "majors_total": 1442,
+  "minors_total": 3351
+ },
+ "duplicate_groups_unshared_list": [
+  {
+   "count": 106,
+   "unique_datablocks": 106,
+   "shared_data": false,
+   "objects": [
+    "tree_crown.002",
+    "tree_crown.004",
+    "tree_crown.005",
+    "tree_crown.007",
+    "tree_crown.008",
+    "tree_crown.009",
+    "tree_crown.010",
+    "tree_crown.011",
+    "tree_crown.012",
+    "tree_crown.013",
+    "tree_crown.014",
+    "tree_crown.015",
+    "tree_crown.016",
+    "tree_crown.017",
+    "tree_crown.018",
+    "tree_crown.019",
+    "tree_crown.020",
+    "tree_crown.021",
+    "tree_crown.022",
+    "tree_crown.023"
+   ],
+   "objects_truncated": 86
+  },
+  {
+   "count": 3,
+   "unique_datablocks": 3,
+   "shared_data": false,
+   "objects": [
+    "tree_crown.051",
+    "tree_crown.100",
+    "tree_crown.103"
+   ],
+   "objects_truncated": 0
+  },
+  {
+   "count": 2,
+   "unique_datablocks": 2,
+   "shared_data": false,
+   "objects": [
+    "tree_crown.083",
+    "tree_crown.094"
+   ],
+   "objects_truncated": 0
+  },
+  {
+   "count": 2,
+   "unique_datablocks": 2,
+   "shared_data": false,
+   "objects": [
+    "tree_crown.095",
+    "tree_crown.117"
+   ],
+   "objects_truncated": 0
+  },
+  {
+   "count": 2,
+   "unique_datablocks": 2,
+   "shared_data": false,
+   "objects": [
+    "viaduct_101853634_pier.040",
+    "viaduct_101853634_pier.056"
+   ],
+   "objects_truncated": 0
+  },
+  {
+   "count": 2,
+   "unique_datablocks": 2,
+   "shared_data": false,
+   "objects": [
+    "viaduct_101853634_pier.126",
+    "viaduct_101853634_pier.134"
+   ],
+   "objects_truncated": 0
+  },
+  {
+   "count": 3,
+   "unique_datablocks": 3,
+   "shared_data": false,
+   "objects": [
+    "viaduct_101855024_pier",
+    "viaduct_101855024_pier.018",
+    "viaduct_636894321_pier"
+   ],
+   "objects_truncated": 0
+  },
+  {
+   "count": 2,
+   "unique_datablocks": 2,
+   "shared_data": false,
+   "objects": [
+    "viaduct_101855024_pier.042",
+    "viaduct_101855024_pier.056"
+   ],
+   "objects_truncated": 0
+  },
+  {
+   "count": 2,
+   "unique_datablocks": 2,
+   "shared_data": false,
+   "objects": [
+    "viaduct_101855024_pier.106",
+    "viaduct_101855024_pier.110"
+   ],
+   "objects_truncated": 0
+  },
+  {
+   "count": 2,
+   "unique_datablocks": 2,
+   "shared_data": false,
+   "objects": [
+    "viaduct_101855024_pier.118",
+    "viaduct_101855024_pier.122"
+   ],
+   "objects_truncated": 0
+  },
+  {
+   "count": 2,
+   "unique_datablocks": 2,
+   "shared_data": false,
+   "objects": [
+    "viaduct_117741282_pier.024",
+    "viaduct_117741282_pier.030"
+   ],
+   "objects_truncated": 0
+  },
+  {
+   "count": 2,
+   "unique_datablocks": 2,
+   "shared_data": false,
+   "objects": [
+    "viaduct_31178960_pier.020",
+    "viaduct_31178960_pier.022"
+   ],
+   "objects_truncated": 0
+  },
+  {
+   "count": 2,
+   "unique_datablocks": 2,
+   "shared_data": false,
+   "objects": [
+    "viaduct_31179674_pier.020",
+    "viaduct_31179674_pier.024"
+   ],
+   "objects_truncated": 0
+  },
+  {
+   "count": 2,
+   "unique_datablocks": 2,
+   "shared_data": false,
+   "objects": [
+    "viaduct_31179674_pier.042",
+    "viaduct_31179674_pier.046"
+   ],
+   "objects_truncated": 0
+  },
+  {
+   "count": 2,
+   "unique_datablocks": 2,
+   "shared_data": false,
+   "objects": [
+    "viaduct_31231603_pier.002",
+    "viaduct_31231603_pier.008"
+   ],
+   "objects_truncated": 0
+  },
+  {
+   "count": 2,
+   "unique_datablocks": 2,
+   "shared_data": false,
+   "objects": [
+    "viaduct_31231603_pier.012",
+    "viaduct_31231603_pier.022"
+   ],
+   "objects_truncated": 0
+  },
+  {
+   "count": 2,
+   "unique_datablocks": 2,
+   "shared_data": false,
+   "objects": [
+    "viaduct_31231603_pier.044",
+    "viaduct_31231603_pier.048"
+   ],
+   "objects_truncated": 0
+  },
+  {
+   "count": 2,
+   "unique_datablocks": 2,
+   "shared_data": false,
+   "objects": [
+    "viaduct_31231611_pier.004",
+    "viaduct_31231611_pier.006"
+   ],
+   "objects_truncated": 0
+  },
+  {
+   "count": 2,
+   "unique_datablocks": 2,
+   "shared_data": false,
+   "objects": [
+    "viaduct_427155418_pier.006",
+    "viaduct_427155418_pier.012"
+   ],
+   "objects_truncated": 0
+  },
+  {
+   "count": 2,
+   "unique_datablocks": 2,
+   "shared_data": false,
+   "objects": [
+    "viaduct_427155418_pier.020",
+    "viaduct_427155418_pier.024"
+   ],
+   "objects_truncated": 0
+  },
+  {
+   "count": 2,
+   "unique_datablocks": 2,
+   "shared_data": false,
+   "objects": [
+    "viaduct_636894323_pier.018",
+    "viaduct_636894323_pier.032"
+   ],
+   "objects_truncated": 0
+  },
+  {
+   "count": 2,
+   "unique_datablocks": 2,
+   "shared_data": false,
+   "objects": [
+    "viaduct_636894324_pier.004",
+    "viaduct_636894324_pier.006"
+   ],
+   "objects_truncated": 0
+  }
+ ],
+ "blend_saved": false
+}

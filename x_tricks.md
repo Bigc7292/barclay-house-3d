@@ -110,3 +110,9 @@ Apply: critic_prompt.md; AGENTS.md/CLAUDE.md/GROK.md step 4; critic_log.md schem
 
 ## 18. Interior plan-overlay check (Interior bot)
 Owned by the Interior bot. Not implemented here. Doc: /home/box/x-bookmarks/implementations/barclay/2026-11-15-plan-overlay-gate.md
+
+## 19. Blender mesh-health gate
+Source: https://x.com/Aygramm_/status/2122408109113008561 → https://github.com/arjun988/blender-skills (MIT, verification: .claude/skills/references/validation-checklist.md). Claude Code in the post is paid and is not used; checklist idea only, own script, £0 (Blender GPL).
+What: per exported object, check non-manifold (3+ faces), flipped/inconsistent normals, loose/dup verts (<0.1 mm), zero-area faces, unapplied or negative scale, unused material slots, *.001 names, and unshared duplicate-mesh groups (register #7). Grade Blocker/Major/Minor; PASS = 0 Blockers.
+Free? Yes.
+Apply: mesh_health.py (read-only, never saves the .blend); MESHHEALTH=1 ./validate.sh; AGENTS.md done-criteria "mesh_health 0 Blockers". CERTIFIED 2026-11-17 (8.81–9.11 s, 0 Blockers, 22 unshared duplicate groups). Doc: /home/box/x-bookmarks/implementations/barclay/2026-11-17-mesh-health-gate.md

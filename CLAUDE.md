@@ -12,7 +12,7 @@ Read this FIRST on every task. CLAUDE.md and GROK.md are copies/symlinks of this
 - Facts: dossier Page + listings_findings.md + docs/ (planning drawings). Data: area.osm, scene_data.json, lidar/.
 - Build: build_scene.py, tod_panel.py via Blender 4.2.3 (-y). Blender MCP (port 9876) for live inspection/edits.
 - Check: camera_match.py -> ref_check.py against refs/ -> checks.py (per-element checklist gate, trick #15). Render: Cycles 128 samples + denoise.
-- Export: export_glb.py -> make_mobile.sh (hero + surroundings, full + mobile). Then ./validate.sh (Khronos validator + size budgets + stale-mobile check; must PASS).
+- Export: export_glb.py -> make_mobile.sh (hero + surroundings, full + mobile). Then ./validate.sh (Khronos validator + size budgets + stale-mobile check; must PASS). Mesh health (trick #19): `blender -b out/barclay_scene.blend --python mesh_health.py` (read-only, bmesh only) writes out/mesh_health.{md,json}; `MESHHEALTH=1 ./validate.sh` runs it before the done-criteria line "mesh_health 0 Blockers".
 - Interior walk page (trick #14, CERTIFIED): web/floorplan3d/2bed.html + 2bed.json (rooms, fly-to cams, door hinges recomputed from interior/build_twobed_v4.py). three r160 vendored in web/floorplan3d/vendor/three-r160 (no CDN). Test: node tests/floorplan3d/check.cjs (serve repo root on :18490).
 - Parts plan (trick #16): parts_plan.json + parts_plan.py (name/parent only). validate.sh checks required node names in the hero GLB.
 - Fresh critic (trick #17): critic_prompt.md (inputs, schema, rank-1-only). checks.py remains the numeric gate.
@@ -31,6 +31,7 @@ Read this FIRST on every task. CLAUDE.md and GROK.md are copies/symlinks of this
    - Checklist gate PASS: `python3 checks.py --cam street --cam hero` (and `--cam viaduct` when that still is open) writes out/checklist_<cam>.md with no "no" rows and ≤2 "partial"; hybrid ref_check edge F1 is logged on the same report.
    - Human (or Interior critic) saw at least one multi-angle view this round.
    - No stray *.001 empty objects in the blend/GLB (name search).
+   - mesh_health 0 Blockers (`MESHHEALTH=1 ./validate.sh` or `blender -b out/barclay_scene.blend --python mesh_health.py`; the script is read-only and must not save the .blend).
 Loop 2-5 until target met. Every round the critic_log must list which rules/MCPs/skills/tricks were used. Prefer citing checklist rows over prose for element defects.
 
 ## Improving this file
@@ -51,7 +52,7 @@ After each round, add any repeated mistake as a rule (one line) under "Lessons".
 
 ## Bookmark-trick intake gate (Colin's rule, 2026-11-03)
 Every item X Bookmark Analyst adds to x_tricks.md is NOT adopted until Barclay House 3D has: (1) read the source + doc, (2) verified it's free and licence-OK, (3) checked where it fits (script/step/bot), (4) tested it on a copy in tests/, (5) certified it (PASS/FAIL with measured result, validate.sh must pass for exports), (6) integrated it into AGENTS.md pipeline or tool map, and (7) told all bots. Record each in /workspace/barclay/tricks_register.md: id, source, status (NEW/TESTING/CERTIFIED/REJECTED), test result, where integrated, date. Never leave a trick as NEW for more than one round.
-- Certified tricks (see tricks_register.md / tricks_for_bots.md): #9 street life (life_paths.py, Kenney CC0, render-only); #10 canal (water_ripple.py ripple + terrain cut in build_scene.py, Water2 in web/src/app.js); #16 named part hierarchy (parts_plan.json; export/mobile must not join across Floor_*/Door_*); #17 fresh-critic loop (critic_prompt.md, rank-1 only); #5 Floor_* nodes in the hero export (live web GLB not yet updated); phone files via ./make_mobile_v2.sh (dedup+meshopt; viewer must use LOCAL meshopt_decoder.js); KTX2 off (bigger downloads); instancing needs linked mesh data in build_scene.py first.
+- Certified tricks (see tricks_register.md / tricks_for_bots.md): #9 street life (life_paths.py, Kenney CC0, render-only); #10 canal (water_ripple.py ripple + terrain cut in build_scene.py, Water2 in web/src/app.js); #16 named part hierarchy (parts_plan.json; export/mobile must not join across Floor_*/Door_*); #17 fresh-critic loop (critic_prompt.md, rank-1 only); #19 mesh-health gate (mesh_health.py, MESHHEALTH=1, 0 Blockers); #5 Floor_* nodes in the hero export (live web GLB not yet updated); phone files via ./make_mobile_v2.sh (dedup+meshopt; viewer must use LOCAL meshopt_decoder.js); KTX2 off (bigger downloads); instancing needs linked mesh data in build_scene.py first. #7 instancing: see mesh_health duplicate_groups_unshared.
 
 ## Backup rule
 - After EVERY change set or round, run ./backup.sh "<msg>" and confirm it prints PUSH OK. Never add files >99 MB (backup.sh blocks them).
