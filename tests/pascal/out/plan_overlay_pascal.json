@@ -1,0 +1,45 @@
+{
+  "plan": "/workspace/barclay/interior/twobed/apt02_fp.png",
+  "plan_size_px": [
+    268,
+    351
+  ],
+  "layout_provenance": {
+    "plan": "interior/twobed/apt02_fp.png",
+    "method": "Independent centreline trace. Exterior vertices are midpoints of measured thick ink (lum<80, typically 6-7 px) at corners and rakes. Interior partitions digitised from the same PNG (zoomed); hanging rails, furniture and the bathroom dashed shower line omitted. Door gaps are measured ink breaks where those exist (entrance x=99-129, bathroom y=268-298 at x=84); bedroom/storage door widths are the opening seen on the plan, recorded as along-segment gaps, not as sourced construction widths. Scale uses sourced 63 m\u00b2 only.",
+    "not_from": "build_twobed_v4.py / 2bed.json wall coordinates were not copied.",
+    "ceiling_height_m": "3.0 UNSOURCED (same modelling value as #14; floor-to-floor 3.663 m is sourced but clear height is not)."
+  },
+  "ink_lum": 80,
+  "open_iters": 0,
+  "plan_ink_px": 8376,
+  "plan_wall_mask_px": 8376,
+  "layout_wall_mask_px": 8810,
+  "iou_identity": 0.4691,
+  "intersection_px": 5488,
+  "union_px": 11698,
+  "iou_buffered_4px": 0.4336,
+  "buffer_px": 4,
+  "layout_on_ink_precision_2px": 0.9168,
+  "iou_best_translation": 0.4691,
+  "best_translation_px": [
+    0,
+    0
+  ],
+  "sourced_area_m2": 63.0,
+  "sourced_area_url": [
+    "https://barclay-house.com/two-bedroom-apartment/",
+    "https://www.rightmove.co.uk/properties/92163630"
+  ],
+  "outline_px_area": 74115.875,
+  "metres_per_px": 0.029155108007114804,
+  "area_m2": 63.0,
+  "area_residual_pct": 0.0,
+  "area_note": "No independent scale on the layout. metres_per_px = sqrt(63.0/74115.9 px\u00b2) = 0.029155. Area residual is 0% BY CONSTRUCTION because the 3D model was scaled to the sourced 63 m\u00b2. This is not an independent area measurement.",
+  "gate": {
+    "iou_ge_0.85": false,
+    "area_within_3pct": true,
+    "pass": false
+  },
+  "overlay_png": "tests/pascal/out/plan_overlay_pascal.png"
+}

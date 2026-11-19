@@ -1,0 +1,1540 @@
+{
+  "nodes": {
+    "site_hmdccbh45thnvqmk": {
+      "object": "node",
+      "id": "site_hmdccbh45thnvqmk",
+      "type": "site",
+      "parentId": null,
+      "visible": true,
+      "metadata": {},
+      "polygon": {
+        "type": "polygon",
+        "points": [
+          [
+            -15,
+            -15
+          ],
+          [
+            15,
+            -15
+          ],
+          [
+            15,
+            15
+          ],
+          [
+            -15,
+            15
+          ]
+        ]
+      },
+      "children": [
+        "building_cq3zejblraxc9ydh"
+      ]
+    },
+    "building_cq3zejblraxc9ydh": {
+      "object": "node",
+      "id": "building_cq3zejblraxc9ydh",
+      "type": "building",
+      "parentId": "site_hmdccbh45thnvqmk",
+      "visible": true,
+      "metadata": {},
+      "children": [
+        "level_k0nc4sac430ltu4c"
+      ],
+      "position": [
+        0,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ]
+    },
+    "level_k0nc4sac430ltu4c": {
+      "object": "node",
+      "id": "level_k0nc4sac430ltu4c",
+      "type": "level",
+      "parentId": "building_cq3zejblraxc9ydh",
+      "visible": true,
+      "metadata": {},
+      "children": [
+        "wall_6dxdmkm7azgnnbf0",
+        "wall_0ccjwm2zrert32w8",
+        "wall_gqf1g7bvsxc9amr8",
+        "wall_7bimyhsgh9qdw6l0",
+        "wall_180hjs0irjav7xb0",
+        "wall_vlaysmwpqu9w78yg",
+        "wall_iscvgr38vuc0h6jc",
+        "wall_hzb570zjutgr3j26",
+        "wall_ic6yirj5i16vh02u",
+        "wall_ot9tnzena3gnvnbg",
+        "wall_dd1cbx49az5aw06j",
+        "wall_j2dnvzeow97dt3b7",
+        "wall_8g08zymshgm4kc28",
+        "wall_gpbzyq36pabytay8",
+        "ceiling_syj8x825riu98l7p",
+        "slab_0001zfqm0cnxgwxy",
+        "zone_f4kh3j57jb6xmseg",
+        "wall_u9mwak6d38v9kx02",
+        "wall_d7diuvl9c6tfbi7w",
+        "wall_gpw12zxcqaqyf0lf",
+        "wall_tdl51mtvxsoor1y7",
+        "ceiling_9jvwich5lrd6xkeb",
+        "zone_w9nv2qi18vcvdvxp",
+        "wall_agm54e72qbgyc5rf",
+        "ceiling_si8a19fm8754vuz9",
+        "zone_axpolb5rz651u30c",
+        "wall_vv5qk04dxzpi1tax",
+        "wall_xmnz5qxwo1boxrgr",
+        "wall_fcgzux55ijwk78xz",
+        "wall_0op1mmaex8bn75m2",
+        "wall_z9qh8jqnm2h2g5qp"
+      ],
+      "level": 0,
+      "baseElevation": 0,
+      "height": 2.5
+    },
+    "wall_6dxdmkm7azgnnbf0": {
+      "object": "node",
+      "id": "wall_6dxdmkm7azgnnbf0",
+      "type": "wall",
+      "name": "Wall 1",
+      "parentId": "level_k0nc4sac430ltu4c",
+      "visible": true,
+      "metadata": {},
+      "children": [],
+      "thickness": 0.20408575604980364,
+      "height": 3,
+      "start": [
+        -2.3980076335851925,
+        -6.500547831729205
+      ],
+      "end": [
+        -2.3980076335851925,
+        -1.777420334576606
+      ],
+      "frontSide": "exterior",
+      "backSide": "interior"
+    },
+    "wall_0ccjwm2zrert32w8": {
+      "object": "node",
+      "id": "wall_0ccjwm2zrert32w8",
+      "type": "wall",
+      "name": "Wall 2",
+      "parentId": "level_k0nc4sac430ltu4c",
+      "visible": true,
+      "metadata": {},
+      "children": [],
+      "thickness": 0.20408575604980364,
+      "height": 3,
+      "start": [
+        -2.3980076335851925,
+        -1.777420334576606
+      ],
+      "end": [
+        -2.121034107517602,
+        -1.777420334576606
+      ],
+      "frontSide": "exterior",
+      "backSide": "interior"
+    },
+    "wall_gqf1g7bvsxc9amr8": {
+      "object": "node",
+      "id": "wall_gqf1g7bvsxc9amr8",
+      "type": "wall",
+      "name": "Wall 3",
+      "parentId": "level_k0nc4sac430ltu4c",
+      "visible": true,
+      "metadata": {},
+      "children": [],
+      "thickness": 0.20408575604980364,
+      "height": 3,
+      "start": [
+        -2.121034107517602,
+        -1.777420334576606
+      ],
+      "end": [
+        -2.383430079581635,
+        -0.1884669481888491
+      ],
+      "frontSide": "exterior",
+      "backSide": "interior"
+    },
+    "wall_7bimyhsgh9qdw6l0": {
+      "object": "node",
+      "id": "wall_7bimyhsgh9qdw6l0",
+      "type": "wall",
+      "name": "Wall 4",
+      "parentId": "level_k0nc4sac430ltu4c",
+      "visible": true,
+      "metadata": {},
+      "children": [],
+      "thickness": 0.20408575604980364,
+      "height": 3,
+      "start": [
+        -2.383430079581635,
+        -0.1884669481888491
+      ],
+      "end": [
+        -2.558360727624324,
+        0.686186292024595
+      ],
+      "frontSide": "exterior",
+      "backSide": "interior"
+    },
+    "wall_180hjs0irjav7xb0": {
+      "object": "node",
+      "id": "wall_180hjs0irjav7xb0",
+      "type": "wall",
+      "name": "Wall 5",
+      "parentId": "level_k0nc4sac430ltu4c",
+      "visible": true,
+      "metadata": {},
+      "children": [],
+      "thickness": 0.20408575604980364,
+      "height": 3,
+      "start": [
+        -2.558360727624324,
+        0.686186292024595
+      ],
+      "end": [
+        -2.631248497642111,
+        1.1235129121313172
+      ],
+      "frontSide": "exterior",
+      "backSide": "interior"
+    },
+    "wall_vlaysmwpqu9w78yg": {
+      "object": "node",
+      "id": "wall_vlaysmwpqu9w78yg",
+      "type": "wall",
+      "name": "Wall 6",
+      "parentId": "level_k0nc4sac430ltu4c",
+      "visible": true,
+      "metadata": {},
+      "children": [],
+      "thickness": 0.20408575604980364,
+      "height": 3,
+      "start": [
+        -2.631248497642111,
+        1.1235129121313172
+      ],
+      "end": [
+        -2.514628065613652,
+        1.7940803962949576
+      ],
+      "frontSide": "exterior",
+      "backSide": "interior"
+    },
+    "wall_iscvgr38vuc0h6jc": {
+      "object": "node",
+      "id": "wall_iscvgr38vuc0h6jc",
+      "type": "wall",
+      "name": "Wall 7",
+      "parentId": "level_k0nc4sac430ltu4c",
+      "visible": true,
+      "metadata": {},
+      "children": [],
+      "thickness": 0.20408575604980364,
+      "height": 3,
+      "start": [
+        -2.514628065613652,
+        1.7940803962949576
+      ],
+      "end": [
+        -0.18221942504446753,
+        2.202251908394565
+      ],
+      "frontSide": "exterior",
+      "backSide": "interior"
+    },
+    "wall_hzb570zjutgr3j26": {
+      "object": "node",
+      "id": "wall_hzb570zjutgr3j26",
+      "type": "wall",
+      "name": "Wall 8",
+      "parentId": "level_k0nc4sac430ltu4c",
+      "visible": true,
+      "metadata": {},
+      "children": [],
+      "thickness": 0.20408575604980364,
+      "height": 3,
+      "start": [
+        -0.18221942504446753,
+        2.202251908394565
+      ],
+      "end": [
+        0.12390920903023792,
+        1.7795028422914
+      ],
+      "frontSide": "exterior",
+      "backSide": "interior"
+    },
+    "wall_ic6yirj5i16vh02u": {
+      "object": "node",
+      "id": "wall_ic6yirj5i16vh02u",
+      "type": "wall",
+      "name": "Wall 9",
+      "parentId": "level_k0nc4sac430ltu4c",
+      "visible": true,
+      "metadata": {},
+      "children": [],
+      "thickness": 0.20408575604980364,
+      "height": 3,
+      "start": [
+        0.12390920903023792,
+        1.7795028422914
+      ],
+      "end": [
+        0.2696847490658119,
+        2.202251908394565
+      ],
+      "frontSide": "exterior",
+      "backSide": "interior"
+    },
+    "wall_ot9tnzena3gnvnbg": {
+      "object": "node",
+      "id": "wall_ot9tnzena3gnvnbg",
+      "type": "wall",
+      "name": "Wall 10",
+      "parentId": "level_k0nc4sac430ltu4c",
+      "visible": true,
+      "metadata": {},
+      "children": [],
+      "thickness": 0.20408575604980364,
+      "height": 3,
+      "start": [
+        0.2696847490658119,
+        2.202251908394565
+      ],
+      "end": [
+        3.5933670618769,
+        3.368456228679157
+      ],
+      "frontSide": "exterior",
+      "backSide": "interior"
+    },
+    "wall_dd1cbx49az5aw06j": {
+      "object": "node",
+      "id": "wall_dd1cbx49az5aw06j",
+      "type": "wall",
+      "name": "Wall 11",
+      "parentId": "level_k0nc4sac430ltu4c",
+      "visible": true,
+      "metadata": {},
+      "children": [],
+      "thickness": 0.20408575604980364,
+      "height": 3,
+      "start": [
+        3.5933670618769,
+        3.368456228679157
+      ],
+      "end": [
+        3.826607925933818,
+        3.1352153646222387
+      ],
+      "frontSide": "exterior",
+      "backSide": "interior"
+    },
+    "wall_j2dnvzeow97dt3b7": {
+      "object": "node",
+      "id": "wall_j2dnvzeow97dt3b7",
+      "type": "wall",
+      "name": "Wall 12",
+      "parentId": "level_k0nc4sac430ltu4c",
+      "visible": true,
+      "metadata": {},
+      "children": [],
+      "thickness": 0.20408575604980364,
+      "height": 3,
+      "start": [
+        3.826607925933818,
+        3.1352153646222387
+      ],
+      "end": [
+        4.686683612143705,
+        0.4529454279676766
+      ],
+      "frontSide": "exterior",
+      "backSide": "interior"
+    },
+    "wall_8g08zymshgm4kc28": {
+      "object": "node",
+      "id": "wall_8g08zymshgm4kc28",
+      "type": "wall",
+      "name": "Wall 13",
+      "parentId": "level_k0nc4sac430ltu4c",
+      "visible": true,
+      "metadata": {},
+      "children": [],
+      "thickness": 0.20408575604980364,
+      "height": 3,
+      "start": [
+        4.686683612143705,
+        0.4529454279676766
+      ],
+      "end": [
+        4.686683612143705,
+        -6.500547831729205
+      ],
+      "frontSide": "exterior",
+      "backSide": "interior"
+    },
+    "wall_gpbzyq36pabytay8": {
+      "object": "node",
+      "id": "wall_gpbzyq36pabytay8",
+      "type": "wall",
+      "name": "Wall 14",
+      "parentId": "level_k0nc4sac430ltu4c",
+      "visible": true,
+      "metadata": {},
+      "children": [
+        "door_g8ns6svwdmb7jl8n"
+      ],
+      "thickness": 0.20408575604980364,
+      "height": 3,
+      "start": [
+        4.686683612143705,
+        -6.500547831729205
+      ],
+      "end": [
+        -2.3980076335851925,
+        -6.500547831729205
+      ],
+      "frontSide": "exterior",
+      "backSide": "interior"
+    },
+    "ceiling_syj8x825riu98l7p": {
+      "object": "node",
+      "id": "ceiling_syj8x825riu98l7p",
+      "type": "ceiling",
+      "name": "Room 1 Ceiling",
+      "parentId": "level_k0nc4sac430ltu4c",
+      "visible": true,
+      "metadata": {},
+      "children": [],
+      "polygon": [
+        [
+          -2.631248497642111,
+          1.1235129121313172
+        ],
+        [
+          -2.558360727624324,
+          0.686186292024595
+        ],
+        [
+          -2.383430079581635,
+          -0.1884669481888491
+        ],
+        [
+          -2.150189215524717,
+          -1.5004468085090152
+        ],
+        [
+          -2.121034107517602,
+          -1.777420334576606
+        ],
+        [
+          -2.3980076335851925,
+          -1.777420334576606
+        ],
+        [
+          -2.3980076335851925,
+          -2.4042551567295742
+        ],
+        [
+          -0.5466582751334026,
+          -2.4042551567295742
+        ],
+        [
+          -0.5466582751334026,
+          -3.016512424878985
+        ],
+        [
+          -0.3425725190835989,
+          -4.095251421142233
+        ],
+        [
+          -0.3425725190835989,
+          -6.500547831729205
+        ],
+        [
+          4.686683612143705,
+          -6.500547831729205
+        ],
+        [
+          4.686683612143705,
+          0.4529454279676766
+        ],
+        [
+          3.826607925933818,
+          3.1352153646222387
+        ],
+        [
+          3.5933670618769,
+          3.368456228679157
+        ],
+        [
+          0.2696847490658119,
+          2.202251908394565
+        ],
+        [
+          0.12390920903023792,
+          1.7795028422914
+        ],
+        [
+          -0.18221942504446753,
+          2.202251908394565
+        ],
+        [
+          -2.514628065613652,
+          1.7940803962949576
+        ]
+      ],
+      "holes": [],
+      "holeMetadata": [],
+      "boundary": "auto",
+      "zoneId": "zone_f4kh3j57jb6xmseg",
+      "autoFromWalls": true
+    },
+    "slab_0001zfqm0cnxgwxy": {
+      "object": "node",
+      "id": "slab_0001zfqm0cnxgwxy",
+      "type": "slab",
+      "name": "Floor plate",
+      "parentId": "level_k0nc4sac430ltu4c",
+      "visible": true,
+      "metadata": {},
+      "polygon": [
+        [
+          -2.7348,
+          1.1239
+        ],
+        [
+          -2.6587,
+          0.6678
+        ],
+        [
+          -2.4838,
+          -0.2068
+        ],
+        [
+          -2.2413,
+          -1.6754
+        ],
+        [
+          -2.5001,
+          -1.6754
+        ],
+        [
+          -2.5001,
+          -6.6026
+        ],
+        [
+          4.7887,
+          -6.6026
+        ],
+        [
+          4.7887,
+          0.4689
+        ],
+        [
+          3.9162,
+          3.1899
+        ],
+        [
+          3.6201,
+          3.486
+        ],
+        [
+          0.1893,
+          2.2822
+        ],
+        [
+          0.0914,
+          1.9983
+        ],
+        [
+          -0.137,
+          2.3138
+        ],
+        [
+          -2.6029,
+          1.8822
+        ]
+      ],
+      "holes": [],
+      "holeMetadata": [],
+      "elevation": 0.05,
+      "foundation": {
+        "type": "none"
+      },
+      "thickness": 0.05,
+      "recessed": false,
+      "boundary": "auto",
+      "plateRole": "base",
+      "zoneIds": [
+        "zone_axpolb5rz651u30c",
+        "zone_f4kh3j57jb6xmseg",
+        "zone_w9nv2qi18vcvdvxp"
+      ],
+      "autoFromWalls": true
+    },
+    "zone_f4kh3j57jb6xmseg": {
+      "object": "node",
+      "id": "zone_f4kh3j57jb6xmseg",
+      "type": "zone",
+      "name": "Room 1",
+      "parentId": "level_k0nc4sac430ltu4c",
+      "visible": true,
+      "metadata": {},
+      "polygon": [
+        [
+          -2.631248497642111,
+          1.1235129121313172
+        ],
+        [
+          -2.558360727624324,
+          0.686186292024595
+        ],
+        [
+          -2.383430079581635,
+          -0.1884669481888491
+        ],
+        [
+          -2.150189215524717,
+          -1.5004468085090152
+        ],
+        [
+          -2.121034107517602,
+          -1.777420334576606
+        ],
+        [
+          -2.3980076335851925,
+          -1.777420334576606
+        ],
+        [
+          -2.3980076335851925,
+          -2.4042551567295742
+        ],
+        [
+          -0.5466582751334026,
+          -2.4042551567295742
+        ],
+        [
+          -0.5466582751334026,
+          -3.016512424878985
+        ],
+        [
+          -0.3425725190835989,
+          -4.095251421142233
+        ],
+        [
+          -0.3425725190835989,
+          -6.500547831729205
+        ],
+        [
+          4.686683612143705,
+          -6.500547831729205
+        ],
+        [
+          4.686683612143705,
+          0.4529454279676766
+        ],
+        [
+          3.826607925933818,
+          3.1352153646222387
+        ],
+        [
+          3.5933670618769,
+          3.368456228679157
+        ],
+        [
+          0.2696847490658119,
+          2.202251908394565
+        ],
+        [
+          0.12390920903023792,
+          1.7795028422914
+        ],
+        [
+          -0.18221942504446753,
+          2.202251908394565
+        ],
+        [
+          -2.514628065613652,
+          1.7940803962949576
+        ]
+      ],
+      "holes": [],
+      "autoFromWalls": true,
+      "boundaryWallIds": [
+        "wall_0ccjwm2zrert32w8",
+        "wall_180hjs0irjav7xb0",
+        "wall_6dxdmkm7azgnnbf0",
+        "wall_7bimyhsgh9qdw6l0",
+        "wall_8g08zymshgm4kc28",
+        "wall_agm54e72qbgyc5rf",
+        "wall_d7diuvl9c6tfbi7w",
+        "wall_dd1cbx49az5aw06j",
+        "wall_gpbzyq36pabytay8",
+        "wall_gqf1g7bvsxc9amr8",
+        "wall_hzb570zjutgr3j26",
+        "wall_ic6yirj5i16vh02u",
+        "wall_iscvgr38vuc0h6jc",
+        "wall_j2dnvzeow97dt3b7",
+        "wall_ot9tnzena3gnvnbg",
+        "wall_tdl51mtvxsoor1y7",
+        "wall_u9mwak6d38v9kx02",
+        "wall_vlaysmwpqu9w78yg"
+      ],
+      "boundarySeparatorIds": [],
+      "seed": [
+        1.1935645416368206,
+        -2.0284596004025763
+      ],
+      "spaceRole": "room",
+      "roomNumber": "",
+      "enclosureStatus": "enclosed",
+      "floorFinish": "",
+      "wallFinish": "",
+      "ceilingFinish": "",
+      "ceilingHeight": 2.7,
+      "occupancy": "",
+      "clearDimensionPolicy": "none",
+      "color": "#06b6d4"
+    },
+    "wall_u9mwak6d38v9kx02": {
+      "object": "node",
+      "id": "wall_u9mwak6d38v9kx02",
+      "type": "wall",
+      "name": "Wall 15",
+      "parentId": "level_k0nc4sac430ltu4c",
+      "visible": true,
+      "metadata": {},
+      "children": [],
+      "thickness": 0.08746532402134441,
+      "height": 3,
+      "start": [
+        -2.3980076335851925,
+        -2.4042551567295742
+      ],
+      "end": [
+        -0.5466582751334026,
+        -2.4042551567295742
+      ],
+      "frontSide": "interior",
+      "backSide": "interior"
+    },
+    "wall_d7diuvl9c6tfbi7w": {
+      "object": "node",
+      "id": "wall_d7diuvl9c6tfbi7w",
+      "type": "wall",
+      "name": "Wall 16",
+      "parentId": "level_k0nc4sac430ltu4c",
+      "visible": true,
+      "metadata": {},
+      "children": [],
+      "thickness": 0.08746532402134441,
+      "height": 3,
+      "start": [
+        -0.5466582751334026,
+        -2.4042551567295742
+      ],
+      "end": [
+        -0.5466582751334026,
+        -3.016512424878985
+      ],
+      "frontSide": "interior",
+      "backSide": "interior"
+    },
+    "wall_gpw12zxcqaqyf0lf": {
+      "object": "node",
+      "id": "wall_gpw12zxcqaqyf0lf",
+      "type": "wall",
+      "name": "Wall 17",
+      "parentId": "level_k0nc4sac430ltu4c",
+      "visible": true,
+      "metadata": {},
+      "children": [],
+      "thickness": 0.08746532402134441,
+      "height": 3,
+      "start": [
+        -2.3980076335851925,
+        -4.095251421142233
+      ],
+      "end": [
+        -0.3425725190835989,
+        -4.095251421142233
+      ],
+      "frontSide": "interior",
+      "backSide": "interior"
+    },
+    "wall_tdl51mtvxsoor1y7": {
+      "object": "node",
+      "id": "wall_tdl51mtvxsoor1y7",
+      "type": "wall",
+      "name": "Wall 18",
+      "parentId": "level_k0nc4sac430ltu4c",
+      "visible": true,
+      "metadata": {},
+      "children": [
+        "door_mshia2mrfpwskvdo"
+      ],
+      "thickness": 0.08746532402134441,
+      "height": 3,
+      "start": [
+        -0.3425725190835989,
+        -4.095251421142233
+      ],
+      "end": [
+        -0.3425725190835989,
+        -6.500547831729205
+      ],
+      "frontSide": "interior",
+      "backSide": "interior"
+    },
+    "ceiling_9jvwich5lrd6xkeb": {
+      "object": "node",
+      "id": "ceiling_9jvwich5lrd6xkeb",
+      "type": "ceiling",
+      "name": "Room 2 Ceiling",
+      "parentId": "level_k0nc4sac430ltu4c",
+      "visible": true,
+      "metadata": {},
+      "children": [],
+      "polygon": [
+        [
+          -2.3980076335851925,
+          -6.500547831729205
+        ],
+        [
+          -0.3425725190835989,
+          -6.500547831729205
+        ],
+        [
+          -0.3425725190835989,
+          -4.095251421142233
+        ],
+        [
+          -2.3980076335851925,
+          -4.095251421142233
+        ]
+      ],
+      "holes": [],
+      "holeMetadata": [],
+      "boundary": "auto",
+      "zoneId": "zone_w9nv2qi18vcvdvxp",
+      "autoFromWalls": true
+    },
+    "zone_w9nv2qi18vcvdvxp": {
+      "object": "node",
+      "id": "zone_w9nv2qi18vcvdvxp",
+      "type": "zone",
+      "name": "Room 2",
+      "parentId": "level_k0nc4sac430ltu4c",
+      "visible": true,
+      "metadata": {},
+      "polygon": [
+        [
+          -2.3980076335851925,
+          -6.500547831729205
+        ],
+        [
+          -0.3425725190835989,
+          -6.500547831729205
+        ],
+        [
+          -0.3425725190835989,
+          -4.095251421142233
+        ],
+        [
+          -2.3980076335851925,
+          -4.095251421142233
+        ]
+      ],
+      "holes": [],
+      "autoFromWalls": true,
+      "boundaryWallIds": [
+        "wall_6dxdmkm7azgnnbf0",
+        "wall_gpbzyq36pabytay8",
+        "wall_gpw12zxcqaqyf0lf",
+        "wall_tdl51mtvxsoor1y7"
+      ],
+      "boundarySeparatorIds": [],
+      "seed": [
+        -1.3702900763343957,
+        -5.29789962643572
+      ],
+      "spaceRole": "room",
+      "roomNumber": "",
+      "enclosureStatus": "enclosed",
+      "floorFinish": "",
+      "wallFinish": "",
+      "ceilingFinish": "",
+      "ceilingHeight": 2.7,
+      "occupancy": "",
+      "clearDimensionPolicy": "none",
+      "color": "#f59e0b"
+    },
+    "wall_agm54e72qbgyc5rf": {
+      "object": "node",
+      "id": "wall_agm54e72qbgyc5rf",
+      "type": "wall",
+      "name": "Wall 19",
+      "parentId": "level_k0nc4sac430ltu4c",
+      "visible": true,
+      "metadata": {},
+      "children": [
+        "door_m3x0qsh83frvrdmy"
+      ],
+      "thickness": 0.08746532402134441,
+      "height": 3,
+      "start": [
+        -0.5466582751334026,
+        -3.016512424878985
+      ],
+      "end": [
+        -0.3425725190835989,
+        -4.095251421142233
+      ],
+      "frontSide": "interior",
+      "backSide": "interior"
+    },
+    "ceiling_si8a19fm8754vuz9": {
+      "object": "node",
+      "id": "ceiling_si8a19fm8754vuz9",
+      "type": "ceiling",
+      "name": "Room 3 Ceiling",
+      "parentId": "level_k0nc4sac430ltu4c",
+      "visible": true,
+      "metadata": {},
+      "children": [],
+      "polygon": [
+        [
+          -2.3980076335851925,
+          -4.095251421142233
+        ],
+        [
+          -0.3425725190835989,
+          -4.095251421142233
+        ],
+        [
+          -0.5466582751334026,
+          -3.016512424878985
+        ],
+        [
+          -0.5466582751334026,
+          -2.4042551567295742
+        ],
+        [
+          -2.3980076335851925,
+          -2.4042551567295742
+        ]
+      ],
+      "holes": [],
+      "holeMetadata": [],
+      "boundary": "auto",
+      "zoneId": "zone_axpolb5rz651u30c",
+      "autoFromWalls": true
+    },
+    "zone_axpolb5rz651u30c": {
+      "object": "node",
+      "id": "zone_axpolb5rz651u30c",
+      "type": "zone",
+      "name": "Room 3",
+      "parentId": "level_k0nc4sac430ltu4c",
+      "visible": true,
+      "metadata": {},
+      "polygon": [
+        [
+          -2.3980076335851925,
+          -4.095251421142233
+        ],
+        [
+          -0.3425725190835989,
+          -4.095251421142233
+        ],
+        [
+          -0.5466582751334026,
+          -3.016512424878985
+        ],
+        [
+          -0.5466582751334026,
+          -2.4042551567295742
+        ],
+        [
+          -2.3980076335851925,
+          -2.4042551567295742
+        ]
+      ],
+      "holes": [],
+      "autoFromWalls": true,
+      "boundaryWallIds": [
+        "wall_6dxdmkm7azgnnbf0",
+        "wall_agm54e72qbgyc5rf",
+        "wall_d7diuvl9c6tfbi7w",
+        "wall_gpw12zxcqaqyf0lf",
+        "wall_u9mwak6d38v9kx02"
+      ],
+      "boundarySeparatorIds": [],
+      "seed": [
+        -1.4385796237986237,
+        -3.266258585053593
+      ],
+      "spaceRole": "room",
+      "roomNumber": "",
+      "enclosureStatus": "enclosed",
+      "floorFinish": "",
+      "wallFinish": "",
+      "ceilingFinish": "",
+      "ceilingHeight": 2.7,
+      "occupancy": "",
+      "clearDimensionPolicy": "none",
+      "color": "#22c55e"
+    },
+    "wall_vv5qk04dxzpi1tax": {
+      "object": "node",
+      "id": "wall_vv5qk04dxzpi1tax",
+      "type": "wall",
+      "name": "Wall 20",
+      "parentId": "level_k0nc4sac430ltu4c",
+      "visible": true,
+      "metadata": {},
+      "children": [],
+      "thickness": 0.08746532402134441,
+      "height": 3,
+      "start": [
+        0.6487011531583043,
+        1.560839532238039
+      ],
+      "end": [
+        0.6487011531583043,
+        -0.9173446483667193
+      ],
+      "frontSide": "unknown",
+      "backSide": "unknown"
+    },
+    "wall_xmnz5qxwo1boxrgr": {
+      "object": "node",
+      "id": "wall_xmnz5qxwo1boxrgr",
+      "type": "wall",
+      "name": "Wall 21",
+      "parentId": "level_k0nc4sac430ltu4c",
+      "visible": true,
+      "metadata": {},
+      "children": [],
+      "thickness": 0.08746532402134441,
+      "height": 3,
+      "start": [
+        0.9985624492436821,
+        1.560839532238039
+      ],
+      "end": [
+        0.9985624492436821,
+        -0.8298793243453748
+      ],
+      "frontSide": "unknown",
+      "backSide": "unknown"
+    },
+    "wall_fcgzux55ijwk78xz": {
+      "object": "node",
+      "id": "wall_fcgzux55ijwk78xz",
+      "type": "wall",
+      "name": "Wall 22",
+      "parentId": "level_k0nc4sac430ltu4c",
+      "visible": true,
+      "metadata": {},
+      "children": [],
+      "thickness": 0.08746532402134441,
+      "height": 3,
+      "start": [
+        0.6487011531583043,
+        -0.9173446483667193
+      ],
+      "end": [
+        0.9985624492436821,
+        -0.8298793243453748
+      ],
+      "frontSide": "unknown",
+      "backSide": "unknown"
+    },
+    "wall_0op1mmaex8bn75m2": {
+      "object": "node",
+      "id": "wall_0op1mmaex8bn75m2",
+      "type": "wall",
+      "name": "Wall 23",
+      "parentId": "level_k0nc4sac430ltu4c",
+      "visible": true,
+      "metadata": {},
+      "children": [
+        "door_4bfuwp5p38nfjjsi"
+      ],
+      "thickness": 0.05831021601422961,
+      "height": 3,
+      "start": [
+        -2.150189215524717,
+        -1.5004468085090152
+      ],
+      "end": [
+        0.6487011531583043,
+        -0.9173446483667193
+      ],
+      "frontSide": "unknown",
+      "backSide": "unknown"
+    },
+    "wall_z9qh8jqnm2h2g5qp": {
+      "object": "node",
+      "id": "wall_z9qh8jqnm2h2g5qp",
+      "type": "wall",
+      "name": "Wall 24",
+      "parentId": "level_k0nc4sac430ltu4c",
+      "visible": true,
+      "metadata": {},
+      "children": [
+        "door_0nr42itzna4u534u"
+      ],
+      "thickness": 0.05831021601422961,
+      "height": 3,
+      "start": [
+        0.9985624492436821,
+        -0.8298793243453748
+      ],
+      "end": [
+        3.4767466298484404,
+        -0.4800180282599971
+      ],
+      "frontSide": "unknown",
+      "backSide": "unknown"
+    },
+    "door_g8ns6svwdmb7jl8n": {
+      "object": "node",
+      "id": "door_g8ns6svwdmb7jl8n",
+      "type": "door",
+      "name": "Door 1",
+      "parentId": "wall_gpbzyq36pabytay8",
+      "visible": true,
+      "metadata": {},
+      "position": [
+        4.154602891013861,
+        1.05,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "side": "front",
+      "floorThresholdVersion": 1,
+      "wallId": "wall_gpbzyq36pabytay8",
+      "width": 0.8746532402134441,
+      "height": 2.1,
+      "constructionType": "framed",
+      "dimensionReference": "nominal",
+      "doorCategory": "interior",
+      "doorType": "hinged",
+      "leafCount": 1,
+      "operationState": 0,
+      "slideDirection": "left",
+      "trackStyle": "none",
+      "garagePanelCount": 4,
+      "openingKind": "door",
+      "openingShape": "rectangle",
+      "openingRadiusMode": "all",
+      "openingTopRadii": [
+        0.15,
+        0.15
+      ],
+      "cornerRadius": 0.15,
+      "archHeight": 0.45,
+      "openingRevealRadius": 0.025,
+      "frameThickness": 0.02,
+      "threshold": true,
+      "thresholdHeight": 0.02,
+      "casingFaceA": true,
+      "casingFaceB": true,
+      "hingesSide": "left",
+      "swingDirection": "inward",
+      "swingAngle": 0,
+      "segments": [
+        {
+          "type": "panel",
+          "heightRatio": 0.4,
+          "columnRatios": [
+            1
+          ],
+          "dividerThickness": 0.03,
+          "panelDepth": 0.01,
+          "panelInset": 0.04
+        },
+        {
+          "type": "panel",
+          "heightRatio": 0.6,
+          "columnRatios": [
+            1
+          ],
+          "dividerThickness": 0.03,
+          "panelDepth": 0.01,
+          "panelInset": 0.04
+        }
+      ],
+      "handle": true,
+      "handleHeight": 1.05,
+      "handleSide": "right",
+      "contentPadding": [
+        0.11,
+        0.11
+      ],
+      "doorCloser": false,
+      "panicBar": false,
+      "panicBarStyle": "crossbar",
+      "panicBarRods": false,
+      "panicBarHeight": 1
+    },
+    "door_mshia2mrfpwskvdo": {
+      "object": "node",
+      "id": "door_mshia2mrfpwskvdo",
+      "type": "door",
+      "name": "Door 2",
+      "parentId": "wall_tdl51mtvxsoor1y7",
+      "visible": true,
+      "metadata": {},
+      "position": [
+        0.5539470521351814,
+        1.05,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "floorThresholdVersion": 1,
+      "wallId": "wall_tdl51mtvxsoor1y7",
+      "width": 0.8746532402134441,
+      "height": 2.1,
+      "constructionType": "framed",
+      "dimensionReference": "nominal",
+      "doorCategory": "interior",
+      "doorType": "hinged",
+      "leafCount": 1,
+      "operationState": 0,
+      "slideDirection": "left",
+      "trackStyle": "none",
+      "garagePanelCount": 4,
+      "openingKind": "door",
+      "openingShape": "rectangle",
+      "openingRadiusMode": "all",
+      "openingTopRadii": [
+        0.15,
+        0.15
+      ],
+      "cornerRadius": 0.15,
+      "archHeight": 0.45,
+      "openingRevealRadius": 0.025,
+      "frameThickness": 0.02,
+      "threshold": true,
+      "thresholdHeight": 0.02,
+      "casingFaceA": true,
+      "casingFaceB": true,
+      "hingesSide": "left",
+      "swingDirection": "inward",
+      "swingAngle": 0,
+      "segments": [
+        {
+          "type": "panel",
+          "heightRatio": 0.4,
+          "columnRatios": [
+            1
+          ],
+          "dividerThickness": 0.03,
+          "panelDepth": 0.01,
+          "panelInset": 0.04
+        },
+        {
+          "type": "panel",
+          "heightRatio": 0.6,
+          "columnRatios": [
+            1
+          ],
+          "dividerThickness": 0.03,
+          "panelDepth": 0.01,
+          "panelInset": 0.04
+        }
+      ],
+      "handle": true,
+      "handleHeight": 1.05,
+      "handleSide": "right",
+      "contentPadding": [
+        0.11,
+        0.11
+      ],
+      "doorCloser": false,
+      "panicBar": false,
+      "panicBarStyle": "crossbar",
+      "panicBarRods": false,
+      "panicBarHeight": 1
+    },
+    "door_m3x0qsh83frvrdmy": {
+      "object": "node",
+      "id": "door_m3x0qsh83frvrdmy",
+      "type": "door",
+      "name": "Door 3",
+      "parentId": "wall_agm54e72qbgyc5rf",
+      "visible": true,
+      "metadata": {},
+      "position": [
+        0.5489373411149628,
+        1.05,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "floorThresholdVersion": 1,
+      "wallId": "wall_agm54e72qbgyc5rf",
+      "width": 0.5489373411149626,
+      "height": 2.1,
+      "constructionType": "framed",
+      "dimensionReference": "nominal",
+      "doorCategory": "interior",
+      "doorType": "hinged",
+      "leafCount": 1,
+      "operationState": 0,
+      "slideDirection": "left",
+      "trackStyle": "none",
+      "garagePanelCount": 4,
+      "openingKind": "door",
+      "openingShape": "rectangle",
+      "openingRadiusMode": "all",
+      "openingTopRadii": [
+        0.15,
+        0.15
+      ],
+      "cornerRadius": 0.15,
+      "archHeight": 0.45,
+      "openingRevealRadius": 0.025,
+      "frameThickness": 0.02,
+      "threshold": true,
+      "thresholdHeight": 0.02,
+      "casingFaceA": true,
+      "casingFaceB": true,
+      "hingesSide": "left",
+      "swingDirection": "inward",
+      "swingAngle": 0,
+      "segments": [
+        {
+          "type": "panel",
+          "heightRatio": 0.4,
+          "columnRatios": [
+            1
+          ],
+          "dividerThickness": 0.03,
+          "panelDepth": 0.01,
+          "panelInset": 0.04
+        },
+        {
+          "type": "panel",
+          "heightRatio": 0.6,
+          "columnRatios": [
+            1
+          ],
+          "dividerThickness": 0.03,
+          "panelDepth": 0.01,
+          "panelInset": 0.04
+        }
+      ],
+      "handle": true,
+      "handleHeight": 1.05,
+      "handleSide": "right",
+      "contentPadding": [
+        0.11,
+        0.11
+      ],
+      "doorCloser": false,
+      "panicBar": false,
+      "panicBarStyle": "crossbar",
+      "panicBarRods": false,
+      "panicBarHeight": 1
+    },
+    "door_4bfuwp5p38nfjjsi": {
+      "object": "node",
+      "id": "door_4bfuwp5p38nfjjsi",
+      "type": "door",
+      "name": "Door 4",
+      "parentId": "wall_0op1mmaex8bn75m2",
+      "visible": true,
+      "metadata": {},
+      "position": [
+        2.3443677279421253,
+        1.05,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "floorThresholdVersion": 1,
+      "wallId": "wall_0op1mmaex8bn75m2",
+      "width": 0.8163430241992146,
+      "height": 2.1,
+      "constructionType": "framed",
+      "dimensionReference": "nominal",
+      "doorCategory": "interior",
+      "doorType": "hinged",
+      "leafCount": 1,
+      "operationState": 0,
+      "slideDirection": "left",
+      "trackStyle": "none",
+      "garagePanelCount": 4,
+      "openingKind": "door",
+      "openingShape": "rectangle",
+      "openingRadiusMode": "all",
+      "openingTopRadii": [
+        0.15,
+        0.15
+      ],
+      "cornerRadius": 0.15,
+      "archHeight": 0.45,
+      "openingRevealRadius": 0.025,
+      "frameThickness": 0.02,
+      "threshold": true,
+      "thresholdHeight": 0.02,
+      "casingFaceA": true,
+      "casingFaceB": true,
+      "hingesSide": "left",
+      "swingDirection": "inward",
+      "swingAngle": 0,
+      "segments": [
+        {
+          "type": "panel",
+          "heightRatio": 0.4,
+          "columnRatios": [
+            1
+          ],
+          "dividerThickness": 0.03,
+          "panelDepth": 0.01,
+          "panelInset": 0.04
+        },
+        {
+          "type": "panel",
+          "heightRatio": 0.6,
+          "columnRatios": [
+            1
+          ],
+          "dividerThickness": 0.03,
+          "panelDepth": 0.01,
+          "panelInset": 0.04
+        }
+      ],
+      "handle": true,
+      "handleHeight": 1.05,
+      "handleSide": "right",
+      "contentPadding": [
+        0.11,
+        0.11
+      ],
+      "doorCloser": false,
+      "panicBar": false,
+      "panicBarStyle": "crossbar",
+      "panicBarRods": false,
+      "panicBarHeight": 1
+    },
+    "door_0nr42itzna4u534u": {
+      "object": "node",
+      "id": "door_0nr42itzna4u534u",
+      "type": "door",
+      "name": "Door 5",
+      "parentId": "wall_z9qh8jqnm2h2g5qp",
+      "visible": true,
+      "metadata": {},
+      "position": [
+        0.5506068546247075,
+        1.05,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "floorThresholdVersion": 1,
+      "wallId": "wall_z9qh8jqnm2h2g5qp",
+      "width": 0.8163430241992146,
+      "height": 2.1,
+      "constructionType": "framed",
+      "dimensionReference": "nominal",
+      "doorCategory": "interior",
+      "doorType": "hinged",
+      "leafCount": 1,
+      "operationState": 0,
+      "slideDirection": "left",
+      "trackStyle": "none",
+      "garagePanelCount": 4,
+      "openingKind": "door",
+      "openingShape": "rectangle",
+      "openingRadiusMode": "all",
+      "openingTopRadii": [
+        0.15,
+        0.15
+      ],
+      "cornerRadius": 0.15,
+      "archHeight": 0.45,
+      "openingRevealRadius": 0.025,
+      "frameThickness": 0.02,
+      "threshold": true,
+      "thresholdHeight": 0.02,
+      "casingFaceA": true,
+      "casingFaceB": true,
+      "hingesSide": "left",
+      "swingDirection": "inward",
+      "swingAngle": 0,
+      "segments": [
+        {
+          "type": "panel",
+          "heightRatio": 0.4,
+          "columnRatios": [
+            1
+          ],
+          "dividerThickness": 0.03,
+          "panelDepth": 0.01,
+          "panelInset": 0.04
+        },
+        {
+          "type": "panel",
+          "heightRatio": 0.6,
+          "columnRatios": [
+            1
+          ],
+          "dividerThickness": 0.03,
+          "panelDepth": 0.01,
+          "panelInset": 0.04
+        }
+      ],
+      "handle": true,
+      "handleHeight": 1.05,
+      "handleSide": "right",
+      "contentPadding": [
+        0.11,
+        0.11
+      ],
+      "doorCloser": false,
+      "panicBar": false,
+      "panicBarStyle": "crossbar",
+      "panicBarRods": false,
+      "panicBarHeight": 1
+    }
+  },
+  "rootNodeIds": [
+    "site_hmdccbh45thnvqmk"
+  ],
+  "collections": {},
+  "materials": {}
+}

@@ -1,0 +1,39 @@
+• Preparing your local Pascal editor
+✓ Local data directory ready at /workspace/barclay/tests/pascal/.pascal/data
+• Downloading the editor runtime from https://github.com/pascalorg/editor/releases/download/@pascal-app/cli@1.1.6/pascal-web-runtime-1.1.6.tar.gz
+• Downloading the editor runtime 0% (0.0 MB of 127.6 MB)
+• Downloading the editor runtime 26% (34.3 MB of 127.6 MB)
+• Downloading the editor runtime 54% (70.0 MB of 127.6 MB)
+• Downloading the editor runtime 79% (102.1 MB of 127.6 MB)
+• Downloading the editor runtime 100% (127.6 MB of 127.6 MB)
+• Verifying the editor runtime digest
+• Extracting the editor runtime
+• Installing the editor runtime
+✓ Editor runtime 1.1.6 installed
+✓ Local port 46035 selected automatically
+• Starting Pascal on port 46035
+• Checking that the editor is ready
+▲ Next.js 16.4.5
+- Local:         http://127.0.0.1:46035
+- Network:       http://127.0.0.1:46035
+✓ Ready in 0ms
+✓ Running next.config took 0.9ms
+✓ MCP port 43537 selected automatically
+• Starting Pascal MCP
+• Checking that MCP is ready
+[pascal-mcp] HTTP server listening on 127.0.0.1:43537
+✓ MCP is ready on port 43537
+✓ Pascal Editor and MCP are ready
+Pascal is ready at http://pascal.localhost:46035
+MCP is ready on port 43537
+Projects stay in /workspace/barclay/tests/pascal/.pascal/data
+
+Manage it with npx:
+  npx @pascal-app/cli status        Check the local editor
+  npx @pascal-app/cli projects      List local projects
+  npx @pascal-app/cli resume        Resume your latest project
+  npx @pascal-app/cli logs --follow Follow editor logs
+  npx @pascal-app/cli stop          Stop the background process
+
+To install the shorter "pascal" command:
+  npm install --global @pascal-app/cli

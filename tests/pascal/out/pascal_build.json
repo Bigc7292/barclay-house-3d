@@ -1,0 +1,134 @@
+{
+  "K": 0.029155108007114804,
+  "origin_px": [
+    95.75,
+    123.53571428571429
+  ],
+  "ceil_m_UNSOURCED": 3.0,
+  "walls": [
+    {
+      "name": "Wall_ext_0",
+      "id": null,
+      "resp": "{\"ok\":true,\"wallId\":\"wall_6dxdmkm7azgnnbf0\",\"name\":\"Wall 1\",\"levelId\":\"level_k0nc4sac430ltu4c\",\"length\":4.723,\"message\":\"Added wall \\\"Wall 1\\\" on level_k0nc4sac430ltu4c\",\"achieved\":{\"created\":{\"wall\":1},\"updated\":0,\"deleted\":{}},\"project\":\"8ef51e1e8eb7\"}"
+    },
+    {
+      "name": "Wall_ext_1",
+      "id": null,
+      "resp": "{\"ok\":true,\"wallId\":\"wall_0ccjwm2zrert32w8\",\"name\":\"Wall 2\",\"levelId\":\"level_k0nc4sac430ltu4c\",\"length\":0.277,\"message\":\"Added wall \\\"Wall 2\\\" on level_k0nc4sac430ltu4c\",\"achieved\":{\"created\":{\"wall\":1},\"updated\":0,\"deleted\":{}},\"project\":\"8ef51e1e8eb7\"}"
+    },
+    {
+      "name": "Wall_ext_2",
+      "id": null,
+      "resp": "{\"ok\":true,\"wallId\":\"wall_gqf1g7bvsxc9amr8\",\"name\":\"Wall 3\",\"levelId\":\"level_k0nc4sac430ltu4c\",\"length\":1.61,\"message\":\"Added wall \\\"Wall 3\\\" on level_k0nc4sac430ltu4c\",\"achieved\":{\"created\":{\"wall\":1},\"updated\":0,\"deleted\":{}},\"project\":\"8ef51e1e8eb7\"}"
+    },
+    {
+      "name": "Wall_ext_3",
+      "id": null,
+      "resp": "{\"ok\":true,\"wallId\":\"wall_7bimyhsgh9qdw6l0\",\"name\":\"Wall 4\",\"levelId\":\"level_k0nc4sac430ltu4c\",\"length\":0.892,\"message\":\"Added wall \\\"Wall 4\\\" on level_k0nc4sac430ltu4c\",\"achieved\":{\"created\":{\"wall\":1},\"updated\":0,\"deleted\":{}},\"project\":\"8ef51e1e8eb7\"}"
+    },
+    {
+      "name": "Wall_ext_4",
+      "id": null,
+      "resp": "{\"ok\":true,\"wallId\":\"wall_180hjs0irjav7xb0\",\"name\":\"Wall 5\",\"levelId\":\"level_k0nc4sac430ltu4c\",\"length\":0.443,\"message\":\"Added wall \\\"Wall 5\\\" on level_k0nc4sac430ltu4c\",\"achieved\":{\"created\":{\"wall\":1},\"updated\":0,\"deleted\":{}},\"project\":\"8ef51e1e8eb7\"}"
+    },
+    {
+      "name": "Wall_ext_5",
+      "id": null,
+      "resp": "{\"ok\":true,\"wallId\":\"wall_vlaysmwpqu9w78yg\",\"name\":\"Wall 6\",\"levelId\":\"level_k0nc4sac430ltu4c\",\"length\":0.681,\"message\":\"Added wall \\\"Wall 6\\\" on level_k0nc4sac430ltu4c\",\"achieved\":{\"created\":{\"wall\":1},\"updated\":0,\"deleted\":{}},\"project\":\"8ef51e1e8eb7\"}"
+    },
+    {
+      "name": "Wall_ext_6",
+      "id": null,
+      "resp": "{\"ok\":true,\"wallId\":\"wall_iscvgr38vuc0h6jc\",\"name\":\"Wall 7\",\"levelId\":\"level_k0nc4sac430ltu4c\",\"length\":2.368,\"message\":\"Added wall \\\"Wall 7\\\" on level_k0nc4sac430ltu4c\",\"achieved\":{\"created\":{\"wall\":1},\"updated\":0,\"deleted\":{}},\"project\":\"8ef51e1e8eb7\"}"
+    },
+    {
+      "name": "Wall_ext_7",
+      "id": null,
+      "resp": "{\"ok\":true,\"wallId\":\"wall_hzb570zjutgr3j26\",\"name\":\"Wall 8\",\"levelId\":\"level_k0nc4sac430ltu4c\",\"length\":0.522,\"message\":\"Added wall \\\"Wall 8\\\" on level_k0nc4sac430ltu4c\",\"achieved\":{\"created\":{\"wall\":1},\"updated\":0,\"deleted\":{}},\"project\":\"8ef51e1e8eb7\"}"
+    },
+    {
+      "name": "Wall_ext_8",
+      "id": null,
+      "resp": "{\"ok\":true,\"wallId\":\"wall_ic6yirj5i16vh02u\",\"name\":\"Wall 9\",\"levelId\":\"level_k0nc4sac430ltu4c\",\"length\":0.447,\"message\":\"Added wall \\\"Wall 9\\\" on level_k0nc4sac430ltu4c\",\"achieved\":{\"created\":{\"wall\":1},\"updated\":0,\"deleted\":{}},\"project\":\"8ef51e1e8eb7\"}"
+    },
+    {
+      "name": "Wall_ext_9",
+      "id": null,
+      "resp": "{\"ok\":true,\"wallId\":\"wall_ot9tnzena3gnvnbg\",\"name\":\"Wall 10\",\"levelId\":\"level_k0nc4sac430ltu4c\",\"length\":3.522,\"message\":\"Added wall \\\"Wall 10\\\" on level_k0nc4sac430ltu4c\",\"achieved\":{\"created\":{\"wall\":1},\"updated\":0,\"deleted\":{}},\"project\":\"8ef51e1e8eb7\"}"
+    },
+    {
+      "name": "Wall_ext_10",
+      "id": null,
+      "resp": "{\"ok\":true,\"wallId\":\"wall_dd1cbx49az5aw06j\",\"name\":\"Wall 11\",\"levelId\":\"level_k0nc4sac430ltu4c\",\"length\":0.33,\"message\":\"Added wall \\\"Wall 11\\\" on level_k0nc4sac430ltu4c\",\"achieved\":{\"created\":{\"wall\":1},\"updated\":0,\"deleted\":{}},\"project\":\"8ef51e1e8eb7\"}"
+    },
+    {
+      "name": "Wall_ext_11",
+      "id": null,
+      "resp": "{\"ok\":true,\"wallId\":\"wall_j2dnvzeow97dt3b7\",\"name\":\"Wall 12\",\"levelId\":\"level_k0nc4sac430ltu4c\",\"length\":2.817,\"message\":\"Added wall \\\"Wall 12\\\" on level_k0nc4sac430ltu4c\",\"achieved\":{\"created\":{\"wall\":1},\"updated\":0,\"deleted\":{}},\"project\":\"8ef51e1e8eb7\"}"
+    },
+    {
+      "name": "Wall_ext_12",
+      "id": null,
+      "resp": "{\"ok\":true,\"wallId\":\"wall_8g08zymshgm4kc28\",\"name\":\"Wall 13\",\"levelId\":\"level_k0nc4sac430ltu4c\",\"length\":6.953,\"message\":\"Added wall \\\"Wall 13\\\" on level_k0nc4sac430ltu4c\",\"achieved\":{\"created\":{\"wall\":1},\"updated\":0,\"deleted\":{}},\"project\":\"8ef51e1e8eb7\"}"
+    },
+    {
+      "name": "Wall_ext_13",
+      "id": null,
+      "resp": "{\"ok\":true,\"wallId\":\"wall_gpbzyq36pabytay8\",\"name\":\"Wall 14\",\"levelId\":\"level_k0nc4sac430ltu4c\",\"length\":7.085,\"message\":\"Added wall \\\"Wall 14\\\" on level_k0nc4sac430ltu4c\",\"achieved\":{\"created\":{\"wall\":1},\"updated\":0,\"deleted\":{}},\"project\":\"8ef51e1e8eb7\"}"
+    },
+    {
+      "name": "Wall_storage_north",
+      "id": null,
+      "resp": "{\"ok\":true,\"wallId\":\"wall_u9mwak6d38v9kx02\",\"name\":\"Wall 15\",\"levelId\":\"level_k0nc4sac430ltu4c\",\"length\":1.851,\"message\":\"Added wall \\\"Wall 15\\\" on level_k0nc4sac430ltu4c\",\"achieved\":{\"created\":{\"wall\":1},\"updated\":0,\"deleted\":{}},\"project\":\"8ef51e1e8eb7\"}"
+    },
+    {
+      "name": "Wall_storage_east_upper",
+      "id": null,
+      "resp": "{\"ok\":true,\"wallId\":\"wall_d7diuvl9c6tfbi7w\",\"name\":\"Wall 16\",\"levelId\":\"level_k0nc4sac430ltu4c\",\"length\":0.612,\"message\":\"Added wall \\\"Wall 16\\\" on level_k0nc4sac430ltu4c\",\"achieved\":{\"created\":{\"wall\":1},\"updated\":0,\"deleted\":{}},\"project\":\"8ef51e1e8eb7\"}"
+    },
+    {
+      "name": "Wall_bath_north",
+      "id": null,
+      "resp": "{\"ok\":true,\"wallId\":\"wall_gpw12zxcqaqyf0lf\",\"name\":\"Wall 17\",\"levelId\":\"level_k0nc4sac430ltu4c\",\"length\":2.055,\"message\":\"Added wall \\\"Wall 17\\\" on level_k0nc4sac430ltu4c\",\"achieved\":{\"created\":{\"wall\":1},\"updated\":0,\"deleted\":{}},\"project\":\"8ef51e1e8eb7\"}"
+    },
+    {
+      "name": "Wall_bath_east",
+      "id": null,
+      "resp": "{\"ok\":true,\"wallId\":\"wall_tdl51mtvxsoor1y7\",\"name\":\"Wall 18\",\"levelId\":\"level_k0nc4sac430ltu4c\",\"length\":2.405,\"message\":\"Added wall \\\"Wall 18\\\" on level_k0nc4sac430ltu4c\",\"achieved\":{\"created\":{\"wall\":1},\"updated\":0,\"deleted\":{}},\"project\":\"8ef51e1e8eb7\"}"
+    },
+    {
+      "name": "Wall_storage_east_lower",
+      "id": null,
+      "resp": "{\"ok\":true,\"wallId\":\"wall_agm54e72qbgyc5rf\",\"name\":\"Wall 19\",\"levelId\":\"level_k0nc4sac430ltu4c\",\"length\":1.098,\"message\":\"Added wall \\\"Wall 19\\\" on level_k0nc4sac430ltu4c\",\"achieved\":{\"created\":{\"wall\":1},\"updated\":0,\"deleted\":{}},\"project\":\"8ef51e1e8eb7\"}"
+    },
+    {
+      "name": "Wall_closet_west",
+      "id": null,
+      "resp": "{\"ok\":true,\"wallId\":\"wall_vv5qk04dxzpi1tax\",\"name\":\"Wall 20\",\"levelId\":\"level_k0nc4sac430ltu4c\",\"length\":2.478,\"message\":\"Added wall \\\"Wall 20\\\" on level_k0nc4sac430ltu4c\",\"achieved\":{\"created\":{\"wall\":1},\"updated\":0,\"deleted\":{}},\"project\":\"8ef51e1e8eb7\"}"
+    },
+    {
+      "name": "Wall_closet_east",
+      "id": null,
+      "resp": "{\"ok\":true,\"wallId\":\"wall_xmnz5qxwo1boxrgr\",\"name\":\"Wall 21\",\"levelId\":\"level_k0nc4sac430ltu4c\",\"length\":2.391,\"message\":\"Added wall \\\"Wall 21\\\" on level_k0nc4sac430ltu4c\",\"achieved\":{\"created\":{\"wall\":1},\"updated\":0,\"deleted\":{}},\"project\":\"8ef51e1e8eb7\"}"
+    },
+    {
+      "name": "Wall_closet_south",
+      "id": null,
+      "resp": "{\"ok\":true,\"wallId\":\"wall_fcgzux55ijwk78xz\",\"name\":\"Wall 22\",\"levelId\":\"level_k0nc4sac430ltu4c\",\"length\":0.361,\"message\":\"Added wall \\\"Wall 22\\\" on level_k0nc4sac430ltu4c\",\"achieved\":{\"created\":{\"wall\":1},\"updated\":0,\"deleted\":{}},\"project\":\"8ef51e1e8eb7\"}"
+    },
+    {
+      "name": "Wall_bed1_south",
+      "id": null,
+      "resp": "{\"ok\":true,\"wallId\":\"wall_0op1mmaex8bn75m2\",\"name\":\"Wall 23\",\"levelId\":\"level_k0nc4sac430ltu4c\",\"length\":2.859,\"message\":\"Added wall \\\"Wall 23\\\" on level_k0nc4sac430ltu4c\",\"achieved\":{\"created\":{\"wall\":1},\"updated\":0,\"deleted\":{}},\"project\":\"8ef51e1e8eb7\"}"
+    },
+    {
+      "name": "Wall_bed2_south",
+      "id": null,
+      "resp": "{\"ok\":true,\"wallId\":\"wall_z9qh8jqnm2h2g5qp\",\"name\":\"Wall 24\",\"levelId\":\"level_k0nc4sac430ltu4c\",\"length\":2.503,\"message\":\"Added wall \\\"Wall 24\\\" on level_k0nc4sac430ltu4c\",\"achieved\":{\"created\":{\"wall\":1},\"updated\":0,\"deleted\":{}},\"project\":\"8ef51e1e8eb7\"}"
+    }
+  ],
+  "doors": [],
+  "save": "Scene with id \"8ef51e1e8eb7\" already exists. Pass a different id or provide expectedVersion to overwrite.",
+  "export_glb": "{\"status\":\"not_implemented\",\"reason\":\"GLB export requires the Three.js renderer, which is browser-only\"}",
+  "list_scenes": "{\"scenes\":[{\"id\":\"8ef51e1e8eb7\",\"name\":\"Barclay House Two Bed (local test)\",\"projectId\":\"8ef51e1e8eb7\",\"ownerId\":null,\"thumbnailUrl\":null,\"version\":26,\"createdAt\":\"2026-11-19T04:33:27.655Z\",\"updatedAt\":\"2026-11-19T04:33:28.020Z\",\"sizeBytes\":16495,\"nodeCount\":35,\"editorUrl\":\"http://pascal.localhost:46035/scene/8ef51e1e8eb7\",\"url\":\"http://pascal.localhost:46035/scene/8ef51e1e8eb7\",\"published\":true,\"graphHash\":\"a86048279b6f6e0d8263cbbe82659202c80ad57bc3eb1261a33f96404a56ba73\"}]}"
+}

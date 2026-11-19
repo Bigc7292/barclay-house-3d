@@ -108,11 +108,24 @@ What: builder never grades itself; each round a new critic with no history gets 
 Free? Yes – existing agents, no paid image models.
 Apply: critic_prompt.md; AGENTS.md/CLAUDE.md/GROK.md step 4; critic_log.md schema. CERTIFIED (method) 2026-11-15 after one trial on the locked-cam Geograph still. Doc: /home/box/x-bookmarks/implementations/barclay/2026-11-15-fresh-critic-loop.md
 
-## 18. Interior plan-overlay check (Interior bot)
-Owned by the Interior bot. Not implemented here. Doc: /home/box/x-bookmarks/implementations/barclay/2026-11-15-plan-overlay-gate.md
+## 18. Interior plan-overlay gate (trace → draw back over plan → measure IoU before 3D)
+Source: https://x.com/everestchris6/status/2120175941616128277 + https://github.com/ZWD11/house-plan-designer (MIT method; we do not invent dimension labels the source image does not have)
+What: wall-mask IoU + area residual of the Two Bed layout vs interior/twobed/apt02_fp.png (Rightmove 92163630). Gate IoU ≥0.85 and area ±3% of sourced 63 m².
+Free? Yes – numpy/Pillow, £0.
+Apply: interior/plan_overlay.py → out/plan_overlay.{png,md,json}. 2bed.json has no wall polylines; default layout is build_twobed_v4.py vertices in plan-px (documented).
+Status: CERTIFIED (gate) 2026-11-19 by Interior bot. Current #14 layout FAILS the IoU gate: identity 0.1408, buffered ±4 px 0.2999, layout-on-ink precision 0.5733; area residual 0% by construction. 2bed.json provenance now carries these numbers (no longer “APPROXIMATE”).
+Doc: /home/box/x-bookmarks/implementations/barclay/2026-11-15-plan-overlay-gate.md
 
 ## 19. Blender mesh-health gate
 Source: https://x.com/Aygramm_/status/2122408109113008561 → https://github.com/arjun988/blender-skills (MIT, verification: .claude/skills/references/validation-checklist.md). Claude Code in the post is paid and is not used; checklist idea only, own script, £0 (Blender GPL).
 What: per exported object, check non-manifold (3+ faces), flipped/inconsistent normals, loose/dup verts (<0.1 mm), zero-area faces, unapplied or negative scale, unused material slots, *.001 names, and unshared duplicate-mesh groups (register #7). Grade Blocker/Major/Minor; PASS = 0 Blockers.
 Free? Yes.
 Apply: mesh_health.py (read-only, never saves the .blend); MESHHEALTH=1 ./validate.sh; AGENTS.md done-criteria "mesh_health 0 Blockers". CERTIFIED 2026-11-17 (8.81–9.11 s, 0 Blockers, 22 unshared duplicate groups). Doc: /home/box/x-bookmarks/implementations/barclay/2026-11-17-mesh-health-gate.md
+
+## 20. Pascal Editor head-to-head vs Floorplan 3D interior viewer (#14)
+Source: https://x.com/mayaislam_ai/status/2122914096794452040 → https://github.com/pascalorg/editor (MIT, CLI 1.1.6). Local only: `npx @pascal-app/cli editor`, no account, no hosted MCP.
+What: trace the Rightmove 2-bed plan, export GLB, compare with web/floorplan3d/2bed.* on #18 IoU/area, phone load, size, console/external requests; borrow wall cutaway / level modes / 2D-3D split only if they win.
+Free? Yes – MIT, local CLI. WebGPU needs recent Chrome. “Send to Blender” broken (issue #899) → GLB only.
+Status: REJECTED (keep #14) 2026-11-19 by Interior bot. Local CLI ran (Linux, PASCAL_HOME=tests/pascal/.pascal, ownerId null). Independent centreline layout beats #14 on IoU (0.4691 vs 0.1408) and precision (0.9168 vs 0.5733). Official export_glb is not_implemented without a browser Three.js renderer; view_scene is view_unavailable. No Pascal GLB, so no fps/console head-to-head. Not adopted into web/floorplan3d (would break baked walk mode). validate.sh OUT=tests/pascal/out FAIL (exterior hero GLBs correctly absent).
+Doc: /home/box/x-bookmarks/implementations/barclay/2026-11-19-pascal-editor.md
+

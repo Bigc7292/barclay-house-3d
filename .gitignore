@@ -3,3 +3,6 @@
 *.blend@
 *.blend~
 __pycache__/
+
+# Local Pascal Editor runtime/data (trick #20). Never commit the 127 MB runtime or mcp-token.
+tests/pascal/.pascal/

@@ -1,0 +1,409 @@
+{
+  "_provenance": {
+    "plan": "interior/twobed/apt02_fp.png",
+    "method": "Independent centreline trace. Exterior vertices are midpoints of measured thick ink (lum<80, typically 6-7 px) at corners and rakes. Interior partitions digitised from the same PNG (zoomed); hanging rails, furniture and the bathroom dashed shower line omitted. Door gaps are measured ink breaks where those exist (entrance x=99-129, bathroom y=268-298 at x=84); bedroom/storage door widths are the opening seen on the plan, recorded as along-segment gaps, not as sourced construction widths. Scale uses sourced 63 m\u00b2 only.",
+    "not_from": "build_twobed_v4.py / 2bed.json wall coordinates were not copied.",
+    "ceiling_height_m": "3.0 UNSOURCED (same modelling value as #14; floor-to-floor 3.663 m is sourced but clear height is not)."
+  },
+  "units": "plan_px",
+  "outline": [
+    [
+      13.5,
+      346.5
+    ],
+    [
+      13.5,
+      184.5
+    ],
+    [
+      23.0,
+      184.5
+    ],
+    [
+      14.0,
+      130.0
+    ],
+    [
+      8.0,
+      100.0
+    ],
+    [
+      5.5,
+      85.0
+    ],
+    [
+      9.5,
+      62.0
+    ],
+    [
+      89.5,
+      48.0
+    ],
+    [
+      100.0,
+      62.5
+    ],
+    [
+      105.0,
+      48.0
+    ],
+    [
+      219.0,
+      8.0
+    ],
+    [
+      227.0,
+      16.0
+    ],
+    [
+      256.5,
+      108.0
+    ],
+    [
+      256.5,
+      346.5
+    ]
+  ],
+  "walls": [
+    {
+      "name": "Wall_ext_0",
+      "a": [
+        13.5,
+        346.5
+      ],
+      "b": [
+        13.5,
+        184.5
+      ],
+      "thickness_px": 7,
+      "gaps": []
+    },
+    {
+      "name": "Wall_ext_1",
+      "a": [
+        13.5,
+        184.5
+      ],
+      "b": [
+        23.0,
+        184.5
+      ],
+      "thickness_px": 7,
+      "gaps": []
+    },
+    {
+      "name": "Wall_ext_2",
+      "a": [
+        23.0,
+        184.5
+      ],
+      "b": [
+        14.0,
+        130.0
+      ],
+      "thickness_px": 7,
+      "gaps": []
+    },
+    {
+      "name": "Wall_ext_3",
+      "a": [
+        14.0,
+        130.0
+      ],
+      "b": [
+        8.0,
+        100.0
+      ],
+      "thickness_px": 7,
+      "gaps": []
+    },
+    {
+      "name": "Wall_ext_4",
+      "a": [
+        8.0,
+        100.0
+      ],
+      "b": [
+        5.5,
+        85.0
+      ],
+      "thickness_px": 7,
+      "gaps": []
+    },
+    {
+      "name": "Wall_ext_5",
+      "a": [
+        5.5,
+        85.0
+      ],
+      "b": [
+        9.5,
+        62.0
+      ],
+      "thickness_px": 7,
+      "gaps": []
+    },
+    {
+      "name": "Wall_ext_6",
+      "a": [
+        9.5,
+        62.0
+      ],
+      "b": [
+        89.5,
+        48.0
+      ],
+      "thickness_px": 7,
+      "gaps": []
+    },
+    {
+      "name": "Wall_ext_7",
+      "a": [
+        89.5,
+        48.0
+      ],
+      "b": [
+        100.0,
+        62.5
+      ],
+      "thickness_px": 7,
+      "gaps": []
+    },
+    {
+      "name": "Wall_ext_8",
+      "a": [
+        100.0,
+        62.5
+      ],
+      "b": [
+        105.0,
+        48.0
+      ],
+      "thickness_px": 7,
+      "gaps": []
+    },
+    {
+      "name": "Wall_ext_9",
+      "a": [
+        105.0,
+        48.0
+      ],
+      "b": [
+        219.0,
+        8.0
+      ],
+      "thickness_px": 7,
+      "gaps": []
+    },
+    {
+      "name": "Wall_ext_10",
+      "a": [
+        219.0,
+        8.0
+      ],
+      "b": [
+        227.0,
+        16.0
+      ],
+      "thickness_px": 7,
+      "gaps": []
+    },
+    {
+      "name": "Wall_ext_11",
+      "a": [
+        227.0,
+        16.0
+      ],
+      "b": [
+        256.5,
+        108.0
+      ],
+      "thickness_px": 7,
+      "gaps": []
+    },
+    {
+      "name": "Wall_ext_12",
+      "a": [
+        256.5,
+        108.0
+      ],
+      "b": [
+        256.5,
+        346.5
+      ],
+      "thickness_px": 7,
+      "gaps": []
+    },
+    {
+      "name": "Wall_ext_13",
+      "a": [
+        256.5,
+        346.5
+      ],
+      "b": [
+        13.5,
+        346.5
+      ],
+      "thickness_px": 7,
+      "gaps": [
+        [
+          127.5,
+          157.5
+        ]
+      ],
+      "gap_note": "Entrance opening measured on apt02_fp.png: ink breaks at x=99 and x=129, y=344-349"
+    },
+    {
+      "name": "Wall_storage_north",
+      "a": [
+        13.5,
+        206
+      ],
+      "b": [
+        77.0,
+        206
+      ],
+      "thickness_px": 3,
+      "gaps": []
+    },
+    {
+      "name": "Wall_storage_east_upper",
+      "a": [
+        77.0,
+        206
+      ],
+      "b": [
+        77.0,
+        227
+      ],
+      "thickness_px": 3,
+      "gaps": []
+    },
+    {
+      "name": "Wall_bath_north",
+      "a": [
+        13.5,
+        264
+      ],
+      "b": [
+        84.0,
+        264
+      ],
+      "thickness_px": 3,
+      "gaps": []
+    },
+    {
+      "name": "Wall_bath_east",
+      "a": [
+        84.0,
+        264
+      ],
+      "b": [
+        84.0,
+        346.5
+      ],
+      "thickness_px": 3,
+      "gaps": [
+        [
+          4,
+          34
+        ]
+      ],
+      "gap_note": "Bathroom door: vertical ink at x=84 breaks y=268-298"
+    },
+    {
+      "name": "Wall_storage_east_lower",
+      "a": [
+        77.0,
+        227
+      ],
+      "b": [
+        84.0,
+        264
+      ],
+      "thickness_px": 3,
+      "gaps": [
+        [
+          9.414085191881366,
+          28.242255575644098
+        ]
+      ],
+      "gap_note": "Storage door on the angled hall wall, seen on apt02_fp.png; gap is the middle half of the segment (no printed width)."
+    },
+    {
+      "name": "Wall_closet_west",
+      "a": [
+        118,
+        70
+      ],
+      "b": [
+        118,
+        155
+      ],
+      "thickness_px": 3,
+      "gaps": []
+    },
+    {
+      "name": "Wall_closet_east",
+      "a": [
+        130,
+        70
+      ],
+      "b": [
+        130,
+        152
+      ],
+      "thickness_px": 3,
+      "gaps": []
+    },
+    {
+      "name": "Wall_closet_south",
+      "a": [
+        118,
+        155
+      ],
+      "b": [
+        130,
+        152
+      ],
+      "thickness_px": 3,
+      "gaps": []
+    },
+    {
+      "name": "Wall_bed1_south",
+      "a": [
+        22,
+        175
+      ],
+      "b": [
+        118,
+        155
+      ],
+      "thickness_px": 2,
+      "gaps": [
+        [
+          66.41018840918107,
+          94.41018840918107
+        ]
+      ]
+    },
+    {
+      "name": "Wall_bed2_south",
+      "a": [
+        130,
+        152
+      ],
+      "b": [
+        215,
+        140
+      ],
+      "thickness_px": 2,
+      "gaps": [
+        [
+          4.8854335401652875,
+          32.88543354016529
+        ]
+      ]
+    }
+  ]
+}
