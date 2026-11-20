@@ -11,7 +11,7 @@ OUT=next((a.split('=',1)[1].rstrip('/')+'/' for a in sys.argv if a.startswith('-
 import json
 # lane/polish fixes (default all): 2 bathroom vanity/basin/mirror off the corner, 3 beds off the windows, 4 wall material, 5 art, 6 bake denoise+AO.
 # (fix 1, storage block, is now the CC0 shelf from lane/furniture in this pipeline; the texture fix is applied to twobed_v5 by polish_v5.py)
-_fx=next((a.split('=',1)[1] for a in sys.argv if a.startswith('--fix=')),'2,3,4,5,6')
+_fx=next((a.split('=',1)[1] for a in sys.argv if a.startswith('--fix=')),'2,3,4,5,6,7')   # 7: bathroom stone-look tile + window street backdrop (reference gate)
 FIX=set() if _fx=='none' else {int(x) for x in _fx.split(',') if x}
 print("FIX",sorted(FIX))
 HDRI=os.path.join(ROOT,"hdri.exr")
@@ -36,7 +36,7 @@ def mat(n,c,r=0.5,met=0,img=None,emit=None,ew=0,alpha=1,trans=0,nor=None):
     return M
 OAK=mat("Floor_light_oak",(1,1,1),0.55,img="oak_light_diff.jpg",nor="wood_floor_nor_gl.jpg")
 OAKG=mat("Floor_pale_grey_woodlook_kitchen",(1,1,1),0.55,img="oak_grey_diff.jpg",nor="wood_floor_nor_gl.jpg")
-TILE=mat("Tile_grey_600x1200",(1,1,1),0.3,img="tile_light_r4.jpg")
+TILE=mat("Tile_grey_600x1200",(1,1,1),0.3,img=("tile_stone_grey_p5.jpg" if 7 in FIX else "tile_light_r4.jpg"))
 # fix4: wall albedo V 0.86->0.74 (less washed), matte 0.92
 WALL=mat("Wall_warm_white",(0.74,0.71,0.66) if 4 in FIX else (0.86,0.83,0.78),0.92 if 4 in FIX else 0.85); CEILM=mat("Ceiling_warm_white",(0.9,0.88,0.84),0.9)
 SKIRT=mat("Skirting_white_satin",(0.92,0.91,0.88),0.35)
@@ -48,7 +48,7 @@ NAVY=mat("Navy_velvet",(1,1,1),0.75,img="velvet_navy_diff.jpg"); BOUC=mat("Cream
 OAKF=mat("Oak_furniture",(0.62,0.42,0.24),0.5,img="oak_light_diff.jpg"); BMET=mat("Black_metal",(0.02,0.02,0.02),0.35,0.8)
 LIN=mat("Bedding_white",(0.93,0.93,0.91),0.9); RUG=mat("Rug_cream",(0.86,0.82,0.74),1.0)
 WHITEP=mat("Sanitary_white",(0.95,0.95,0.95),0.08); GREYV=mat("Vanity_grey",(0.45,0.45,0.46),0.4)
-GLASS=mat("Glass_clear",(0.95,0.97,0.97),0.02,trans=1); WGLASS=mat("Window_glass_clear",(0.95,0.97,1),0.02,trans=1); SKY=mat("Window_backdrop_sky_UNSOURCED_VIEW",(1,1,1),1,img="sky_backdrop_r4.jpg"); SKY.node_tree.links.new(SKY.node_tree.nodes["Image Texture"].outputs[0],SKY.node_tree.nodes["Principled BSDF"].inputs["Emission Color"]); SKY.node_tree.nodes["Principled BSDF"].inputs["Emission Strength"].default_value=1.2
+GLASS=mat("Glass_clear",(0.95,0.97,0.97),0.02,trans=1); WGLASS=mat("Window_glass_clear",(0.95,0.97,1),0.02,trans=1); SKY=mat("Window_backdrop_sky_UNSOURCED_VIEW",(1,1,1),1,img=("sky_backdrop_p5.jpg" if 7 in FIX else "sky_backdrop_r4.jpg")); SKY.node_tree.links.new(SKY.node_tree.nodes["Image Texture"].outputs[0],SKY.node_tree.nodes["Principled BSDF"].inputs["Emission Color"]); SKY.node_tree.nodes["Principled BSDF"].inputs["Emission Strength"].default_value=1.2
 FRAME=mat("Window_frame_black_steel",(0.015,0.015,0.015),0.4,0.6); DOOR=mat("Door_white",(0.9,0.9,0.88),0.4)
 GLOBE=mat("Globe_pendant_opal",(1,0.97,0.92),0.3,emit=(1,0.8,0.6),ew=4); LAMPS=mat("Lamp_shade_opal",(1,0.97,0.92),0.3,emit=(1,0.8,0.6),ew=3)
 LEAF=mat("Plant_leaf",(0.08,0.25,0.07),0.6); POT=mat("Pot_terracotta",(0.55,0.32,0.2),0.8); TVS=mat("TV_screen",(0.01,0.01,0.012),0.08)

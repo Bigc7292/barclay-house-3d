@@ -70,3 +70,31 @@ d.ellipse([int(w*0.30),int(hh*0.30),int(w*0.70),int(hh*0.30)+int(w*0.40)],fill=(
 d.polygon([(int(w*0.08),int(hh*0.92)),(int(w*0.40),int(hh*0.62)),(int(w*0.40),int(hh*0.92))],fill=(18,18,20))
 save(im,'art_p5_3.jpg')
 print('ok',W,H)
+# ---------------- bathroom tile: grey stone-look 600x1200 porcelain (texture spans 1.2 m = box() UV tile), visible grout + veining (score: grey surfaces / fittings edges)
+TS=1024; rng=np.random.default_rng(11)
+def fbm(n,oct=5):
+    out=np.zeros((n,n),np.float32)
+    for o in range(oct):
+        f=2**o*4; g=rng.random((f+1,f+1)).astype(np.float32)
+        im=np.asarray(Image.fromarray((g*255).astype(np.uint8)).resize((n,n),Image.BICUBIC),np.float32)/255
+        out+=im/(2**o)
+    return out/out.max()
+v=fbm(TS); vein=np.abs(np.sin((np.linspace(0,1,TS)[None,:]*7+v*5)*math.pi)); vein=1-np.clip(vein*6,0,1)
+base=0.50+0.10*(v-0.5)-0.16*vein
+t=np.dstack([base*1.0,base*1.0,base*1.03])
+gp=max(2,int(0.004/1.2*TS))
+for x in (0,TS//2): t[:,max(0,x-gp//2):x+gp//2+1]=0.30
+t[0:gp,:]=0.30; t[-gp:,:]=0.30
+Image.fromarray((np.clip(t,0,1)**(1/2.2)*255).astype(np.uint8)).save(D+'tile_stone_grey_p5.jpg',quality=90)
+# ---------------- window backdrop: street facades opposite (illustrative, view UNSOURCED) instead of a soft sky (score: window grid edges)
+BW,BH=1024,2048; im=Image.new('RGB',(BW,BH)); d=ImageDraw.Draw(im)
+for y in range(BH//3): c=int(150+70*y/(BH/3)); d.line([0,y,BW,y],fill=(c-30,c-10,min(255,c+25)))
+x=0; k=0
+while x<BW:
+    w=int(rng.integers(220,420)); top=int(rng.integers(BH//6,BH//3)); col=[(150,92,70),(188,170,140),(120,80,62),(170,150,120)][k%4]
+    d.rectangle([x,top,x+w,BH],fill=col)
+    for yy in range(top+60,BH-80,150):
+        for xx in range(x+30,x+w-60,90): d.rectangle([xx,yy,xx+50,yy+95],fill=(40,48,58)); d.line([xx+25,yy,xx+25,yy+95],fill=(225,225,220),width=4); d.line([xx,yy+47,xx+50,yy+47],fill=(225,225,220),width=4)
+    x+=w; k+=1
+im.save(D+'sky_backdrop_p5.jpg',quality=88)
+print('tile+backdrop ok')
