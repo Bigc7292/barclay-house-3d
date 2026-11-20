@@ -129,3 +129,9 @@ Free? Yes – MIT, local CLI. WebGPU needs recent Chrome. “Send to Blender” 
 Status: REJECTED (keep #14) 2026-11-19 by Interior bot. Local CLI ran (Linux, PASCAL_HOME=tests/pascal/.pascal, ownerId null). Independent centreline layout beats #14 on IoU (0.4691 vs 0.1408) and precision (0.9168 vs 0.5733). Official export_glb is not_implemented without a browser Three.js renderer; view_scene is view_unavailable. No Pascal GLB, so no fps/console head-to-head. Not adopted into web/floorplan3d (would break baked walk mode). validate.sh OUT=tests/pascal/out FAIL (exterior hero GLBs correctly absent).
 Doc: /home/box/x-bookmarks/implementations/barclay/2026-11-19-pascal-editor.md
 
+
+## 21. Wheelchair accessible-area overlay (recompute as furniture hides/moves)
+Source: https://x.com/tokufxug/status/2123226895030587710 → https://www.linkedin.com/posts/leomallet_3dgs-archviz-webgpu-ugcPost-7528793251185696768-oHvq/ (Léo Mallet et al., PlayCanvas + WebGPU 3DGS interior tool; no repo/licence → method only). Free stack: own JS + three.js (MIT); PlayCanvas engine https://github.com/playcanvas/engine (MIT) not needed (we are mesh-based).
+What: floor polygon − furniture footprints, raster 50 mm, erode by wheelchair half-width, flood-fill from entrance, Ø1500 mm turning-circle test per room; show green/red overlay + accessible m²; recompute live on furniture hide. Parameters cite UK Approved Document M (M4(2)/M4(3)); label "indicative". Their splat time-of-day relight: we already have web ToD (web/src/app.js) → keep ours.
+Free? Yes – £0.
+Apply: web/floorplan3d/2bed.html toggle + new interior/accessible_area.{js,py}; tests/accessible/result.json; "APPROXIMATE layout" badge while #14 fails #18 (IoU 0.1408); optional comparison on tests/pascal/layout_pascal.json. Doc: /home/box/x-bookmarks/implementations/barclay/2026-11-20-accessible-area-overlay.md
