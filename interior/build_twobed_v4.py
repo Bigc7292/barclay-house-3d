@@ -7,6 +7,13 @@ import furniture_cc0
 ROOT=os.path.abspath(os.path.join(os.path.dirname(os.path.abspath(__file__)), ".."))
 TX=os.path.join(ROOT,"interior","tex")+os.sep
 OUT=os.path.join(ROOT,"interior","live")+os.sep
+OUT=next((a.split('=',1)[1].rstrip('/')+'/' for a in sys.argv if a.startswith('--out=')),OUT); os.makedirs(OUT,exist_ok=True)   # lane/polish
+import json
+# lane/polish fixes (default all): 2 bathroom vanity/basin/mirror off the corner, 3 beds off the windows, 4 wall material, 5 art, 6 bake denoise+AO.
+# (fix 1, storage block, is now the CC0 shelf from lane/furniture in this pipeline; the texture fix is applied to twobed_v5 by polish_v5.py)
+_fx=next((a.split('=',1)[1] for a in sys.argv if a.startswith('--fix=')),'2,3,4,5,6')
+FIX=set() if _fx=='none' else {int(x) for x in _fx.split(',') if x}
+print("FIX",sorted(FIX))
 HDRI=os.path.join(ROOT,"hdri.exr")
 SHOTS_R9=os.path.join(ROOT,"web","shots","r9")
 P=[(12,62),(92,50),(98,40),(228,22),(262,180),(262,345),(18,345),(18,185)]
@@ -30,7 +37,8 @@ def mat(n,c,r=0.5,met=0,img=None,emit=None,ew=0,alpha=1,trans=0,nor=None):
 OAK=mat("Floor_light_oak",(1,1,1),0.55,img="oak_light_diff.jpg",nor="wood_floor_nor_gl.jpg")
 OAKG=mat("Floor_pale_grey_woodlook_kitchen",(1,1,1),0.55,img="oak_grey_diff.jpg",nor="wood_floor_nor_gl.jpg")
 TILE=mat("Tile_grey_600x1200",(1,1,1),0.3,img="tile_light_r4.jpg")
-WALL=mat("Wall_warm_white",(0.86,0.83,0.78),0.85); CEILM=mat("Ceiling_warm_white",(0.9,0.88,0.84),0.9)
+# fix4: wall albedo V 0.86->0.74 (less washed), matte 0.92
+WALL=mat("Wall_warm_white",(0.74,0.71,0.66) if 4 in FIX else (0.86,0.83,0.78),0.92 if 4 in FIX else 0.85); CEILM=mat("Ceiling_warm_white",(0.9,0.88,0.84),0.9)
 SKIRT=mat("Skirting_white_satin",(0.92,0.91,0.88),0.35)
 WUNIT=mat("Kitchen_handleless_white",(0.9,0.89,0.86),0.3); DARK=mat("Peninsula_graphite",(0.042,0.042,0.045),0.5); QUARTZ=mat("Quartz_white",(0.88,0.88,0.87),0.25)
 WTOP=mat("Worktop_white",(0.93,0.93,0.92),0.2); BLK=mat("Appliance_black_gloss",(0.015,0.015,0.017),0.12)
@@ -45,7 +53,7 @@ FRAME=mat("Window_frame_black_steel",(0.015,0.015,0.015),0.4,0.6); DOOR=mat("Doo
 GLOBE=mat("Globe_pendant_opal",(1,0.97,0.92),0.3,emit=(1,0.8,0.6),ew=4); LAMPS=mat("Lamp_shade_opal",(1,0.97,0.92),0.3,emit=(1,0.8,0.6),ew=3)
 LEAF=mat("Plant_leaf",(0.08,0.25,0.07),0.6); POT=mat("Pot_terracotta",(0.55,0.32,0.2),0.8); TVS=mat("TV_screen",(0.01,0.01,0.012),0.08)
 DLM=mat("Downlight_3000K",(1,0.9,0.75),0.3,emit=(1,0.78,0.55),ew=15)
-ART=[mat(f"Art_{i}_illustrative",(1,1,1),0.6,img=f"art_r4_{i}.jpg") for i in (1,2,3)]
+ART=[mat(f"Art_{i}_illustrative",(1,1,1),0.6,img=(f"art_p5_{i}.jpg" if 5 in FIX else f"art_r4_{i}.jpg")) for i in (1,2,3)]  # fix5: crisp sRGB 1024x1365 (tex/make_polish_tex.py)
 # ---------- helpers
 def obj_from(bm,n,M):
     me=bpy.data.meshes.new(n);bm.to_mesh(me);bm.free();o=bpy.data.objects.new(n,me);sc.collection.objects.link(o);o.data.materials.append(M);return o
@@ -58,6 +66,16 @@ def box(n,c,s,M,rz=0,bev=0.004):
             co=l.vert.co; a,b=[(co.y,co.z),(co.x,co.z),(co.x,co.y)][ax]; l[uv].uv=(a/1.2,b/1.2)
     o=obj_from(bm,n,M);o.location=c;o.rotation_euler[2]=rz
     if bev: md=o.modifiers.new("b","BEVEL");md.width=bev;md.segments=2;md.limit_method='ANGLE'
+    return o
+def uv_front(o,plain=(0.15,0.55)):
+    """lane/polish: map the +/-X face of a box 0..1 across its bbox (texture shows whole image, right way round); other faces -> plain texel"""
+    me=o.data; uv=me.uv_layers[0]; ys=[v.co.y for v in me.vertices]; zs=[v.co.z for v in me.vertices]
+    y0,y1,z0,z1=min(ys),max(ys),min(zs),max(zs)
+    for f in me.polygons:
+        for li in f.loop_indices:
+            co=me.vertices[me.loops[li].vertex_index].co
+            if abs(f.normal.x)>0.7: uu=(co.y-y0)/(y1-y0); uv.data[li].uv=(uu if f.normal.x>0 else 1-uu,(co.z-z0)/(z1-z0))
+            else: uv.data[li].uv=(plain[0]+0.002*(co.y-y0)/(y1-y0),plain[1]+0.002*(co.z-z0)/(z1-z0))
     return o
 def cyl(n,c,r,h,M,seg=32,r2=None):
     bm=bmesh.new();bmesh.ops.create_cone(bm,cap_ends=True,segments=seg,radius1=r,radius2=r if r2 is None else r2,depth=h)
@@ -181,16 +199,38 @@ while x<max(xs):
 _furn_mats=dict(WUNIT=WUNIT,DARK=DARK,QUARTZ=QUARTZ,WTOP=WTOP,BLK=BLK,STEEL=STEEL,CHROME=CHROME,
                 LED=LED,NAVY=NAVY,BOUC=BOUC,OAKF=OAKF,LIN=LIN,WHITEP=WHITEP,GREYV=GREYV,GLASS=GLASS,
                 BMET=BMET,LAMPS=LAMPS,TILE=TILE,TVS=TVS,FRAME=FRAME)
-placed=furniture_cc0.place_all(dict(sc=sc,m=m,T=T,CEIL=CEIL,box=box,cyl=cyl,sph=sph,mats=_furn_mats,Vector=Vector,math=math,ROOT=ROOT))
+# lane/polish placement (fix3 beds, fix2 vanity): passed to furniture_cc0.place_all as overrides; models unchanged
+LAYOUT={"_note":"lane/polish fix3: beds moved off the windows, heads on the walls shown in interior/twobed/apt02_fp.png (bed1 head on the bed1/bed2 partition, bed2 head on the east wall). fix2: vanity+mirror centre x. Blender Z-up metres; twobed_v5 uses the same frame (interior/polish_v5.py).","groups":[]}
+def _wallbed(a,b,t,bs_off,want_west=True):
+    u=(b-a).normalized(); n=Vector((-u.y,u.x,0))
+    if (n.x<0)!=want_west: n=-n
+    wp=a+u*t; ang=math.atan2(n.x,-n.y)                 # bed local +Y (headboard) -> -n (into wall)
+    c=wp+n*(T/2+0.12+1.025+0.01); sides=[wp+n*(T/2+0.2+0.03)+u*s for s in (-bs_off,bs_off)]
+    return (c.x,c.y,ang),[(q.x,q.y,ang) for q in sides]
+_b1,_b2=m(55,105),m(185,70)
+_o1=(_b1.x,m(0,62).y-1.15,0.0); _o1s=[(_b1.x-1.0,m(0,62).y-0.35,0.0),(_b1.x+1.0,m(0,62).y-0.35,0.0)]
+_o2=(_b2.x,m(0,40).y-1.3,0.06); _o2s=[(_b2.x-1.0,m(0,40).y-0.45,0.06),(_b2.x+1.0,m(0,40).y-0.5,0.06)]
+POLISH={}
+if 3 in FIX:
+    _a,_b=m(105,45),m(120,152); _n1,_n1s=_wallbed(_a,_b,(_b-_a).length*(95-45)/107,1.0)
+    _n2,_n2s=_wallbed(OUTL[3],OUTL[4],1.30,0.96)   # east wall: bedsides fit between north wall and window jamb
+    POLISH.update(bed1=_n1,bed1_sides=_n1s,bed2=_n2,bed2_sides=_n2s)
+else: _n1,_n1s,_n2,_n2s=_o1,_o1s,_o2,_o2s
+for k_,o_,n_ in [("bed",_o1,_n1)]+[("bedside",a_,b_) for a_,b_ in zip(_o1s,_n1s)]+[("bed",_o2,_n2)]+[("bedside",a_,b_) for a_,b_ in zip(_o2s,_n2s)]:
+    LAYOUT["groups"].append({"kind":k_,"old":[round(v,4) for v in o_],"new":[round(v,4) for v in n_]})
+if 2 in FIX: POLISH["vanity_x"]=m(19,344).x+1.145   # off the NE corner (was beside the camera / frame edge), clear of the WC
+placed=furniture_cc0.place_all(dict(sc=sc,m=m,T=T,CEIL=CEIL,box=box,cyl=cyl,sph=sph,mats=_furn_mats,Vector=Vector,math=math,ROOT=ROOT,polish=POLISH))
 kx,ky0,ky1,sx,sofa_y,ct,tvx,dc,b1,b2=placed["kx"],placed["ky0"],placed["ky1"],placed["sx"],placed["sofa_y"],placed["ct"],placed["tvx"],placed["dc"],placed["b1"],placed["b2"]
 bx0,by0,bx1,by1,wcy,wx0,vx=placed["bx0"],placed["by0"],placed["bx1"],placed["by1"],placed["wcy"],placed["wx0"],placed["vx"]
+bx1=m(85,271).x   # lane/polish: placed["bx1"] returns by1 (typo in furniture_cc0 return dict); recompute here
 
 # decorations that stay procedural (no suitable standalone CC0 model, or not in the swap list)
 box("Rug_cream",(sx-1.35,sofa_y,0.006),(1.7,2.3,0.012),RUG,0,0.003)
 box("Coffee_book",(ct.x+0.1,ct.y-0.25,0.455),(0.22,0.3,0.03),RUG,0,0.003)
 box("TV_stand_black",(tvx,sofa_y,0.55),(0.18,0.3,0.02),BMET,0,0); box("TV_stand_post",(tvx-0.02,sofa_y,0.62),(0.03,0.06,0.14),BMET,0,0)
 box("TV_bezel_black_facing_sofa",(tvx-0.02,sofa_y,0.98),(0.04,1.12,0.66),BLK,0,0.004); box("TV_screen",(tvx+0.001,sofa_y,0.99),(0.002,1.08,0.61),TVS,0,0)
-box("Art_living_frame",(sx+0.44,sofa_y,1.6),(0.03,0.8,1.05),BMET,0,0); box("Art_living",(sx+0.42,sofa_y,1.6),(0.01,0.72,0.97),ART[1],0,0)
+box("Art_living_frame",(sx+0.44,sofa_y,1.6),(0.03,0.8,1.05),BMET,0,0); _a=box("Art_living",(sx+0.42,sofa_y,1.6),(0.01,0.72,0.97),ART[1],0,0)
+if 5 in FIX: uv_front(_a)
 pp=Vector((sx,sofa_y+1.4,0)); cyl("Plant_pot",(pp.x,pp.y,0.2),0.18,0.4,POT,24,0.14)
 for j in range(9): a=j*0.7; sph("Plant_leaf",(pp.x+0.25*math.cos(a)*(j%3)/2,pp.y+0.25*math.sin(a)*(j%3)/2,0.75+0.12*(j%4)),0.18,LEAF,1.2,0.5,0.25)
 
@@ -238,7 +278,8 @@ bpy.ops.object.light_add(type='POINT',location=(dc.x,dc.y,1.55));bpy.context.obj
 for (lx,ly) in ((b1.x-1.0,m(0,62).y-0.35),(b1.x+1.0,m(0,62).y-0.35),(b2.x-1.0,m(0,40).y-0.45),(b2.x+1.0,m(0,40).y-0.50)):
     bpy.ops.object.light_add(type='POINT',location=(lx,ly,0.85));bpy.context.object.data.energy=12;bpy.context.object.data.color=(1,0.75,0.5)
 
-wx=m(15,0).x+T/2+0.02; box("Art_bed1_frame_side_wall",(wx,m(0,120).y,1.6),(0.03,0.6,0.8),BMET,0,0); box("Art_bed1",(wx+0.016,m(0,120).y,1.6),(0.005,0.54,0.74),ART[0],0,0)
+wx=m(15,0).x+T/2+0.02; box("Art_bed1_frame_side_wall",(wx,m(0,120).y,1.6),(0.03,0.6,0.8),BMET,0,0); _a=box("Art_bed1",(wx+0.016,m(0,120).y,1.6),(0.005,0.54,0.74),ART[0],0,0)
+if 5 in FIX: uv_front(_a)
 
 # bathroom wall tiles (architecture, not furniture) + towel rail / plant / light
 for nm_,c,s in (("Bath_wall_tile_S",(bx0+(bx1-bx0)/2,by0+0.005+T/2,1.2),(bx1-bx0,0.01,2.4)),("Bath_wall_tile_W",(bx0+0.005+T/2,(by0+by1)/2,1.2),(0.01,by1-by0,2.4))): box(nm_,c,s,TILE,0,0)
@@ -281,16 +322,37 @@ print("PRESET i_bath",tj((bx1-0.25,by0+0.4,1.55)),tj((bx0+0.45,by1-0.5,0.9)))
 print("BATH",bx0,by0,bx1,by1)
 E=1.5
 shot("v3_living",(m(120,255).x,m(120,255).y,E),(sx,sofa_y+0.3,0.9),20)
-shot("v3_kitchen",(m(110,230).x,m(110,230).y,E),(kx,(ky0+ky1)/2,1.1),20)
-shot("v3_bedroom1",(b1.x+0.2,0.85,1.3),(b1.x,_hy-0.6,0.8),24)
-shot("v3_bedroom2",(b2.x+0.1,1.6,1.3),(b2.x-0.05,_h2-0.8,0.8),24)
-shot("v3_bathroom",(bx1-0.25,by0+0.4,1.55),(bx0+0.45,by1-0.5,0.9),14)
+json.dump(LAYOUT,open(ROOT+"/interior/polish_layout.json","w"),indent=1) if FIX>={2,3} else None
+if not FIX:   # original r9 framing (bedroom cams sit against a wall -> blank stills)
+    shot("v3_kitchen",(m(110,230).x,m(110,230).y,E),(kx,(ky0+ky1)/2,1.1),20)
+    shot("v3_bedroom1",(b1.x+0.2,0.85,1.3),(b1.x,_hy-0.6,0.8),24)
+    shot("v3_bedroom2",(b2.x+0.1,1.6,1.3),(b2.x-0.05,_h2-0.8,0.8),24)
+    shot("v3_bathroom",(bx1-0.25,by0+0.4,1.55),(bx0+0.45,by1-0.5,0.9),14)
+else:         # lane/polish: stills framed like the Rightmove CGI (bed square-on from the foot, kitchen run face-on, bathroom from the door)
+    def _bedcam(n_,back):
+        hd=Vector((-math.sin(n_[2]),math.cos(n_[2]),0)); c=Vector((n_[0],n_[1],0))
+        return (tuple(c-hd*back)[:2]+(1.35,)),(tuple(c+hd*1.0)[:2]+(0.75,))
+    _yc3=ky0+0.3+3*0.6
+    shot("v3_kitchen",(kx-0.34-1.6,_yc3,1.6),(kx,_yc3,1.82),20)
+    shot("v3_bedroom1",*_bedcam(_n1,1.65),17)
+    shot("v3_bedroom2",*_bedcam(_n2,2.1),18)
+    shot("v3_bathroom",(m(84,0).x-0.2,m(0,315).y,1.5),(bx0+0.3,m(0,302).y,0.85),15)
 shot("latest",(0.6,-11,12),(0.2,0.3,0),26,ceiling=False)
+# lane/polish: locked cameras = web viewer presets (web/src/app.js P.i_*), three.js (x,y,z) -> Blender (x,-z,y), vertical fov; no collision nudge
+WEBCAMS={"w_living":([-0.5,1.5,1.91],[2.97,0.9,0.15],70),"w_bed1":([-2.0,1.3,-0.85],[-2.41,0.8,-3.17],70),"w_bed2":([1.5,1.3,-1.6],[1.36,0.8,-3.62],70),
+         "w_bath":([-2.08,1.55,3.83],[-3.02,0.9,2.88],80),"w_store":([-1.09,1.5,1.32],[-3.0,1.0,1.32],80)}
+def wshot(name):
+    if not ("--wshots" in sys.argv and ("--only" not in sys.argv or name in sys.argv)): return
+    p3,t3,fov=WEBCAMS[name]; p=Vector((p3[0],-p3[2],p3[1])); t=Vector((t3[0],-t3[2],t3[1]))
+    bpy.data.objects["Ceiling"].hide_render=False; rx,ry=sc.render.resolution_x,sc.render.resolution_y; sc.render.resolution_x,sc.render.resolution_y=1280,800
+    bpy.ops.object.camera_add(location=p);c=bpy.context.object;c.rotation_euler=(t-p).to_track_quat('-Z','Y').to_euler();c.data.sensor_fit='VERTICAL';c.data.angle_y=math.radians(fov);sc.camera=c
+    sc.render.filepath=OUT+name+".png";bpy.ops.render.render(write_still=True);print("WSHOT",name);sc.render.resolution_x,sc.render.resolution_y=rx,ry
+for _k in WEBCAMS: wshot(_k)
 bpy.data.objects["Ceiling"].hide_render=False
 if "--nobake" in sys.argv: sys.exit(0)
 # ===== BAKE lighting into one atlas so the web viewer matches Cycles =====
 import numpy as np
-KEEP_LIVE=lambda o: any(k in o.name for k in ("_glass","Shower_glass","Mirror_glass","_backdrop"))
+KEEP_LIVE=lambda o: any(k in o.name for k in ("_glass","Shower_glass","Mirror_glass","_backdrop")) or (5 in FIX and o.name in ("Art_living","Art_bed1"))  # fix5: art keeps its own texture (atlas texels too coarse)
 bpy.ops.object.select_all(action='DESELECT')
 meshes=[o for o in sc.objects if o.type=='MESH' and not KEEP_LIVE(o)]
 for o in meshes: o.select_set(True)
@@ -319,7 +381,28 @@ px=np.array(img.pixels[:]).reshape(RES,RES,4); rgb=px[...,:3]
 EXPO=float(next((a.split('=')[1] for a in sys.argv if a.startswith('--expo=')),1.6))
 from scipy.ndimage import gaussian_filter
 cov=(px[...,3]>0.5).astype(float)
-for ch in range(3):
+def _bake_to(name,typ,**kw):
+    im=bpy.data.images.new(name,RES,RES,float_buffer=True)
+    for M in J.data.materials: M.node_tree.nodes.active.image=im
+    for k,v in kw.items(): setattr(sc.render.bake,k,v)
+    bpy.ops.object.bake(type=typ); print("BAKED",name); return im
+if 6 in FIX:   # fix6: OIDN denoise (albedo-guided, edge preserving) instead of blur -> no blotchy wall/ceiling seams; + baked AO (contact shadows)
+    alb=_bake_to("bake_albedo","DIFFUSE",use_pass_direct=False,use_pass_indirect=False,use_pass_color=True)
+    sc.world.light_settings.distance=0.6; sc.cycles.samples=64
+    aoi=_bake_to("bake_ao","AO")
+    dn=bpy.data.scenes.new("denoise"); dn.render.engine='BLENDER_WORKBENCH'; dn.render.resolution_x=dn.render.resolution_y=RES; dn.render.resolution_percentage=100
+    cam_=bpy.data.objects.new("dncam",bpy.data.cameras.new("dncam")); dn.collection.objects.link(cam_); dn.camera=cam_
+    ng=bpy.data.node_groups.new("DN","CompositorNodeTree"); dn.compositing_node_group=ng; dn.render.use_compositing=True
+    ni=ng.nodes.new("CompositorNodeImage"); ni.image=img; na=ng.nodes.new("CompositorNodeImage"); na.image=alb; dd=ng.nodes.new("CompositorNodeDenoise")
+    ng.interface.new_socket("Image",in_out='OUTPUT',socket_type='NodeSocketColor'); go=ng.nodes.new("NodeGroupOutput")
+    ng.links.new(ni.outputs[0],dd.inputs["Image"]); ng.links.new(na.outputs[0],dd.inputs["Albedo"]); ng.links.new(dd.outputs[0],go.inputs[0])
+    dn.render.image_settings.file_format='OPEN_EXR'; dn.render.filepath=OUT+"_bake_dn.exr"; bpy.ops.render.render(write_still=True,scene=dn.name)
+    r_=bpy.data.images.load(OUT+"_bake_dn.exr"); d_=np.array(r_.pixels[:]).reshape(RES,RES,4)[...,:3]
+    ao=np.array(aoi.pixels[:]).reshape(RES,RES,4)[...,0]; ao=gaussian_filter(ao*cov,1.0)/(gaussian_filter(cov,1.0)+1e-6)
+    rgb[...]=np.where(cov[...,None]>0,d_,rgb)*(1-0.45*(1-np.clip(ao,0,1)))[...,None]
+    os.remove(OUT+"_bake_dn.exr"); print("DENOISED+AO", float(ao[cov>0].mean()))
+else:
+  for ch in range(3):
     num=gaussian_filter(rgb[...,ch]*cov,1.6); den=gaussian_filter(cov,1.6)+1e-6
     rgb[...,ch]=np.where(cov>0,num/den,rgb[...,ch])
 rgb=1-np.exp(-rgb*EXPO)                          # simple filmic shoulder; viewer shows it untonemapped

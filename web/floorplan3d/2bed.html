@@ -58,6 +58,7 @@ const root=gltf.scene;S.add(root);root.updateMatrixWorld(true);
 let ceiling=null;
 root.traverse(o=>{if(!o.isMesh)return;
  if(/BAKED/.test(o.material.name)){const mp=o.material.map;if(mp)mp.colorSpace=THREE.SRGBColorSpace;o.material=new THREE.MeshBasicMaterial({map:mp,toneMapped:false})}
+ else if(/^Art_/.test(o.material.name)){const mp=o.material.map;if(mp){mp.colorSpace=THREE.SRGBColorSpace;mp.anisotropy=4}o.material=new THREE.MeshBasicMaterial({map:mp,color:0xd2ccc4,toneMapped:false})} // lane/polish: art kept out of the bake (own crisp sRGB texture), unlit + dimmed to sit in the baked room
  else if(/backdrop/i.test(o.name)){const mp=o.material.map||o.material.emissiveMap;o.material=new THREE.MeshBasicMaterial({map:mp,toneMapped:false})}
  else if(/glass/i.test(o.material.name)&&!/TV|Chrome/.test(o.material.name)){o.material=new THREE.MeshPhysicalMaterial({color:0xffffff,transparent:true,opacity:0.12,roughness:0.03,depthWrite:false})}
  if(/^Ceiling/.test(o.name))ceiling=o;});
