@@ -1,0 +1,110 @@
+{
+ "date": "2026-11-20 11:37-11:39 UTC+4",
+ "nproc": 8,
+ "note": "tests/accessible/check.cjs unchanged (single-sample hide-bed recompute per run). Box shared with other lanes; nice can only lower our own priority (no root to renice others), so 7 consecutive runs are recorded with /proc/loadavg at the start of each.",
+ "runs": [
+  {
+   "run": 1,
+   "load": "23.66 22.30 12.95",
+   "verdict": "REJECTED",
+   "desktop_ms": 98.6,
+   "phone_ms": 13.8,
+   "console": [
+    0,
+    0
+   ],
+   "within_1pct": true,
+   "js_reachable": 16.865,
+   "py_reachable": 16.865
+  },
+  {
+   "run": 2,
+   "load": "22.86 22.17 13.01",
+   "verdict": "CERTIFIED",
+   "desktop_ms": 30,
+   "phone_ms": 18.5,
+   "console": [
+    0,
+    0
+   ],
+   "within_1pct": true,
+   "js_reachable": 16.865,
+   "py_reachable": 16.865
+  },
+  {
+   "run": 3,
+   "load": "21.34 21.87 13.06",
+   "verdict": "CERTIFIED",
+   "desktop_ms": 15.3,
+   "phone_ms": 12.4,
+   "console": [
+    0,
+    0
+   ],
+   "within_1pct": true,
+   "js_reachable": 16.865,
+   "py_reachable": 16.865
+  },
+  {
+   "run": 4,
+   "load": "19.66 21.50 13.03",
+   "verdict": "REJECTED",
+   "desktop_ms": 11.8,
+   "phone_ms": 72.9,
+   "console": [
+    0,
+    0
+   ],
+   "within_1pct": true,
+   "js_reachable": 16.865,
+   "py_reachable": 16.865
+  },
+  {
+   "run": 5,
+   "load": "18.23 21.12 13.00",
+   "verdict": "REJECTED",
+   "desktop_ms": 28.6,
+   "phone_ms": 131.4,
+   "console": [
+    0,
+    0
+   ],
+   "within_1pct": true,
+   "js_reachable": 16.865,
+   "py_reachable": 16.865
+  },
+  {
+   "run": 6,
+   "load": "17.20 20.75 13.01",
+   "verdict": "CERTIFIED",
+   "desktop_ms": 14.8,
+   "phone_ms": 21.6,
+   "console": [
+    0,
+    0
+   ],
+   "within_1pct": true,
+   "js_reachable": 16.865,
+   "py_reachable": 16.865
+  },
+  {
+   "run": 7,
+   "load": "16.62 20.57 12.99",
+   "verdict": "CERTIFIED",
+   "desktop_ms": 23.5,
+   "phone_ms": 14.3,
+   "console": [
+    0,
+    0
+   ],
+   "within_1pct": true,
+   "js_reachable": 16.865,
+   "py_reachable": 16.865
+  }
+ ],
+ "phone_ms_median": 18.5,
+ "desktop_ms_median": 23.5,
+ "phone_under_50": "5/7",
+ "desktop_under_50": "6/7",
+ "certified_runs": "4/7"
+}

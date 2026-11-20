@@ -1,7 +1,7 @@
 // Polish lane: headless screenshots of main viewer (twobed_v5) + Walk mode (twobed) at fixed interior presets; records console errors.
 // Usage: node tests/polish/capture.cjs <outdir> [port]   (serves repo root itself)
 const path=require('path'),fs=require('fs'),{spawn}=require('child_process');
-const {chromium}=require('/workspace/barclay/.gltf/node_modules/playwright');
+const {chromium}=require(path.resolve(__dirname,'../../.gltf/node_modules/playwright'));
 const ROOT=path.resolve(__dirname,'../..'),OUT=path.resolve(process.argv[2]||'renders/polish/web'),PORT=+(process.argv[3]||18517);
 const CAMS=['i_living','i_bed1','i_bed2','i_bath','i_store'];
 fs.mkdirSync(OUT,{recursive:true});
