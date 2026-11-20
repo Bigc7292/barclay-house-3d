@@ -622,9 +622,24 @@ def place_trace(ctx, FUR, JOIN):
     box("Kitchen_plinth_E", (cx, (ytop + sk[1] + 0.30) / 2, 0.04), (BD - 0.04, max(0.05, ytop - sk[1] - 0.30), 0.08), mats["DARK"], 0, 0)
     # wall units along the south wall only (plan shows no east wall units; heights STAND-IN)
     nw = max(1, round((xe - xw) / 0.6)); ww = (xe - xw) / nw; wd = proto_dims("kwall").y
+    # Appliances, Rightmove CGI evidence (refs/critic1/92163630/):
+    #   MICROWAVE: shown built into a wall unit under a short unit, over a plain base unit and NOT over the hob
+    #     (the hob has its own extract strip) (fdf49394c5986a242d14570ec6355111.png). On the plan the hob is next
+    #     to the washer, so Wall_unit_1 is over the hob; the microwave goes in Wall_unit_2 (plan x ~208-231 px,
+    #     over Base_unit_1), the first unit past the hob.
+    #   OVEN: shown built in under the hob in the base run (8bf225e51bb76ab9c25f721bb114d3ab.jpeg) -> already
+    #     present as the CC0 electric_stove (hob + oven) at the drawn hob rings (plan x 189-200).
+    #   FRIDGE: not visible in any listing CGI -> left out. PENINSULA: not on the plan -> left out.
+    MW_H = 0.32
     for i in range(nw):
-        put("kwalld" if i == 1 else "kwall", f"Wall_unit_{i}", Vector((xw + ww * (i + 0.5), yb + 0.025 + wd / 2, 1.45)),
-            math.pi, "i_kitchen", w=ww - 0.003)
+        cxu = xw + ww * (i + 0.5)
+        if i == 2:
+            put("kwall", f"Wall_unit_{i}", Vector((cxu, yb + 0.025 + wd / 2, 1.45 + MW_H)), math.pi, "i_kitchen",
+                w=ww - 0.003, h=0.72 - MW_H)
+            put("micro", "Microwave_built_in_black", Vector((cxu, yb + 0.025 + wd / 2, 1.45)), math.pi, "i_kitchen",
+                w=ww - 0.02, d=wd, h=MW_H - 0.01)
+        else:
+            put("kwall", f"Wall_unit_{i}", Vector((cxu, yb + 0.025 + wd / 2, 1.45)), math.pi, "i_kitchen", w=ww - 0.003)
 
     # ---------- BATHROOM (plan: WC + basin on the west wall, face +X)
     xwb = m(16.5, 0).x
