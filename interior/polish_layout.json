@@ -1,5 +1,5 @@
 {
- "_note": "lane/polish fix3: beds moved off the windows, heads on the walls shown in interior/twobed/apt02_fp.png (bed1 head on the bed1/bed2 partition, bed2 head on the east wall). Blender Z-up metres; v5 uses the same frame (interior/polish_v5.py).",
+ "_note": "lane/polish fix3: beds moved off the windows, heads on the walls shown in interior/twobed/apt02_fp.png (bed1 head on the bed1/bed2 partition, bed2 head on the east wall). fix2: vanity+mirror centre x. Blender Z-up metres; twobed_v5 uses the same frame (interior/polish_v5.py).",
  "groups": [
   {
    "kind": "bed",
@@ -11,7 +11,7 @@
    "new": [
     -1.9389,
     2.6278,
-    -1.43152
+    -1.4315
    ]
   },
   {
@@ -24,7 +24,7 @@
    "new": [
     -1.1617,
     3.7465,
-    -1.43152
+    -1.4315
    ]
   },
   {
@@ -37,7 +37,7 @@
    "new": [
     -0.884,
     1.7659,
-    -1.43152
+    -1.4315
    ]
   },
   {
@@ -50,7 +50,7 @@
    "new": [
     1.7644,
     3.4188,
-    -1.35884
+    -1.3588
    ]
   },
   {
@@ -63,7 +63,7 @@
    "new": [
     2.4667,
     4.5519,
-    -1.35884
+    -1.3588
    ]
   },
   {
@@ -76,66 +76,8 @@
    "new": [
     2.8706,
     2.6749,
-    -1.35884
+    -1.3588
    ]
   }
- ],
- "vanity": {
-  "Vanity_grey_stone_look": [
-   [
-    -2.3285,
-    -2.6299,
-    0.62
-   ],
-   [
-    0.6,
-    0.42,
-    0.3
-   ]
-  ],
-  "Basin_white_wallhung": [
-   [
-    -2.3285,
-    -2.6199,
-    0.82
-   ],
-   [
-    0.52,
-    0.38,
-    0.12
-   ]
-  ],
-  "Basin_tap": [
-   [
-    -2.3285,
-    -2.4649,
-    0.95
-   ],
-   null
-  ],
-  "Mirror_black_frame": [
-   [
-    -2.3285,
-    -2.4259,
-    1.42
-   ],
-   [
-    0.5,
-    0.02,
-    0.65
-   ]
-  ],
-  "Mirror_glass": [
-   [
-    -2.3285,
-    -2.4379,
-    1.42
-   ],
-   [
-    0.45,
-    0.006,
-    0.6
-   ]
-  ]
- }
+ ]
 }
