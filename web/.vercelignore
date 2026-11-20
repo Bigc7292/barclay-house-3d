@@ -97,6 +97,8 @@
 !/video/img/pole.jpg
 !/floorplan3d/2bed.html
 !/floorplan3d/2bed.json
+!/floorplan3d/accessible_area.js
+!/floorplan3d/accessible_layout.json
 !/vendor/floorplan-3d/LICENSE
 !/floorplan3d/vendor/three-r160/LICENSE
 !/floorplan3d/vendor/three-r160/build/three.module.js
