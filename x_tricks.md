@@ -30,6 +30,7 @@ Source: https://x.com/anddrrrewww/status/2115935242812789106
 What: hover a floor to highlight, click a unit for size/price card.
 Free? Inspiration only (no code shared); build with three.js raycaster (MIT) or model-viewer hotspots.
 Apply: in Blender name floor slabs `Floor_01..` and export as separate nodes in `hero.glb`; in `web/app.js` raycast on pointermove, set emissive on the hit floor; data from `web/manifest.json` (add floor/unit fields); twobed.glb opens on click.
+Status (2026-11-20): export pipeline CERTIFIED. Pale official look: out/barclay_hero_floors.glb. Live archive look (dark front, black frames, BARCLAY HOUSE lettering) + Floor_*/Door_*/Building: out/barclay_hero3_floors.glb. web/hero3.glb not overwritten, not deployed. See tests/hero3_floors/RESULT.md.
 
 ## 6. Free AI assist inside Blender (mcp-for-blender-pro + Ollama)
 Source: https://x.com/RoundtableSpace/status/2112751982633205983

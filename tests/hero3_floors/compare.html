@@ -1,0 +1,70 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>hero3 vs hero3_floors</title>
+<style>html,body{margin:0;background:#c8d0d8;overflow:hidden}canvas{display:block}</style>
+<canvas id="c"></canvas>
+<script type="importmap">
+{"imports":{"three":"/three/build/three.module.js","three/addons/":"/three/examples/jsm/"}}
+</script>
+<script type="module">
+import * as THREE from 'three';
+import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
+import { MeshoptDecoder } from '/meshopt/meshopt_decoder.module.js';
+
+const CAMS = {
+  street:   {p:[-1.41,1.7,29.79], t:[0.2,8.5,9.8],  f:70},
+  facade:   {p:[-1.4,1.7,29.8],   t:[-1,6.5,17.3],  f:62},
+  entrance: {p:[-0.75,1.7,21.0],  t:[-0.27,3.0,15.3], f:45},
+  lintel:    {p:[-0.15,3.15,16.85], t:[-0.27,3.95,15.22], f:30},
+};
+const W = 1600, H = 900;
+const canvas = document.getElementById('c');
+canvas.width = W; canvas.height = H;
+const R = new THREE.WebGLRenderer({canvas, antialias:true, preserveDrawingBuffer:true, alpha:false});
+R.setSize(W, H, false);
+R.setPixelRatio(1);
+R.outputColorSpace = THREE.SRGBColorSpace;
+R.toneMapping = THREE.ACESFilmicToneMapping;
+R.toneMappingExposure = 1.0;
+R.setClearColor(0xc8d0d8, 1);
+
+const scene = new THREE.Scene();
+scene.background = new THREE.Color(0xc8d0d8);
+const hemi = new THREE.HemisphereLight(0xdfe8ff, 0x55504a, 0.9);
+scene.add(hemi);
+const sun = new THREE.DirectionalLight(0xfff3d4, 2.2);
+sun.position.set(20, 40, 30);
+scene.add(sun);
+const fill = new THREE.DirectionalLight(0xc9d6e8, 0.45);
+fill.position.set(-15, 10, 20);
+scene.add(fill);
+
+const C = new THREE.PerspectiveCamera(70, W/H, 0.1, 200);
+const loader = new GLTFLoader();
+if (MeshoptDecoder) loader.setMeshoptDecoder(MeshoptDecoder);
+
+function setCam(name){
+  const v = CAMS[name];
+  C.position.fromArray(v.p);
+  C.fov = v.f;
+  C.aspect = W/H;
+  C.updateProjectionMatrix();
+  C.lookAt(new THREE.Vector3().fromArray(v.t));
+}
+
+let root = null;
+async function load(url){
+  if (root){ scene.remove(root); root.traverse(o=>{if(o.geometry)o.geometry.dispose();}); }
+  const gltf = await loader.loadAsync(url);
+  root = gltf.scene;
+  scene.add(root);
+}
+
+function render(cam){
+  setCam(cam);
+  R.render(scene, C);
+  return canvas.toDataURL('image/png');
+}
+
+window.__cmp = {load, render, CAMS, done:true};
+</script>

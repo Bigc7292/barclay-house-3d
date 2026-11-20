@@ -1,0 +1,96 @@
+{
+  "out/barclay_hero3_floors.glb": {
+    "size_bytes": 3114300,
+    "nodes": [
+      "Floor_00",
+      "Door_entrance_frame",
+      "Door_entrance_L_leaf",
+      "Door_entrance_R_leaf",
+      "Floor_01",
+      "Floor_02",
+      "Floor_03",
+      "Floor_04",
+      "Floor_05",
+      "Building"
+    ],
+    "Floor_*": [
+      "Floor_00",
+      "Floor_01",
+      "Floor_02",
+      "Floor_03",
+      "Floor_04",
+      "Floor_05"
+    ],
+    "Door_*": [
+      "Door_entrance_frame",
+      "Door_entrance_L_leaf",
+      "Door_entrance_R_leaf"
+    ],
+    "required_missing": [],
+    "dotted": [],
+    "has_Building": true
+  },
+  "tests/hero3_floors/out/barclay_hero3_floors.glb": {
+    "size_bytes": 3114300,
+    "nodes": [
+      "Floor_00",
+      "Door_entrance_frame",
+      "Door_entrance_L_leaf",
+      "Door_entrance_R_leaf",
+      "Floor_01",
+      "Floor_02",
+      "Floor_03",
+      "Floor_04",
+      "Floor_05",
+      "Building"
+    ],
+    "Floor_*": [
+      "Floor_00",
+      "Floor_01",
+      "Floor_02",
+      "Floor_03",
+      "Floor_04",
+      "Floor_05"
+    ],
+    "Door_*": [
+      "Door_entrance_frame",
+      "Door_entrance_L_leaf",
+      "Door_entrance_R_leaf"
+    ],
+    "required_missing": [],
+    "dotted": [],
+    "has_Building": true
+  },
+  "tests/hero3_floors/out/mobile/barclay_hero_mobile.glb": {
+    "size_bytes": 2038160,
+    "nodes": [
+      "Floor_00",
+      "Door_entrance_frame",
+      "Door_entrance_L_leaf",
+      "Door_entrance_R_leaf",
+      "Floor_01",
+      "Floor_02",
+      "Floor_03",
+      "Floor_04",
+      "Floor_05"
+    ],
+    "Floor_*": [
+      "Floor_00",
+      "Floor_01",
+      "Floor_02",
+      "Floor_03",
+      "Floor_04",
+      "Floor_05"
+    ],
+    "Door_*": [
+      "Door_entrance_frame",
+      "Door_entrance_L_leaf",
+      "Door_entrance_R_leaf"
+    ],
+    "required_missing": [
+      "Building"
+    ],
+    "dotted": [],
+    "has_Building": false
+  }
+}
