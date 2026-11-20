@@ -3,7 +3,7 @@ const path=require('path'),REPO=path.resolve(__dirname,'../..');const {chromium,
 const URL=`http://127.0.0.1:${process.env.PORT||18490}/web/floorplan3d/2bed.html`,OUT=path.join(REPO,'tests/floorplan3d')+'/';
 (async()=>{const b=await chromium.launch({args:['--use-gl=angle','--use-angle=swiftshader','--enable-unsafe-swiftshader']});const res={};
 for(const [name,ctx] of [['desktop',{viewport:{width:1600,height:900}}],['phone',{...devices['Galaxy S9+'],deviceScaleFactor:1}]]){
- const c=await b.newContext(ctx),p=await c.newPage(),errs=[],net=[];
+ const c=await b.newContext(ctx),p=await c.newPage(),errs=[],net=[];p.setDefaultTimeout(180000);
  p.on('console',m=>m.type()==='error'&&errs.push(m.text()));p.on('pageerror',e=>errs.push(String(e)));
  p.on('request',r=>{if(!r.url().startsWith('http://127.0.0.1'))net.push(r.url())});
  await p.goto(URL);await p.waitForFunction(()=>window.__fp3d&&window.__fp3d.ready,null,{timeout:180000});await p.waitForTimeout(1500);
