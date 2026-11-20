@@ -1,6 +1,7 @@
 """Barclay House exterior scene. Blender 4.x, free/open-source only.
 Run:  blender -b -P build_scene.py -- [--render] [--noexport]
 Env:  BRES=4096x2304  BSAMPLES=256  BCAMS=street,aerial,viaduct
+#        BWEATHER2=1  procedural grime (trick #12, weather2.py). BDISP=1 true displacement on street-cam hero facade (trick #8, displace.py).
 Inputs (same folder): scene_data.json (prep.py: OSM (c) OpenStreetMap contributors ODbL +
 EA LIDAR Composite 1m DSM/DTM, OGL), textures/* (Poly Haven CC0), hdri.exr (Poly Haven CC0).
 Every hero number below is SOURCED; see SOURCES. Values with no source are marked NOT_FOUND
@@ -9,6 +10,7 @@ import bpy, json, math, os, sys, mathutils
 HERE = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, HERE)
 import parts_plan
+import weather2, displace
 # ---------------- HERO PARAMETERS (all sourced) ----------------
 SOURCES = {
  "E05": "Howard & Seddon dwg 12,982 E05 rev C 'Existing Front Elevation' https://docs.planning.org.uk/20210803/27/QKTOMYBCKT600/goza3b6sv2a2q83u.pdf",
@@ -140,7 +142,7 @@ def faience():
     bm = nt.nodes.new("ShaderNodeBump"); bm.inputs["Strength"].default_value = 0.25; bm.inputs["Distance"].default_value = 0.01; nt.links.new(br.outputs["Fac"], bm.inputs["Height"]); nt.links.new(bm.outputs[0], b.inputs["Normal"])
     return weather(m, 0.15, 0.22, 0.0)
 def mats():
-    return {
+    M = {
      "stone": weather(pbr("Portland_stone_base", "stone", (0.58,0.52,0.40), 0.75, scale=3), 0.35, 0.2, 1.5),
      "groove": pbr("Rustication_channel_shadow", None, (0.12,0.12,0.12), 0.9),
      "terracotta": faience(),
@@ -159,6 +161,12 @@ def mats():
      "leaf": pbr("Tree_leaves", None, (0.12,0.22,0.08), 0.8), "bark": pbr("Bark", None, (0.2,0.15,0.1), 0.9),
      "lamp": pbr("Lamp_post", None, (0.05,0.05,0.05), 0.4, metal=0.8),
      "lamphead": glow(pbr("Lamp_head", None, (0.9,0.9,0.85), 0.3), 40.0, -1.0)}
+    if weather2.enabled():
+        zs = weather2.overhang_zs()
+        weather2.weather2(M["stone"], overhangs=zs)
+        weather2.weather2(M["terracotta"], soot=0.3, drip=0.25, edge=0.15, overhangs=zs)
+        weather2.weather2(M["viaduct"], soot=0.3, drip=0.25, edge=0.0, overhangs=None)
+    return M
 def coll(n, parent=None):
     c = bpy.data.collections.new(n); (parent or bpy.context.scene.collection).children.link(c); return c
 def mk(name, v, f, m, c):
@@ -525,6 +533,8 @@ def main():
     TOD["apply"](None, bpy.context)
     if "BRES" in os.environ: r.resolution_x, r.resolution_y = RES
     if "BSAMPLES" in os.environ: sc.cycles.samples = SAMPLES
+    if displace.enabled():
+        hooked, nobj = displace.apply_all(sc); print(f"BDISP materials={hooked} facade_objs={nobj}")
     out = os.environ.get("BOUT") or os.path.join(HERE, "out"); os.makedirs(out, exist_ok=True)
     bpy.ops.wm.save_as_mainfile(filepath=os.path.join(out, "barclay_scene.blend"))
     if "--noexport" not in sys.argv:

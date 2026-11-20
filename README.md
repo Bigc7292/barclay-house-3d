@@ -4,7 +4,7 @@ Photorealistic exterior + surroundings model (Blender -> GLB) and web viewer (`w
 1. Read `AGENTS.md` (= CLAUDE.md = GROK.md) first: hard rules (free only, no estimates, sourced facts), fixed pipeline, lessons.
 2. Then `critic_log.md`, `tricks_register.md`, `x_tricks.md`, `optimizer_log.md`, `PLAN.md`, `TOOLS.md`.
 3. Pipeline: source facts -> build one change set (Blender scripts) -> render locked camera + `ref_check.py` -> critic round -> export, `./make_mobile.sh`, `./validate.sh` (must PASS) -> redeploy viewer -> `./backup.sh "msg"`.
-Layout: `out/` exports (GLB/FBX/renders), `out/mobile/` phone GLBs, `web/` viewer, `lidar/` EA LIDAR, `textures/`, `refs/` reference photos, `docs/`, `tests/` experiments. See SETUP.md.
+Layout: `out/` exports (GLB/FBX/renders), `out/mobile/` phone GLBs, `web/` viewer, `lidar/` EA LIDAR, `textures/`, `refs/` reference photos, `docs/`, `tests/` experiments. See SETUP.md. The Floor_* / Door_* hero is `out/barclay_hero_floors.glb` — never overwrite `out/barclay_hero.glb`, `out/barclay_scene.blend` or `web/hero3.glb`.
 
 ## Branches
 - **`barclay` = integration branch. All bots working on Barclay House push here** (Colin's rule, 2026-11-09). Commit + push after every edit and add a CHANGELOG.md entry saying what changed and why. Never force-push or rewrite history; if a push is rejected, `git fetch` and merge `origin/barclay`, then push.

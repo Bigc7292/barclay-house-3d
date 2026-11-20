@@ -1,0 +1,79 @@
+{
+  "trick": 12,
+  "official_blend_untouched": true,
+  "street_pixel": {
+    "mean_abs_255": 1.1387847661972046,
+    "pct_px_changed_gt2": 21.133487654320987
+  },
+  "street_parapet_mean_off": [
+    113.82125854492188,
+    109.3466796875,
+    101.13086700439453
+  ],
+  "street_parapet_mean_on": [
+    112.7410888671875,
+    108.76959991455078,
+    101.3434829711914
+  ],
+  "street_facade_mean_off": [
+    133.49163818359375,
+    131.74124145507812,
+    127.30712890625
+  ],
+  "street_facade_mean_on": [
+    133.3804168701172,
+    131.79489135742188,
+    127.64579772949219
+  ],
+  "viaduct_pixel": {
+    "mean_abs_255": 0.8785596489906311,
+    "pct_px_changed_gt2": 16.653935185185183
+  },
+  "ref_check": {
+    "geograph_off": {
+      "f1": 0.2221043797952536,
+      "sheet": "tests/weather2/out/geograph_off_check.png"
+    },
+    "geograph_on": {
+      "f1": 0.22256876080920837,
+      "sheet": "tests/weather2/out/geograph_on_check.png"
+    },
+    "r4_geograph_f1": 0.625,
+    "street_vs_official_off": {
+      "f1": 0.9910480446035281,
+      "sheet": "tests/weather2/out/street_official_off_check.png"
+    },
+    "street_vs_official_on": {
+      "f1": 0.9912294234455453,
+      "sheet": "tests/weather2/out/street_official_on_check.png"
+    }
+  },
+  "times_off": {
+    "tag": "off",
+    "res": [
+      960,
+      540
+    ],
+    "samples": 64,
+    "times": {
+      "Cam_Street": 56.020986795425415,
+      "Cam_Match_geograph": 73.47962880134583,
+      "Cam_Viaduct": 97.61427688598633
+    },
+    "applied": false
+  },
+  "times_on": {
+    "tag": "on",
+    "res": [
+      960,
+      540
+    ],
+    "samples": 64,
+    "times": {
+      "Cam_Street": 206.60601425170898,
+      "Cam_Match_geograph": 242.5040304660797,
+      "Cam_Viaduct": 170.86483311653137
+    },
+    "applied": true
+  }
+}

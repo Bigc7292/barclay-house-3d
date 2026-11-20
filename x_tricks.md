@@ -48,6 +48,7 @@ Source: https://x.com/mukadeshinigami/status/2117128574964560278 (+ quoted artic
 What: full PBR set aligned to diffuse (16-bit height, AO, ORM), real Cycles displacement, scatter only where the colour map says (two lengths).
 Free? Yes – Blender + Material Maker (MIT). Skip Opus.
 Apply: `textures/{stone,terracotta,brick}` have only diff/nor/rough → derive `height.png`/`ao.png`; in `build_scene.py` pbr() add a Displacement node (scale 0.004–0.01 m, method BOTH) when height exists; adaptive subdivision only on HERO objects for the street cam (env flag, e.g. BDISP=1) – no GPU, so test at 960x540 on `tests/` copy. Moss/weeds via Geometry Nodes on `Rail_Viaduct` masked by dark diff areas. Doc: …/implementations/barclay/2026-11-03-height-displacement.md
+Status (2026-11-20): CERTIFIED bump-only behind BDISP=1 (stills / street cam). BOTH + adaptive subdiv (BDISP_ADAPTIVE=1) REJECTED — tears the booleaned facade. Height/AO maps derived. Moss left off. See tests/disp/RESULT.md.
 
 ## 9. Street life in the flythrough: car departs, train crosses viaduct, dusk glow
 Source: https://x.com/uncle_render/status/2117240312439742479 (paid AI render kit – method only)
@@ -72,12 +73,14 @@ Source: https://x.com/sidahuj/status/2117640443345379421 → https://www.mcp-for
 What: wear placed where it really collects — AO-masked crevice soot, Pointiness edge wear, gravity drip streaks below overhangs — all shader nodes, no textures; then close-up crops critiqued one fix per pass.
 Free? Yes – Blender (GPL) + mcp-for-blender (MIT, already on port 9876).
 Apply: `build_scene.py` add `weather2()` after existing `weather()` (keep it; hybrid) behind `BWEATHER2=1`; AO node (0.3 m) inverted → soot, Z-stretched noise × below-sill/cornice mask (heights from `scene_data.json`) → drips, +0.1 roughness in grime. Apply to faience/terracotta/stone/`Viaduct_brick` (AO darkens the salmon parapet tops). Close-ups from `camera_match.py` cams → `ref_check.py`. AO is Cycles-only: stills/flythrough first, GLB only if baked within budget. Doc: /home/box/x-bookmarks/implementations/barclay/2026-11-07-procedural-weathering.md
+Status (2026-11-20): CERTIFIED stills/flythrough only, BWEATHER2=1. Not in the GLB. See tests/weather2/RESULT.md.
 
 ## 13. Prop-kit normaliser + lineup with scale bar (street props)
 Source: https://x.com/apekshik/status/2117798412703953143 → https://github.com/apekshik/anykit (MIT; the tool itself runs on fal+Meshy+Tripo ≈$25/kit = blocked: cost → method only)
 What: every prop at real-world size, bottom-centre origin, front −Y, LOD1 ≈25% tris, shared material palette, one lineup render with a 1 m scale bar checked before placing.
 Free? Yes – Blender script + CC0 props (Poly Haven/Kenney) + gltf-transform dedup (certified #2a).
 Apply: new `props_normalize.py` for lamps/bollards/bins/vehicles used by `build_surroundings.py` and street-life `--life` (#9); heights from a sourced `props_dims.json` (URL per row, else "stand-in"); lineup render to `out/props_lineup.png`; LOD1 for `surr_mobile`. Map prop materials to ≤6 shared materials so dedup merges them.
+Status (2026-11-20): CERTIFIED. props_normalize.py + props_dims.json; Kenney assets in assets/life/normalized/; lineup tests/props/out/props_lineup.png. Train keeps #9 scale. See tests/props/RESULT.md.
 
 ## 14. Interior viewer: room fly-to buttons + touch walk (Interior bot)
 Source: https://x.com/bkdgiffug/status/2117486428645138512 → https://github.com/wy51ai/floorplan-3d (MIT, 3.6k★; live https://wy51ai.github.io/floorplan-3d/)

@@ -1,0 +1,125 @@
+{
+  "trick": 13,
+  "note": "Sourced real-world sizes for street props. Rows without a URL are labelled stand-in. Kenney CC0 models are toy-style stand-ins for appearance; only their bounding size is matched to the sourced dimension. Site-specific survey of Whitworth St W props was NOT FOUND (OSM has 0 street_lamp nodes).",
+  "props": [
+    {
+      "id": "lamp_column",
+      "kind": "lamp",
+      "used_by": ["build_surroundings.py"],
+      "primary": "height_m",
+      "height_m": 6.0,
+      "source_url": "https://www.durham.gov.uk/media/3075/Street-Lighting-Specification/pdf/StreetLightingSpecification.pdf",
+      "source_note": "Durham County Council Street Lighting Specification 12.3: residential roads, access roads and footpaths generally 6 m mounting height. Whitworth St W is OSM highway=secondary; a Manchester site-specific mounting height was NOT FOUND, so this 6 m value (already used by the stand-in lamp geometry) is a typical UK access-road figure, labelled stand-in for this site.",
+      "stand_in": true
+    },
+    {
+      "id": "bollard",
+      "kind": "bollard",
+      "used_by": ["build_surroundings.py"],
+      "primary": "height_m",
+      "height_m": 1.0,
+      "diameter_m": 0.10,
+      "source_url": "https://www.milton-keynes.gov.uk/sites/default/files/2022-04/Part_B_-_F10__Fixed_Bollard.pdf",
+      "source_note": "Milton Keynes Council CMK Handbook F10 Fixed Bollards: 1000 mm high, 100 mm diameter. Not a Manchester survey; typical UK highway fixed-bollard spec. Current scene already uses 1.0 m height.",
+      "stand_in": true
+    },
+    {
+      "id": "post_box",
+      "kind": "post_box",
+      "used_by": ["build_surroundings.py"],
+      "primary": "height_m",
+      "height_m": 1.626,
+      "source_url": "http://www.wicks.org/pulp/stats.html",
+      "source_note": "Type A/B cylindrical pillar box height 5 ft 4 in (1.626 m). OSM amenity=post_box on site does not give a type; Type C oval is 5 ft 3 in (1.60 m). Type A/B height used; type is a stand-in.",
+      "stand_in": true
+    },
+    {
+      "id": "waste_basket",
+      "kind": "waste_basket",
+      "used_by": ["build_surroundings.py"],
+      "primary": "height_m",
+      "height_m": 0.95,
+      "source_note": "Height NOT FOUND in a sourced street-furniture spec for this site. Current stand-in 0.95 m kept.",
+      "stand_in": true
+    },
+    {
+      "id": "bench",
+      "kind": "bench",
+      "used_by": ["build_surroundings.py"],
+      "primary": "height_m",
+      "height_m": 0.45,
+      "length_m": 1.8,
+      "source_note": "Seat height and length NOT FOUND for a site bench. Current stand-in 0.45 m seat / 1.8 m length kept (0.45 m is a common seat height, unsourced here).",
+      "stand_in": true
+    },
+    {
+      "id": "traffic_signal",
+      "kind": "traffic_signals",
+      "used_by": ["build_surroundings.py"],
+      "primary": "height_m",
+      "height_m": 3.3,
+      "source_note": "Column height NOT FOUND in TSRGD for this site. Current stand-in 3.3 m kept.",
+      "stand_in": true
+    },
+    {
+      "id": "kenney_sedan",
+      "kind": "car",
+      "asset": "car-kit/sedan.glb",
+      "used_by": ["life_paths.py"],
+      "primary": "length_m",
+      "length_m": 4.378,
+      "height_m": 1.471,
+      "width_m": 1.825,
+      "source_url": "https://media.ford.com/content/dam/fordmedia/Europe/documents/productReleases/Focus/2018/FORD_FOCUS_2018_MediaDrive_TechSpecs_EU.pdf",
+      "source_note": "2018 Ford Focus 5-door (Ford EU media tech specs): overall length 4378 mm, height including antenna 1471 mm, width without mirrors 1825 mm. The Kenney sedan is a toy-style stand-in, scaled so its length matches this common UK family-hatch size. Not a survey of cars that park on Whitworth St W.",
+      "stand_in": true,
+      "life_name": "LIFE_car_1"
+    },
+    {
+      "id": "kenney_van",
+      "kind": "car",
+      "asset": "car-kit/van.glb",
+      "used_by": ["life_paths.py"],
+      "primary": "length_m",
+      "length_m": 4.973,
+      "source_note": "Scaled to a typical UK mid-size van length of 4.973 m (Ford Transit Custom L1 overall length, commonly published; a Ford-hosted official PDF was not archived here). The Kenney van is a toy-style stand-in. Length treated as stand-in until an official datasheet is attached.",
+      "stand_in": true,
+      "life_name": "LIFE_car_2"
+    },
+    {
+      "id": "kenney_train_car",
+      "kind": "train",
+      "asset": "train-kit/train-electric-city-a.glb",
+      "used_by": ["life_paths.py"],
+      "primary": "length_m",
+      "source_note": "No sourced carriage length for the viaduct stock. Keep the certified #9 life_paths scale (2.5, stretch 2.8) as a stand-in; do not silently retarget. Clip-check was 0 overlaps at that scale (2026-11-09).",
+      "stand_in": true,
+      "keep_life_scale": true,
+      "life_name": "LIFE_train"
+    },
+    {
+      "id": "kenney_walker_male",
+      "kind": "walk",
+      "asset": "mini-characters/character-male-a.glb",
+      "used_by": ["life_paths.py"],
+      "primary": "height_m",
+      "height_m": 1.755,
+      "source_url": "https://digital.nhs.uk/data-and-information/publications/statistical/health-survey-for-england/2021/part-4-trends",
+      "source_note": "Health Survey for England 2019: mean measured height of men 175.5 cm (adults, 2019). Kenney mini-character is a toy-style stand-in, scaled to that mean height. The same height is used for character-male-c.glb.",
+      "stand_in": true,
+      "life_name": "LIFE_walker_1"
+    },
+    {
+      "id": "kenney_walker_female",
+      "kind": "walk",
+      "asset": "mini-characters/character-female-b.glb",
+      "used_by": ["life_paths.py"],
+      "primary": "height_m",
+      "height_m": 1.617,
+      "source_url": "https://digital.nhs.uk/data-and-information/publications/statistical/health-survey-for-england/2021/part-4-trends",
+      "source_note": "Health Survey for England 2019: mean measured height of women 161.7 cm (adults, 2019). Kenney mini-character is a toy-style stand-in, scaled to that mean height.",
+      "stand_in": true,
+      "life_name": "LIFE_walker_2"
+    }
+  ]
+}
