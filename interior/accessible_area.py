@@ -1,10 +1,10 @@
 #!/usr/bin/env python3
 """Wheelchair accessible-area raster for the Two Bed walk-mode layout (bookmark trick #21).
 
-2bed.json has no floor/wall polylines (documented by #18). The floor outline, partitions
-and furniture footprints come from interior/build_twobed_v4.py — the same sourced
-plan-px outline that was baked into web/twobed.glb — plus the entrance hinge and
-room ids from web/floorplan3d/2bed.json. Plan is APPROXIMATE (#18 identity IoU 0.1408).
+Floor outline, walls, door/opening gaps, rooms, joinery and furniture footprints come from
+interior/trace/twobed_layout.py (2026-11-20 retrace of the Rightmove 92163630 plan,
+interior/trace/twobed_trace.json) — the same data that builds web/twobed.glb and
+web/floorplan3d/2bed.json. #18 gate result for this trace: see SOURCES["plan_iou"].
 
 ADM Vol 1 (2015 edition with 2016 amendments), official PDF still linked from the
 current GOV.UK Approved Document M page:
@@ -61,7 +61,7 @@ SOURCES = {
         ],
         "note": "679 sq ft; outline scaled so shoelace area equals 63 m² (#18 residual 0% by construction)",
     },
-    "plan_iou": {"identity": 0.1408, "gate": 0.85, "result": "FAIL", "trick": 18},
+    "plan_iou": {"layout": "interior/trace/twobed_trace.json", "report": "out/plan_overlay.json", "gate": 0.85, "trick": 18},
     "label": "indicative",
 }
 
@@ -92,216 +92,86 @@ def _rot(px, pz, ang):
 
 
 def build_layout():
-    """Floor, walls, rooms, furniture in glTF/walk-mode XZ metres (Y-up)."""
-    P = [(12, 62), (92, 50), (98, 40), (228, 22), (262, 180), (262, 345), (18, 345), (18, 185)]
-    K = math.sqrt(63.0 / _parea_px(P))
-    CX, CY = 137, 190
+    """Floor, walls, rooms, furniture in glTF/walk-mode XZ metres (Y-up).
 
-    def xz(px, py):
-        return ((px - CX) * K, (py - CY) * K)
+    Everything comes from interior/trace/twobed_layout.py, i.e. the 2026-11-20 retrace
+    interior/trace/twobed_trace.json of the Rightmove plan (the same data that builds
+    web/twobed.glb and web/floorplan3d/2bed.json). Nothing is copied from the pre-retrace v4 outline.
+    """
+    import sys
+    sys.path.insert(0, str(ROOT / "interior" / "trace"))
+    import twobed_layout as LY
 
-    floor = [xz(*p) for p in P]
-    assert abs(_shoelace(floor) - 63.0) < 1e-9
+    def g2(p):  # blender (x, y) -> gltf (x, z)
+        return (p[0], -p[1])
 
-    def wall(p0, p1, gap_at=None, gw=0.85):
-        a, b = xz(*p0), xz(*p1)
-        L = math.hypot(b[0] - a[0], b[1] - a[1])
-        gaps = []
-        if gap_at is not None:
-            s = L * gap_at
-            gaps.append([s - gw / 2, s + gw / 2])
-        return {"a": [round(a[0], 6), round(a[1], 6)], "b": [round(b[0], 6), round(b[1], 6)], "t": T_WALL, "gaps": gaps}
-
+    floor = [tuple(p) for p in LY.floor_gl()]
     walls = []
-    # Exterior outline. Door gap only at the south-wall entrance from 2bed.json
-    # (hinge m(100,345), w=0.9). v4 comments mention edge i==6 for a gap; the
-    # baked door and 2bed.json place Door_entrance on the south edge (py=345).
-    for i in range(len(P)):
-        a, b = P[i], P[(i + 1) % len(P)]
-        rec = wall(a, b, gap_at=None)
-        if a == (262, 345) and b == (18, 345):
-            # along -X from (262,345); entrance at px=100, width 0.9 m
-            L = math.hypot(rec["b"][0] - rec["a"][0], rec["b"][1] - rec["a"][1])
-            # distance from start (262,345) to door start (100+0.9? hinge is left of leaf at rot 0)
-            # hinge m(100,345), leaf extends +X in glTF? closed_rot_y=0.
-            # In Blender door local +X is leaf; after glTF, need inward gap covering [hinge.x, hinge.x+0.9].
-            # Segment goes from x=m(262) down to x=m(18). s along segment from a.
-            ax, az = rec["a"]
-            hx, hz = xz(100, 345)
-            # hinge is the west end of the leaf if leaf extends +X: x in [hx, hx+0.9]
-            # along this segment (direction -X), s = ax - x
-            s0 = ax - (hx + 0.9)
-            s1 = ax - hx
-            rec["gaps"] = [[round(min(s0, s1), 6), round(max(s0, s1), 6)]]
-        walls.append(rec)
-
-    walls += [
-        wall((105, 45), (120, 152)),
-        wall((18, 185), (120, 152), gap_at=0.8),
-        wall((120, 152), (215, 140), gap_at=0.2),
-        wall((18, 200), (90, 200)),
-        wall((90, 200), (90, 270), gap_at=0.5),
-        wall((18, 270), (90, 270)),
-        wall((86, 270), (86, 345), gap_at=0.6),
-    ]
-
-    def poly_px(pts):
-        return [[round(x, 6), round(z, 6)] for x, z in (xz(*p) for p in pts)]
-
-    rooms = [
-        {"id": "i_bed1", "label": "Bedroom 1",
-         "poly": poly_px([(18, 185), (120, 152), (105, 45), (92, 50), (12, 62)])},
-        {"id": "i_bed2", "label": "Bedroom 2",
-         "poly": poly_px([(120, 152), (215, 140), (262, 180), (228, 22), (105, 45)])},
-        {"id": "i_store", "label": "Storage",
-         "poly": poly_px([(18, 200), (90, 200), (90, 270), (18, 270)])},
-        {"id": "i_bath", "label": "Bathroom",
-         "poly": poly_px([(18, 270), (86, 270), (86, 345), (18, 345)])},
-        {"id": "i_kitchen", "label": "Kitchen",
-         "poly": poly_px([(156, 242), (260, 242), (260, 343), (156, 343)])},
-        {"id": "i_hall", "label": "Hall",
-         "poly": poly_px([(90, 200), (156, 200), (156, 345), (86, 345), (86, 270), (90, 270)])},
-        {"id": "i_living", "label": "Living",
-         "poly": poly_px([(90, 200), (156, 200), (156, 242), (260, 242), (262, 180), (215, 140), (120, 152), (90, 161.7059)])},
-    ]
+    for w in LY.walls_bl():
+        a, b = g2(w["a"]), g2(w["b"])
+        walls.append({"name": w["name"], "a": [round(a[0], 6), round(a[1], 6)], "b": [round(b[0], 6), round(b[1], 6)],
+                      "t": round(w["t"], 6), "gaps": [[round(g0, 6), round(g1, 6)] for g0, g1 in w["gaps"]]})
+    rooms = [{"id": r["id"], "label": r["label"], "poly": r["poly"]} for r in LY.rooms_gl()]
 
     def box(name, kind, room, cx, cz, sx, sz, rot=0.0, shape="rect"):
-        return {
-            "name": name, "kind": kind, "room": room, "shape": shape,
-            "c": [round(cx, 6), round(cz, 6)],
-            "s": [round(sx, 6), round(sz, 6)],
-            "rot": round(rot, 6),
-        }
+        return {"name": name, "kind": kind, "room": room, "shape": shape,
+                "c": [round(cx, 6), round(cz, 6)], "s": [round(sx, 6), round(sz, 6)], "rot": round(rot, 6)}
 
-    def circ(name, kind, room, cx, cz, r):
-        return box(name, kind, room, cx, cz, r * 2, r * 2, 0.0, shape="circle")
+    KIND = {"kitchen_fixture": "kitchen", "tv": "furniture"}
+    furn, walkable = [], []
+    for f in LY.furniture():
+        c = f["c"]
+        if f["kind"] == "bed":  # footprint includes the 0.12 m headboard behind the base
+            hd = (f["head_dir_px"][0], -f["head_dir_px"][1])
+            c = (c[0] + hd[0] * 0.06, c[1] + hd[1] * 0.06)
+        cx, cz = g2(c)
+        if f.get("walkable"):
+            walkable.append(f["name"])
+            continue
+        if "r" in f:
+            furn.append(box(f["name"], KIND.get(f["kind"], f["kind"]), f["room"], cx, cz, 2 * f["r"], 2 * f["r"], 0.0, "circle"))
+        else:
+            furn.append(box(f["name"], KIND.get(f["kind"], f["kind"]), f["room"], cx, cz, f["s"][0], f["s"][1], -f["rot"]))
+    steps = None
+    for j in LY.joinery_bl():
+        P = [g2(p) for p in j["poly"]]
+        if j["walkable"]:
+            steps = {"name": j["name"], "poly": [[round(x, 6), round(z, 6)] for x, z in P],
+                     "note": "entrance steps drawn on the plan (3 treads); riser heights NOT FOUND. Walk mode is flat, so the default run treats them as floor; the steps_as_barrier variant blocks them."}
+            continue
+        # quad -> rectangle: orientation of edge 0, extents along that frame
+        ux, uz = P[1][0] - P[0][0], P[1][1] - P[0][1]
+        Lu = math.hypot(ux, uz); ux, uz = ux / Lu, uz / Lu
+        us = [(p[0] * ux + p[1] * uz) for p in P]; vs = [(-p[0] * uz + p[1] * ux) for p in P]
+        a0, a1, b0, b1 = min(us), max(us), min(vs), max(vs)
+        cu, cv = (a0 + a1) / 2, (b0 + b1) / 2
+        cx, cz = cu * ux - cv * uz, cu * uz + cv * ux
+        kind = "kitchen" if j["name"].startswith("Kitchen") else ("wardrobe" if "Wardrobe" in j["name"] else "furniture")
+        furn.append(box(j["name"], kind, j["room"], cx, cz, a1 - a0, b1 - b0, math.atan2(uz, ux)))
 
-    # --- furniture from v4, converted blender (x,y) -> gltf (x, -y) ---
-    def b2(px, py=None):
-        # blender y from plan or already metres
-        if py is None:
-            raise ValueError
-        return (px, py)
-
-    def from_bl(bx, by):
-        return (bx, -by)
-
-    def mbl(px, py):
-        # blender XY as in v4 m()
-        return ((px - CX) * K, -(py - CY) * K)
-
-    furn = []
-    # kitchen run
-    kx = mbl(262, 0)[0] - T_WALL / 2
-    ky0 = mbl(0, 343)[1]
-    ky1 = mbl(0, 238)[1]
-    L = ky1 - ky0
-    n = int(L / 0.6)
-    # worktop footprint (largest of run)
-    wt_cx, wt_cz = from_bl(kx - 0.31, ky0 + n * 0.3)
-    furn.append(box("Kitchen_run", "kitchen", "i_kitchen", wt_cx, wt_cz, 0.62, n * 0.6, 0))
-    if n * 0.6 < L - 0.62:
-        tx, tz = from_bl(kx - 0.3, ky0 + n * 0.6 + 0.3)
-        furn.append(box("Tall_unit", "kitchen", "i_kitchen", tx, tz, 0.58, 0.597, 0))
-    pz = mbl(0, 250)[1]
-    px0 = kx - 0.6
-    pnx, pnz = from_bl(px0 - 0.9, pz)
-    furn.append(box("Peninsula_dark", "kitchen", "i_kitchen", pnx, pnz, 1.84, 0.64, 0))
-
-    # living
-    lc = mbl(205, 195)
-    sofa_y = lc[1]
-    sx = mbl(255, 0)[0] - 0.5
-    sofax, sofaz = from_bl(sx + 0.02, sofa_y)
-    furn.append(box("Sofa_navy_velvet_3seat", "sofa", "i_living", sofax, sofaz, 0.94, 2.36, 0))
-    ct = (sx - 1.35, sofa_y)
-    ctx, ctz = from_bl(*ct)
-    furn.append(box("Coffee_table_oak_top", "table", "i_living", ctx, ctz, 0.55, 1.05, 0))
-    tvx = mbl(150, 0)[0] + 0.25
-    tvxx, tvz = from_bl(tvx, sofa_y)
-    furn.append(box("TV_bench_oak", "furniture", "i_living", tvxx, tvz, 0.40, 1.50, 0))
-    pp = (sx, sofa_y + 1.4)
-    ppx, ppz = from_bl(*pp)
-    furn.append(circ("Plant_pot", "plant", "i_living", ppx, ppz, 0.18))
-
-    dc = (mbl(190, 0)[0], mbl(0, 305)[1])
-    dcx, dcz = from_bl(*dc)
-    furn.append(circ("Dining_table_oak_top", "table", "i_living", dcx, dcz, 0.45))
-    for j, a in enumerate((0, math.pi / 2, math.pi, 3 * math.pi / 2)):
-        cbl = (dc[0] + 0.72 * math.cos(a), dc[1] + 0.72 * math.sin(a))
-        cx, cz = from_bl(*cbl)
-        # blender rot around Z by a-pi/2; gltf yaw = -blender Z rot (Y-up, Z = -Y)
-        furn.append(circ(f"Tub_chair_{j}", "chair", "i_living", cx, cz, 0.29))
-
-    # beds
-    b1 = mbl(55, 105)
-    b1c = (b1[0], mbl(0, 62)[1] - 1.15)
-    bx, bz = from_bl(*b1c)
-    furn.append(box("Bed1_navy", "bed", "i_bed1", bx, bz, 1.45, 2.05, 0))
-    for dx in (-1.0, 1.0):
-        p = from_bl(b1[0] + dx, mbl(0, 62)[1] - 0.35)
-        furn.append(box(f"Bed1_bedside_{dx:+.0f}", "bedside", "i_bed1", p[0], p[1], 0.45, 0.40, 0))
-    w1 = from_bl(mbl(28, 0)[0] + 0.3, mbl(0, 150)[1])
-    # wardrobe local size 1.0 x 0.58, blender rot -pi/2 → gltf yaw +pi/2
-    furn.append(box("Wardrobe_bed1", "wardrobe", "i_bed1", w1[0], w1[1], 1.0, 0.58, math.pi / 2))
-
-    b2 = mbl(185, 70)
-    b2c = (b2[0], mbl(0, 40)[1] - 1.3)
-    bx, bz = from_bl(*b2c)
-    # blender rot 0.06 → gltf yaw -0.06
-    furn.append(box("Bed2_navy", "bed", "i_bed2", bx, bz, 1.45, 2.05, -0.06))
-    for i, (dx, dyoff) in enumerate(((-1.0, -0.45), (1.0, -0.5))):
-        p = from_bl(b2[0] + dx, mbl(0, 40)[1] + dyoff)
-        furn.append(box(f"Bed2_bedside_{i}", "bedside", "i_bed2", p[0], p[1], 0.45, 0.40, -0.06))
-    w2 = from_bl(mbl(140, 0)[0], mbl(0, 135)[1])
-    furn.append(box("Wardrobe_bed2", "wardrobe", "i_bed2", w2[0], w2[1], 1.0, 0.58, -(math.pi - 0.12)))
-
-    # bathroom
-    bx0, by0 = mbl(19, 344)
-    bx1, by1 = mbl(85, 271)
-    sh = from_bl(bx0 + 0.5, by0 + 0.5)
-    furn.append(box("Shower_tray", "sanitary", "i_bath", sh[0], sh[1], 0.95, 0.90, 0))
-    bw = 0.2
-    boxing = from_bl(bx0 + T_WALL / 2 + bw / 2, (by0 + 0.95 + by1) / 2)
-    furn.append(box("WC_boxing_half_wall", "sanitary", "i_bath", boxing[0], boxing[1], bw, (by1 - by0) - 0.95, 0))
-    wcy = by1 - 0.65
-    wx0 = bx0 + T_WALL / 2 + bw
-    # pan occupies ~0.5 x 0.4 from boxing into the room
-    pan = from_bl(wx0 + 0.31, wcy)
-    furn.append(box("WC_pan", "sanitary", "i_bath", pan[0], pan[1], 0.50, 0.40, 0))
-    vx = bx1 - 0.45
-    van = from_bl(vx, by1 - T_WALL / 2 - 0.24)
-    furn.append(box("Vanity_grey_stone_look", "sanitary", "i_bath", van[0], van[1], 0.60, 0.46, 0))
-
-    # storage
-    s0, s1 = mbl(20, 268), mbl(88, 202)
-    st = from_bl(s0[0] + 0.25, (s0[1] + s1[1]) / 2)
-    furn.append(box("Storage_shelving_white", "storage", "i_store", st[0], st[1], 0.40, abs(s1[1] - s0[1]) - 0.2, 0))
-
-    entrance = {
-        "name": "Door_entrance",
-        "hinge": [-1.0891, 4.5626],
-        "w": 0.9,
-        "source": "web/floorplan3d/2bed.json",
-    }
-    # just inside: mid of leaf, inward (smaller Z)
-    entrance["seed"] = [round(-1.0891 + 0.45, 6), round(4.5626 - T_WALL / 2 - 0.20, 6)]
-
+    ent = next(d for d in LY.doors_gl() if d["name"] == "Door_entrance")
+    hx, hz = ent["hinge"][0], ent["hinge"][2]
+    entrance = {"name": "Door_entrance", "hinge": [hx, hz], "w": ent["w"], "source": "interior/trace/twobed_trace.json (ink break x 99-128)",
+                # just inside the leaf mid-point, into the lobby (smaller Z)
+                "seed": [round(hx + ent["w"] / 2, 6), round(hz - 0.35, 6)]}
     return {
         "coord": "gltf XZ metres, Y-up, same frame as web/floorplan3d/2bed.json and web/twobed.glb",
-        "floor_source": "interior/build_twobed_v4.py OUTL (2bed.json has no floor polyline; #18)",
-        "furniture_source": "footprints from build_twobed_v4.py placements (web/twobed.glb furniture is baked into BAKED_interior; named boxes are not in the walk-mode GLB)",
+        "floor_source": "interior/trace/twobed_trace.json internal-face outline (Rightmove 92163630 plan retrace 2026-11-20), scaled so area = 63 m2",
+        "furniture_source": "interior/trace/twobed_layout.py footprints (plan-drawn positions; sizes illustrative) + plan joinery",
         "cell_m": CELL,
         "wheelchair_width_m": WHEELCHAIR_WIDTH,
         "erode_radius_m": ERODE_R,
         "turning_circle_diameter_m": TURN_D,
         "sourced_floor_m2": SOURCED_AREA,
-        "wall_thickness_m": T_WALL,
+        "wall_thickness_m": {"partitions": LY.T_PART, "exterior": "plan ink width x K"},
+        "standins": LY.STANDIN,
         "sources": SOURCES,
         "floor": [[round(x, 6), round(z, 6)] for x, z in floor],
         "walls": walls,
         "rooms": rooms,
         "furniture": furn,
+        "walkable_not_obstacles": walkable,
+        "steps": steps,
         "entrance": entrance,
         "label": "indicative",
         "approximate_layout": True,
@@ -447,13 +317,19 @@ def _dilate(obs, disk):
     return out
 
 
-def compute(layout, hidden=None):
+def compute(layout, hidden=None, steps_as_barrier=False):
     import numpy as np
     hidden = set(hidden or [])
     g = _grid_meta(layout)
     w, h = g["w"], g["h"]
     origin_x, origin_z = g["origin_x"], g["origin_z"]
     furn = np.zeros((w, h), dtype=bool)
+    if steps_as_barrier and layout.get("steps"):
+        for i in range(w):
+            x = origin_x + (i + 0.5) * CELL
+            for j in range(h):
+                if _pip(x, origin_z + (j + 0.5) * CELL, layout["steps"]["poly"]):
+                    furn[i, j] = True
     for it in layout["furniture"]:
         if it["name"] in hidden:
             continue
@@ -540,7 +416,7 @@ def compute(layout, hidden=None):
     }
     return {
         "label": "indicative",
-        "approximate_layout": True,
+        "approximate_layout": layout.get("approximate_layout", True),
         "cell_m": CELL,
         "wheelchair_width_m": WHEELCHAIR_WIDTH,
         "erode_radius_m": ERODE_R,
@@ -585,6 +461,19 @@ def main():
         "base_room_i_bed2_m2": r["rooms"]["i_bed2"]["reachable_m2"],
         "room_area_rose": r_bed2["rooms"]["i_bed2"]["reachable_m2"] > r["rooms"]["i_bed2"]["reachable_m2"] + 1e-9,
         "ms": round((time.perf_counter() - t2) * 1000, 3),
+    }
+    import numpy as np
+    g = layout["_grid"]
+    r["floor_polygon_m2"] = round(_shoelace(layout["floor"]), 4)
+    r["floor_raster_m2"] = round(float(np.count_nonzero(g["in_floor"])) * CELL * CELL, 4)
+    r["floor_raster_vs_sourced_pct"] = round((r["floor_raster_m2"] - SOURCED_AREA) / SOURCED_AREA * 100, 3)
+    r["floor_polygon_within_1pct"] = abs(r["floor_polygon_m2"] - SOURCED_AREA) <= 0.01 * SOURCED_AREA
+    r["bed2_reachable"] = r["rooms"]["i_bed2"]["reachable_m2"] > 0
+    rb = compute(layout, hidden=[], steps_as_barrier=True)
+    r["variant_steps_as_barrier"] = {
+        "note": "entrance steps (plan, riser heights NOT FOUND) treated as impassable for a wheelchair",
+        "reachable_m2": rb["reachable_m2"],
+        "rooms": {k: v["reachable_m2"] for k, v in rb["rooms"].items()},
     }
     # do not embed full overlay grid in the python summary written for tests (large);
     # keep a compact copy for the preview

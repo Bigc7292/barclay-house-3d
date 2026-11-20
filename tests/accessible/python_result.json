@@ -6,51 +6,51 @@
   "erode_radius_m": 0.375,
   "turning_circle_diameter_m": 1.5,
   "hidden": [],
-  "clear_floor_m2": 41.2375,
-  "navigable_m2": 11.875,
-  "reachable_m2": 9.9325,
+  "clear_floor_m2": 45.4825,
+  "navigable_m2": 16.8675,
+  "reachable_m2": 16.865,
   "sourced_floor_m2": 63.0,
   "reachable_le_sourced": true,
   "rooms": {
     "i_bed1": {
-      "reachable_m2": 0.8075,
-      "clear_m2": 6.7275,
+      "reachable_m2": 1.985,
+      "clear_m2": 6.51,
       "turning_circle": false
     },
     "i_bed2": {
-      "reachable_m2": 0.0,
-      "clear_m2": 8.585,
-      "turning_circle": false
-    },
-    "i_store": {
-      "reachable_m2": 1.1825,
-      "clear_m2": 3.2425,
+      "reachable_m2": 3.455,
+      "clear_m2": 8.6425,
       "turning_circle": true
     },
-    "i_bath": {
-      "reachable_m2": 0.37,
-      "clear_m2": 2.4675,
+    "i_store": {
+      "reachable_m2": 0.3825,
+      "clear_m2": 1.73,
       "turning_circle": false
     },
-    "i_kitchen": {
-      "reachable_m2": 0.4575,
-      "clear_m2": 4.56,
+    "i_bath": {
+      "reachable_m2": 1.385,
+      "clear_m2": 4.1725,
       "turning_circle": false
     },
     "i_hall": {
-      "reachable_m2": 5.6025,
-      "clear_m2": 8.2025,
+      "reachable_m2": 1.265,
+      "clear_m2": 3.7,
+      "turning_circle": false
+    },
+    "i_kitchen": {
+      "reachable_m2": 1.51,
+      "clear_m2": 3.405,
       "turning_circle": true
     },
     "i_living": {
-      "reachable_m2": 1.5125,
-      "clear_m2": 7.4525,
-      "turning_circle": false
+      "reachable_m2": 6.8825,
+      "clear_m2": 17.3225,
+      "turning_circle": true
     }
   },
   "seed_cell": [
-    74,
-    198
+    78,
+    207
   ],
   "sources": {
     "govuk": "https://www.gov.uk/government/publications/access-to-and-use-of-buildings-approved-document-m",
@@ -87,26 +87,44 @@
       "note": "679 sq ft; outline scaled so shoelace area equals 63 m\u00b2 (#18 residual 0% by construction)"
     },
     "plan_iou": {
-      "identity": 0.1408,
+      "layout": "interior/trace/twobed_trace.json",
+      "report": "out/plan_overlay.json",
       "gate": 0.85,
-      "result": "FAIL",
       "trick": 18
     },
     "label": "indicative"
   },
-  "python_recompute_ms": 461.873,
+  "python_recompute_ms": 748.19,
   "hide_Bed1_navy": {
-    "reachable_m2": 12.7725,
-    "room_i_bed1_m2": 3.6475,
-    "base_room_i_bed1_m2": 0.8075,
+    "reachable_m2": 20.035,
+    "room_i_bed1_m2": 5.155,
+    "base_room_i_bed1_m2": 1.985,
     "room_area_rose": true,
-    "ms": 36.382
+    "ms": 48.351
   },
   "hide_Bed2_navy": {
-    "reachable_m2": 9.9325,
-    "room_i_bed2_m2": 0.0,
-    "base_room_i_bed2_m2": 0.0,
-    "room_area_rose": false,
-    "ms": 36.096
+    "reachable_m2": 20.0525,
+    "room_i_bed2_m2": 6.6425,
+    "base_room_i_bed2_m2": 3.455,
+    "room_area_rose": true,
+    "ms": 45.704
+  },
+  "floor_polygon_m2": 63.0,
+  "floor_raster_m2": 62.8925,
+  "floor_raster_vs_sourced_pct": -0.171,
+  "floor_polygon_within_1pct": true,
+  "bed2_reachable": true,
+  "variant_steps_as_barrier": {
+    "note": "entrance steps (plan, riser heights NOT FOUND) treated as impassable for a wheelchair",
+    "reachable_m2": 0.8775,
+    "rooms": {
+      "i_bed1": 0.0,
+      "i_bed2": 0.0,
+      "i_store": 0.0,
+      "i_bath": 0.0,
+      "i_hall": 0.8775,
+      "i_kitchen": 0.0,
+      "i_living": 0.0
+    }
   }
 }

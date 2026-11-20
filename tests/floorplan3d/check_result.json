@@ -2,141 +2,145 @@
  "desktop": {
   "doors": [
    {
-    "name": "Door_-3.5",
-    "tris": 114,
-    "open": true,
-    "rot": -1.345
-   },
-   {
-    "name": "Door_-0.5",
-    "tris": 114,
-    "open": true,
-    "rot": 1.784
-   },
-   {
-    "name": "Door_-1.4",
-    "tris": 114,
-    "open": true,
-    "rot": 0.087
-   },
-   {
-    "name": "Door_-1.5",
-    "tris": 114,
-    "open": true,
-    "rot": 0.087
-   },
-   {
     "name": "Door_entrance",
-    "tris": 108,
+    "tris": 114,
     "open": true,
-    "rot": 1.396
+    "rot": 1.571
+   },
+   {
+    "name": "Door_bath",
+    "tris": 114,
+    "open": true,
+    "rot": -3.142
+   },
+   {
+    "name": "Door_storage",
+    "tris": 114,
+    "open": true,
+    "rot": -1.123
    }
   ],
   "afterFly": {
    "mode": "walk",
    "cam": [
-    -0.5,
+    0.39,
     1.5,
-    1.9100000000000001
+    2.1400000000000006
    ]
   },
   "walk1s": [
-   0.790198483222509,
+   1.3798412549402883,
    1.5,
-   1.255605380267546
+   1.0849840122241363
   ],
   "walk20s": [
-   2.8295444728322816,
+   2.816707592756833,
    1.5,
-   -0.7709069905168275
+   -0.7187529991345978
   ],
+  "bed2Cam": [
+   1.28,
+   1.3,
+   -1.84
+  ],
+  "bed2WalkOut": [
+   0.49356563108565754,
+   1.3,
+   1.5282291519544118
+  ],
+  "bed2WalkBackIn": [
+   1.4448975289659096,
+   1.3,
+   -1.84
+  ],
+  "bed2_not_sealed": true,
   "doorAfterToggle": {
-   "name": "Door_-3.5",
+   "name": "Door_entrance",
    "tris": 114,
    "open": false,
-   "rot": 0.313
+   "rot": 0.251
   },
   "allClosed": [
-   false,
-   false,
    false,
    false,
    false
   ],
   "errors": [],
   "externalRequests": [
-   "blob:http://127.0.0.1:18490/089fe31d-7358-40e4-af6b-644466e0e13e",
-   "blob:http://127.0.0.1:18490/60058563-fea2-41c9-9e78-e24d50e83621"
+   "blob:http://127.0.0.1:18497/e00ab993-274f-421f-8424-b5ea7a9b1e7f",
+   "blob:http://127.0.0.1:18497/703ea88b-e93b-4946-ad7d-a040c6b103bf"
   ]
  },
  "phone": {
   "doors": [
    {
-    "name": "Door_-3.5",
-    "tris": 114,
-    "open": true,
-    "rot": -1.345
-   },
-   {
-    "name": "Door_-0.5",
-    "tris": 114,
-    "open": true,
-    "rot": 1.784
-   },
-   {
-    "name": "Door_-1.4",
-    "tris": 114,
-    "open": true,
-    "rot": 0.087
-   },
-   {
-    "name": "Door_-1.5",
-    "tris": 114,
-    "open": true,
-    "rot": 0.087
-   },
-   {
     "name": "Door_entrance",
-    "tris": 108,
+    "tris": 114,
     "open": true,
-    "rot": 1.396
+    "rot": 1.571
+   },
+   {
+    "name": "Door_bath",
+    "tris": 114,
+    "open": true,
+    "rot": -3.142
+   },
+   {
+    "name": "Door_storage",
+    "tris": 114,
+    "open": true,
+    "rot": -1.123
    }
   ],
   "afterFly": {
    "mode": "walk",
    "cam": [
-    -0.5,
+    0.39,
     1.5,
-    1.9100000000000001
+    2.1400000000000006
    ]
   },
   "walk1s": [
-   0.790198483222509,
+   1.3798412549402883,
    1.5,
-   1.255605380267546
+   1.0849840122241363
   ],
   "walk20s": [
-   2.8295444728322816,
+   2.816707592756833,
    1.5,
-   -0.7709069905168275
+   -0.7187529991345978
   ],
+  "bed2Cam": [
+   1.28,
+   1.3,
+   -1.84
+  ],
+  "bed2WalkOut": [
+   0.49356563108565754,
+   1.3,
+   1.5282291519544118
+  ],
+  "bed2WalkBackIn": [
+   1.4448975289659096,
+   1.3,
+   -1.84
+  ],
+  "bed2_not_sealed": true,
   "doorAfterToggle": {
-   "name": "Door_-3.5",
+   "name": "Door_entrance",
    "tris": 114,
    "open": false,
-   "rot": 0.313
+   "rot": 0
   },
   "allClosed": [
-   false,
-   false,
    false,
    false,
    false
   ],
   "errors": [],
   "externalRequests": [
-   "blob:http://127.0.0.1:18490/2b034c90-4317-4f85-b878-a701947d0fb6",
-   "blob:http://127.0.0.1:18490/afd24722-858c-4087-a8c5-07d3dd2e6988"
+   "blob:http://127.0.0.1:18497/9e1a5570-6103-47eb-9994-9245b2d507d6",
+   "blob:http://127.0.0.1:18497/807677ff-8d61-4a35-a30e-dc68df97ec31"
   ]
  }
 }

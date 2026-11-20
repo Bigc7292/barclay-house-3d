@@ -1,18 +1,22 @@
-# Barclay House Two Bed v2 (critic round 1 fixes). Outline + rooms SCALED FROM RIGHTMOVE PLAN IMAGE (apt02_fp.png), APPROXIMATE,
-# total floor area fixed to sourced 63 m2. Finishes/furniture follow Rightmove CGI marketing images (scheme spec), illustrative.
-# Unsourced: clear ceiling height (3.0 m used; floor-to-floor 3.663 m sourced), window positions, all furniture dimensions.
+# Barclay House Two Bed walk-mode model (v4 builder, lane/walls 2026-11-20 retrace).
+# GEOMETRY: walls, doors, windows, rooms, joinery and furniture positions come ONLY from
+#   interior/trace/twobed_trace.json (measured on the Rightmove 92163630 plan apt02_fp.png)
+#   via interior/trace/twobed_layout.py. Scale = sqrt(63 m2 / internal floor px2): total area
+#   63 m2 BY CONSTRUCTION (plan prints no dimensions).
+# STAND-INS (NOT FOUND in any source): clear ceiling 3.0 m (floor-to-floor 3.663 m sourced),
+#   partition thickness 0.10 m, door/opening head 2.1 m, window sill 0.5 / head 2.75 m and frame
+#   pattern, joinery/furniture heights, all finishes (Rightmove CGI marketing look, illustrative).
 import bpy, bmesh, math, mathutils, sys, os
 from mathutils import Vector
-import furniture_cc0
-ROOT=os.path.abspath(os.path.join(os.path.dirname(os.path.abspath(__file__)), ".."))
-TX=os.path.join(ROOT,"interior","tex")+os.sep
-OUT=os.path.join(ROOT,"interior","live")+os.sep
-HDRI=os.path.join(ROOT,"hdri.exr")
-SHOTS_R9=os.path.join(ROOT,"web","shots","r9")
-P=[(12,62),(92,50),(98,40),(228,22),(262,180),(262,345),(18,345),(18,185)]
+_HERE=os.path.dirname(os.path.abspath(__file__)); ROOT=os.path.dirname(_HERE)
+sys.path.insert(0,os.path.join(_HERE,"trace")); import twobed_layout as LY
+sys.path.insert(0,_HERE); import furniture_cc0   # CC0 models (lane/furniture); positions from the trace
+TX=os.path.join(_HERE,"tex")+"/"; OUT=os.path.join(_HERE,"live")+"/"
+K=LY.K; CX,CY=LY.CX,LY.CY; CEIL=LY.CEIL; T=LY.T_PART
+P=[tuple(p) for p in LY.TRACE["outline"]]
 def parea(P): return abs(sum(P[i][0]*P[(i+1)%len(P)][1]-P[(i+1)%len(P)][0]*P[i][1] for i in range(len(P))))/2
-K=math.sqrt(63.0/parea(P)); CX,CY=137,190; CEIL=3.0; T=0.12
 def m(x,y): return Vector(((x-CX)*K,-(y-CY)*K,0))
+def V(t): return Vector((t[0],t[1],0))
 bpy.ops.wm.read_factory_settings(use_empty=True); sc=bpy.context.scene
 # ---------- materials (glTF-exportable: Principled + image textures only)
 def mat(n,c,r=0.5,met=0,img=None,emit=None,ew=0,alpha=1,trans=0,nor=None):
@@ -87,78 +91,47 @@ def poly_slab(n,pts,z0,z1,M,uvs=2.0):
     return obj_from(bm,n,M)
 def rect(x0,y0,x1,y1): return [m(x0,y1),m(x1,y1),m(x1,y0),m(x0,y0)]
 OUTL=[m(*p) for p in P]
-# ---------- floor: ONE continuous slab under whole unit, plus finish inlays
+def room_poly(rid): return [m(*q) for q in next(r for r in LY.TRACE["rooms"] if r["id"]==rid)["poly"]]
+# ---------- floor: ONE continuous slab (internal faces = 63 m2), plus finish inlays on the traced rooms
 poly_slab("Floor_continuous_oak",OUTL,-0.05,0.0,OAK,1.2)
-poly_slab("Floor_kitchen_pale_grey",rect(156,242,260,343),0.0,0.003,OAKG,1.2)
-poly_slab("Floor_bathroom_tile",rect(19,271,85,344),0.0,0.004,TILE,1.2)
+poly_slab("Floor_kitchen_pale_grey",room_poly("i_kitchen"),0.0,0.003,OAKG,1.2)
+poly_slab("Floor_bathroom_tile",room_poly("i_bath"),0.0,0.004,TILE,1.2)
 poly_slab("Ceiling",OUTL,CEIL,CEIL+0.05,CEILM,2)
-# ---------- exterior walls (polygon edges), windows on edges flagged (positions UNSOURCED)
-WIN={1:None,3:None,4:None}  # edge index -> window
-def arched_window(n,a,b,frac,w,sill=0.5,head=2.75):
-    d=(b-a);L=d.length;u=d/L;nrm=Vector((-u.y,u.x,0));c=a+u*(L*frac);ang=math.atan2(d.y,d.x)
-    # inward normal: towards polygon centroid
-    cen=sum(OUTL,Vector())/len(OUTL)
-    if (cen-c).dot(nrm)<0: nrm=-nrm
-    RD=0.30; c=c+nrm*(T/2+0.012)-nrm*RD; hr=w/2; hs=head-hr
-    for sd in (-1,1):
-        q=c+u*(sd*(hr+0.015))+nrm*(RD/2); box(n+"_reveal_side",(q.x,q.y,(sill+hs)/2),(0.03,RD+0.02,hs-sill),SKIRT,ang,0)
-    q=c+nrm*(RD/2); box(n+"_reveal_sill",(q.x,q.y,sill-0.015),(w+0.06,RD+0.04,0.03),SKIRT,ang,0)
-    for k in range(16):
-        t0=math.pi*k/16;t1=math.pi*(k+1)/16;p0=Vector((math.cos(t0)*(hr+0.015),math.sin(t0)*(hr+0.015)));p1=Vector((math.cos(t1)*(hr+0.015),math.sin(t1)*(hr+0.015)));pm=(p0+p1)/2
-        q=c+u*pm.x+nrm*(RD/2);box(n+"_reveal_soffit",(q.x,q.y,hs+pm.y),((p1-p0).length+0.02,RD+0.02,0.03),SKIRT,ang,0).rotation_euler=(0,-(t0+t1)/2+math.pi/2,ang)
-    box(n+"_glass_daylight",(c.x,c.y,(sill+hs)/2),(w,0.01,hs-sill),WGLASS,ang,0)
-    bm=bmesh.new();bmesh.ops.create_circle(bm,cap_ends=True,segments=32,radius=hr);o=obj_from(bm,n+"_glass_arch",WGLASS)
-    for v in o.data.vertices:
-        if v.co.y<0: v.co.y=0
-    o.location=(c.x,c.y,hs);o.rotation_euler=(math.pi/2,0,ang)
-    fw=0.05
-    for k in range(5): xo=-hr+k*w/4; p=c+u*xo; box(n+"_mullion",(p.x,p.y,(sill+hs)/2),(fw,0.04,hs-sill),FRAME,ang,0)
-    for z in (sill,sill+(hs-sill)/3,sill+2*(hs-sill)/3,hs): box(n+"_transom",(c.x,c.y,z),(w,0.04,fw),FRAME,ang,0)
-    for sd in (-1,1): q=c+u*(sd*hr); box(n+"_jamb",(q.x,q.y,(sill+hs)/2),(0.07,T+0.02,hs-sill),FRAME,ang,0)
-    for k in range(24):
-        t0=math.pi*k/24;t1=math.pi*(k+1)/24;p0=Vector((math.cos(t0)*hr,math.sin(t0)*hr));p1=Vector((math.cos(t1)*hr,math.sin(t1)*hr));pm=(p0+p1)/2
-        q=c+u*pm.x;box(n+"_arch_frame",(q.x,q.y,hs+pm.y),((p1-p0).length+0.01,0.04,fw),FRAME,ang,0).rotation_euler=(0,-(t0+t1)/2+math.pi/2,ang)
-    box(n+"_sill",(c.x,c.y,sill-0.02),(w+0.1,0.08,0.04),SKIRT,ang,0)
-    bp=c-nrm*(T+0.6); box(n+"_backdrop",(bp.x,bp.y,(sill+head)/2),(w+1.2,0.01,head-sill+1.0),SKY,ang,0)
-    lp=c-nrm*(T+0.45); bpy.ops.object.light_add(type='AREA',location=(lp.x,lp.y,(sill+head)/2)); L_=bpy.context.object; L_.name=n+"_daylight"
-    L_.data.shape='RECTANGLE'; L_.data.size=w; L_.data.size_y=head-sill; L_.data.energy=180; L_.data.color=(0.95,0.97,1)
+# ---------- walls (exterior ink width from plan; partitions 0.10 m STAND-IN); door/opening gaps from plan
+for w in LY.walls_bl():
+    seg(w["name"],V(w["a"]),V(w["b"]),CEIL,WALL,t=w["t"],gaps=tuple(tuple(g) for g in w["gaps"]))
+# ---------- windows: glazed spans exactly as drawn (two glass lines pier to pier); sill/head STAND-IN
+CEN=sum(OUTL,Vector())/len(OUTL)
+def rect_window(n,a,b,depth,sill,head):
+    d=b-a;L=d.length;u=d/L;ang=math.atan2(d.y,d.x);c=(a+b)/2;nrm=Vector((-u.y,u.x,0))
+    if (CEN-c).dot(nrm)<0: nrm=-nrm            # inward
+    box(n+"_wall_below_sill",(c.x,c.y,sill/2),(L,depth,sill),WALL,ang,0)
+    box(n+"_wall_above_head",(c.x,c.y,(head+CEIL)/2),(L,depth,CEIL-head),WALL,ang,0)
+    box(n+"_glass_daylight",(c.x,c.y,(sill+head)/2),(L,0.01,head-sill),WGLASS,ang,0)
+    q=c+nrm*(depth/2+0.01); box(n+"_sill_board",(q.x,q.y,sill-0.015),(L,0.06,0.03),SKIRT,ang,0)
+    nm=max(2,round(L/0.8)); fw=0.05
+    for k in range(nm+1):
+        p=a+u*(L*k/nm); box(n+"_mullion",(p.x,p.y,(sill+head)/2),(fw if 0<k<nm else 0.08,0.05,head-sill),FRAME,ang,0)
+    for z in (sill,sill+(head-sill)*0.62,head): box(n+"_transom",(c.x,c.y,z),(L,0.05,fw),FRAME,ang,0)
+    bp=c-nrm*(depth/2+0.6); box(n+"_backdrop",(bp.x,bp.y,(sill+head)/2),(L+1.2,0.01,head-sill+1.0),SKY,ang,0)
+    lp=c-nrm*(depth/2+0.45); bpy.ops.object.light_add(type='AREA',location=(lp.x,lp.y,(sill+head)/2)); L_=bpy.context.object; L_.name=n+"_daylight"
+    L_.data.shape='RECTANGLE'; L_.data.size=L; L_.data.size_y=head-sill; L_.data.energy=90*L; L_.data.color=(0.95,0.97,1)
     L_.rotation_euler=Vector((0,0,1)).rotation_difference(nrm).to_euler()
-for i in range(len(OUTL)):
-    a,b=OUTL[i],OUTL[(i+1)%len(OUTL)]; L=(b-a).length
-    gaps=()
-    if i==6: gaps=((L-((128-18)*K),L-((100-18)*K)),)  # entrance door on bottom edge (from plan)
-    WS={0:(0.5,1.3),2:(0.5,1.6),3:(0.72,1.6)}
-    if i in WS:
-        fr,w=WS[i]; s0,s1=L*fr-w/2,L*fr+w/2; d=(b-a).normalized(); ang=math.atan2(d.y,d.x)
-        seg(f"Wall_ext_{i}",a,b,CEIL,WALL,gaps=((s0,s1),))
-        # wall below sill and above arch head
-        c=a+d*(L*fr); box(f"Wall_ext_{i}_below_sill",(c.x,c.y,0.25),(w,T,0.5),WALL,ang,0); box(f"Wall_ext_{i}_above_head",(c.x,c.y,(2.75+CEIL)/2),(w,T,CEIL-2.75),WALL,ang,0)
-        # spandrels (square corners above the arch springing, rendered as wall)
-        for sd in (-1,1):
-            q=c+d*(sd*w*0.36); box(f"Wall_ext_{i}_spandrel",(q.x,q.y,2.75-w/4+0.01),(w*0.28,T,w/2*0.5),WALL,ang,0)
-        arched_window(f"Window_{i}_POSITION_UNSOURCED",a,b,fr,w)
-    else: seg(f"Wall_ext_{i}",a,b,CEIL,WALL,gaps=gaps)
-
-
-
-# ---------- partitions (traced from plan image), door gaps 0.85 m
-def part(n,p0,p1,gap_at=None,gw=0.85):
-    a,b=m(*p0),m(*p1);L=(b-a).length;g=()
-    if gap_at is not None: s=L*gap_at;g=((s-gw/2,s+gw/2),)
-    seg(n,a,b,CEIL,WALL,gaps=g);return a,b,g
-B12=part("Wall_bed1_bed2",(105,45),(120,152))
-B1S=part("Wall_bed1_south",(18,185),(120,152),gap_at=0.8)
-B2S=part("Wall_bed2_south",(120,152),(215,140),gap_at=0.2)
-part("Wall_storage_north",(18,200),(90,200)); ST=part("Wall_storage_east",(90,200),(90,270),gap_at=0.5)
-part("Wall_bath_north",(18,270),(90,270)); BA=part("Wall_bath_east",(86,270),(86,345),gap_at=0.6)
-def door(n,hinge,ang_closed,w=0.8,openang=95):
-    o=box(n,(0,0,1.05),(w,0.04,2.08),DOOR,0,0.003);
+for wd in LY.windows_bl(): rect_window(wd["name"],V(wd["a"]),V(wd["b"]),wd["depth"],wd["sill"],wd["head"])
+# ---------- doors (hinge, width, open angle all from the plan symbols; leaf height STAND-IN)
+def door(n,hinge,ang_open,w):
+    o=box(n,(0,0,1.05),(w,0.04,2.08),DOOR,0,0.003)
     e=bpy.data.objects.new(n+"_pivot",None);sc.collection.objects.link(e);e.location=(hinge.x,hinge.y,0);o.parent=e;o.location=(w/2,0,1.05)
-    e.rotation_euler[2]=ang_closed+math.radians(openang)
-def door_in(wall,side=1,openang=-95):
-    a,b,g=wall;u=(b-a).normalized();h=a+u*g[0][0];door(f"Door_{wall[0].x:.1f}",h,math.atan2(u.y,u.x),openang=openang*side)
-door_in(B1S,1);door_in(B2S,1,95);door_in(ST,1,95);door_in(BA,1,95)
-ent=OUTL[6]+(OUTL[5]-OUTL[6]).normalized()*0.0; ea=m(100,345); door("Door_entrance",ea,0,0.9,80)
+    e.rotation_euler[2]=ang_open
+for d in LY.doors_bl(): door(d["name"],V(d["hinge"]),d["open"],d["w"]-0.01)
+# ---------- joinery drawn on the plan (heights STAND-IN)
+JM={"Wardrobe_bed2":OAKF,"Wardrobe_living_W":WUNIT,"Wardrobe_living_C":WUNIT,"TV_unit":OAKF}
+for j in LY.joinery_bl():
+    pts=[V(p) for p in j["poly"]]
+    if j["name"].startswith("Kitchen_run") or j["name"]=="TV_unit": continue   # CC0 units placed on these footprints (furniture_cc0.place_trace)
+    elif j["name"]=="Entrance_steps":
+        for ty in (278,286,295): a,b=m(122,ty),m(161,ty); c=(a+b)/2; box("Step_nosing_line_RISERS_NOT_FOUND",(c.x,c.y,0.004),((b-a).length,0.04,0.008),DARK,0,0)
+    else: poly_slab(j["name"],pts,0.0,j["h"],JM[j["name"]],1.2)
 # ---------- downlights (recessed) + glTF point lights 3000K
 import itertools
 def inside(p,poly):
@@ -177,83 +150,90 @@ while x<max(xs):
             bpy.ops.object.light_add(type='POINT',location=(x,y,CEIL-0.08));l=bpy.context.object;l.name=f"DL_light_{k}";l.data.energy=55;l.data.color=(1,0.78,0.55);l.data.shadow_soft_size=0.05;k+=1
         y+=1.6
     x+=1.6
-# ---------- FURNITURE (CC0 module; existing positions/rotations preserved)
+FUR={f["name"]:f for f in LY.furniture()}
+def FC(n): return V(FUR[n]["c"])
+# ---------- CC0 FURNITURE (models: lane/furniture furniture_cc0.py; positions/footprints: plan trace)
 _furn_mats=dict(WUNIT=WUNIT,DARK=DARK,QUARTZ=QUARTZ,WTOP=WTOP,BLK=BLK,STEEL=STEEL,CHROME=CHROME,
                 LED=LED,NAVY=NAVY,BOUC=BOUC,OAKF=OAKF,LIN=LIN,WHITEP=WHITEP,GREYV=GREYV,GLASS=GLASS,
                 BMET=BMET,LAMPS=LAMPS,TILE=TILE,TVS=TVS,FRAME=FRAME)
-placed=furniture_cc0.place_all(dict(sc=sc,m=m,T=T,CEIL=CEIL,box=box,cyl=cyl,sph=sph,mats=_furn_mats,Vector=Vector,math=math,ROOT=ROOT))
-kx,ky0,ky1,sx,sofa_y,ct,tvx,dc,b1,b2=placed["kx"],placed["ky0"],placed["ky1"],placed["sx"],placed["sofa_y"],placed["ct"],placed["tvx"],placed["dc"],placed["b1"],placed["b2"]
-bx0,by0,bx1,by1,wcy,wx0,vx=placed["bx0"],placed["by0"],placed["bx1"],placed["by1"],placed["wcy"],placed["wx0"],placed["vx"]
-
-# decorations that stay procedural (no suitable standalone CC0 model, or not in the swap list)
-box("Rug_cream",(sx-1.35,sofa_y,0.006),(1.7,2.3,0.012),RUG,0,0.003)
-box("Coffee_book",(ct.x+0.1,ct.y-0.25,0.455),(0.22,0.3,0.03),RUG,0,0.003)
-box("TV_stand_black",(tvx,sofa_y,0.55),(0.18,0.3,0.02),BMET,0,0); box("TV_stand_post",(tvx-0.02,sofa_y,0.62),(0.03,0.06,0.14),BMET,0,0)
-box("TV_bezel_black_facing_sofa",(tvx-0.02,sofa_y,0.98),(0.04,1.12,0.66),BLK,0,0.004); box("TV_screen",(tvx+0.001,sofa_y,0.99),(0.002,1.08,0.61),TVS,0,0)
-box("Art_living_frame",(sx+0.44,sofa_y,1.6),(0.03,0.8,1.05),BMET,0,0); box("Art_living",(sx+0.42,sofa_y,1.6),(0.01,0.72,0.97),ART[1],0,0)
-pp=Vector((sx,sofa_y+1.4,0)); cyl("Plant_pot",(pp.x,pp.y,0.2),0.18,0.4,POT,24,0.14)
-for j in range(9): a=j*0.7; sph("Plant_leaf",(pp.x+0.25*math.cos(a)*(j%3)/2,pp.y+0.25*math.sin(a)*(j%3)/2,0.75+0.12*(j%4)),0.18,LEAF,1.2,0.5,0.25)
-
-# --- geometric chair facing check (print + assert) ---
+JOIN={j["name"]:j for j in LY.joinery_bl()}
+CC0=furniture_cc0.place_trace(dict(sc=sc,m=m,T=T,CEIL=CEIL,box=box,cyl=cyl,sph=sph,mats=_furn_mats,Vector=Vector,math=math,ROOT=ROOT),FUR,JOIN)
+a,b=m(161,343.5),m(253.5,343.5); c=(a+b)/2; L_=(b-a).length
+box("LED_strip_under_wall_units",(c.x,c.y+0.3,1.43),(L_-0.1,0.02,0.01),LED,0,0)
+# ---------- LIVING / DINING
+sf=FUR["Sofa_navy_velvet_3seat"]
+rg=FC("Rug_cream"); box("Rug_cream",(rg.x,rg.y,0.006),(1.5,2.0,0.012),RUG,0,0.003)
+ct=FC("Coffee_table_oak_top"); box("Coffee_book",(ct.x+0.1,ct.y-0.25,0.435),(0.22,0.3,0.03),RUG,0,0.003)
+tv=FC("TV_on_media_unit"); tvx=m(137,0).x-0.12   # screen faces the sofa (+X); media unit = plan box x 122-137
+box("TV_stand_post",(tvx,tv.y,0.52),(0.03,0.06,0.14),BMET,0,0)
+box("TV_bezel_black_facing_sofa",(tvx,tv.y,0.92),(0.04,1.12,0.66),BLK,0,0.004); box("TV_screen",(tvx+0.021,tv.y,0.93),(0.002,1.08,0.61),TVS,0,0)
+ax=m(253.5,0).x-0.02; box("Art_living_frame",(ax,sf["c"][1],1.6),(0.03,0.8,1.05),BMET,0,0); box("Art_living",(ax-0.02,sf["c"][1],1.6),(0.01,0.72,0.97),ART[1],0,0)
+dt=FUR["Dining_table_oak"]; dc=V(dt["c"]); tw,td=dt["s"]
+box("Dining_table_oak_top",(dc.x,dc.y,0.74),(tw,td,0.035),OAKF,0,0.006)
+for sx_ in (-1,1): box("Dining_table_leg_black",(dc.x+sx_*(tw/2-0.08),dc.y,0.36),(0.04,td-0.12,0.72),BMET,0,0)
+# --- geometric chair facing check (print + assert, from lane/furniture): opening faces the table, backrest away
 _chairs=[o for o in sc.objects if o.name.startswith("Tub_chair_cream_boucle") and o.parent is None]
-print("CHAIR_COUNT",len(_chairs))
-assert len(_chairs)==4, f"expected 4 chairs, got {len(_chairs)}"
+print("CHAIR_COUNT",len(_chairs)); assert len(_chairs)==4, f"expected 4 chairs, got {len(_chairs)}"
 for e in _chairs:
     ang=e.rotation_euler[2]; pos=e.location.copy()
-    # opening = local -Y after Z rot; backrest = local +Y
     open_dir=Vector((math.sin(ang),-math.cos(ang),0)).normalized()
-    back_dir=Vector((-math.sin(ang),math.cos(ang),0)).normalized()
-    to_table=(dc-pos); to_table.z=0; to_table.normalize()
-    dot=open_dir.dot(to_table)
-    d_back=(pos+back_dir*0.25-dc).length; d_open=(pos+open_dir*0.25-dc).length
-    ok=dot>0.9 and d_back>d_open
-    print(f"CHAIR_CHECK name={e.name} pos=({pos.x:.3f},{pos.y:.3f},{pos.z:.3f}) rot_z={ang:.4f} open_dir=({open_dir.x:.3f},{open_dir.y:.3f}) to_table=({to_table.x:.3f},{to_table.y:.3f}) dot={dot:.3f} d_back={d_back:.3f} d_open={d_open:.3f} PASS={ok}")
-    assert ok, "chair facing failed geometric check"
+    # lane/furniture criteria unchanged (dot>0.9, backrest farther than opening). Target: their round table used its
+    # centre; the plan's table is a 1.43 x 0.86 m rectangle with two chairs per long side, so the target is the nearest
+    # point on the table's long axis (centre for a single chair, straight across for side-by-side chairs).
+    q=Vector((min(max(pos.x,dc.x-tw/2),dc.x+tw/2),dc.y,0)); to_table=(q-pos); to_table.z=0; to_table.normalize()
+    back_dir=Vector((-math.sin(ang),math.cos(ang),0)).normalized(); d_back=(pos+back_dir*0.25-q).length; d_open=(pos+open_dir*0.25-q).length
+    dot=open_dir.dot(to_table); ok=dot>0.9 and d_back>d_open
+    print(f"CHAIR_CHECK name={e.name} pos=({pos.x:.3f},{pos.y:.3f}) rot_z={ang:.4f} dot={dot:.3f} d_back={d_back:.3f} d_open={d_open:.3f} PASS={ok}"); assert ok, "chair facing failed geometric check"
 print("CHAIR_CHECK_ALL_PASS")
-# dining top-down + 3/4 Blender stills (always, even with --noshots, unless --only names other shots)
-_skip_dining=("--only" in sys.argv and "dining_top" not in sys.argv and "dining_34" not in sys.argv)
-if not _skip_dining:
-    os.makedirs(SHOTS_R9,exist_ok=True)
-    _sc=sc; _sc.render.engine='CYCLES'; _sc.cycles.samples=24; _sc.cycles.use_denoising=True
-    _sc.render.resolution_x=1200; _sc.render.resolution_y=1200
-    bpy.ops.object.camera_add(location=(dc.x,dc.y,5.0)); cam=bpy.context.object
-    from mathutils import Euler
-    cam.rotation_euler=Euler((0,0,0),'XYZ')
-    cam.data.type='ORTHO'; cam.data.ortho_scale=3.2; _sc.camera=cam
-    # hide ceiling so the top-down cam at z=5 is not looking at the slab
-    if "Ceiling" in bpy.data.objects: bpy.data.objects["Ceiling"].hide_render=True
-    _sc.render.filepath=os.path.join(SHOTS_R9,"dining_top.png"); bpy.ops.render.render(write_still=True); print("SHOT dining_top")
-    cam.data.type='PERSP'; cam.data.lens=35
-    cam.location=(dc.x+1.8, dc.y-1.8, 1.6)
-    cam.rotation_euler=(Vector((dc.x,dc.y,0.7))-cam.location).to_track_quat('-Z','Y').to_euler()
-    _sc.render.resolution_x=1400; _sc.render.resolution_y=1000
-    if "Ceiling" in bpy.data.objects: bpy.data.objects["Ceiling"].hide_render=False
-    _sc.render.filepath=os.path.join(SHOTS_R9,"dining_34.png"); bpy.ops.render.render(write_still=True); print("SHOT dining_34")
-    bpy.data.objects.remove(cam, do_unlink=True)
-
 cyl("Pendant_cord",(dc.x,dc.y,(CEIL+1.75)/2),0.004,CEIL-1.75,BMET); sph("Globe_pendant_white",(dc.x,dc.y,1.6),0.2,GLOBE)
 bpy.ops.object.light_add(type='POINT',location=(dc.x,dc.y,1.55));bpy.context.object.name="Pendant_light";bpy.context.object.data.energy=40;bpy.context.object.data.color=(1,0.78,0.55)
-
-# bedside lamps (point lights at the CC0 nightstand positions)
-for (lx,ly) in ((b1.x-1.0,m(0,62).y-0.35),(b1.x+1.0,m(0,62).y-0.35),(b2.x-1.0,m(0,40).y-0.45),(b2.x+1.0,m(0,40).y-0.50)):
-    bpy.ops.object.light_add(type='POINT',location=(lx,ly,0.85));bpy.context.object.data.energy=12;bpy.context.object.data.color=(1,0.75,0.5)
-
-wx=m(15,0).x+T/2+0.02; box("Art_bed1_frame_side_wall",(wx,m(0,120).y,1.6),(0.03,0.6,0.8),BMET,0,0); box("Art_bed1",(wx+0.016,m(0,120).y,1.6),(0.005,0.54,0.74),ART[0],0,0)
-
-# bathroom wall tiles (architecture, not furniture) + towel rail / plant / light
-for nm_,c,s in (("Bath_wall_tile_S",(bx0+(bx1-bx0)/2,by0+0.005+T/2,1.2),(bx1-bx0,0.01,2.4)),("Bath_wall_tile_W",(bx0+0.005+T/2,(by0+by1)/2,1.2),(0.01,by1-by0,2.4))): box(nm_,c,s,TILE,0,0)
-tx=bx1-0.45; ty=by0+T/2+0.05
-for sd in (-0.25,0.25): box("Towel_ladder_vertical_chrome",(tx+sd,ty,1.0),(0.03,0.03,1.2),CHROME,0,0.01)
-for z in (0.5,0.65,0.8,0.95,1.1,1.25,1.4,1.55): box("Towel_ladder_bar_chrome",(tx,ty,z),(0.5,0.02,0.02),CHROME,0,0.006)
-cyl("Bath_plant_pot",(bx0+T/2+0.1,wcy+0.5,1.12),0.06,0.1,WHITEP,16); sph("Bath_plant",(bx0+T/2+0.1,wcy+0.5,1.24),0.1,LEAF,1,1,0.8)
+# ---------- BEDROOMS (bed footprint = drawn foot edge to the drawn head wall)
+for bn in ("Bed1_navy","Bed2_navy"):
+    for k in (0,1):
+        g=FUR[f"{bn[:4]}_bedside_{k}"]; bpy.ops.object.light_add(type='POINT',location=(g["c"][0],g["c"][1],0.85));bpy.context.object.data.energy=12;bpy.context.object.data.color=(1,0.75,0.5)
+b1,b2=FC("Bed1_navy"),FC("Bed2_navy")
+# art on the bedroom 1 west (raked) wall, half way along the inner face (7.5,84)-(25.4,179.6)
+wa,wb=m(7.5,84),m(25.4,179.6); wc=(wa+wb)/2; wu=(wb-wa).normalized(); wn=Vector((wu.y,-wu.x,0))
+if (b1-wc).dot(wn)<0: wn=-wn
+q=wc+wn*0.02; box("Art_bed1_frame_side_wall",(q.x,q.y,1.6),(0.6,0.03,0.8),BMET,math.atan2(wu.y,wu.x),0); q=wc+wn*0.037; box("Art_bed1",(q.x,q.y,1.6),(0.54,0.005,0.74),ART[0],math.atan2(wu.y,wu.x),0)
+# ---------- BATHROOM (plan: WC + basin on the west wall, walk-in shower zone south of the dashed line y=313)
+bx0,by0=m(16.5,343.5).x,m(16.5,343.5).y; bx1,by1=m(84,264).x,m(84,264).y
+sh=FUR["Shower_tray"]; box("Shower_tray",(sh["c"][0],sh["c"][1],0.02),(sh["s"][0],sh["s"][1],0.04),WHITEP,0,0.004)
+cyl("Shower_riser_chrome",(bx0+0.45,by0+0.02,1.45),0.012,1.3,CHROME,12); box("Shower_arm_chrome",(bx0+0.45,by0+0.17,2.12),(0.025,0.32,0.025),CHROME,0,0.005); cyl("Shower_head",(bx0+0.45,by0+0.33,2.09),0.11,0.012,CHROME)
+for nm_,c,s in (("Bath_wall_tile_S",(bx0+(bx1-bx0)/2,by0+0.005,1.2),((bx1-bx0)-T/2,0.01,2.4)),("Bath_wall_tile_W",(bx0+0.005,(by0+by1)/2,1.2),(0.01,by1-by0-T/2,2.4))): box(nm_,c,s,TILE,0,0)
+tx=m(32,0).x; ty=by1-T/2-0.03
+for sd in (-0.2,0.2): box("Towel_ladder_vertical_chrome",(tx+sd,ty,1.0),(0.03,0.03,1.2),CHROME,0,0.01)
+for z in (0.5,0.65,0.8,0.95,1.1,1.25,1.4,1.55): box("Towel_ladder_bar_chrome",(tx,ty,z),(0.4,0.02,0.02),CHROME,0,0.006)
 bpy.ops.object.light_add(type='AREA',location=((bx0+bx1)/2,(by0+by1)/2,CEIL-0.05));l=bpy.context.object;l.name="Bath_ceiling_panel";l.data.size=1.2;l.data.energy=70;l.data.color=(1,0.92,0.82)
-
+# storage shelving (illustrative) in the traced storage room
+# (CC0 shelving placed by furniture_cc0.place_trace)
+# ---------- furniture fit dump (checked by tests/furniture_fit/check_fit.py): world XY hull of every placed piece
+import json as _json
+from mathutils.geometry import convex_hull_2d as _hull
+bpy.context.view_layer.update()
+def _xy(objs):
+    pts=[]
+    for o in objs:
+        if o.type!='MESH': continue
+        mw=o.matrix_world
+        for v in o.data.vertices: w_=mw@v.co; pts.append((w_.x,w_.y,w_.z))
+    return pts
+_fit=[]
+_proc=[("Dining_table_oak_top","i_living"),("Rug_cream","i_living"),("Shower_tray","i_bath"),("TV_bezel_black_facing_sofa","i_living")]
+for e in CC0:
+    pts=_xy([c for c in e.children_recursive]); hi=_hull([p[:2] for p in pts])
+    _fit.append({"name":e.name,"kind":e.get("cc0_key"),"room":e.get("room"),"cc0":True,"z":[min(p[2] for p in pts),max(p[2] for p in pts)],"hull":[[round(pts[i][0],4),round(pts[i][1],4)] for i in hi]})
+for n_,r_ in _proc:
+    o=bpy.data.objects[n_]; pts=_xy([o]); hi=_hull([p[:2] for p in pts])
+    _fit.append({"name":n_,"kind":"procedural","room":r_,"cc0":False,"z":[min(p[2] for p in pts),max(p[2] for p in pts)],"hull":[[round(pts[i][0],4),round(pts[i][1],4)] for i in hi]})
+open(os.path.join(ROOT,"interior","live","furniture_fit.json"),"w").write(_json.dumps({"frame":"blender metres (x,y)","items":_fit},indent=1))
+print("FIT_DUMP",len(_fit))
 # ---------- render setup
 for o in sc.objects:
     if o.type=='MESH':
         for f in o.data.polygons: f.use_smooth=False
 sc.render.engine='CYCLES';sc.cycles.samples=40;sc.cycles.use_denoising=True;sc.view_settings.view_transform='AgX';sc.view_settings.look='AgX - Medium High Contrast' if 'AgX - Medium High Contrast' in [i.identifier for i in sc.view_settings.bl_rna.properties['look'].enum_items] else 'None'
-sc.world=bpy.data.worlds.new("w");sc.world.use_nodes=True;bg=sc.world.node_tree.nodes['Background'];env=sc.world.node_tree.nodes.new("ShaderNodeTexEnvironment");env.image=bpy.data.images.load(HDRI);sc.world.node_tree.links.new(env.outputs[0],bg.inputs[0]);bg.inputs[1].default_value=0.3
+sc.world=bpy.data.worlds.new("w");sc.world.use_nodes=True;bg=sc.world.node_tree.nodes['Background'];env=sc.world.node_tree.nodes.new("ShaderNodeTexEnvironment");env.image=bpy.data.images.load(os.path.join(ROOT,"hdri.exr"));sc.world.node_tree.links.new(env.outputs[0],bg.inputs[0]);bg.inputs[1].default_value=0.3
 sc.render.resolution_x=1600;sc.render.resolution_y=1000
 bpy.context.view_layer.update(); dg=bpy.context.evaluated_depsgraph_get()
 def free(p,r=0.3):
@@ -273,18 +253,14 @@ def shot(name,loc,tgt,lens=20,ceiling=True):
     bpy.ops.object.camera_add(location=p);c=bpy.context.object;c.rotation_euler=(Vector(tgt)-p).to_track_quat('-Z','Y').to_euler();c.data.lens=lens;sc.camera=c
     sc.render.filepath=OUT+name+".png";bpy.ops.render.render(write_still=True);print("SHOT",name,tuple(round(v,2) for v in p))
 def tj(v): return [round(v[0],2),round(v[2],2),round(-v[1],2)]
-_hy=m(0,62).y
-print("PRESET i_bed1",tj((b1.x+0.2,0.85,1.3)),tj((b1.x,_hy-0.6,0.8)))
-_h2=m(0,40).y
-print("PRESET i_bed2",tj((b2.x+0.1,1.6,1.3)),tj((b2.x-0.05,_h2-0.8,0.8)))
-print("PRESET i_bath",tj((bx1-0.25,by0+0.4,1.55)),tj((bx0+0.45,by1-0.5,0.9)))
-print("BATH",bx0,by0,bx1,by1)
-E=1.5
-shot("v3_living",(m(120,255).x,m(120,255).y,E),(sx,sofa_y+0.3,0.9),20)
-shot("v3_kitchen",(m(110,230).x,m(110,230).y,E),(kx,(ky0+ky1)/2,1.1),20)
-shot("v3_bedroom1",(b1.x+0.2,0.85,1.3),(b1.x,_hy-0.6,0.8),24)
-shot("v3_bedroom2",(b2.x+0.1,1.6,1.3),(b2.x-0.05,_h2-0.8,0.8),24)
-shot("v3_bathroom",(bx1-0.25,by0+0.4,1.55),(bx0+0.45,by1-0.5,0.9),14)
+def cam_bl(rid):
+    p,t,hp,ht,f=LY.CAMS[rid]; return (m(*p).x,m(*p).y,hp),(m(*t).x,m(*t).y,ht)
+for rid in LY.CAMS: print("PRESET",rid,*[tj(v) for v in cam_bl(rid)])
+shot("v5_living",*cam_bl("i_living"),20)
+shot("v5_kitchen",*cam_bl("i_kitchen"),20)
+shot("v5_bedroom1",*cam_bl("i_bed1"),20)
+shot("v5_bedroom2",*cam_bl("i_bed2"),20)
+shot("v5_bathroom",*cam_bl("i_bath"),14)
 shot("latest",(0.6,-11,12),(0.2,0.3,0),26,ceiling=False)
 bpy.data.objects["Ceiling"].hide_render=False
 if "--nobake" in sys.argv: sys.exit(0)

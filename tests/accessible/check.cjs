@@ -1,9 +1,10 @@
 // Headless check for tests/accessible/2bed_overlay.html (trick #21).
-const {chromium,devices}=require('/workspace/barclay/.gltf/node_modules/playwright');
 const fs=require('fs');
 const path=require('path');
-const URL='http://127.0.0.1:18491/tests/accessible/2bed_overlay.html';
-const OUT='/workspace/barclay/tests/accessible/';
+const REPO=path.resolve(__dirname,'../..');
+const {chromium,devices}=require(path.join(REPO,'.gltf/node_modules/playwright'));
+const URL=`http://127.0.0.1:${process.env.PORT||18491}/tests/accessible/2bed_overlay.html`;
+const OUT=path.join(REPO,'tests/accessible')+'/';
 const py=JSON.parse(fs.readFileSync(path.join(OUT,'python_result.json'),'utf8'));
 const pct=(a,b)=>b===0&&a===0?0:Math.abs(a-b)/Math.max(Math.abs(b),1e-9)*100;
 (async()=>{

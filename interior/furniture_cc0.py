@@ -522,6 +522,127 @@ def place_all(ctx):
     }
 
 
+def proto_dims(key):
+    """Normalized prototype size (w along local X, d along local Y, h) in metres."""
+    return Vector(_PROTO[key]["cc0_final_dims"])
+
+
+def _fit(e, key, w=None, d=None, h=None):
+    """Non-uniform scale on the instance root so the CC0 model fills a footprint taken from the plan trace."""
+    s = proto_dims(key)
+    e.scale = ((w / s.x) if w else 1.0, (d / s.y) if d else 1.0, (h / s.z) if h else 1.0)
+    e["fit_target"] = [float(v or 0.0) for v in (w, d, h)]
+    return e
+
+
+def place_trace(ctx, FUR, JOIN):
+    """lane/walls (2026-11-20): place the same CC0 models at the positions/footprints traced from the
+    Rightmove plan (interior/trace/twobed_layout.py) instead of the pre-retrace stand-in coordinates.
+
+    FUR  = {name: item} from twobed_layout.furniture() (Blender metres; c, s, rot, W/Lb for beds)
+    JOIN = {name: item} from twobed_layout.joinery_bl() (Blender metres; poly)
+    Plan wins: no kitchen peninsula (the plan does not draw one); the plan's dining table is rectangular,
+    so the round CC0 table is not used (rectangular table stays procedural in build_twobed_v4.py);
+    built-in wardrobes stay traced joinery. Returns a list of placed root empties tagged with "room".
+    """
+    m = ctx["m"]
+    box = ctx["box"]
+    mats = ctx["mats"]
+    T = ctx["T"]
+    _prepare_prototypes(mats)
+    out = []
+
+    def put(key, name, loc, rot, room, **fit):
+        e = instance(key, name, loc, rot)
+        if fit:
+            _fit(e, key, **fit)
+        e["room"] = room
+        e["cc0_key"] = key
+        out.append(e)
+        return e
+
+    def V2(p):
+        return Vector((p[0], p[1], 0.0))
+
+    # ---------- LIVING
+    sf = FUR["Sofa_navy_velvet_3seat"]   # plan box 29 x 53 px, back on the east side, faces -X
+    put("sofa", "Sofa_navy_velvet_3seat", V2(sf["c"]), -math.pi / 2, "i_living", w=sf["s"][1], d=sf["s"][0])
+    ct = FUR["Coffee_table_oak_top"]
+    put("coffee", "Coffee_table_oak_top", V2(ct["c"]), 0.0, "i_living", w=ct["s"][0], d=ct["s"][1])
+    tvp = JOIN["TV_unit"]["poly"]       # plan box x 122-137, y 158-198: bench front faces +X (sofa)
+    xs = [p[0] for p in tvp]; ys = [p[1] for p in tvp]
+    put("tv_bench", "TV_bench_oak", Vector(((min(xs) + max(xs)) / 2, (min(ys) + max(ys)) / 2, 0)), math.pi / 2,
+        "i_living", w=max(ys) - min(ys) - 0.02, d=max(xs) - min(xs) - 0.02, h=0.45)   # 1 cm inside the drawn box
+    for k in range(4):   # chair opening = local -Y, rotations from the trace (north chairs 0, south chairs pi)
+        f = FUR[f"Tub_chair_{k}"]
+        put("chair", "Tub_chair_cream_boucle", V2(f["c"]), f["rot"], "i_living")
+
+    # ---------- BEDROOMS (bed footprint = drawn foot edge to the drawn head wall; headboard inside it)
+    for bn, room in (("Bed1_navy", "i_bed1"), ("Bed2_navy", "i_bed2")):
+        f = FUR[bn]
+        hd = Vector((-math.sin(f["rot"]), math.cos(f["rot"]), 0))
+        L = f["Lb"] + 0.12
+        put("bed", bn, V2(f["c"]) + hd * 0.06, f["rot"], room, w=f["W"], d=L)
+        for k in (0, 1):
+            g = FUR[f"{bn[:4]}_bedside_{k}"]
+            put("bedside", "Bedside_table_oak", V2(g["c"]), g["rot"], room)
+            hb = proto_dims("bedside").z
+            put("lamp", "Lamp_mushroom_opal", Vector((g["c"][0], g["c"][1], hb)), g["rot"], room)
+
+    # ---------- KITCHEN: L-run drawn on the plan (south run x 161-253.5 / front y=321, east leg y 277-321)
+    yb = m(0, 343.5).y; yf = m(0, 321).y; xw = m(161, 0).x + T / 2 + 0.005; xe = m(253.5, 0).x   # x=161 is the stair partition centreline
+    BD = 0.58
+    cy = yf - 0.02 - BD / 2
+    box("Kitchen_plinth_S", ((xw + xe) / 2, cy, 0.04), (xe - xw, BD - 0.04, 0.08), mats["DARK"], 0, 0)
+    wm = FUR["Washing_machine"]["c"][0]; hob = FUR["Hob"]["c"][0]; sk = FUR["Sink"]["c"]
+    put("washer", "Washing_machine_black", Vector((wm, cy, 0)), math.pi, "i_kitchen", w=0.597)
+    put("stove", "Induction_hob_black", Vector((hob, cy, 0)), math.pi, "i_kitchen", w=0.597, h=0.90)
+    put("kcabd", "Base_unit_0", Vector(((xw + wm - 0.30) / 2, cy, 0.08)), math.pi, "i_kitchen",
+        w=max(0.05, wm - 0.30 - xw - 0.003), h=0.78) if wm - 0.30 - xw > 0.08 else None
+    x0 = hob + 0.30; run = xe - x0; n = max(1, round(run / 0.6)); uw = run / n
+    for i in range(n):
+        put("kcabd" if i == 0 else "kcab", f"Base_unit_{i + 1}", Vector((x0 + uw * (i + 0.5), cy, 0.08)), math.pi,
+            "i_kitchen", w=uw - 0.003, h=0.78)
+    # worktop over the south run, cut at the stove (it carries its own hob top)
+    for a, b in ((xw, hob - 0.30), (hob + 0.30, xe)):
+        if b - a > 0.02:
+            box("Worktop", ((a + b) / 2, (yb + yf) / 2, 0.88), (b - a, yf - yb, 0.04), mats["WTOP"], 0, 0.002)
+    # east leg: units face -X, sink unit at the drawn sink
+    xe0 = m(233, 0).x; cx = xe - 0.01 - BD / 2; ytop = m(0, 277).y
+    put("ksink", "Sink_steel", Vector((cx, sk[1], 0)), -math.pi / 2, "i_kitchen", w=0.597, h=0.90)
+    top_len = ytop - (sk[1] + 0.30)
+    if top_len > 0.1:
+        put("kcab", "Base_unit_E", Vector((cx, sk[1] + 0.30 + top_len / 2, 0.08)), -math.pi / 2, "i_kitchen",
+            w=top_len - 0.003, h=0.78)
+        box("Worktop", ((xe0 + xe) / 2, sk[1] + 0.30 + top_len / 2, 0.88), (xe - xe0, top_len, 0.04), mats["WTOP"], 0, 0.002)
+    gap = (sk[1] - 0.30) - yf
+    if gap > 0.01:
+        box("Kitchen_filler_E", (cx, yf + gap / 2, 0.45), (BD, gap, 0.82), mats["WUNIT"], 0, 0)
+        box("Worktop", ((xe0 + xe) / 2, yf + gap / 2, 0.88), (xe - xe0, gap, 0.04), mats["WTOP"], 0, 0.002)
+    box("Kitchen_plinth_E", (cx, (ytop + sk[1] + 0.30) / 2, 0.04), (BD - 0.04, max(0.05, ytop - sk[1] - 0.30), 0.08), mats["DARK"], 0, 0)
+    # wall units along the south wall only (plan shows no east wall units; heights STAND-IN)
+    nw = max(1, round((xe - xw) / 0.6)); ww = (xe - xw) / nw; wd = proto_dims("kwall").y
+    for i in range(nw):
+        put("kwalld" if i == 1 else "kwall", f"Wall_unit_{i}", Vector((xw + ww * (i + 0.5), yb + 0.025 + wd / 2, 1.45)),
+            math.pi, "i_kitchen", w=ww - 0.003)
+
+    # ---------- BATHROOM (plan: WC + basin on the west wall, face +X)
+    xwb = m(16.5, 0).x
+    wc = FUR["WC_pan"]["c"]
+    put("wc", "WC_pan_back", Vector((wc[0], wc[1], 0)), math.pi / 2, "i_bath")
+    vbf = FUR["Vanity_basin"]; vb = vbf["c"]
+    put("basin", "Vanity_grey_stone_look", Vector((vb[0], vb[1], 0)), math.pi / 2, "i_bath", w=vbf["s"][1], d=vbf["s"][0])
+    d_m = proto_dims("mirror").y
+    put("mirror", "Mirror_black_frame", Vector((xwb + 0.012 + d_m / 2, vb[1], 1.18)), math.pi / 2, "i_bath")
+
+    # ---------- STORAGE shelving along the west wall of the traced store, faces +X
+    st = FUR["Storage_shelving_white"]
+    put("shelves", "Storage_shelving_white", V2(st["c"]), math.pi / 2, "i_store", w=st["s"][1], d=st["s"][0], h=2.2)
+
+    discard_prototypes()
+    return [e for e in out if e is not None]
+
+
 def iter_kit_items():
     """Lineup order: (key, label, path). Prototypes must already be loaded."""
     return [
