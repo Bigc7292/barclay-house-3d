@@ -7,9 +7,16 @@
 - Wall-mask IoU buffered ±4 px (primary gate, absorbs stroke-width / inner-face vs centreline): **0.6562**.
 - Layout-on-ink precision (layout px within 2 px of plan ink): **0.9977**.
 - Wall-mask IoU after translation-only search ±8 px: **0.7783** at dx=0, dy=0 (sensitivity only; no labelled corners on the plan).
+
+| IoU | identity | buffered ±4 px |
+|---|---|---|
+| **Raw (headline, gate)** | **0.7783** | **0.6562** |
+| Furniture-masked (secondary) | 0.8416 | 0.8332 |
+
+- Furniture mask: symbol polygons ['Bed1_bedsides', 'Bed2_bedsides', 'Sofa', 'Rug_ellipse', 'Dining_table_chairs', 'Basin', 'WC'] (plan_furniture_px, measured on the PNG) AND traced room interiors eroded 3 px, so wall/partition ink is never masked. Masked plan ink 702 px; layout px masked 0. Mask image: `plan_overlay_furniture_mask.png`.
 - Diagnostic `walls_windows_only` (not the gate): `{"iou_identity": 0.7239, "iou_buffered_4px": 0.5202}`
 - Diagnostic `kinds_px` (not the gate): `{"door_leaf": 52, "joinery": 1163, "wall": 6914, "window": 417}`
-- Diagnostic `excl_plan_furniture` (not the gate): `{"furniture_ink_px": 1102, "iou_identity": 0.832, "iou_buffered_4px": 0.8561, "note": "plan ink with loose furniture / sanitaryware / symbol boxes blanked (boxes listed in the layout); diagnostic only, NOT the gate"}`
+- Diagnostic `furniture_masked` (not the gate): `{"symbols": ["Bed1_bedsides", "Bed2_bedsides", "Sofa", "Rug_ellipse", "Dining_table_chairs", "Basin", "WC"], "room_erode_px": 3, "mask_px": 13201, "plan_ink_px_masked": 702, "layout_px_masked": 0, "iou_identity": 0.8416, "iou_buffered_4px": 0.8332, "note": "secondary score: plan furniture symbols masked (see FURNITURE_SYMBOLS / ROOM_ERODE_PX in plan_overlay.py). NOT the gate; raw iou_buffered_4px is the headline."}`
 - Area: Area uses layout['metres_per_px'] (sqrt(63 m2 sourced total / internal-face floor polygon px2): 63 m2 BY CONSTRUCTION, not an independent measurement). Outline 71278.9 px² × (0.029730 m/px)² = 63.000 m².
 - Area residual vs 63.0 m²: **+0.00%** (measured area 63.000 m²).
 - Gate (IoU ≥ 0.85 and area ±3%): **FAIL** (IoU False, area True).

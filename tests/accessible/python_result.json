@@ -6,20 +6,20 @@
   "erode_radius_m": 0.375,
   "turning_circle_diameter_m": 1.5,
   "hidden": [],
-  "clear_floor_m2": 44.52,
-  "navigable_m2": 16.6325,
-  "reachable_m2": 16.6275,
+  "clear_floor_m2": 45.4825,
+  "navigable_m2": 16.8675,
+  "reachable_m2": 16.865,
   "sourced_floor_m2": 63.0,
   "reachable_le_sourced": true,
   "rooms": {
     "i_bed1": {
-      "reachable_m2": 2.0,
-      "clear_m2": 6.4925,
+      "reachable_m2": 1.985,
+      "clear_m2": 6.51,
       "turning_circle": false
     },
     "i_bed2": {
-      "reachable_m2": 3.47,
-      "clear_m2": 8.5975,
+      "reachable_m2": 3.455,
+      "clear_m2": 8.6425,
       "turning_circle": true
     },
     "i_store": {
@@ -28,9 +28,9 @@
       "turning_circle": false
     },
     "i_bath": {
-      "reachable_m2": 1.475,
-      "clear_m2": 4.03,
-      "turning_circle": true
+      "reachable_m2": 1.385,
+      "clear_m2": 4.1725,
+      "turning_circle": false
     },
     "i_hall": {
       "reachable_m2": 1.265,
@@ -38,13 +38,13 @@
       "turning_circle": false
     },
     "i_kitchen": {
-      "reachable_m2": 1.2575,
-      "clear_m2": 3.19,
+      "reachable_m2": 1.51,
+      "clear_m2": 3.405,
       "turning_circle": true
     },
     "i_living": {
-      "reachable_m2": 6.7775,
-      "clear_m2": 16.78,
+      "reachable_m2": 6.8825,
+      "clear_m2": 17.3225,
       "turning_circle": true
     }
   },
@@ -94,20 +94,20 @@
     },
     "label": "indicative"
   },
-  "python_recompute_ms": 1332.673,
+  "python_recompute_ms": 1251.048,
   "hide_Bed1_navy": {
-    "reachable_m2": 19.8325,
-    "room_i_bed1_m2": 5.205,
-    "base_room_i_bed1_m2": 2.0,
+    "reachable_m2": 20.035,
+    "room_i_bed1_m2": 5.155,
+    "base_room_i_bed1_m2": 1.985,
     "room_area_rose": true,
-    "ms": 166.81
+    "ms": 128.64
   },
   "hide_Bed2_navy": {
-    "reachable_m2": 19.8325,
-    "room_i_bed2_m2": 6.675,
-    "base_room_i_bed2_m2": 3.47,
+    "reachable_m2": 20.0525,
+    "room_i_bed2_m2": 6.6425,
+    "base_room_i_bed2_m2": 3.455,
     "room_area_rose": true,
-    "ms": 166.794
+    "ms": 131.838
   },
   "floor_polygon_m2": 63.0,
   "floor_raster_m2": 62.8925,

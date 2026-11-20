@@ -144,7 +144,7 @@ def _bed_from_plan(foot_a, foot_b, head_a, head_b):
     hm = ((head_a[0] + head_b[0]) / 2, (head_a[1] + head_b[1]) / 2)
     if (hm[0] - fm[0]) * u[0] + (hm[1] - fm[1]) * u[1] < 0:
         u = (-u[0], -u[1])
-    L = _line_hit(fm, u, head_a, head_b) - 1.0     # stop 1 px (3 cm) off the partition face
+    L = _line_hit(fm, u, head_a, head_b) - (T_PART / 2 + 0.01) / K   # stop 1 cm off the partition face (line = centreline, T_PART/2 each side)
     return fm, u, W * K, L * K
 
 
@@ -180,20 +180,27 @@ def furniture():
     add("Coffee_table_oak_top", "table", "i_living", (194, 177.5), 0.55, 1.05, 0.0)
     add("Rug_cream", "rug", "i_living", (192, 177.5), 1.5, 2.0, 0.0, walkable=True)
     add("TV_on_media_unit", "tv", "i_living", (130, 178), 0.12, 1.12, 0.0)
-    add("Dining_table_oak", "table", "i_living", (226.5, 244), 49 * K, 30 * K, 0.0)
-    for k, (x, side) in enumerate(((214.5, -1), (239, -1), (214.5, 1), (239, 1))):
-        y = 229 - 0.27 / K if side < 0 else 259 + 0.27 / K
-        # chair opening faces the table: north chairs face +y px (blender -Y), south chairs face -y px
-        add(f"Tub_chair_{k}", "chair", "i_living", (x, y), 0.56, 0.56, 0.0 if side < 0 else math.pi, r=0.28)
-    add("Plant_pot", "plant", "i_living", (24, 196), 0.36, 0.36, 0.0, r=0.18)
+    # dining table: ink lines x 203/251, y 228/257 (apt02_fp.png rows 228 and 257)
+    add("Dining_table_oak", "table", "i_living", (227, 242.5), 48 * K, 29 * K, 0.0)
+    # chairs: drawn chair boxes x 207-221 / 232-246; outer edges y 221.5 (north) and 265 (south). CC0 chair
+    # (dining_chair_02, 0.43 x 0.58 m) placed with its back on the drawn outer edge, seat tucked under the table.
+    CH_W, CH_D = 0.43, 0.58
+    for k, (x, side) in enumerate(((214, -1), (239, -1), (214, 1), (239, 1))):
+        y = 221.5 + CH_D / 2 / K if side < 0 else 265 - CH_D / 2 / K
+        # chair opening (local -Y) faces the table: north chairs rot 0 (blender -Y), south chairs rot pi
+        add(f"Tub_chair_{k}", "chair", "i_living", (x, y), CH_W, CH_D, 0.0 if side < 0 else math.pi)
+    # (no plant: the plan draws none)
     # kitchen (plan: L-shaped worktop; hob rings at x 189-200 on the south run; sink box 237-250 x 301-315)
     add("Hob", "kitchen_fixture", "i_kitchen", (194.5, 334), 0.52, 0.56, 0.0)
     add("Sink", "kitchen_fixture", "i_kitchen", (243.5, 308), 0.5, 0.42, 0.0)
-    add("Washing_machine", "kitchen_fixture", "i_kitchen", (172, 333), 0.6, 0.6, 0.0)
-    # bathroom (plan: WC x 17-28 y 270-288, basin x 17-43 y 289-306, shower zone south of dashed y=313)
-    add("WC_pan", "sanitary", "i_bath", (16.5 + 0.33 / K, 279), 0.62, 0.40, 0.0)
-    add("Vanity_basin", "sanitary", "i_bath", (16.5 + 0.23 / K, 297.5), 0.46, 0.55, 0.0)
-    add("Shower_tray", "sanitary", "i_bath", ((16.5 + 84) / 2, (313 + 343.5) / 2), (84 - 16.5) * K - T_PART / 2, (343.5 - 313) * K, 0.0, walkable=True)
+    add("Washing_machine", "kitchen_fixture", "i_kitchen", (max(172, 161 + (T_PART / 2 + 0.005 + 0.30) / K), 333), 0.6, 0.6, 0.0)  # clear of the stair wall at x=161
+    # bathroom (plan, re-read 2026-11-20): basin = rounded box x 17-26 y 271-286 (0.27 x 0.45 m);
+    # WC = box x 17-41 y 291-305 with cistern strip (0.71 x 0.42 m); shower zone south of dashed y=313.
+    # CC0 Kenney toilet native 0.40 x 0.65 m; CC0 basin fitted to the drawn 0.28 x 0.45 m. Backs 15 mm off the wall.
+    add("WC_pan", "sanitary", "i_bath", (16.5 + (0.015 + 0.65 / 2) / K, 298), 0.65, 0.40, 0.0)
+    add("Vanity_basin", "sanitary", "i_bath", (16.5 + (0.015 + 0.28 / 2) / K, 278.5), 0.28, 15 * K, 0.0)
+    _tx1 = 84 - (T_PART / 2 + 0.01) / K; _ty1 = 343.5 - 0.01 / K   # tray stops 1 cm off the partition face / south wall
+    add("Shower_tray", "sanitary", "i_bath", ((16.5 + 0.01 / K + _tx1) / 2, (313 + _ty1) / 2), (_tx1 - 16.5) * K - 0.01, (_ty1 - 313) * K, 0.0, walkable=True)
     # storage room shelving along its west wall (illustrative)
     add("Storage_shelving_white", "storage", "i_store", (16.5 + 0.2 / K, 245), 0.40, (264 - 226) * K - 0.25, 0.0)
     return F

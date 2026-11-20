@@ -10,6 +10,7 @@ import bpy, bmesh, math, mathutils, sys, os
 from mathutils import Vector
 _HERE=os.path.dirname(os.path.abspath(__file__)); ROOT=os.path.dirname(_HERE)
 sys.path.insert(0,os.path.join(_HERE,"trace")); import twobed_layout as LY
+sys.path.insert(0,_HERE); import furniture_cc0   # CC0 models (lane/furniture); positions from the trace
 TX=os.path.join(_HERE,"tex")+"/"; OUT=os.path.join(_HERE,"live")+"/"
 K=LY.K; CX,CY=LY.CX,LY.CY; CEIL=LY.CEIL; T=LY.T_PART
 P=[tuple(p) for p in LY.TRACE["outline"]]
@@ -127,8 +128,7 @@ for d in LY.doors_bl(): door(d["name"],V(d["hinge"]),d["open"],d["w"]-0.01)
 JM={"Wardrobe_bed2":OAKF,"Wardrobe_living_W":WUNIT,"Wardrobe_living_C":WUNIT,"TV_unit":OAKF}
 for j in LY.joinery_bl():
     pts=[V(p) for p in j["poly"]]
-    if j["name"].startswith("Kitchen_run"):
-        poly_slab(j["name"]+"_plinth",pts,0.0,0.08,DARK,1.2); poly_slab(j["name"]+"_base_units",pts,0.08,0.86,WUNIT,1.2); poly_slab(j["name"]+"_worktop",pts,0.86,0.9,WTOP,1.2)
+    if j["name"].startswith("Kitchen_run") or j["name"]=="TV_unit": continue   # CC0 units placed on these footprints (furniture_cc0.place_trace)
     elif j["name"]=="Entrance_steps":
         for ty in (278,286,295): a,b=m(122,ty),m(161,ty); c=(a+b)/2; box("Step_nosing_line_RISERS_NOT_FOUND",(c.x,c.y,0.004),((b-a).length,0.04,0.008),DARK,0,0)
     else: poly_slab(j["name"],pts,0.0,j["h"],JM[j["name"]],1.2)
@@ -152,91 +152,45 @@ while x<max(xs):
     x+=1.6
 FUR={f["name"]:f for f in LY.furniture()}
 def FC(n): return V(FUR[n]["c"])
-# ---------- KITCHEN (L-shaped run as drawn: south wall x 161-253, east leg y 277-321)
+# ---------- CC0 FURNITURE (models: lane/furniture furniture_cc0.py; positions/footprints: plan trace)
+_furn_mats=dict(WUNIT=WUNIT,DARK=DARK,QUARTZ=QUARTZ,WTOP=WTOP,BLK=BLK,STEEL=STEEL,CHROME=CHROME,
+                LED=LED,NAVY=NAVY,BOUC=BOUC,OAKF=OAKF,LIN=LIN,WHITEP=WHITEP,GREYV=GREYV,GLASS=GLASS,
+                BMET=BMET,LAMPS=LAMPS,TILE=TILE,TVS=TVS,FRAME=FRAME)
+JOIN={j["name"]:j for j in LY.joinery_bl()}
+CC0=furniture_cc0.place_trace(dict(sc=sc,m=m,T=T,CEIL=CEIL,box=box,cyl=cyl,sph=sph,mats=_furn_mats,Vector=Vector,math=math,ROOT=ROOT),FUR,JOIN)
 a,b=m(161,343.5),m(253.5,343.5); c=(a+b)/2; L_=(b-a).length
-box("Wall_units_south",(c.x,c.y+0.18,1.81),(L_-0.02,0.35,0.72),WUNIT,0,0.002)
-box("LED_strip_under_wall_units",(c.x,c.y+0.3,1.445),(L_-0.1,0.02,0.01),LED,0,0)
-h=FC("Hob"); box("Induction_hob_black",(h.x,h.y,0.903),(0.52,0.5,0.006),BLK,0,0.002)
-s=FC("Sink"); box("Sink_steel",(s.x,s.y,0.905),(0.42,0.36,0.012),STEEL,0,0.002); cyl("Tap_body",(s.x+0.2,s.y,1.08),0.018,0.36,CHROME,20); cyl("Tap_outlet",(s.x+0.05,s.y,1.24),0.016,0.06,CHROME,16)
-for k in range(10):
-    a_=math.pi*k/9; q=Vector((s.x+0.2-0.15*(1-math.cos(a_)),s.y,1.26+0.1*math.sin(a_))); sph("Tap_gooseneck_arc",q,0.016,CHROME)
-wm=FC("Washing_machine"); fy=m(0,321).y+0.006   # front of the south run (plan line y=321)
-box("Washing_machine_front_black",(wm.x,fy,0.47),(0.597,0.012,0.78),BLK,0,0)
-r_=cyl("WM_door_chrome_ring",(wm.x,fy+0.02,0.45),0.19,0.03,CHROME,40);r_.rotation_euler=(math.pi/2,0,0)
-g_=cyl("WM_door_glass_dark",(wm.x,fy+0.03,0.45),0.155,0.03,TVS,40);g_.rotation_euler=(math.pi/2,0,0)
+box("LED_strip_under_wall_units",(c.x,c.y+0.3,1.43),(L_-0.1,0.02,0.01),LED,0,0)
 # ---------- LIVING / DINING
-def sofa(c,ang,sy=1.0,sx=1.0):
-    g=[box("Sofa_base",(0.02,0,0.25),(0.92,2.0,0.2),NAVY,0,0.04),box("Sofa_back",(0.38,0,0.58),(0.18,2.0,0.5),NAVY,0,0.07)]
-    for sd in (-1,1):
-        a=cyl("Sofa_bolster_arm",(0.0,sd*1.06,0.42),0.13,0.92,NAVY,32);a.rotation_euler=(0,math.pi/2,0);g.append(a)
-        g.append(box("Sofa_arm_panel",(0.0,sd*1.06,0.27),(0.92,0.24,0.3),NAVY,0,0.05))
-    for j in (-0.62,0,0.62):
-        g.append(box("Sofa_seat_cushion_deep",(-0.06,j,0.44),(0.72,0.61,0.18),NAVY,0,0.07))
-        g.append(box("Sofa_back_cushion",(0.24,j,0.72),(0.2,0.6,0.46),NAVY,0,0.09))
-    for j in (-0.75,0.75): g.append(box("Sofa_scatter_cushion_cream",(0.15,j,0.7),(0.12,0.42,0.42),BOUC,0,0.06))
-    for a,b in ((-0.38,-0.95),(0.38,-0.95),(-0.38,0.95),(0.38,0.95)): g.append(cyl("Sofa_leg_tapered_black",(a,b,0.075),0.018,0.15,BMET,16,0.012))
-    e=bpy.data.objects.new("Sofa_navy_velvet_3seat",None);sc.collection.objects.link(e)
-    for o in g: o.parent=e
-    e.location=c;e.rotation_euler[2]=ang;e.scale=(sx,sy,1)
-sf=FUR["Sofa_navy_velvet_3seat"]; sofa((sf["c"][0],sf["c"][1],0),0,sy=sf["s"][1]/2.36,sx=sf["s"][0]/0.94)   # plan footprint 53 x 29 px
+sf=FUR["Sofa_navy_velvet_3seat"]
 rg=FC("Rug_cream"); box("Rug_cream",(rg.x,rg.y,0.006),(1.5,2.0,0.012),RUG,0,0.003)
-ct=FC("Coffee_table_oak_top"); box("Coffee_table_oak_top",(ct.x,ct.y,0.42),(0.55,1.05,0.035),OAKF,0,0.006)
-for a,b in ((-0.27,-0.5),(0.27,-0.5),(-0.27,0.5),(0.27,0.5)): box("Coffee_table_black_metal_leg",(ct.x+a*0.95,ct.y+b*0.97,0.2),(0.02,0.02,0.4),BMET,0,0)
-box("Coffee_table_shelf_oak",(ct.x,ct.y,0.13),(0.5,1.0,0.02),OAKF,0,0.004); box("Coffee_book",(ct.x+0.1,ct.y-0.25,0.455),(0.22,0.3,0.03),RUG,0,0.003)
+ct=FC("Coffee_table_oak_top"); box("Coffee_book",(ct.x+0.1,ct.y-0.25,0.435),(0.22,0.3,0.03),RUG,0,0.003)
 tv=FC("TV_on_media_unit"); tvx=m(137,0).x-0.12   # screen faces the sofa (+X); media unit = plan box x 122-137
 box("TV_stand_post",(tvx,tv.y,0.52),(0.03,0.06,0.14),BMET,0,0)
 box("TV_bezel_black_facing_sofa",(tvx,tv.y,0.92),(0.04,1.12,0.66),BLK,0,0.004); box("TV_screen",(tvx+0.021,tv.y,0.93),(0.002,1.08,0.61),TVS,0,0)
 ax=m(253.5,0).x-0.02; box("Art_living_frame",(ax,sf["c"][1],1.6),(0.03,0.8,1.05),BMET,0,0); box("Art_living",(ax-0.02,sf["c"][1],1.6),(0.01,0.72,0.97),ART[1],0,0)
-pp=FC("Plant_pot"); cyl("Plant_pot",(pp.x,pp.y,0.2),0.18,0.4,POT,24,0.14)
-for j in range(9): a=j*0.7; sph("Plant_leaf",(pp.x+0.25*math.cos(a)*(j%3)/2,pp.y+0.25*math.sin(a)*(j%3)/2,0.75+0.12*(j%4)),0.18,LEAF,1.2,0.5,0.25)
 dt=FUR["Dining_table_oak"]; dc=V(dt["c"]); tw,td=dt["s"]
 box("Dining_table_oak_top",(dc.x,dc.y,0.74),(tw,td,0.035),OAKF,0,0.006)
 for sx_ in (-1,1): box("Dining_table_leg_black",(dc.x+sx_*(tw/2-0.08),dc.y,0.36),(0.04,td-0.12,0.72),BMET,0,0)
-def tub(c,ang):
-    e=bpy.data.objects.new("Tub_chair_cream_boucle",None);sc.collection.objects.link(e)
-    s=cyl("Tub_seat",(0,0,0.45),0.26,0.1,BOUC,32);s.parent=e
-    bm=bmesh.new();bmesh.ops.create_cone(bm,cap_ends=False,segments=32,radius1=0.27,radius2=0.29,depth=0.35)
-    for v in list(bm.verts):
-        if math.atan2(v.co.y,v.co.x)<-0.2*math.pi and math.atan2(v.co.y,v.co.x)>-0.8*math.pi: bm.verts.remove(v)
-    bk=obj_from(bm,"Tub_back",BOUC);bk.location=(0,0,0.67);bk.parent=e;md=bk.modifiers.new("s","SOLIDIFY");md.thickness=0.06
-    for a in range(4): q=a*math.pi/2+math.pi/4; cyl("Tub_leg_black",(0.2*math.cos(q),0.2*math.sin(q),0.2),0.012,0.4,BMET).parent=e
-    e.location=c;e.rotation_euler[2]=ang
-for k in range(4): f=FUR[f"Tub_chair_{k}"]; tub((f["c"][0],f["c"][1],0),f["rot"])
-# --- geometric chair facing check (print + assert): opening must face the nearest table edge
+# --- geometric chair facing check (print + assert, from lane/furniture): opening faces the table, backrest away
 _chairs=[o for o in sc.objects if o.name.startswith("Tub_chair_cream_boucle") and o.parent is None]
 print("CHAIR_COUNT",len(_chairs)); assert len(_chairs)==4, f"expected 4 chairs, got {len(_chairs)}"
 for e in _chairs:
     ang=e.rotation_euler[2]; pos=e.location.copy()
     open_dir=Vector((math.sin(ang),-math.cos(ang),0)).normalized()
-    q=Vector((min(max(pos.x,dc.x-tw/2),dc.x+tw/2),min(max(pos.y,dc.y-td/2),dc.y+td/2),0)); to_table=(q-pos); to_table.z=0; to_table.normalize()
-    dot=open_dir.dot(to_table); ok=dot>0.9
-    print(f"CHAIR_CHECK name={e.name} pos=({pos.x:.3f},{pos.y:.3f}) rot_z={ang:.4f} dot={dot:.3f} PASS={ok}"); assert ok, "chair facing failed geometric check"
+    # lane/furniture criteria unchanged (dot>0.9, backrest farther than opening). Target: their round table used its
+    # centre; the plan's table is a 1.43 x 0.86 m rectangle with two chairs per long side, so the target is the nearest
+    # point on the table's long axis (centre for a single chair, straight across for side-by-side chairs).
+    q=Vector((min(max(pos.x,dc.x-tw/2),dc.x+tw/2),dc.y,0)); to_table=(q-pos); to_table.z=0; to_table.normalize()
+    back_dir=Vector((-math.sin(ang),math.cos(ang),0)).normalized(); d_back=(pos+back_dir*0.25-q).length; d_open=(pos+open_dir*0.25-q).length
+    dot=open_dir.dot(to_table); ok=dot>0.9 and d_back>d_open
+    print(f"CHAIR_CHECK name={e.name} pos=({pos.x:.3f},{pos.y:.3f}) rot_z={ang:.4f} dot={dot:.3f} d_back={d_back:.3f} d_open={d_open:.3f} PASS={ok}"); assert ok, "chair facing failed geometric check"
 print("CHAIR_CHECK_ALL_PASS")
 cyl("Pendant_cord",(dc.x,dc.y,(CEIL+1.75)/2),0.004,CEIL-1.75,BMET); sph("Globe_pendant_white",(dc.x,dc.y,1.6),0.2,GLOBE)
 bpy.ops.object.light_add(type='POINT',location=(dc.x,dc.y,1.55));bpy.context.object.name="Pendant_light";bpy.context.object.data.energy=40;bpy.context.object.data.color=(1,0.78,0.55)
 # ---------- BEDROOMS (bed footprint = drawn foot edge to the drawn head wall)
-def bed(n,c,ang,W=1.45,Lb=2.05):
-    e=bpy.data.objects.new(n,None);sc.collection.objects.link(e)
-    for o in (box("Bed_base_navy_velvet",(0,0,0.2),(W,Lb,0.32),NAVY,0,0.03),box("Mattress_white",(0,-0.03,0.47),(W-0.08,Lb-0.1,0.22),LIN,0,0.05),
-              box("Duvet_white",(0,-0.2,0.6),(W-0.02,Lb*0.7,0.08),LIN,0,0.04),box("Throw_navy_folded",(0,-Lb*0.35,0.655),(W+0.06,0.5,0.03),NAVY,0,0.012),
-              box("Pillow",(-W*0.23,Lb/2-0.2,0.66),(W*0.42,0.32,0.15),LIN,0,0.07),box("Pillow",(W*0.23,Lb/2-0.2,0.66),(W*0.42,0.32,0.15),LIN,0,0.07),
-              box("Cushion_navy",(0,Lb/2-0.4,0.7),(0.4,0.14,0.32),NAVY,0,0.06)): o.parent=e
-    for k in range(9):
-        sp=(W+0.1)/9; x=-W/2-0.05+sp/2+k*sp
-        o=cyl("Headboard_channel_flute_navy",(x,Lb/2+0.06,0.6),sp/2+0.004,1.1,NAVY,20);o.scale=(1,0.7,1);o.parent=e
-        t=sph("Headboard_flute_top",(x,Lb/2+0.06,1.15),sp/2+0.004,NAVY,1,0.7,0.6);t.parent=e
-    box("Headboard_backing",(0,Lb/2+0.1,0.6),(W+0.1,0.04,1.15),NAVY,0,0.01).parent=e
-    e.location=c;e.rotation_euler[2]=ang
-def bedside(n,c,ang):
-    e=bpy.data.objects.new("Bedside_table_oak",None);sc.collection.objects.link(e)
-    for o in (box("Bedside_oak_body",(0,0,0.42),(0.45,0.4,0.32),OAKF),box("Bedside_drawer_line",(0,-0.201,0.42),(0.4,0.004,0.004),BMET,0,0)): o.parent=e
-    for a,b in ((-0.2,-0.17),(0.2,-0.17),(-0.2,0.17),(0.2,0.17)): cyl("Bedside_leg_black",(a,b,0.13),0.012,0.26,BMET).parent=e
-    cyl("Lamp_stem_black",(0,0,0.68),0.012,0.2,BMET).parent=e; s=sph("Lamp_mushroom_opal",(0,0,0.8),0.14,LAMPS,1,1,0.6);s.parent=e
-    e.location=c;e.rotation_euler[2]=ang
-    bpy.ops.object.light_add(type='POINT',location=(c[0],c[1],0.85));bpy.context.object.data.energy=12;bpy.context.object.data.color=(1,0.75,0.5)
 for bn in ("Bed1_navy","Bed2_navy"):
-    f=FUR[bn]; bed(bn,(f["c"][0],f["c"][1],0),f["rot"],f["W"],f["Lb"])
-    for k in (0,1): g=FUR[f"{bn[:4]}_bedside_{k}"]; bedside(g["name"],(g["c"][0],g["c"][1],0),g["rot"])
+    for k in (0,1):
+        g=FUR[f"{bn[:4]}_bedside_{k}"]; bpy.ops.object.light_add(type='POINT',location=(g["c"][0],g["c"][1],0.85));bpy.context.object.data.energy=12;bpy.context.object.data.color=(1,0.75,0.5)
 b1,b2=FC("Bed1_navy"),FC("Bed2_navy")
 # art on the bedroom 1 west (raked) wall, half way along the inner face (7.5,84)-(25.4,179.6)
 wa,wb=m(7.5,84),m(25.4,179.6); wc=(wa+wb)/2; wu=(wb-wa).normalized(); wn=Vector((wu.y,-wu.x,0))
@@ -247,19 +201,33 @@ bx0,by0=m(16.5,343.5).x,m(16.5,343.5).y; bx1,by1=m(84,264).x,m(84,264).y
 sh=FUR["Shower_tray"]; box("Shower_tray",(sh["c"][0],sh["c"][1],0.02),(sh["s"][0],sh["s"][1],0.04),WHITEP,0,0.004)
 cyl("Shower_riser_chrome",(bx0+0.45,by0+0.02,1.45),0.012,1.3,CHROME,12); box("Shower_arm_chrome",(bx0+0.45,by0+0.17,2.12),(0.025,0.32,0.025),CHROME,0,0.005); cyl("Shower_head",(bx0+0.45,by0+0.33,2.09),0.11,0.012,CHROME)
 for nm_,c,s in (("Bath_wall_tile_S",(bx0+(bx1-bx0)/2,by0+0.005,1.2),((bx1-bx0)-T/2,0.01,2.4)),("Bath_wall_tile_W",(bx0+0.005,(by0+by1)/2,1.2),(0.01,by1-by0-T/2,2.4))): box(nm_,c,s,TILE,0,0)
-wc_=FC("WC_pan"); box("WC_cistern_concealed_tile",(bx0+0.1,wc_.y,0.55),(0.2,0.6,1.1),TILE,0,0.004); box("WC_flush_plate_chrome",(bx0+0.204,wc_.y,0.85),(0.008,0.22,0.15),CHROME,0,0.002)
-o=cyl("WC_bowl_rounded",(bx0+0.45,wc_.y,0.2),0.14,0.4,WHITEP,40,r2=0.185); o.scale=(1.3,1.0,1)
-o=cyl("WC_seat_ring",(bx0+0.45,wc_.y,0.415),0.185,0.03,WHITEP,40); o.scale=(1.3,1.0,1)
-o=cyl("WC_seat_opening_shadow",(bx0+0.47,wc_.y,0.432),0.1,0.004,GREYV,32); o.scale=(1.4,1.0,1)
-vb=FC("Vanity_basin"); box("Vanity_grey_stone_look",(vb.x,vb.y,0.62),(0.46,0.55,0.3),GREYV,0,0.006); box("Basin_white_wallhung",(vb.x,vb.y,0.82),(0.42,0.5,0.12),WHITEP,0,0.04)
-cyl("Basin_tap",(bx0+0.06,vb.y,0.95),0.012,0.14,CHROME,12)
-box("Mirror_black_frame",(bx0+0.012,vb.y,1.55),(0.02,0.55,0.75),FRAME,0,0.002); box("Mirror_glass",(bx0+0.024,vb.y,1.55),(0.006,0.5,0.7),CHROME,0,0)
 tx=m(32,0).x; ty=by1-T/2-0.03
 for sd in (-0.2,0.2): box("Towel_ladder_vertical_chrome",(tx+sd,ty,1.0),(0.03,0.03,1.2),CHROME,0,0.01)
 for z in (0.5,0.65,0.8,0.95,1.1,1.25,1.4,1.55): box("Towel_ladder_bar_chrome",(tx,ty,z),(0.4,0.02,0.02),CHROME,0,0.006)
 bpy.ops.object.light_add(type='AREA',location=((bx0+bx1)/2,(by0+by1)/2,CEIL-0.05));l=bpy.context.object;l.name="Bath_ceiling_panel";l.data.size=1.2;l.data.energy=70;l.data.color=(1,0.92,0.82)
 # storage shelving (illustrative) in the traced storage room
-st=FUR["Storage_shelving_white"]; box("Storage_shelving_white",(st["c"][0],st["c"][1],1.1),(st["s"][0],st["s"][1],2.2),WUNIT,0,0.003)
+# (CC0 shelving placed by furniture_cc0.place_trace)
+# ---------- furniture fit dump (checked by tests/furniture_fit/check_fit.py): world XY hull of every placed piece
+import json as _json
+from mathutils.geometry import convex_hull_2d as _hull
+bpy.context.view_layer.update()
+def _xy(objs):
+    pts=[]
+    for o in objs:
+        if o.type!='MESH': continue
+        mw=o.matrix_world
+        for v in o.data.vertices: w_=mw@v.co; pts.append((w_.x,w_.y,w_.z))
+    return pts
+_fit=[]
+_proc=[("Dining_table_oak_top","i_living"),("Rug_cream","i_living"),("Shower_tray","i_bath"),("TV_bezel_black_facing_sofa","i_living")]
+for e in CC0:
+    pts=_xy([c for c in e.children_recursive]); hi=_hull([p[:2] for p in pts])
+    _fit.append({"name":e.name,"kind":e.get("cc0_key"),"room":e.get("room"),"cc0":True,"z":[min(p[2] for p in pts),max(p[2] for p in pts)],"hull":[[round(pts[i][0],4),round(pts[i][1],4)] for i in hi]})
+for n_,r_ in _proc:
+    o=bpy.data.objects[n_]; pts=_xy([o]); hi=_hull([p[:2] for p in pts])
+    _fit.append({"name":n_,"kind":"procedural","room":r_,"cc0":False,"z":[min(p[2] for p in pts),max(p[2] for p in pts)],"hull":[[round(pts[i][0],4),round(pts[i][1],4)] for i in hi]})
+open(os.path.join(ROOT,"interior","live","furniture_fit.json"),"w").write(_json.dumps({"frame":"blender metres (x,y)","items":_fit},indent=1))
+print("FIT_DUMP",len(_fit))
 # ---------- render setup
 for o in sc.objects:
     if o.type=='MESH':

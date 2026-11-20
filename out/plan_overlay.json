@@ -56,6 +56,13 @@
     "pass": false
   },
   "area_within_1pct": true,
+  "iou_headline": "raw iou_buffered_4px (gate); furniture-masked score is in diagnostics.furniture_masked",
+  "iou_raw_vs_masked": {
+    "raw_identity": 0.7783,
+    "raw_buffered_4px": 0.6562,
+    "masked_identity": 0.8416,
+    "masked_buffered_4px": 0.8332
+  },
   "diagnostics": {
     "walls_windows_only": {
       "iou_identity": 0.7239,
@@ -67,11 +74,23 @@
       "wall": 6914,
       "window": 417
     },
-    "excl_plan_furniture": {
-      "furniture_ink_px": 1102,
-      "iou_identity": 0.832,
-      "iou_buffered_4px": 0.8561,
-      "note": "plan ink with loose furniture / sanitaryware / symbol boxes blanked (boxes listed in the layout); diagnostic only, NOT the gate"
+    "furniture_masked": {
+      "symbols": [
+        "Bed1_bedsides",
+        "Bed2_bedsides",
+        "Sofa",
+        "Rug_ellipse",
+        "Dining_table_chairs",
+        "Basin",
+        "WC"
+      ],
+      "room_erode_px": 3,
+      "mask_px": 13201,
+      "plan_ink_px_masked": 702,
+      "layout_px_masked": 0,
+      "iou_identity": 0.8416,
+      "iou_buffered_4px": 0.8332,
+      "note": "secondary score: plan furniture symbols masked (see FURNITURE_SYMBOLS / ROOM_ERODE_PX in plan_overlay.py). NOT the gate; raw iou_buffered_4px is the headline."
     }
   },
   "overlay_png": "/workspace/barclay-lanes/walls/out/plan_overlay.png"

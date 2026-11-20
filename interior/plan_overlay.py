@@ -57,6 +57,10 @@ OPEN_ITERS = 0  # 1-iter opening wiped interior partitions (2–3 px). Default 0
 DEFAULT_THICK_PX = 5
 
 
+FURNITURE_SYMBOLS = ("Bed1_bedsides", "Bed2_bedsides", "Sofa", "Rug_ellipse", "Dining_table_chairs", "WC", "Basin")
+ROOM_ERODE_PX = 3
+
+
 def shoelace(pts):
     n = len(pts)
     return abs(sum(pts[i][0] * pts[(i + 1) % n][1] - pts[(i + 1) % n][0] * pts[i][1] for i in range(n))) / 2.0
@@ -310,19 +314,47 @@ def run(layout, plan_path: Path, out_prefix: Path, sourced_m2=SOURCED_M2, ink_lu
         }
         diag["kinds_px"] = {k: int(raster_walls((h, w), [x for x in walls if x.get("kind", "wall") == k]).sum())
                             for k in sorted({x.get("kind", "wall") for x in walls})}
+    # Furniture-masked mode (2026-11-20, reported NEXT TO the raw score; raw stays the headline and the gate).
+    # Mask construction (only the plan's own loose-furniture symbols, never walls/labels/joinery):
+    #   1. symbol polygons = layout["plan_furniture_px"] entries whose name is in FURNITURE_SYMBOLS
+    #      (bounding polygons measured on apt02_fp.png around each drawn bed+bedsides, sofa, rug ellipse,
+    #      dining table+chairs, WC, basin). Labels, wardrobe hangers, the stair arrow, hob rings and the
+    #      shower dashed line are NOT furniture and are not masked.
+    #   2. clip to room interiors: each traced room polygon is rasterised and eroded by ROOM_ERODE_PX (3 px,
+    #      > the 1-2 px partition stroke) and the union is taken, so no wall/partition/exterior ink can be
+    #      masked even where a symbol polygon touches a wall (headboard ink within 3 px of a wall stays in).
+    #   3. mask = symbol polygons AND eroded room interiors; masked pixels are removed from BOTH the plan ink
+    #      and the layout raster before IoU (layout pixels removed are reported: should be ~0).
     if layout.get("plan_furniture_px"):
         fim = Image.new("L", (w, h), 0)
         fdr = ImageDraw.Draw(fim)
+        used = []
         for f in layout["plan_furniture_px"]:
-            fdr.polygon([tuple(map(float, q)) for q in f["poly"]], fill=255)
-        fmask = np.array(fim) > 0
+            if f["name"] in FURNITURE_SYMBOLS:
+                fdr.polygon([tuple(map(float, q)) for q in f["poly"]], fill=255); used.append(f["name"])
+        sym = np.array(fim) > 0
+        interior = np.zeros((h, w), bool)
+        for r in layout.get("rooms", []):
+            rim = Image.new("L", (w, h), 0)
+            ImageDraw.Draw(rim).polygon([tuple(map(float, q)) for q in r["poly"]], fill=255)
+            rm = np.array(rim) > 0
+            for _ in range(ROOM_ERODE_PX):
+                rm = _erode(rm)
+            interior |= rm
+        fmask = sym & interior
         pm2 = plan_mask & ~fmask
-        diag["excl_plan_furniture"] = {
-            "furniture_ink_px": int((plan_mask & fmask).sum()),
-            "iou_identity": round(float(iou(layout_mask, pm2)[0]), 4),
-            "iou_buffered_4px": round(float(iou(dilate_n(layout_mask, BUFFER_PX), dilate_n(pm2, BUFFER_PX))[0]), 4),
-            "note": "plan ink with loose furniture / sanitaryware / symbol boxes blanked (boxes listed in the layout); diagnostic only, NOT the gate",
+        lm2 = layout_mask & ~fmask
+        diag["furniture_masked"] = {
+            "symbols": used,
+            "room_erode_px": ROOM_ERODE_PX,
+            "mask_px": int(fmask.sum()),
+            "plan_ink_px_masked": int((plan_mask & fmask).sum()),
+            "layout_px_masked": int((layout_mask & fmask).sum()),
+            "iou_identity": round(float(iou(lm2, pm2)[0]), 4),
+            "iou_buffered_4px": round(float(iou(dilate_n(lm2, BUFFER_PX), dilate_n(pm2, BUFFER_PX))[0]), 4),
+            "note": "secondary score: plan furniture symbols masked (see FURNITURE_SYMBOLS / ROOM_ERODE_PX in plan_overlay.py). NOT the gate; raw iou_buffered_4px is the headline.",
         }
+        Image.fromarray((fmask * 255).astype(np.uint8)).save(Path(str(out_prefix) + "_furniture_mask.png"))
 
     area_note = ""
     area_m2 = None
@@ -399,6 +431,10 @@ def run(layout, plan_path: Path, out_prefix: Path, sourced_m2=SOURCED_M2, ink_lu
         "area_note": area_note,
         "gate": {"iou_ge_0.85": gate_iou, "area_within_3pct": gate_area, "pass": gate},
         "area_within_1pct": bool(residual_pct is not None and abs(residual_pct) <= 1.0),
+        "iou_headline": "raw iou_buffered_4px (gate); furniture-masked score is in diagnostics.furniture_masked",
+        "iou_raw_vs_masked": {"raw_identity": round(iou0, 4), "raw_buffered_4px": round(iou_buf, 4),
+                              "masked_identity": diag.get("furniture_masked", {}).get("iou_identity"),
+                              "masked_buffered_4px": diag.get("furniture_masked", {}).get("iou_buffered_4px")},
         "diagnostics": diag,
         "overlay_png": str(png_path),
     }
@@ -413,6 +449,15 @@ def run(layout, plan_path: Path, out_prefix: Path, sourced_m2=SOURCED_M2, ink_lu
     md.append(f"- Wall-mask IoU buffered ±4 px (primary gate, absorbs stroke-width / inner-face vs centreline): **{iou_buf:.4f}**.")
     md.append(f"- Layout-on-ink precision (layout px within 2 px of plan ink): **{prec:.4f}**.")
     md.append(f"- Wall-mask IoU after translation-only search ±8 px: **{best_v:.4f}** at dx={bdx}, dy={bdy} (sensitivity only; no labelled corners on the plan).")
+    fm = diag.get("furniture_masked")
+    if fm:
+        md.append("")
+        md.append("| IoU | identity | buffered ±4 px |")
+        md.append("|---|---|---|")
+        md.append(f"| **Raw (headline, gate)** | **{iou0:.4f}** | **{iou_buf:.4f}** |")
+        md.append(f"| Furniture-masked (secondary) | {fm['iou_identity']:.4f} | {fm['iou_buffered_4px']:.4f} |")
+        md.append("")
+        md.append(f"- Furniture mask: symbol polygons {fm['symbols']} (plan_furniture_px, measured on the PNG) AND traced room interiors eroded {fm['room_erode_px']} px, so wall/partition ink is never masked. Masked plan ink {fm['plan_ink_px_masked']} px; layout px masked {fm['layout_px_masked']}. Mask image: `{out_prefix.name}_furniture_mask.png`.")
     for k, v in diag.items():
         md.append(f"- Diagnostic `{k}` (not the gate): `{json.dumps(v)}`")
     md.append(f"- Area: {area_note}")
