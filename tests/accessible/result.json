@@ -1,0 +1,352 @@
+{
+  "python": {
+    "reachable_m2": 9.9325,
+    "rooms": {
+      "i_bed1": {
+        "reachable_m2": 0.8075,
+        "clear_m2": 6.7275,
+        "turning_circle": false
+      },
+      "i_bed2": {
+        "reachable_m2": 0,
+        "clear_m2": 8.585,
+        "turning_circle": false
+      },
+      "i_store": {
+        "reachable_m2": 1.1825,
+        "clear_m2": 3.2425,
+        "turning_circle": true
+      },
+      "i_bath": {
+        "reachable_m2": 0.37,
+        "clear_m2": 2.4675,
+        "turning_circle": false
+      },
+      "i_kitchen": {
+        "reachable_m2": 0.4575,
+        "clear_m2": 4.56,
+        "turning_circle": false
+      },
+      "i_hall": {
+        "reachable_m2": 5.6025,
+        "clear_m2": 8.2025,
+        "turning_circle": true
+      },
+      "i_living": {
+        "reachable_m2": 1.5125,
+        "clear_m2": 7.4525,
+        "turning_circle": false
+      }
+    },
+    "hide_Bed1_navy": {
+      "reachable_m2": 12.7725,
+      "room_i_bed1_m2": 3.6475,
+      "base_room_i_bed1_m2": 0.8075,
+      "room_area_rose": true,
+      "ms": 36.382
+    }
+  },
+  "desktop": {
+    "errors": [],
+    "externalRequests": [],
+    "base": {
+      "reachable_m2": 9.9325,
+      "rooms": {
+        "i_bed1": {
+          "reachable_m2": 0.8075,
+          "clear_m2": 6.7275,
+          "turning_circle": false
+        },
+        "i_bed2": {
+          "reachable_m2": 0,
+          "clear_m2": 8.585,
+          "turning_circle": false
+        },
+        "i_store": {
+          "reachable_m2": 1.1825,
+          "clear_m2": 3.2425,
+          "turning_circle": true
+        },
+        "i_bath": {
+          "reachable_m2": 0.37,
+          "clear_m2": 2.4675,
+          "turning_circle": false
+        },
+        "i_kitchen": {
+          "reachable_m2": 0.4575,
+          "clear_m2": 4.56,
+          "turning_circle": false
+        },
+        "i_hall": {
+          "reachable_m2": 5.6025,
+          "clear_m2": 8.2025,
+          "turning_circle": true
+        },
+        "i_living": {
+          "reachable_m2": 1.5125,
+          "clear_m2": 7.4525,
+          "turning_circle": false
+        }
+      },
+      "recompute_ms": 54,
+      "clear_floor_m2": 41.2375,
+      "navigable_m2": 11.875,
+      "reachable_le_sourced": true,
+      "hidden": [],
+      "label": "indicative"
+    },
+    "hide": {
+      "reachable_m2": 12.7725,
+      "rooms": {
+        "i_bed1": {
+          "reachable_m2": 3.6475,
+          "clear_m2": 9.645,
+          "turning_circle": true
+        },
+        "i_bed2": {
+          "reachable_m2": 0,
+          "clear_m2": 8.585,
+          "turning_circle": false
+        },
+        "i_store": {
+          "reachable_m2": 1.1825,
+          "clear_m2": 3.2425,
+          "turning_circle": true
+        },
+        "i_bath": {
+          "reachable_m2": 0.37,
+          "clear_m2": 2.4675,
+          "turning_circle": false
+        },
+        "i_kitchen": {
+          "reachable_m2": 0.4575,
+          "clear_m2": 4.56,
+          "turning_circle": false
+        },
+        "i_hall": {
+          "reachable_m2": 5.6025,
+          "clear_m2": 8.2025,
+          "turning_circle": true
+        },
+        "i_living": {
+          "reachable_m2": 1.5125,
+          "clear_m2": 7.4525,
+          "turning_circle": false
+        }
+      },
+      "recompute_ms": 9.3,
+      "hidden": [
+        "Bed1_navy"
+      ]
+    },
+    "reset_reachable_m2": 9.9325,
+    "reachable_m2": 9.9325,
+    "vs_python_pct": 0,
+    "within_1pct": true,
+    "reachable_le_63": true,
+    "hide_bed_raises_room": true,
+    "recompute_ms": 9.3,
+    "recompute_under_50ms": true,
+    "rooms": {
+      "i_bed1": {
+        "reachable_m2": 0.8075,
+        "clear_m2": 6.7275,
+        "turning_circle": false
+      },
+      "i_bed2": {
+        "reachable_m2": 0,
+        "clear_m2": 8.585,
+        "turning_circle": false
+      },
+      "i_store": {
+        "reachable_m2": 1.1825,
+        "clear_m2": 3.2425,
+        "turning_circle": true
+      },
+      "i_bath": {
+        "reachable_m2": 0.37,
+        "clear_m2": 2.4675,
+        "turning_circle": false
+      },
+      "i_kitchen": {
+        "reachable_m2": 0.4575,
+        "clear_m2": 4.56,
+        "turning_circle": false
+      },
+      "i_hall": {
+        "reachable_m2": 5.6025,
+        "clear_m2": 8.2025,
+        "turning_circle": true
+      },
+      "i_living": {
+        "reachable_m2": 1.5125,
+        "clear_m2": 7.4525,
+        "turning_circle": false
+      }
+    },
+    "zero_console_errors": true,
+    "zero_external_requests": true,
+    "pass": true
+  },
+  "phone": {
+    "errors": [],
+    "externalRequests": [],
+    "base": {
+      "reachable_m2": 9.9325,
+      "rooms": {
+        "i_bed1": {
+          "reachable_m2": 0.8075,
+          "clear_m2": 6.7275,
+          "turning_circle": false
+        },
+        "i_bed2": {
+          "reachable_m2": 0,
+          "clear_m2": 8.585,
+          "turning_circle": false
+        },
+        "i_store": {
+          "reachable_m2": 1.1825,
+          "clear_m2": 3.2425,
+          "turning_circle": true
+        },
+        "i_bath": {
+          "reachable_m2": 0.37,
+          "clear_m2": 2.4675,
+          "turning_circle": false
+        },
+        "i_kitchen": {
+          "reachable_m2": 0.4575,
+          "clear_m2": 4.56,
+          "turning_circle": false
+        },
+        "i_hall": {
+          "reachable_m2": 5.6025,
+          "clear_m2": 8.2025,
+          "turning_circle": true
+        },
+        "i_living": {
+          "reachable_m2": 1.5125,
+          "clear_m2": 7.4525,
+          "turning_circle": false
+        }
+      },
+      "recompute_ms": 50,
+      "clear_floor_m2": 41.2375,
+      "navigable_m2": 11.875,
+      "reachable_le_sourced": true,
+      "hidden": [],
+      "label": "indicative"
+    },
+    "hide": {
+      "reachable_m2": 12.7725,
+      "rooms": {
+        "i_bed1": {
+          "reachable_m2": 3.6475,
+          "clear_m2": 9.645,
+          "turning_circle": true
+        },
+        "i_bed2": {
+          "reachable_m2": 0,
+          "clear_m2": 8.585,
+          "turning_circle": false
+        },
+        "i_store": {
+          "reachable_m2": 1.1825,
+          "clear_m2": 3.2425,
+          "turning_circle": true
+        },
+        "i_bath": {
+          "reachable_m2": 0.37,
+          "clear_m2": 2.4675,
+          "turning_circle": false
+        },
+        "i_kitchen": {
+          "reachable_m2": 0.4575,
+          "clear_m2": 4.56,
+          "turning_circle": false
+        },
+        "i_hall": {
+          "reachable_m2": 5.6025,
+          "clear_m2": 8.2025,
+          "turning_circle": true
+        },
+        "i_living": {
+          "reachable_m2": 1.5125,
+          "clear_m2": 7.4525,
+          "turning_circle": false
+        }
+      },
+      "recompute_ms": 34.3,
+      "hidden": [
+        "Bed1_navy"
+      ]
+    },
+    "reset_reachable_m2": 9.9325,
+    "reachable_m2": 9.9325,
+    "vs_python_pct": 0,
+    "within_1pct": true,
+    "reachable_le_63": true,
+    "hide_bed_raises_room": true,
+    "recompute_ms": 34.3,
+    "recompute_under_50ms": true,
+    "rooms": {
+      "i_bed1": {
+        "reachable_m2": 0.8075,
+        "clear_m2": 6.7275,
+        "turning_circle": false
+      },
+      "i_bed2": {
+        "reachable_m2": 0,
+        "clear_m2": 8.585,
+        "turning_circle": false
+      },
+      "i_store": {
+        "reachable_m2": 1.1825,
+        "clear_m2": 3.2425,
+        "turning_circle": true
+      },
+      "i_bath": {
+        "reachable_m2": 0.37,
+        "clear_m2": 2.4675,
+        "turning_circle": false
+      },
+      "i_kitchen": {
+        "reachable_m2": 0.4575,
+        "clear_m2": 4.56,
+        "turning_circle": false
+      },
+      "i_hall": {
+        "reachable_m2": 5.6025,
+        "clear_m2": 8.2025,
+        "turning_circle": true
+      },
+      "i_living": {
+        "reachable_m2": 1.5125,
+        "clear_m2": 7.4525,
+        "turning_circle": false
+      }
+    },
+    "zero_console_errors": true,
+    "zero_external_requests": true,
+    "pass": true
+  },
+  "verdict": "CERTIFIED",
+  "criteria": {
+    "desktop": {
+      "console": 0,
+      "external": [],
+      "within_1pct": true,
+      "le_63": true,
+      "hide_bed": true,
+      "ms": 9.3
+    },
+    "phone": {
+      "console": 0,
+      "external": [],
+      "within_1pct": true,
+      "le_63": true,
+      "hide_bed": true,
+      "ms": 34.3
+    }
+  }
+}

@@ -35,7 +35,7 @@ FILES=(
   life/LICENSE-kenney-car-kit.txt life/LICENSE-kenney-train-kit.txt
   video/index.html video/barclay_exterior_step7.mp4 video/img/aerial.jpg video/img/compare_corner.jpg video/img/corner.jpg
   video/img/entrance.jpg video/img/front.jpg video/img/lintel.jpg video/img/pole.jpg
-  floorplan3d/2bed.html floorplan3d/2bed.json vendor/floorplan-3d/LICENSE
+  floorplan3d/2bed.html floorplan3d/2bed.json floorplan3d/accessible_area.js floorplan3d/accessible_layout.json vendor/floorplan-3d/LICENSE
   floorplan3d/vendor/three-r160/LICENSE floorplan3d/vendor/three-r160/build/three.module.js
   floorplan3d/vendor/three-r160/examples/jsm/loaders/GLTFLoader.js
   floorplan3d/vendor/three-r160/examples/jsm/controls/OrbitControls.js

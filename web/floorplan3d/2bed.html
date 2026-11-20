@@ -1,4 +1,4 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<!doctype html><html lang="en"><head><link rel="icon" href="data:,"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
 <title>Barclay House Two Bed</title>
 <!-- Floorplan 3D interaction patterns (room fly-to, touch joystick walk, door toggle) ported from
      https://github.com/wy51ai/floorplan-3d (MIT, (c) 2026 wuyi; see ../vendor/floorplan-3d/LICENSE).
@@ -12,10 +12,30 @@ html,body{margin:0;height:100%;overflow:hidden;background:#e9e6e1;font:14px syst
 #joy{position:fixed;left:24px;bottom:28px;width:120px;height:120px;border-radius:50%;background:#0003;border:2px solid #fff8;z-index:3;display:none;touch-action:none}
 #joy i{position:absolute;left:35px;top:35px;width:50px;height:50px;border-radius:50%;background:#fffd;box-shadow:0 1px 4px #0005}
 #msg{position:fixed;bottom:8px;right:8px;z-index:3;color:#b00}
+
+#approx{position:fixed;top:8px;right:8px;z-index:4;background:#f59e0b;color:#111;padding:6px 10px;border-radius:8px;font-weight:700}
+#accpan{position:fixed;top:48px;right:8px;z-index:4;width:310px;max-height:calc(100% - 64px);overflow:auto;background:#fffffff5;border-radius:10px;padding:10px 12px;box-shadow:0 1px 8px #0003;display:none}
+#accpan.on{display:block}
+#accpan h3{margin:0 0 4px;font-size:13px}
+#accpan .ind{color:#7c2d12;font-size:11px;line-height:1.35;margin:0 0 8px}
+#accpan a{color:#1d4ed8}
+#accpan table{width:100%;border-collapse:collapse;font-size:12px;margin:6px 0}
+#accpan th,#accpan td{text-align:left;padding:2px 4px;border-bottom:1px solid #0001}
+#accpan td.num{text-align:right;font-variant-numeric:tabular-nums}
+#accpan label{display:block;font-size:12px;margin:2px 0}
+#bar button#b_acc.on{background:#15803d;color:#fff}
 </style>
 <script type="importmap">{"imports":{"three":"./vendor/three-r160/build/three.module.js","three/addons/":"./vendor/three-r160/examples/jsm/"}}</script>
 </head><body>
-<div id="v"></div><div id="bar"><a id="b_back" href="../index.html?m=i" style="padding:8px 12px;border-radius:8px;background:#111;color:#fff;text-decoration:none;box-shadow:0 1px 4px #0003;font:inherit">← Viewer</a><button id="b_over" class="on" data-act="over">3D</button></div>
+<div id="v"></div><div id="bar"><a id="b_back" href="../index.html?m=i" style="padding:8px 12px;border-radius:8px;background:#111;color:#fff;text-decoration:none;box-shadow:0 1px 4px #0003;font:inherit">← Viewer</a><button id="b_over" class="on" data-act="over">3D</button><button id="b_acc" data-act="acc">Accessible area</button></div>
+<div id="approx">APPROXIMATE layout</div>
+<div id="accpan" aria-live="polite">
+  <h3>Accessible area <span style="font-weight:400">(indicative)</span></h3>
+  <p class="ind">Not a compliance certificate. Layout fails the #18 plan-overlay gate (identity IoU 0.1408, need ≥0.85). ADM Vol 1 does not publish a wheelchair body width; erosion uses the official 750 mm minimum clear width at a localised obstruction (M4(2) 2.22.b). 1500 mm turning circle: M4(3) 3.14.d, 3.22.d, 3.43.e. <a href="https://www.gov.uk/government/publications/access-to-and-use-of-buildings-approved-document-m" target="_blank" rel="noopener">Approved Document M</a> · <a href="https://assets.publishing.service.gov.uk/media/5a7f8a82ed915d74e622b17b/BR_PDF_AD_M1_2015_with_2016_amendments_V3.pdf" target="_blank" rel="noopener">Vol 1 PDF</a>.</p>
+  <div id="accsum"></div>
+  <div id="accfurn"></div>
+</div>
+
 <div id="joy"><i></i></div><div id="msg"></div>
 <script type="module">
 import * as THREE from 'three';
@@ -23,6 +43,7 @@ import {OrbitControls} from 'three/addons/controls/OrbitControls.js';
 import {GLTFLoader} from 'three/addons/loaders/GLTFLoader.js';
 import {RoomEnvironment} from 'three/addons/environments/RoomEnvironment.js';
 import {MeshoptDecoder} from 'three/addons/libs/meshopt_decoder.module.js';
+import {compute as computeAccess, prepare as prepareAccess} from './accessible_area.js';
 const $=s=>document.querySelector(s), q=new URLSearchParams(location.search);
 const MOB=q.get('lq')==='1'||(q.get('lq')!=='0'&&(matchMedia('(pointer:coarse)').matches||/Android|iPhone|iPad|Mobi/i.test(navigator.userAgent)));
 const D=await (await fetch('2bed.json')).json();
@@ -110,5 +131,120 @@ let last=performance.now();
 R.setAnimationLoop(now=>{const dt=Math.min(0.1,(now-last)/1000);last=now;if(fly)fly.step(now);else if(mode==='orbit')O.update();stepWalk(dt);
  doors.forEach(d=>{const tg=d.open?d.base:d.d.closed_rot_y;d.cur+=(tg-d.cur)*Math.min(1,dt*6);d.pv.rotation.y=d.cur});
  if(ceiling)ceiling.visible=C.position.y<2.95;R.render(S,C)});
+
+// ---- accessible-area overlay (trick #21). Layout + engine are copies of interior/accessible_*. Results are indicative.
+const ACC_LAYOUT = await (await fetch('accessible_layout.json')).json();
+prepareAccess(ACC_LAYOUT);
+const hiddenFurn = new Set();
+let accOn = false, accLast = null, accMesh = null, accBoxes = new Map();
+function makeBoxes(){
+  const g = new THREE.BoxGeometry(1,0.02,1);
+  for(const it of ACC_LAYOUT.furniture){
+    const m = new THREE.Mesh(g, new THREE.MeshBasicMaterial({color: it.kind==='bed'?0x2563eb:0x334155, transparent:true, opacity:0.28, depthWrite:false}));
+    const s = it.shape==='circle' ? [it.s[0], it.s[1]] : it.s;
+    m.scale.set(s[0],1,s[1]);
+    m.position.set(it.c[0], 0.03, it.c[1]);
+    m.rotation.y = it.rot||0;
+    m.visible = false;
+    m.userData.fname = it.name;
+    S.add(m);
+    accBoxes.set(it.name, m);
+  }
+}
+function paintOverlay(res){
+  const {w,h,origin,cell,grid} = res.overlay;
+  const data = new Uint8Array(w*h*4);
+  for(let j=0;j<h;j++){
+    for(let i=0;i<w;i++){
+      const v = grid[j*w+i], o=(j*w+i)*4;
+      if(v===2){ data[o]=46; data[o+1]=160; data[o+2]=67; data[o+3]=140; }
+      else if(v===1){ data[o]=200; data[o+1]=50; data[o+2]=50; data[o+3]=110; }
+    }
+  }
+  const tex = new THREE.DataTexture(data,w,h,THREE.RGBAFormat);
+  tex.flipY = false; tex.magFilter = THREE.NearestFilter; tex.minFilter = THREE.NearestFilter; tex.needsUpdate = true;
+  if(!accMesh){
+    const geo = new THREE.PlaneGeometry(1,1,1,1);
+    const mat = new THREE.MeshBasicMaterial({map:tex, transparent:true, depthWrite:false, side:THREE.DoubleSide});
+    accMesh = new THREE.Mesh(geo, mat);
+    accMesh.rotation.x = -Math.PI/2;
+    S.add(accMesh);
+  } else {
+    accMesh.material.map.dispose();
+    accMesh.material.map = tex;
+  }
+  accMesh.position.set(origin[0] + w*cell/2, 0.04, origin[1] + h*cell/2);
+  accMesh.scale.set(w*cell, h*cell, 1);
+  accMesh.visible = accOn;
+}
+function renderAccPanel(res){
+  const rows = Object.entries(res.rooms).map(([id,r])=>{
+    const lab = (ACC_LAYOUT.rooms.find(x=>x.id===id)||{label:id}).label;
+    return `<tr><td>${lab}</td><td class="num">${r.reachable_m2.toFixed(2)}</td><td>${r.turning_circle?'yes':'no'}</td></tr>`;
+  }).join('');
+  $('#accsum').innerHTML = `<p style="margin:0 0 6px"><b>${res.reachable_m2.toFixed(2)} m²</b> reachable of sourced ${res.sourced_floor_m2} m² · ${res.recompute_ms.toFixed(1)} ms · indicative</p>
+    <table><thead><tr><th>Room</th><th class="num">m²</th><th>Ø1500 mm</th></tr></thead><tbody>${rows}</tbody></table>`;
+  if(!$('#accfurn').dataset.ready){
+    const beds = ACC_LAYOUT.furniture.filter(f=>f.kind==='bed'||f.kind==='bedside'||f.kind==='wardrobe'||f.kind==='sofa'||f.kind==='table'||f.kind==='chair'||f.kind==='kitchen'||f.kind==='sanitary'||f.kind==='storage'||f.kind==='plant'||f.kind==='furniture');
+    $('#accfurn').innerHTML = '<p style="margin:8px 0 4px;font-size:12px">Hide furniture (recomputes area):</p>' +
+      beds.map(f=>`<label><input type="checkbox" data-furn="${f.name}"> ${f.name}</label>`).join('');
+    $('#accfurn').dataset.ready='1';
+    $('#accfurn').addEventListener('change', e=>{
+      const t=e.target.closest('input[data-furn]'); if(!t) return;
+      if(t.checked) hiddenFurn.add(t.dataset.furn); else hiddenFurn.delete(t.dataset.furn);
+      const box=accBoxes.get(t.dataset.furn); if(box) box.material.opacity = t.checked ? 0.06 : 0.28;
+      runAccess();
+    });
+  }
+}
+function syncChecks(){
+  document.querySelectorAll('input[data-furn]').forEach(inp=>{ inp.checked = hiddenFurn.has(inp.dataset.furn); });
+}
+function runAccess(){
+  const res = computeAccess(ACC_LAYOUT, [...hiddenFurn]);
+  accLast = res;
+  paintOverlay(res);
+  renderAccPanel(res);
+  syncChecks();
+  for(const [n,m] of accBoxes){ m.visible = accOn; }
+  return res;
+}
+$('#b_acc').addEventListener('click', ()=>{
+  accOn = !accOn;
+  $('#b_acc').classList.toggle('on', accOn);
+  $('#accpan').classList.toggle('on', accOn);
+  if(accOn){
+    if(!accBoxes.size) makeBoxes();
+    runAccess();
+  } else if(accMesh){
+    accMesh.visible=false;
+    for(const m of accBoxes.values()) m.visible=false;
+  }
+});
+window.__access = {
+  ready: true,
+  last: () => accLast && { ...accLast, overlay: { w: accLast.overlay.w, h: accLast.overlay.h, cell: accLast.overlay.cell, origin: accLast.overlay.origin } },
+  hidden: () => [...hiddenFurn],
+  compute(hidden){
+    hiddenFurn.clear();
+    (hidden||[]).forEach(n=>hiddenFurn.add(n));
+    accOn = true;
+    $('#b_acc').classList.add('on');
+    $('#accpan').classList.add('on');
+    if(!accBoxes.size) makeBoxes();
+    const res = runAccess();
+    return { reachable_m2: res.reachable_m2, rooms: res.rooms, recompute_ms: res.recompute_ms,
+             clear_floor_m2: res.clear_floor_m2, navigable_m2: res.navigable_m2,
+             reachable_le_sourced: res.reachable_le_sourced, hidden: [...hiddenFurn], label: res.label };
+  },
+  hide(name, on=true){
+    if(on) hiddenFurn.add(name); else hiddenFurn.delete(name);
+    if(!accBoxes.size) makeBoxes();
+    accOn = true;
+    const res = runAccess();
+    return { reachable_m2: res.reachable_m2, rooms: res.rooms, recompute_ms: res.recompute_ms, hidden: [...hiddenFurn] };
+  }
+};
+
 window.__fp3d={ready:true,doors:()=>doors.map(d=>({name:d.d.name,tris:d.tris,open:d.open,rot:+d.cur.toFixed(3)})),mode:()=>mode,fly:()=>!!fly,goRoom,goOver,cam:()=>C.position.toArray()};
 </script></body></html>

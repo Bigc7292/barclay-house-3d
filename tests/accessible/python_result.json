@@ -1,0 +1,112 @@
+{
+  "label": "indicative",
+  "approximate_layout": true,
+  "cell_m": 0.05,
+  "wheelchair_width_m": 0.75,
+  "erode_radius_m": 0.375,
+  "turning_circle_diameter_m": 1.5,
+  "hidden": [],
+  "clear_floor_m2": 41.2375,
+  "navigable_m2": 11.875,
+  "reachable_m2": 9.9325,
+  "sourced_floor_m2": 63.0,
+  "reachable_le_sourced": true,
+  "rooms": {
+    "i_bed1": {
+      "reachable_m2": 0.8075,
+      "clear_m2": 6.7275,
+      "turning_circle": false
+    },
+    "i_bed2": {
+      "reachable_m2": 0.0,
+      "clear_m2": 8.585,
+      "turning_circle": false
+    },
+    "i_store": {
+      "reachable_m2": 1.1825,
+      "clear_m2": 3.2425,
+      "turning_circle": true
+    },
+    "i_bath": {
+      "reachable_m2": 0.37,
+      "clear_m2": 2.4675,
+      "turning_circle": false
+    },
+    "i_kitchen": {
+      "reachable_m2": 0.4575,
+      "clear_m2": 4.56,
+      "turning_circle": false
+    },
+    "i_hall": {
+      "reachable_m2": 5.6025,
+      "clear_m2": 8.2025,
+      "turning_circle": true
+    },
+    "i_living": {
+      "reachable_m2": 1.5125,
+      "clear_m2": 7.4525,
+      "turning_circle": false
+    }
+  },
+  "seed_cell": [
+    74,
+    198
+  ],
+  "sources": {
+    "govuk": "https://www.gov.uk/government/publications/access-to-and-use-of-buildings-approved-document-m",
+    "pdf": "https://assets.publishing.service.gov.uk/media/5a7f8a82ed915d74e622b17b/BR_PDF_AD_M1_2015_with_2016_amendments_V3.pdf",
+    "pdf_edition": "Approved Document M Volume 1: Dwellings, 2015 edition with 2016 amendments",
+    "wheelchair_width": {
+      "mm": 750,
+      "used_as": "passage width for raster erosion (ADM does not state a wheelchair body width)",
+      "paragraph": "M4(2) 2.22.b",
+      "quote": "the corridor is not reduced below a minimum 750mm width at any point"
+    },
+    "m4_3_hall_clear_width_mm": {
+      "mm": 1050,
+      "paragraph": "M4(3) 3.24.a",
+      "not_used_for": "erosion"
+    },
+    "turning_circle_mm": {
+      "diameter_mm": 1500,
+      "paragraphs": [
+        "M4(3) 3.14.d",
+        "M4(3) 3.22.d",
+        "M4(3) 3.43.e"
+      ],
+      "quote_3_14_d": "A clear turning circle 1500mm in diameter is provided inside the entrance area, behind the entrance door when closed.",
+      "quote_3_22_d": "There is a minimum 1500mm clear turning circle inside the entrance area, in front of the door when closed.",
+      "quote_3_43_e": "The bathroom (or bathrooms) provides a minimum 1500mm clear turning circle."
+    },
+    "floor_area": {
+      "m2": 63,
+      "urls": [
+        "https://barclay-house.com/two-bedroom-apartment/",
+        "https://www.rightmove.co.uk/properties/92163630"
+      ],
+      "note": "679 sq ft; outline scaled so shoelace area equals 63 m\u00b2 (#18 residual 0% by construction)"
+    },
+    "plan_iou": {
+      "identity": 0.1408,
+      "gate": 0.85,
+      "result": "FAIL",
+      "trick": 18
+    },
+    "label": "indicative"
+  },
+  "python_recompute_ms": 461.873,
+  "hide_Bed1_navy": {
+    "reachable_m2": 12.7725,
+    "room_i_bed1_m2": 3.6475,
+    "base_room_i_bed1_m2": 0.8075,
+    "room_area_rose": true,
+    "ms": 36.382
+  },
+  "hide_Bed2_navy": {
+    "reachable_m2": 9.9325,
+    "room_i_bed2_m2": 0.0,
+    "base_room_i_bed2_m2": 0.0,
+    "room_area_rose": false,
+    "ms": 36.096
+  }
+}

@@ -1,0 +1,859 @@
+{
+  "coord": "gltf XZ metres, Y-up, same frame as web/floorplan3d/2bed.json and web/twobed.glb",
+  "floor_source": "interior/build_twobed_v4.py OUTL (2bed.json has no floor polyline; #18)",
+  "furniture_source": "footprints from build_twobed_v4.py placements (web/twobed.glb furniture is baked into BAKED_interior; named boxes are not in the walk-mode GLB)",
+  "cell_m": 0.05,
+  "wheelchair_width_m": 0.75,
+  "erode_radius_m": 0.375,
+  "turning_circle_diameter_m": 1.5,
+  "sourced_floor_m2": 63.0,
+  "wall_thickness_m": 0.12,
+  "sources": {
+    "govuk": "https://www.gov.uk/government/publications/access-to-and-use-of-buildings-approved-document-m",
+    "pdf": "https://assets.publishing.service.gov.uk/media/5a7f8a82ed915d74e622b17b/BR_PDF_AD_M1_2015_with_2016_amendments_V3.pdf",
+    "pdf_edition": "Approved Document M Volume 1: Dwellings, 2015 edition with 2016 amendments",
+    "wheelchair_width": {
+      "mm": 750,
+      "used_as": "passage width for raster erosion (ADM does not state a wheelchair body width)",
+      "paragraph": "M4(2) 2.22.b",
+      "quote": "the corridor is not reduced below a minimum 750mm width at any point"
+    },
+    "m4_3_hall_clear_width_mm": {
+      "mm": 1050,
+      "paragraph": "M4(3) 3.24.a",
+      "not_used_for": "erosion"
+    },
+    "turning_circle_mm": {
+      "diameter_mm": 1500,
+      "paragraphs": [
+        "M4(3) 3.14.d",
+        "M4(3) 3.22.d",
+        "M4(3) 3.43.e"
+      ],
+      "quote_3_14_d": "A clear turning circle 1500mm in diameter is provided inside the entrance area, behind the entrance door when closed.",
+      "quote_3_22_d": "There is a minimum 1500mm clear turning circle inside the entrance area, in front of the door when closed.",
+      "quote_3_43_e": "The bathroom (or bathrooms) provides a minimum 1500mm clear turning circle."
+    },
+    "floor_area": {
+      "m2": 63,
+      "urls": [
+        "https://barclay-house.com/two-bedroom-apartment/",
+        "https://www.rightmove.co.uk/properties/92163630"
+      ],
+      "note": "679 sq ft; outline scaled so shoelace area equals 63 m\u00b2 (#18 residual 0% by construction)"
+    },
+    "plan_iou": {
+      "identity": 0.1408,
+      "gate": 0.85,
+      "result": "FAIL",
+      "trick": 18
+    },
+    "label": "indicative"
+  },
+  "floor": [
+    [
+      -3.679529,
+      -3.767837
+    ],
+    [
+      -1.32463,
+      -4.121072
+    ],
+    [
+      -1.148013,
+      -4.415434
+    ],
+    [
+      2.678697,
+      -4.945286
+    ],
+    [
+      3.679529,
+      -0.294362
+    ],
+    [
+      3.679529,
+      4.562615
+    ],
+    [
+      -3.502911,
+      4.562615
+    ],
+    [
+      -3.502911,
+      -0.147181
+    ]
+  ],
+  "walls": [
+    {
+      "a": [
+        -3.679529,
+        -3.767837
+      ],
+      "b": [
+        -1.32463,
+        -4.121072
+      ],
+      "t": 0.12,
+      "gaps": []
+    },
+    {
+      "a": [
+        -1.32463,
+        -4.121072
+      ],
+      "b": [
+        -1.148013,
+        -4.415434
+      ],
+      "t": 0.12,
+      "gaps": []
+    },
+    {
+      "a": [
+        -1.148013,
+        -4.415434
+      ],
+      "b": [
+        2.678697,
+        -4.945286
+      ],
+      "t": 0.12,
+      "gaps": []
+    },
+    {
+      "a": [
+        2.678697,
+        -4.945286
+      ],
+      "b": [
+        3.679529,
+        -0.294362
+      ],
+      "t": 0.12,
+      "gaps": []
+    },
+    {
+      "a": [
+        3.679529,
+        -0.294362
+      ],
+      "b": [
+        3.679529,
+        4.562615
+      ],
+      "t": 0.12,
+      "gaps": []
+    },
+    {
+      "a": [
+        3.679529,
+        4.562615
+      ],
+      "b": [
+        -3.502911,
+        4.562615
+      ],
+      "t": 0.12,
+      "gaps": [
+        [
+          3.868669,
+          4.768669
+        ]
+      ]
+    },
+    {
+      "a": [
+        -3.502911,
+        4.562615
+      ],
+      "b": [
+        -3.502911,
+        -0.147181
+      ],
+      "t": 0.12,
+      "gaps": []
+    },
+    {
+      "a": [
+        -3.502911,
+        -0.147181
+      ],
+      "b": [
+        -3.679529,
+        -3.767837
+      ],
+      "t": 0.12,
+      "gaps": []
+    },
+    {
+      "a": [
+        -0.941959,
+        -4.268253
+      ],
+      "b": [
+        -0.500416,
+        -1.118577
+      ],
+      "t": 0.12,
+      "gaps": []
+    },
+    {
+      "a": [
+        -3.502911,
+        -0.147181
+      ],
+      "b": [
+        -0.500416,
+        -1.118577
+      ],
+      "t": 0.12,
+      "gaps": [
+        [
+          2.0995783433986723,
+          2.949578343398672
+        ]
+      ]
+    },
+    {
+      "a": [
+        -0.500416,
+        -1.118577
+      ],
+      "b": [
+        2.296026,
+        -1.471811
+      ],
+      "t": 0.12,
+      "gaps": [
+        [
+          0.13873259192529547,
+          0.9887325919252954
+        ]
+      ]
+    },
+    {
+      "a": [
+        -3.502911,
+        0.294362
+      ],
+      "b": [
+        -1.383503,
+        0.294362
+      ],
+      "t": 0.12,
+      "gaps": []
+    },
+    {
+      "a": [
+        -1.383503,
+        0.294362
+      ],
+      "b": [
+        -1.383503,
+        2.354898
+      ],
+      "t": 0.12,
+      "gaps": [
+        [
+          0.6052679893023838,
+          1.4552679893023839
+        ]
+      ]
+    },
+    {
+      "a": [
+        -3.502911,
+        2.354898
+      ],
+      "b": [
+        -1.383503,
+        2.354898
+      ],
+      "t": 0.12,
+      "gaps": []
+    },
+    {
+      "a": [
+        -1.501248,
+        2.354898
+      ],
+      "b": [
+        -1.501248,
+        4.562615
+      ],
+      "t": 0.12,
+      "gaps": [
+        [
+          0.8996302719602072,
+          1.7496302719602073
+        ]
+      ]
+    }
+  ],
+  "rooms": [
+    {
+      "id": "i_bed1",
+      "label": "Bedroom 1",
+      "poly": [
+        [
+          -3.502911,
+          -0.147181
+        ],
+        [
+          -0.500416,
+          -1.118577
+        ],
+        [
+          -0.941959,
+          -4.268253
+        ],
+        [
+          -1.32463,
+          -4.121072
+        ],
+        [
+          -3.679529,
+          -3.767837
+        ]
+      ]
+    },
+    {
+      "id": "i_bed2",
+      "label": "Bedroom 2",
+      "poly": [
+        [
+          -0.500416,
+          -1.118577
+        ],
+        [
+          2.296026,
+          -1.471811
+        ],
+        [
+          3.679529,
+          -0.294362
+        ],
+        [
+          2.678697,
+          -4.945286
+        ],
+        [
+          -0.941959,
+          -4.268253
+        ]
+      ]
+    },
+    {
+      "id": "i_store",
+      "label": "Storage",
+      "poly": [
+        [
+          -3.502911,
+          0.294362
+        ],
+        [
+          -1.383503,
+          0.294362
+        ],
+        [
+          -1.383503,
+          2.354898
+        ],
+        [
+          -3.502911,
+          2.354898
+        ]
+      ]
+    },
+    {
+      "id": "i_bath",
+      "label": "Bathroom",
+      "poly": [
+        [
+          -3.502911,
+          2.354898
+        ],
+        [
+          -1.501248,
+          2.354898
+        ],
+        [
+          -1.501248,
+          4.562615
+        ],
+        [
+          -3.502911,
+          4.562615
+        ]
+      ]
+    },
+    {
+      "id": "i_kitchen",
+      "label": "Kitchen",
+      "poly": [
+        [
+          0.559288,
+          1.530684
+        ],
+        [
+          3.620656,
+          1.530684
+        ],
+        [
+          3.620656,
+          4.503743
+        ],
+        [
+          0.559288,
+          4.503743
+        ]
+      ]
+    },
+    {
+      "id": "i_hall",
+      "label": "Hall",
+      "poly": [
+        [
+          -1.383503,
+          0.294362
+        ],
+        [
+          0.559288,
+          0.294362
+        ],
+        [
+          0.559288,
+          4.562615
+        ],
+        [
+          -1.501248,
+          4.562615
+        ],
+        [
+          -1.501248,
+          2.354898
+        ],
+        [
+          -1.383503,
+          2.354898
+        ]
+      ]
+    },
+    {
+      "id": "i_living",
+      "label": "Living",
+      "poly": [
+        [
+          -1.383503,
+          0.294362
+        ],
+        [
+          0.559288,
+          0.294362
+        ],
+        [
+          0.559288,
+          1.530684
+        ],
+        [
+          3.620656,
+          1.530684
+        ],
+        [
+          3.679529,
+          -0.294362
+        ],
+        [
+          2.296026,
+          -1.471811
+        ],
+        [
+          -0.500416,
+          -1.118577
+        ],
+        [
+          -1.383503,
+          -0.832872
+        ]
+      ]
+    }
+  ],
+  "furniture": [
+    {
+      "name": "Kitchen_run",
+      "kind": "kitchen",
+      "room": "i_kitchen",
+      "shape": "rect",
+      "c": [
+        3.309529,
+        3.003743
+      ],
+      "s": [
+        0.62,
+        3.0
+      ],
+      "rot": 0
+    },
+    {
+      "name": "Peninsula_dark",
+      "kind": "kitchen",
+      "room": "i_kitchen",
+      "shape": "rect",
+      "c": [
+        2.119529,
+        1.766174
+      ],
+      "s": [
+        1.84,
+        0.64
+      ],
+      "rot": 0
+    },
+    {
+      "name": "Sofa_navy_velvet_3seat",
+      "kind": "sofa",
+      "room": "i_living",
+      "shape": "rect",
+      "c": [
+        2.993475,
+        0.147181
+      ],
+      "s": [
+        0.94,
+        2.36
+      ],
+      "rot": 0
+    },
+    {
+      "name": "Coffee_table_oak_top",
+      "kind": "table",
+      "room": "i_living",
+      "shape": "rect",
+      "c": [
+        1.623475,
+        0.147181
+      ],
+      "s": [
+        0.55,
+        1.05
+      ],
+      "rot": 0
+    },
+    {
+      "name": "TV_bench_oak",
+      "kind": "furniture",
+      "room": "i_living",
+      "shape": "rect",
+      "c": [
+        0.632671,
+        0.147181
+      ],
+      "s": [
+        0.4,
+        1.5
+      ],
+      "rot": 0
+    },
+    {
+      "name": "Plant_pot",
+      "kind": "plant",
+      "room": "i_living",
+      "shape": "circle",
+      "c": [
+        2.973475,
+        -1.252819
+      ],
+      "s": [
+        0.36,
+        0.36
+      ],
+      "rot": 0.0
+    },
+    {
+      "name": "Dining_table_oak_top",
+      "kind": "table",
+      "room": "i_living",
+      "shape": "circle",
+      "c": [
+        1.56012,
+        3.385166
+      ],
+      "s": [
+        0.9,
+        0.9
+      ],
+      "rot": 0.0
+    },
+    {
+      "name": "Tub_chair_0",
+      "kind": "chair",
+      "room": "i_living",
+      "shape": "circle",
+      "c": [
+        2.28012,
+        3.385166
+      ],
+      "s": [
+        0.58,
+        0.58
+      ],
+      "rot": 0.0
+    },
+    {
+      "name": "Tub_chair_1",
+      "kind": "chair",
+      "room": "i_living",
+      "shape": "circle",
+      "c": [
+        1.56012,
+        2.665166
+      ],
+      "s": [
+        0.58,
+        0.58
+      ],
+      "rot": 0.0
+    },
+    {
+      "name": "Tub_chair_2",
+      "kind": "chair",
+      "room": "i_living",
+      "shape": "circle",
+      "c": [
+        0.84012,
+        3.385166
+      ],
+      "s": [
+        0.58,
+        0.58
+      ],
+      "rot": 0.0
+    },
+    {
+      "name": "Tub_chair_3",
+      "kind": "chair",
+      "room": "i_living",
+      "shape": "circle",
+      "c": [
+        1.56012,
+        4.105166
+      ],
+      "s": [
+        0.58,
+        0.58
+      ],
+      "rot": 0.0
+    },
+    {
+      "name": "Bed1_navy",
+      "kind": "bed",
+      "room": "i_bed1",
+      "shape": "rect",
+      "c": [
+        -2.413771,
+        -2.617837
+      ],
+      "s": [
+        1.45,
+        2.05
+      ],
+      "rot": 0
+    },
+    {
+      "name": "Bed1_bedside_-1",
+      "kind": "bedside",
+      "room": "i_bed1",
+      "shape": "rect",
+      "c": [
+        -3.413771,
+        -3.417837
+      ],
+      "s": [
+        0.45,
+        0.4
+      ],
+      "rot": 0
+    },
+    {
+      "name": "Bed1_bedside_+1",
+      "kind": "bedside",
+      "room": "i_bed1",
+      "shape": "rect",
+      "c": [
+        -1.413771,
+        -3.417837
+      ],
+      "s": [
+        0.45,
+        0.4
+      ],
+      "rot": 0
+    },
+    {
+      "name": "Wardrobe_bed1",
+      "kind": "wardrobe",
+      "room": "i_bed1",
+      "shape": "rect",
+      "c": [
+        -2.908549,
+        -1.177449
+      ],
+      "s": [
+        1.0,
+        0.58
+      ],
+      "rot": 1.570796
+    },
+    {
+      "name": "Bed2_navy",
+      "kind": "bed",
+      "room": "i_bed2",
+      "shape": "rect",
+      "c": [
+        1.412939,
+        -3.115434
+      ],
+      "s": [
+        1.45,
+        2.05
+      ],
+      "rot": -0.06
+    },
+    {
+      "name": "Bed2_bedside_0",
+      "kind": "bedside",
+      "room": "i_bed2",
+      "shape": "rect",
+      "c": [
+        0.412939,
+        -3.965434
+      ],
+      "s": [
+        0.45,
+        0.4
+      ],
+      "rot": -0.06
+    },
+    {
+      "name": "Bed2_bedside_1",
+      "kind": "bedside",
+      "room": "i_bed2",
+      "shape": "rect",
+      "c": [
+        2.412939,
+        -3.915434
+      ],
+      "s": [
+        0.45,
+        0.4
+      ],
+      "rot": -0.06
+    },
+    {
+      "name": "Wardrobe_bed2",
+      "kind": "wardrobe",
+      "room": "i_bed2",
+      "shape": "rect",
+      "c": [
+        0.088309,
+        -1.618993
+      ],
+      "s": [
+        1.0,
+        0.58
+      ],
+      "rot": -3.021593
+    },
+    {
+      "name": "Shower_tray",
+      "kind": "sanitary",
+      "room": "i_bath",
+      "shape": "rect",
+      "c": [
+        -2.973475,
+        4.033179
+      ],
+      "s": [
+        0.95,
+        0.9
+      ],
+      "rot": 0
+    },
+    {
+      "name": "WC_boxing_half_wall",
+      "kind": "sanitary",
+      "room": "i_bath",
+      "shape": "rect",
+      "c": [
+        -3.313475,
+        2.983757
+      ],
+      "s": [
+        0.2,
+        1.198845
+      ],
+      "rot": 0
+    },
+    {
+      "name": "WC_pan",
+      "kind": "sanitary",
+      "room": "i_bath",
+      "shape": "rect",
+      "c": [
+        -2.903475,
+        3.034334
+      ],
+      "s": [
+        0.5,
+        0.4
+      ],
+      "rot": 0
+    },
+    {
+      "name": "Vanity_grey_stone_look",
+      "kind": "sanitary",
+      "room": "i_bath",
+      "shape": "rect",
+      "c": [
+        -1.980684,
+        2.684334
+      ],
+      "s": [
+        0.6,
+        0.46
+      ],
+      "rot": 0
+    },
+    {
+      "name": "Storage_shelving_white",
+      "kind": "storage",
+      "room": "i_store",
+      "shape": "rect",
+      "c": [
+        -3.194039,
+        1.32463
+      ],
+      "s": [
+        0.4,
+        1.742791
+      ],
+      "rot": 0
+    }
+  ],
+  "entrance": {
+    "name": "Door_entrance",
+    "hinge": [
+      -1.0891,
+      4.5626
+    ],
+    "w": 0.9,
+    "source": "web/floorplan3d/2bed.json",
+    "seed": [
+      -0.6391,
+      4.3026
+    ]
+  },
+  "label": "indicative",
+  "approximate_layout": true
+}
