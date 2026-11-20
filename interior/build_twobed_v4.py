@@ -1,9 +1,14 @@
 # Barclay House Two Bed v2 (critic round 1 fixes). Outline + rooms SCALED FROM RIGHTMOVE PLAN IMAGE (apt02_fp.png), APPROXIMATE,
 # total floor area fixed to sourced 63 m2. Finishes/furniture follow Rightmove CGI marketing images (scheme spec), illustrative.
 # Unsourced: clear ceiling height (3.0 m used; floor-to-floor 3.663 m sourced), window positions, all furniture dimensions.
-import bpy, bmesh, math, mathutils, sys
+import bpy, bmesh, math, mathutils, sys, os
 from mathutils import Vector
-TX="/workspace/barclay/interior/tex/"; OUT="/workspace/barclay/interior/live/"
+import furniture_cc0
+ROOT=os.path.abspath(os.path.join(os.path.dirname(os.path.abspath(__file__)), ".."))
+TX=os.path.join(ROOT,"interior","tex")+os.sep
+OUT=os.path.join(ROOT,"interior","live")+os.sep
+HDRI=os.path.join(ROOT,"hdri.exr")
+SHOTS_R9=os.path.join(ROOT,"web","shots","r9")
 P=[(12,62),(92,50),(98,40),(228,22),(262,180),(262,345),(18,345),(18,185)]
 def parea(P): return abs(sum(P[i][0]*P[(i+1)%len(P)][1]-P[(i+1)%len(P)][0]*P[i][1] for i in range(len(P))))/2
 K=math.sqrt(63.0/parea(P)); CX,CY=137,190; CEIL=3.0; T=0.12
@@ -172,68 +177,22 @@ while x<max(xs):
             bpy.ops.object.light_add(type='POINT',location=(x,y,CEIL-0.08));l=bpy.context.object;l.name=f"DL_light_{k}";l.data.energy=55;l.data.color=(1,0.78,0.55);l.data.shadow_soft_size=0.05;k+=1
         y+=1.6
     x+=1.6
-# ---------- KITCHEN (right wall run, x≈262, y 240..345 px)
-kx=m(262,0).x-T/2; ky0=m(0,343).y; ky1=m(0,238).y; L=ky1-ky0; n=int(L/0.6); y=ky0
-for i in range(n):
-    yc=ky0+0.3+i*0.6
-    if i==1: box("Washing_machine_black",(kx-0.3,yc,0.43),(0.58,0.597,0.82),BLK); r_=cyl("WM_door_chrome_ring",(kx-0.595,yc,0.42),0.19,0.03,CHROME,40);r_.rotation_euler=(0,math.pi/2,0); g_=cyl("WM_door_glass_dark",(kx-0.605,yc,0.42),0.155,0.03,TVS,40);g_.rotation_euler=(0,math.pi/2,0); box("WM_control_panel",(kx-0.595,yc,0.79),(0.01,0.55,0.08),FRAME,0,0)
-    else: box(f"Base_unit_{i}",(kx-0.3,yc,0.45),(0.58,0.597,0.78),WUNIT,0,0.002)
-    box(f"Wall_unit_{i}",(kx-0.17,yc,1.95),(0.33,0.597,0.72),WUNIT,0,0.002)
-box("Plinth",(kx-0.29,(ky0+ky1)/2,0.04),(0.55,L,0.08),DARK,0,0)
-box("Worktop",(kx-0.31,ky0+n*0.3,0.88),(0.62,n*0.6,0.04),WTOP,0,0.002)
-box("LED_strip_under_wall_units",(kx-0.3,ky0+n*0.3,1.585),(0.02,n*0.6,0.01),LED,0,0)
-box("Microwave_frame_black",(kx-0.336,ky0+0.3+3*0.6,1.95),(0.012,0.58,0.4),BLK,0,0.003); box("Microwave_glass_face",(kx-0.344,ky0+0.3+3*0.6-0.06,1.95),(0.004,0.4,0.3),TVS,0,0); box("Microwave_controls",(kx-0.344,ky0+0.3+3*0.6+0.21,1.95),(0.004,0.1,0.3),FRAME,0,0)
-sk=ky0+0.3+2*0.6; box("Sink_steel",(kx-0.33,sk,0.895),(0.42,0.5,0.012),STEEL,0,0.002)
-cyl("Tap_body",(kx-0.08,sk,1.08),0.018,0.38,CHROME,20)
-for k in range(10):
-    a=math.pi*k/9; q=Vector((kx-0.08-0.11*(1-math.cos(a)),sk,1.27+0.11*math.sin(a))); sph("Tap_gooseneck_arc",q,0.016,CHROME)
-cyl("Tap_outlet",(kx-0.30,sk,1.23),0.016,0.08,CHROME,16)
-box("Induction_hob_black",(kx-0.33,ky0+0.3,0.902),(0.52,0.56,0.006),BLK,0,0.002)
-if n*0.6<L-0.62: box("Tall_unit",(kx-0.3,ky0+n*0.6+0.3,CEIL/2-0.15),(0.58,0.597,CEIL-0.4),WUNIT,0,0.002)
-# dark peninsula with built-in black oven (Apt 02/03 photos)
-pz=m(0,250).y; px0=kx-0.6; box("Peninsula_dark",(px0-0.9,pz,0.45),(1.8,0.6,0.9),DARK,0,0.003)
-box("Peninsula_top_white_quartz",(px0-0.9,pz,0.915),(1.84,0.64,0.03),QUARTZ,0,0.002); box("Oven_black_built_in",(px0-0.4,pz-0.301,0.45),(0.58,0.01,0.58),BLK,0,0)
-# ---------- LIVING / DINING
-lc=m(205,195); sofa_y=lc.y; sx=m(255,0).x-0.5
-def sofa(c,ang):
-    g=[box("Sofa_base",(0.02,0,0.25),(0.92,2.0,0.2),NAVY,0,0.04),box("Sofa_back",(0.38,0,0.58),(0.18,2.0,0.5),NAVY,0,0.07)]
-    for sd in (-1,1):
-        a=cyl("Sofa_bolster_arm",(0.0,sd*1.06,0.42),0.13,0.92,NAVY,32);a.rotation_euler=(0,math.pi/2,0);g.append(a)
-        g.append(box("Sofa_arm_panel",(0.0,sd*1.06,0.27),(0.92,0.24,0.3),NAVY,0,0.05))
-    for j in (-0.62,0,0.62):
-        g.append(box("Sofa_seat_cushion_deep",(-0.06,j,0.44),(0.72,0.61,0.18),NAVY,0,0.07))
-        g.append(box("Sofa_back_cushion",(0.24,j,0.72),(0.2,0.6,0.46),NAVY,0,0.09))
-    for j in (-0.75,0.75): g.append(box("Sofa_scatter_cushion_cream",(0.15,j,0.7),(0.12,0.42,0.42),BOUC,0,0.06))
-    for a,b in ((-0.38,-0.95),(0.38,-0.95),(-0.38,0.95),(0.38,0.95)): g.append(cyl("Sofa_leg_tapered_black",(a,b,0.075),0.018,0.15,BMET,16,0.012))
-    e=bpy.data.objects.new("Sofa_navy_velvet_3seat",None);sc.collection.objects.link(e)
-    for o in g: o.parent=e
-    e.location=c;e.rotation_euler[2]=ang
-sofa((sx,sofa_y,0),0)
+# ---------- FURNITURE (CC0 module; existing positions/rotations preserved)
+_furn_mats=dict(WUNIT=WUNIT,DARK=DARK,QUARTZ=QUARTZ,WTOP=WTOP,BLK=BLK,STEEL=STEEL,CHROME=CHROME,
+                LED=LED,NAVY=NAVY,BOUC=BOUC,OAKF=OAKF,LIN=LIN,WHITEP=WHITEP,GREYV=GREYV,GLASS=GLASS,
+                BMET=BMET,LAMPS=LAMPS,TILE=TILE,TVS=TVS,FRAME=FRAME)
+placed=furniture_cc0.place_all(dict(sc=sc,m=m,T=T,CEIL=CEIL,box=box,cyl=cyl,sph=sph,mats=_furn_mats,Vector=Vector,math=math,ROOT=ROOT))
+kx,ky0,ky1,sx,sofa_y,ct,tvx,dc,b1,b2=placed["kx"],placed["ky0"],placed["ky1"],placed["sx"],placed["sofa_y"],placed["ct"],placed["tvx"],placed["dc"],placed["b1"],placed["b2"]
+bx0,by0,bx1,by1,wcy,wx0,vx=placed["bx0"],placed["by0"],placed["bx1"],placed["by1"],placed["wcy"],placed["wx0"],placed["vx"]
+
+# decorations that stay procedural (no suitable standalone CC0 model, or not in the swap list)
 box("Rug_cream",(sx-1.35,sofa_y,0.006),(1.7,2.3,0.012),RUG,0,0.003)
-ct=Vector((sx-1.35,sofa_y,0)); box("Coffee_table_oak_top",(ct.x,ct.y,0.42),(0.55,1.05,0.035),OAKF,0,0.006)
-for a,b in ((-0.27,-0.5),(0.27,-0.5),(-0.27,0.5),(0.27,0.5)): box("Coffee_table_black_metal_leg",(ct.x+a*0.95,ct.y+b*0.97,0.2),(0.02,0.02,0.4),BMET,0,0)
-box("Coffee_table_shelf_oak",(ct.x,ct.y,0.13),(0.5,1.0,0.02),OAKF,0,0.004); box("Coffee_book",(ct.x+0.1,ct.y-0.25,0.455),(0.22,0.3,0.03),RUG,0,0.003)
-tvx=m(150,0).x+0.25; box("TV_bench_oak",(tvx,sofa_y,0.36),(0.4,1.5,0.32),OAKF,0,0.006)
-for a,b in ((-0.16,-0.7),(0.16,-0.7),(-0.16,0.7),(0.16,0.7)): cyl("TV_bench_leg_black",(tvx+a,sofa_y+b,0.1),0.015,0.2,BMET,12)
-box("TV_bench_door_gap",(tvx+0.201,sofa_y,0.36),(0.002,0.004,0.3),BMET,0,0)
+box("Coffee_book",(ct.x+0.1,ct.y-0.25,0.455),(0.22,0.3,0.03),RUG,0,0.003)
 box("TV_stand_black",(tvx,sofa_y,0.55),(0.18,0.3,0.02),BMET,0,0); box("TV_stand_post",(tvx-0.02,sofa_y,0.62),(0.03,0.06,0.14),BMET,0,0)
 box("TV_bezel_black_facing_sofa",(tvx-0.02,sofa_y,0.98),(0.04,1.12,0.66),BLK,0,0.004); box("TV_screen",(tvx+0.001,sofa_y,0.99),(0.002,1.08,0.61),TVS,0,0)
 box("Art_living_frame",(sx+0.44,sofa_y,1.6),(0.03,0.8,1.05),BMET,0,0); box("Art_living",(sx+0.42,sofa_y,1.6),(0.01,0.72,0.97),ART[1],0,0)
 pp=Vector((sx,sofa_y+1.4,0)); cyl("Plant_pot",(pp.x,pp.y,0.2),0.18,0.4,POT,24,0.14)
 for j in range(9): a=j*0.7; sph("Plant_leaf",(pp.x+0.25*math.cos(a)*(j%3)/2,pp.y+0.25*math.sin(a)*(j%3)/2,0.75+0.12*(j%4)),0.18,LEAF,1.2,0.5,0.25)
-dc=Vector((m(190,0).x,m(0,305).y,0))
-cyl("Dining_table_oak_top",(dc.x,dc.y,0.74),0.45,0.035,OAKF,48); cyl("Dining_table_pedestal_black",(dc.x,dc.y,0.37),0.04,0.72,BMET); cyl("Dining_table_foot",(dc.x,dc.y,0.015),0.25,0.03,BMET)
-def tub(c,ang):
-    e=bpy.data.objects.new("Tub_chair_cream_boucle",None);sc.collection.objects.link(e)
-    s=cyl("Tub_seat",(0,0,0.45),0.26,0.1,BOUC,32);s.parent=e
-    b=bpy.data.objects.new("x",None)
-    bm=bmesh.new();bmesh.ops.create_cone(bm,cap_ends=False,segments=32,radius1=0.27,radius2=0.29,depth=0.35)
-    for v in list(bm.verts):
-        if math.atan2(v.co.y,v.co.x)<-0.2*math.pi and math.atan2(v.co.y,v.co.x)>-0.8*math.pi: bm.verts.remove(v)
-    bk=obj_from(bm,"Tub_back",BOUC);bk.location=(0,0,0.67);bk.parent=e;md=bk.modifiers.new("s","SOLIDIFY");md.thickness=0.06
-    for a in range(4): q=a*math.pi/2+math.pi/4; cyl("Tub_leg_black",(0.2*math.cos(q),0.2*math.sin(q),0.2),0.012,0.4,BMET).parent=e
-    e.location=c;e.rotation_euler[2]=ang
-for j,a in enumerate((0,math.pi/2,math.pi,3*math.pi/2)): tub((dc.x+0.72*math.cos(a),dc.y+0.72*math.sin(a),0),a-math.pi/2)
 
 # --- geometric chair facing check (print + assert) ---
 _chairs=[o for o in sc.objects if o.name.startswith("Tub_chair_cream_boucle") and o.parent is None]
@@ -251,93 +210,50 @@ for e in _chairs:
     print(f"CHAIR_CHECK name={e.name} pos=({pos.x:.3f},{pos.y:.3f},{pos.z:.3f}) rot_z={ang:.4f} open_dir=({open_dir.x:.3f},{open_dir.y:.3f}) to_table=({to_table.x:.3f},{to_table.y:.3f}) dot={dot:.3f} d_back={d_back:.3f} d_open={d_open:.3f} PASS={ok}")
     assert ok, "chair facing failed geometric check"
 print("CHAIR_CHECK_ALL_PASS")
-# dining top-down + 3/4 Blender stills (always, even with --noshots)
-import os
-os.makedirs("/workspace/barclay/web/shots/r9",exist_ok=True)
-_sc=sc; _sc.render.engine='CYCLES'; _sc.cycles.samples=24; _sc.cycles.use_denoising=True
-_sc.render.resolution_x=1200; _sc.render.resolution_y=1200
-# top-down
-bpy.ops.object.camera_add(location=(dc.x,dc.y,4.2)); cam=bpy.context.object
-cam.rotation_euler=(0,0,0); cam.data.type='ORTHO'; cam.data.ortho_scale=3.2; _sc.camera=cam
-# look down: track -Z toward table
-cam.rotation_euler=(0,0,0); # wrong - need to point down
-cam.location=(dc.x,dc.y,5.0); cam.rotation_euler=(0,0,0)
-# Blender camera looks along -Z of camera; set rotation to look down
-from mathutils import Euler
-cam.rotation_euler=Euler((0,0,0),'XYZ')  # default looks -Z which is down if we use track
-# Actually default camera at (0,0,5) with rot (0,0,0) looks toward -Z world = down. Good for top-down if Z is up.
-# Our scene uses Z-up. Camera default faces -Z, so from z=5 looking -Z sees the XY plane. Perfect.
-_sc.render.filepath="/workspace/barclay/web/shots/r9/dining_top.png"; bpy.ops.render.render(write_still=True); print("SHOT dining_top")
-# 3/4 view
-cam.data.type='PERSP'; cam.data.lens=35
-cam.location=(dc.x+1.8, dc.y-1.8, 1.6)
-cam.rotation_euler=(Vector((dc.x,dc.y,0.7))-cam.location).to_track_quat('-Z','Y').to_euler()
-_sc.render.resolution_x=1400; _sc.render.resolution_y=1000
-_sc.render.filepath="/workspace/barclay/web/shots/r9/dining_34.png"; bpy.ops.render.render(write_still=True); print("SHOT dining_34")
-bpy.data.objects.remove(cam, do_unlink=True)
+# dining top-down + 3/4 Blender stills (always, even with --noshots, unless --only names other shots)
+_skip_dining=("--only" in sys.argv and "dining_top" not in sys.argv and "dining_34" not in sys.argv)
+if not _skip_dining:
+    os.makedirs(SHOTS_R9,exist_ok=True)
+    _sc=sc; _sc.render.engine='CYCLES'; _sc.cycles.samples=24; _sc.cycles.use_denoising=True
+    _sc.render.resolution_x=1200; _sc.render.resolution_y=1200
+    bpy.ops.object.camera_add(location=(dc.x,dc.y,5.0)); cam=bpy.context.object
+    from mathutils import Euler
+    cam.rotation_euler=Euler((0,0,0),'XYZ')
+    cam.data.type='ORTHO'; cam.data.ortho_scale=3.2; _sc.camera=cam
+    # hide ceiling so the top-down cam at z=5 is not looking at the slab
+    if "Ceiling" in bpy.data.objects: bpy.data.objects["Ceiling"].hide_render=True
+    _sc.render.filepath=os.path.join(SHOTS_R9,"dining_top.png"); bpy.ops.render.render(write_still=True); print("SHOT dining_top")
+    cam.data.type='PERSP'; cam.data.lens=35
+    cam.location=(dc.x+1.8, dc.y-1.8, 1.6)
+    cam.rotation_euler=(Vector((dc.x,dc.y,0.7))-cam.location).to_track_quat('-Z','Y').to_euler()
+    _sc.render.resolution_x=1400; _sc.render.resolution_y=1000
+    if "Ceiling" in bpy.data.objects: bpy.data.objects["Ceiling"].hide_render=False
+    _sc.render.filepath=os.path.join(SHOTS_R9,"dining_34.png"); bpy.ops.render.render(write_still=True); print("SHOT dining_34")
+    bpy.data.objects.remove(cam, do_unlink=True)
 
 cyl("Pendant_cord",(dc.x,dc.y,(CEIL+1.75)/2),0.004,CEIL-1.75,BMET); sph("Globe_pendant_white",(dc.x,dc.y,1.6),0.2,GLOBE)
 bpy.ops.object.light_add(type='POINT',location=(dc.x,dc.y,1.55));bpy.context.object.name="Pendant_light";bpy.context.object.data.energy=40;bpy.context.object.data.color=(1,0.78,0.55)
-# ---------- BEDROOMS
-def bed(n,c,ang):
-    e=bpy.data.objects.new(n,None);sc.collection.objects.link(e);W,Lb=1.45,2.05
-    for o in (box("Bed_base_navy_velvet",(0,0,0.2),(W,Lb,0.32),NAVY,0,0.03),box("Mattress_white",(0,-0.03,0.47),(W-0.08,Lb-0.1,0.22),LIN,0,0.05),
-              box("Duvet_white",(0,-0.2,0.6),(W-0.02,1.45,0.08),LIN,0,0.04),box("Throw_navy_folded",(0,-0.72,0.655),(W+0.06,0.5,0.03),NAVY,0,0.012),box("Throw_drape_L",(-W/2-0.04,-0.72,0.5),(0.025,0.5,0.3),NAVY,0,0.01),box("Throw_drape_R",(W/2+0.04,-0.72,0.5),(0.025,0.5,0.3),NAVY,0,0.01),
-              box("Pillow",(-0.34,0.82,0.66),(0.62,0.32,0.15),LIN,0,0.07),box("Pillow",(0.34,0.82,0.66),(0.62,0.32,0.15),LIN,0,0.07),box("Pillow_front",(-0.34,0.72,0.74),(0.6,0.14,0.36),LIN,0,0.07),box("Pillow_front",(0.34,0.72,0.74),(0.6,0.14,0.36),LIN,0,0.07),box("Scatter_cushion_navy",(-0.22,0.6,0.74),(0.36,0.12,0.34),NAVY,0,0.06),box("Scatter_cushion_navy",(0.22,0.6,0.74),(0.36,0.12,0.34),NAVY,0,0.06),
-              box("Cushion_navy",(0,0.62,0.7),(0.4,0.14,0.32),NAVY,0,0.06)): o.parent=e
-    for k in range(9):
-        sp=(W+0.1)/9; x=-W/2-0.05+sp/2+k*sp
-        o=cyl("Headboard_channel_flute_navy",(x,Lb/2+0.06,0.6),sp/2+0.004,1.1,NAVY,20);o.scale=(1,0.7,1);o.parent=e
-        t=sph("Headboard_flute_top",(x,Lb/2+0.06,1.15),sp/2+0.004,NAVY,1,0.7,0.6);t.parent=e
-    box("Headboard_backing",(0,Lb/2+0.1,0.6),(W+0.1,0.04,1.15),NAVY,0,0.01).parent=e
-    e.location=c;e.rotation_euler[2]=ang
-def bedside(c,ang):
-    e=bpy.data.objects.new("Bedside_table_oak",None);sc.collection.objects.link(e)
-    for o in (box("Bedside_oak_body",(0,0,0.42),(0.45,0.4,0.32),OAKF),box("Bedside_drawer_line",(0,-0.201,0.42),(0.4,0.004,0.004),BMET,0,0)): o.parent=e
-    for a,b in ((-0.2,-0.17),(0.2,-0.17),(-0.2,0.17),(0.2,0.17)): cyl("Bedside_leg_black",(a,b,0.13),0.012,0.26,BMET).parent=e
-    cyl("Lamp_stem_black",(0,0,0.68),0.012,0.2,BMET).parent=e; s=sph("Lamp_mushroom_opal",(0,0,0.8),0.14,LAMPS,1,1,0.6);s.parent=e
-    e.location=c;e.rotation_euler[2]=ang
-    bpy.ops.object.light_add(type='POINT',location=(c[0],c[1],0.85));bpy.context.object.data.energy=12;bpy.context.object.data.color=(1,0.75,0.5)
-def wardrobe(c,ang):
-    e=bpy.data.objects.new("Wardrobe_oak_2door",None);sc.collection.objects.link(e)
-    for o in (box("Wardrobe_left_door",(-0.251,0,1.05),(0.5,0.58,2.1),OAKF,0,0.002),box("Wardrobe_right_door",(0.251,0,1.05),(0.5,0.58,2.1),OAKF,0,0.002),box("Wardrobe_plinth",(0,0,0.03),(1.0,0.55,0.06),BMET,0,0)): o.parent=e
-    e.location=c;e.rotation_euler[2]=ang
-# bedroom 1 (top-left): bed head against north wall
-b1=m(55,105); bed("Bed1_navy",(b1.x,m(0,62).y-1.15,0),math.pi*0); 
-bedside((b1.x-1.0,m(0,62).y-0.35,0),0); bedside((b1.x+1.0,m(0,62).y-0.35,0),0)
-wardrobe((m(28,0).x+0.3,m(0,150).y,0),-math.pi/2)
+
+# bedside lamps (point lights at the CC0 nightstand positions)
+for (lx,ly) in ((b1.x-1.0,m(0,62).y-0.35),(b1.x+1.0,m(0,62).y-0.35),(b2.x-1.0,m(0,40).y-0.45),(b2.x+1.0,m(0,40).y-0.50)):
+    bpy.ops.object.light_add(type='POINT',location=(lx,ly,0.85));bpy.context.object.data.energy=12;bpy.context.object.data.color=(1,0.75,0.5)
+
 wx=m(15,0).x+T/2+0.02; box("Art_bed1_frame_side_wall",(wx,m(0,120).y,1.6),(0.03,0.6,0.8),BMET,0,0); box("Art_bed1",(wx+0.016,m(0,120).y,1.6),(0.005,0.54,0.74),ART[0],0,0)
-b2=m(185,70); bed("Bed2_navy",(b2.x,m(0,40).y-1.3,0),0.06)
-bedside((b2.x-1.0,m(0,40).y-0.45,0),0.06); bedside((b2.x+1.0,m(0,40).y-0.5,0),0.06)
-wardrobe((m(140,0).x,m(0,135).y,0),math.pi-0.12)
-# ---------- BATHROOM
-bx0,by0=m(19,344).x,m(19,344).y; bx1,by1=m(85,271).x,m(85,271).y
-box("Shower_tray",(bx0+0.5,by0+0.5,0.025),(0.9,0.9,0.05),WHITEP)
-box("Shower_glass_edge_chrome",(bx0+0.95,by0+0.5,2.05),(0.02,0.9,0.02),CHROME,0,0); box("Shower_glass_wall",(bx0+0.95,by0+0.5,1.05),(0.008,0.9,2.0),GLASS,0,0); cyl("Shower_riser_chrome",(bx0+0.45,by0+T/2+0.02,1.45),0.012,1.3,CHROME,12); box("Shower_arm_chrome",(bx0+0.45,by0+T/2+0.17,2.12),(0.025,0.32,0.025),CHROME,0,0.005); cyl("Shower_head",(bx0+0.45,by0+T/2+0.33,2.09),0.11,0.012,CHROME)
+
+# bathroom wall tiles (architecture, not furniture) + towel rail / plant / light
 for nm_,c,s in (("Bath_wall_tile_S",(bx0+(bx1-bx0)/2,by0+0.005+T/2,1.2),(bx1-bx0,0.01,2.4)),("Bath_wall_tile_W",(bx0+0.005+T/2,(by0+by1)/2,1.2),(0.01,by1-by0,2.4))): box(nm_,c,s,TILE,0,0)
-bw=0.2; box("WC_boxing_half_wall",(bx0+T/2+bw/2,(by0+0.95+by1)/2,0.525),(bw,by1-by0-0.95,1.05),TILE,0,0.004)
-box("WC_boxing_top_shelf",(bx0+T/2+bw/2+0.01,(by0+0.95+by1)/2,1.06),(bw+0.03,by1-by0-0.95,0.02),QUARTZ,0,0.002)
-wcy=by1-0.65; box("WC_flush_plate_chrome",(bx0+T/2+bw+0.004,wcy,0.85),(0.008,0.22,0.15),CHROME,0,0.002)
-wx0=bx0+T/2+bw; box("WC_pan_back",(wx0+0.1,wcy,0.2),(0.2,0.36,0.4),WHITEP,0,0.06)
-o=cyl("WC_bowl_rounded",(wx0+0.31,wcy,0.2),0.14,0.4,WHITEP,40,r2=0.185); o.scale=(1.3,1.0,1)
-o=cyl("WC_seat_ring",(wx0+0.31,wcy,0.415),0.185,0.03,WHITEP,40); o.scale=(1.3,1.0,1)
-o=cyl("WC_seat_opening_shadow",(wx0+0.33,wcy,0.432),0.1,0.004,GREYV,32); o.scale=(1.4,1.0,1)
-vx=bx1-0.45; box("Vanity_grey_stone_look",(vx,by1-T/2-0.24,0.62),(0.6,0.46,0.3),GREYV,0,0.006); box("Basin_white_wallhung",(vx,by1-T/2-0.24,0.82),(0.56,0.42,0.12),WHITEP,0,0.04)
-cyl("Basin_tap",(vx,by1-T/2-0.06,0.95),0.012,0.14,CHROME,12)
-box("Mirror_black_frame",(vx,by1-T/2-0.012,1.55),(0.55,0.02,0.75),FRAME,0,0.002); box("Mirror_glass",(vx,by1-T/2-0.024,1.55),(0.5,0.006,0.7),CHROME,0,0)
 tx=bx1-0.45; ty=by0+T/2+0.05
 for sd in (-0.25,0.25): box("Towel_ladder_vertical_chrome",(tx+sd,ty,1.0),(0.03,0.03,1.2),CHROME,0,0.01)
 for z in (0.5,0.65,0.8,0.95,1.1,1.25,1.4,1.55): box("Towel_ladder_bar_chrome",(tx,ty,z),(0.5,0.02,0.02),CHROME,0,0.006)
 cyl("Bath_plant_pot",(bx0+T/2+0.1,wcy+0.5,1.12),0.06,0.1,WHITEP,16); sph("Bath_plant",(bx0+T/2+0.1,wcy+0.5,1.24),0.1,LEAF,1,1,0.8)
 bpy.ops.object.light_add(type='AREA',location=((bx0+bx1)/2,(by0+by1)/2,CEIL-0.05));l=bpy.context.object;l.name="Bath_ceiling_panel";l.data.size=1.2;l.data.energy=70;l.data.color=(1,0.92,0.82)
-# storage shelving
-s0=m(20,268);s1=m(88,202); box("Storage_shelving_white",(s0.x+0.25,(s0.y+s1.y)/2,1.1),(0.4,abs(s1.y-s0.y)-0.2,2.2),WUNIT,0,0.003)
+
 # ---------- render setup
 for o in sc.objects:
     if o.type=='MESH':
         for f in o.data.polygons: f.use_smooth=False
 sc.render.engine='CYCLES';sc.cycles.samples=40;sc.cycles.use_denoising=True;sc.view_settings.view_transform='AgX';sc.view_settings.look='AgX - Medium High Contrast' if 'AgX - Medium High Contrast' in [i.identifier for i in sc.view_settings.bl_rna.properties['look'].enum_items] else 'None'
-sc.world=bpy.data.worlds.new("w");sc.world.use_nodes=True;bg=sc.world.node_tree.nodes['Background'];env=sc.world.node_tree.nodes.new("ShaderNodeTexEnvironment");env.image=bpy.data.images.load("/workspace/barclay/hdri.exr");sc.world.node_tree.links.new(env.outputs[0],bg.inputs[0]);bg.inputs[1].default_value=0.3
+sc.world=bpy.data.worlds.new("w");sc.world.use_nodes=True;bg=sc.world.node_tree.nodes['Background'];env=sc.world.node_tree.nodes.new("ShaderNodeTexEnvironment");env.image=bpy.data.images.load(HDRI);sc.world.node_tree.links.new(env.outputs[0],bg.inputs[0]);bg.inputs[1].default_value=0.3
 sc.render.resolution_x=1600;sc.render.resolution_y=1000
 bpy.context.view_layer.update(); dg=bpy.context.evaluated_depsgraph_get()
 def free(p,r=0.3):
