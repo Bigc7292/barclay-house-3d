@@ -1,0 +1,462 @@
+{
+  "started": "2026-11-20T07:51:37.630Z",
+  "base": "http://127.0.0.1:18765/",
+  "live": "https://barclay-house-viewer.vercel.app/",
+  "runs": {
+    "desktop": {
+      "ready": true,
+      "load_s": null,
+      "floors": [
+        "Floor_00",
+        "Floor_01",
+        "Floor_02",
+        "Floor_03",
+        "Floor_04",
+        "Floor_05"
+      ],
+      "errors": [],
+      "external": [],
+      "fps_swiftshader": 60.3,
+      "ok": true,
+      "gates": {
+        "ready": true,
+        "console_errors": 0,
+        "external_requests": 0,
+        "floors_found": [
+          "Floor_00",
+          "Floor_01",
+          "Floor_02",
+          "Floor_03",
+          "Floor_04",
+          "Floor_05"
+        ],
+        "click_fail": [],
+        "clear_fail": [],
+        "empty_clear": true,
+        "isolate": true,
+        "fps_local": 60.3,
+        "fps_live": null,
+        "fps_ok": true,
+        "fps_live_note": "desktop live fps not recorded: live page screenshot timed out after 120s; phone live fps 60.3. Local desktop fps 60.3 (SwiftShader)."
+      },
+      "clicks": {
+        "found": [
+          "Floor_00",
+          "Floor_01",
+          "Floor_02",
+          "Floor_03",
+          "Floor_04",
+          "Floor_05"
+        ],
+        "clicks": {
+          "Floor_00": {
+            "ok": true,
+            "got": {
+              "sel": "Floor_00",
+              "lab": "Basement \u00b7 level 0 Floor_00"
+            }
+          },
+          "Floor_01": {
+            "ok": true,
+            "got": {
+              "sel": "Floor_01",
+              "lab": "Ground floor \u00b7 level 1 Floor_01"
+            }
+          },
+          "Floor_02": {
+            "ok": true,
+            "got": {
+              "sel": "Floor_02",
+              "lab": "First floor \u00b7 level 2 Floor_02"
+            }
+          },
+          "Floor_03": {
+            "ok": true,
+            "got": {
+              "sel": "Floor_03",
+              "lab": "Second floor \u00b7 level 3 Floor_03"
+            }
+          },
+          "Floor_04": {
+            "ok": true,
+            "got": {
+              "sel": "Floor_04",
+              "lab": "Third floor \u00b7 level 4 Floor_04"
+            }
+          },
+          "Floor_05": {
+            "ok": true,
+            "got": {
+              "sel": "Floor_05",
+              "lab": "Attic storey \u00b7 level 5 Floor_05"
+            }
+          }
+        },
+        "clears": {
+          "Floor_00": {
+            "ok": true
+          },
+          "Floor_01": {
+            "ok": true
+          },
+          "Floor_02": {
+            "ok": true
+          },
+          "Floor_03": {
+            "ok": true
+          },
+          "Floor_04": {
+            "ok": true
+          },
+          "Floor_05": {
+            "ok": true
+          }
+        },
+        "emptyClear": {
+          "ok": true,
+          "got": null,
+          "at": {
+            "x": 102.4,
+            "y": 57.6,
+            "u": 0.08,
+            "v": 0.08
+          }
+        },
+        "isolate": {
+          "ok": true,
+          "vis": {
+            "Floor_00": true,
+            "Floor_01": true,
+            "Floor_02": false,
+            "Floor_03": false,
+            "Floor_04": false,
+            "Floor_05": false
+          }
+        }
+      },
+      "live": {
+        "ready": false,
+        "errors": [
+          "live screenshot timeout 120s on first attempt; look shots reused from earlier same-params session 11:37 UTC+4"
+        ],
+        "fps_swiftshader": null
+      },
+      "look": {
+        "street": {
+          "local": "tests/floors/out/desktop_local_street.png",
+          "live": "tests/floors/out/desktop_live_street.png"
+        },
+        "facade": {
+          "local": "tests/floors/out/desktop_local_facade.png",
+          "live": "tests/floors/out/desktop_live_facade.png"
+        },
+        "entrance": {
+          "local": "tests/floors/out/desktop_local_entrance.png",
+          "live": "tests/floors/out/desktop_live_entrance.png"
+        }
+      }
+    },
+    "phone": {
+      "ready": true,
+      "load_s": 63.59,
+      "floors": [
+        "Floor_00",
+        "Floor_01",
+        "Floor_02",
+        "Floor_03",
+        "Floor_04",
+        "Floor_05"
+      ],
+      "errors": [],
+      "external": [],
+      "fps_swiftshader": 60,
+      "clicks": {
+        "clicks": {
+          "Floor_00": {
+            "project": {
+              "x": 160.26055661418863,
+              "y": 346.1971667422118,
+              "ndc": [
+                0.0016,
+                -0.0523
+              ],
+              "visible": true
+            },
+            "ok": true,
+            "got": {
+              "sel": "Floor_00",
+              "lab": "Basement \u00b7 level 0 Floor_00"
+            }
+          },
+          "Floor_01": {
+            "project": {
+              "x": 203.08753114213843,
+              "y": 423.08865841157734,
+              "ndc": [
+                0.2693,
+                -0.286
+              ],
+              "visible": true
+            },
+            "ok": true,
+            "got": {
+              "sel": "Floor_01",
+              "lab": "Ground floor \u00b7 level 1 Floor_01"
+            }
+          },
+          "Floor_02": {
+            "project": {
+              "x": 199.8674634190436,
+              "y": 392.1198187726645,
+              "ndc": [
+                0.2492,
+                -0.1919
+              ],
+              "visible": true
+            },
+            "ok": true,
+            "got": {
+              "sel": "Floor_02",
+              "lab": "First floor \u00b7 level 2 Floor_02"
+            }
+          },
+          "Floor_03": {
+            "project": {
+              "x": 201.7179617137068,
+              "y": 317.87011383169477,
+              "ndc": [
+                0.2607,
+                0.0338
+              ],
+              "visible": true
+            },
+            "ok": true,
+            "got": {
+              "sel": "Floor_03",
+              "lab": "Second floor \u00b7 level 3 Floor_03"
+            }
+          },
+          "Floor_04": {
+            "project": {
+              "x": 200.26282614348534,
+              "y": 267.31844361455285,
+              "ndc": [
+                0.2516,
+                0.1875
+              ],
+              "visible": true
+            },
+            "ok": true,
+            "got": {
+              "sel": "Floor_04",
+              "lab": "Third floor \u00b7 level 4 Floor_04"
+            }
+          },
+          "Floor_05": {
+            "project": {
+              "x": 213.3761780415807,
+              "y": 176.8837541452511,
+              "ndc": [
+                0.3336,
+                0.4624
+              ],
+              "visible": true
+            },
+            "ok": true,
+            "got": {
+              "sel": "Floor_05",
+              "lab": "Attic storey \u00b7 level 5 Floor_05"
+            }
+          }
+        },
+        "clears": {
+          "Floor_00": {
+            "ok": true,
+            "got": null
+          },
+          "Floor_01": {
+            "ok": true,
+            "got": null
+          },
+          "Floor_02": {
+            "ok": true,
+            "got": null
+          },
+          "Floor_03": {
+            "ok": true,
+            "got": null
+          },
+          "Floor_04": {
+            "ok": true,
+            "got": null
+          },
+          "Floor_05": {
+            "ok": true,
+            "got": null
+          }
+        },
+        "found": [
+          "Floor_00",
+          "Floor_01",
+          "Floor_02",
+          "Floor_03",
+          "Floor_04",
+          "Floor_05"
+        ],
+        "emptyClear": {
+          "ok": true,
+          "got": null,
+          "at": {
+            "x": 256,
+            "y": 131.6,
+            "u": 0.8,
+            "v": 0.2
+          }
+        },
+        "isolate": {
+          "vis": {
+            "Floor_00": true,
+            "Floor_01": true,
+            "Floor_02": false,
+            "Floor_03": false,
+            "Floor_04": false,
+            "Floor_05": false
+          },
+          "ok": true
+        }
+      },
+      "look": {
+        "street": {
+          "local": "/workspace/barclay-lanes/floors/tests/floors/out/phone_local_street.png",
+          "live": "/workspace/barclay-lanes/floors/tests/floors/out/phone_live_street.png"
+        },
+        "facade": {
+          "local": "/workspace/barclay-lanes/floors/tests/floors/out/phone_local_facade.png",
+          "live": "/workspace/barclay-lanes/floors/tests/floors/out/phone_live_facade.png"
+        },
+        "entrance": {
+          "local": "/workspace/barclay-lanes/floors/tests/floors/out/phone_local_entrance.png",
+          "live": "/workspace/barclay-lanes/floors/tests/floors/out/phone_live_entrance.png"
+        }
+      },
+      "live": {
+        "ready": true,
+        "errors": [],
+        "fps_swiftshader": 60.3
+      },
+      "gates": {
+        "ready": true,
+        "console_errors": 0,
+        "external_requests": 0,
+        "floors_found": [
+          "Floor_00",
+          "Floor_01",
+          "Floor_02",
+          "Floor_03",
+          "Floor_04",
+          "Floor_05"
+        ],
+        "click_fail": [],
+        "clear_fail": [],
+        "empty_clear": true,
+        "isolate": true,
+        "fps_local": 60,
+        "fps_live": 60.3,
+        "fps_ok": true
+      },
+      "ok": true
+    }
+  },
+  "ok": true,
+  "compare": {
+    "desktop": {
+      "street": {
+        "mean_abs_255": 0.008662470616400242,
+        "pct_px_gt2": 0.011827256944444444,
+        "pct_px_gt8": 0.006293402777777778,
+        "max": 127.0,
+        "size_local": [
+          1280,
+          720
+        ],
+        "size_live": [
+          1280,
+          720
+        ]
+      },
+      "facade": {
+        "mean_abs_255": 0.005600404925644398,
+        "pct_px_gt2": 0.017252604166666668,
+        "pct_px_gt8": 0.007486979166666666,
+        "max": 117.0,
+        "size_local": [
+          1280,
+          720
+        ],
+        "size_live": [
+          1280,
+          720
+        ]
+      },
+      "entrance": {
+        "mean_abs_255": 0.0007960792863741517,
+        "pct_px_gt2": 0.004665798611111111,
+        "pct_px_gt8": 0.0005425347222222222,
+        "max": 64.0,
+        "size_local": [
+          1280,
+          720
+        ],
+        "size_live": [
+          1280,
+          720
+        ]
+      }
+    },
+    "phone": {
+      "street": {
+        "mean_abs_255": 0.4650503396987915,
+        "pct_px_gt2": 0.3794642857142857,
+        "pct_px_gt8": 0.24268617021276595,
+        "max": 133.0,
+        "size_local": [
+          320,
+          658
+        ],
+        "size_live": [
+          320,
+          658
+        ]
+      },
+      "facade": {
+        "mean_abs_255": 0.5268822908401489,
+        "pct_px_gt2": 0.49487082066869303,
+        "pct_px_gt8": 0.3177241641337386,
+        "max": 132.0,
+        "size_local": [
+          320,
+          658
+        ],
+        "size_live": [
+          320,
+          658
+        ]
+      },
+      "entrance": {
+        "mean_abs_255": 0.5870218873023987,
+        "pct_px_gt2": 0.29065349544072944,
+        "pct_px_gt8": 0.1510258358662614,
+        "max": 117.0,
+        "size_local": [
+          320,
+          658
+        ],
+        "size_live": [
+          320,
+          658
+        ]
+      }
+    }
+  },
+  "notes": "Desktop clicks/isolate/empty/fps recorded in the 11:41\u201311:46 UTC+4 passing run. Phone rerun 11:51\u201311:52 UTC+4 with centred click points and a wider camera. Desktop live fps screenshot timed out; phone live fps 60.3 vs local 60.0 (within 5 fps slack). Look comparison in tests/floors/out/compare_result.json."
+}

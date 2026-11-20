@@ -219,9 +219,64 @@ let done=0;const need=4;const pr={};const bar=$('pb'),pbw=$('pbw');
 const upd=()=>{const v=Object.values(pr);const t=v.reduce((a,b)=>a+b,0)/need;if(bar)bar.style.width=Math.round(t*100)+'%';if(pbw)pbw.style.display=done>=need?'none':'';};
 const prog=()=>{done++;upd();draw=true;say(done<need?`Loading 3D models… ${done}/${need}${MOB?' (mobile quality)':''}`:'')};
 const INT=(q0.get('int')||'v5');const intU=INT==='v4'?(MOB?'twobed_m.glb':'twobed.glb'):(MOB?'twobed_v5_m.glb':'twobed_v5.glb');
-const queue=MOB?[['hero_mo3.glb',ext],['context_mo.glb',ext],['ext7_street_o.glb',ext],[intU,intr]]:[['hero3.glb',ext],['context_typed_opt.glb',ext],['ext7_street.glb',ext],[intU,intr]];
-const loadNext=()=>{if(!queue.length)return;const [u,g]=queue.shift();pr[u]=0;const kind=u.startsWith('context')?'ctx':u.startsWith('hero')?'hero':u.startsWith('ext7')?'street':'in';L.load(u,x=>{pr[u]=1;prep(x.scene,kind);g.add(x.scene);if(/^Ceiling/.test(x.scene.name))ceil=x.scene;x.scene.traverse(o=>{if(/^Ceiling/.test(o.name)&&o.isMesh)ceil=o});prog();reshadow();loadNext()},e=>{if(e&&e.total){pr[u]=e.loaded/e.total;upd();say(`Loading ${MOB?'mobile ':''}3D models… ${Math.round(Object.values(pr).reduce((a,b)=>a+b,0)/need*100)}%`)}},e=>say('Could not load '+u+' ('+(e&&e.message||'network error')+'). Check your connection and reload.',1))};
+const heroU=MOB?'hero3_floors_m.glb':'hero3_floors.glb';
+const heroFb=MOB?'hero_mo3.glb':'hero3.glb';
+const queue=MOB?[[heroU,ext],['context_mo.glb',ext],['ext7_street_o.glb',ext],[intU,intr]]:[[heroU,ext],['context_typed_opt.glb',ext],['ext7_street.glb',ext],[intU,intr]];
+const loadOne=(u,g,fb)=>{pr[u]=0;const kind=u.startsWith('context')?'ctx':u.startsWith('hero')?'hero':u.startsWith('ext7')?'street':'in';
+ L.load(u,x=>{pr[u]=1;prep(x.scene,kind);g.add(x.scene);if(/^Ceiling/.test(x.scene.name))ceil=x.scene;x.scene.traverse(o=>{if(/^Ceiling/.test(o.name)&&o.isMesh)ceil=o});if(kind==='hero')bindFloors(x.scene);prog();reshadow();loadNext()},
+ e=>{if(e&&e.total){pr[u]=e.loaded/e.total;upd();say(`Loading ${MOB?'mobile ':''}3D models… ${Math.round(Object.values(pr).reduce((a,b)=>a+b,0)/need*100)}%`)}},
+ e=>{if(fb){delete pr[u];loadOne(fb,g,null);return}say('Could not load '+u+' ('+(e&&e.message||'network error')+'). Check your connection and reload.',1)})};
+const loadNext=()=>{if(!queue.length)return;const [u,g]=queue.shift();loadOne(u,g,u===heroU?heroFb:null)};
 loadNext();
+// x_tricks #5: click a Floor_* node to highlight it and show its name/level. Shared materials are cloned so a tint does not leak across storeys. hero3.glb remains the fallback if the Floor_* file is missing.
+const floors=new Map();let selFloor=null,isoOn=false,ptrDown=null;
+const FLOOR_META={Floor_00:{title:'Basement',level:0,note:'Basement level NOT FOUND; stand-in at street level.'},Floor_01:{title:'Ground floor',level:1},Floor_02:{title:'First floor',level:2},Floor_03:{title:'Second floor',level:3},Floor_04:{title:'Third floor',level:4},Floor_05:{title:'Attic storey',level:5}};
+function floorOf(o){while(o){if(/^Floor_\d+$/.test(o.name))return o;o=o.parent}return null}
+function floorNo(name){const m=/^Floor_(\d+)$/.exec(name);return m?+m[1]:null}
+function ensureFlab(){let el=$('flab');if(el)return el;el=document.createElement('div');el.id='flab';el.className='x';el.setAttribute('role','status');$('v').appendChild(el);return el}
+function setLab(node){const el=ensureFlab();if(!node){el.className='x';el.innerHTML='';return}const meta=FLOOR_META[node.name]||{title:node.name,level:floorNo(node.name)};
+ el.className='';el.innerHTML=`<div id=flabn>${meta.title} · level ${meta.level}<span class=flid> ${node.name}</span></div>${meta.note?`<div class=flnote>${meta.note}</div>`:''}<div class=flacts><button type=button id=fliso>${isoOn?'Show all floors':'Hide floors above'}</button>${node.name==='Floor_01'?'<button type=button id=flint>View Two Bed interior</button>':''}</div>`;
+ const iso=$('fliso');if(iso)iso.onclick=e=>{e.stopPropagation();isoOn=!isoOn;applyIso();setLab(selFloor);draw=true};
+ const inn=$('flint');if(inn)inn.onclick=e=>{e.stopPropagation();window.mode('i')}}
+function tintFloor(node,on){node.traverse(o=>{if(!o.isMesh||!o.material)return;const mats=Array.isArray(o.material)?o.material:[o.material];
+ if(on){if(o.userData._mat0)return;o.userData._mat0=mats;const cloned=mats.map(m=>{const c=m.clone();if(c.emissive){c.emissive.setHex(0x1d4ed8);c.emissiveIntensity=(c.emissiveIntensity||0)+0.45}c.needsUpdate=true;return c});o.material=Array.isArray(o.material)?cloned:cloned[0]}
+ else if(o.userData._mat0){const cur=Array.isArray(o.material)?o.material:[o.material];cur.forEach(m=>{if(!o.userData._mat0.includes(m))m.dispose()});o.material=Array.isArray(o.material)?o.userData._mat0:o.userData._mat0[0];delete o.userData._mat0}})}
+function applyIso(){const n=selFloor?floorNo(selFloor.name):null;floors.forEach((node,name)=>{const i=floorNo(name);node.visible=!isoOn||n==null||i<=n});reshadow();draw=true}
+function clearFloor(){if(selFloor)tintFloor(selFloor,false);selFloor=null;isoOn=false;applyIso();setLab(null);draw=true}
+function selectFloor(node){if(selFloor&&selFloor!==node)tintFloor(selFloor,false);selFloor=node;tintFloor(node,true);applyIso();setLab(node);draw=true}
+function bindFloors(root){floors.clear();selFloor=null;isoOn=false;root.traverse(o=>{if(/^Floor_\d+$/.test(o.name))floors.set(o.name,o)});
+ const tmp=new THREE.Vector3();
+ floors.forEach((node,name)=>{const pts=[];node.traverse(o=>{if(!o.isMesh||!o.geometry||/^Door_/.test(o.name))return;const pos=o.geometry.attributes.position;if(!pos)return;o.updateWorldMatrix(true,false);
+  for(let i=0;i<pos.count;i++){tmp.fromBufferAttribute(pos,i).applyMatrix4(o.matrixWorld);if(tmp.z>14)pts.push([tmp.x,tmp.y,tmp.z])}});
+  const BAND={Floor_00:{y0:-0.05,y1:0.25,x0:12,x1:99},Floor_01:{y0:2.4,y1:5.0,x0:-3,x1:3},Floor_02:{y0:6.5,y1:9.0,x0:-3,x1:3},Floor_03:{y0:10.5,y1:12.2,x0:-3,x1:3},Floor_04:{y0:13.7,y1:15.5,x0:-3,x1:3},Floor_05:{y0:17.2,y1:19.0,x0:-3,x1:3}};
+  const band=BAND[name];
+  let cand=band?pts.filter(p=>p[1]>=band.y0&&p[1]<=band.y1&&p[0]>=band.x0&&p[0]<=band.x1):pts;
+  if(!cand.length)cand=pts;
+  let pick;if(!cand.length){const b=new THREE.Box3().setFromObject(node);pick=b.getCenter(new THREE.Vector3())}
+  else{cand.sort((a,b)=>b[2]-a[2]-Math.abs(a[0])*0.35+Math.abs(b[0])*0.35);pick=new THREE.Vector3(cand[0][0],cand[0][1],cand[0][2])}
+  pick.z+=0.08;node.userData.clickPt=pick});
+ window.__floorsReady=()=>floors.size>0}
+const floorRay=new THREE.Raycaster(),floorNdc=new THREE.Vector2();
+function pickFloorAt(cx,cy){if(!floors.size||!ext.visible||fp||flying)return null;const r=R.domElement.getBoundingClientRect();
+ floorNdc.set(((cx-r.left)/r.width)*2-1,-((cy-r.top)/r.height)*2+1);floorRay.setFromCamera(floorNdc,C);
+ const hits=floorRay.intersectObjects([...floors.values()],true);for(const h of hits){const n=floorOf(h.object);if(n&&n.visible)return n}return null}
+function onFloorClick(cx,cy){const n=pickFloorAt(cx,cy);if(!n){if(selFloor)clearFloor();return null}if(selFloor===n){clearFloor();return null}selectFloor(n);return n.name}
+R.domElement.addEventListener('pointerdown',e=>{if(fp||flying||!ext.visible||e.button)return;ptrDown={x:e.clientX,y:e.clientY,id:e.pointerId}});
+const floorUp=e=>{if(!ptrDown||e.pointerId!==ptrDown.id)return;const dx=e.clientX-ptrDown.x,dy=e.clientY-ptrDown.y;const x=ptrDown.x,y=ptrDown.y;ptrDown=null;if(fp||flying||!ext.visible)return;if(Math.hypot(dx,dy)>6)return;onFloorClick(x,y)};
+R.domElement.addEventListener('pointerup',floorUp);R.domElement.addEventListener('pointercancel',()=>{ptrDown=null});
+function projectFloor(name){const node=floors.get(name);if(!node||!node.userData.clickPt)return null;const v=node.userData.clickPt.clone().project(C);const r=R.domElement.getBoundingClientRect();
+ return{x:r.left+(v.x+1)/2*r.width,y:r.top+(1-v.y)/2*r.height,ndc:[+v.x.toFixed(4),+v.y.toFixed(4)],visible:v.z>=-1&&v.z<=1&&v.x>=-1&&v.x<=1&&v.y>=-1&&v.y<=1}}
+window.__floors=()=>[...floors.keys()].sort();
+window.__selectedFloor=()=>selFloor?selFloor.name:null;
+window.__floorLabel=()=>{const n=$('flabn');return n?n.textContent.trim():(selFloor?selFloor.name:null)};
+window.__selectFloor=name=>{const n=floors.get(name);if(!n)return false;selectFloor(n);return true};
+window.__clearFloor=()=>{clearFloor()};
+window.__isolateFloors=on=>{isoOn=!!on;applyIso();if(selFloor)setLab(selFloor)};
+window.__projectFloor=projectFloor;
+window.__pickFloorAt=(x,y)=>onFloorClick(x,y);
+window.__hitFloorAt=(x,y)=>{const n=pickFloorAt(x,y);return n?n.name:null};
+window.__floorVisible=name=>{const n=floors.get(name);return n?n.visible:null};
+window.__setView=(p,t,f)=>{C.position.fromArray(p);O.target.fromArray(t);if(f){C.fov=f;C.updateProjectionMatrix()}O.update();draw=true};
 const P={street:{p:[-1.41,1.7,29.79],t:[0.2,8.5,9.8],f:70},facade:{p:[-1.4,1.7,29.8],t:[-1,6.5,17.3],f:62},entrance:{p:[-0.75,1.7,21.0],t:[-0.27,3.0,15.3],f:45},aerial:{p:[24.83,120,127.14],t:[-0.2,5.4,4],f:48},viaduct:{p:[-51.07,10.31,38.93],t:[-14.9,10,21.8],f:56},interior:{p:[0.6,12,11],t:[0.2,0,-0.3],f:45},i_living:{p:[-0.5,1.5,1.91],t:[2.97,0.9,0.15],f:70},i_kitchen:{p:[-0.79,1.5,1.18],t:[3.41,1.1,2.96],f:70},i_bed1:{p:[-2.0,1.3,-0.85],t:[-2.41,0.8,-3.17],f:70},i_bed2:{p:[1.5,1.3,-1.6],t:[1.36,0.8,-3.62],f:70},i_bath:{p:[-2.08,1.55,3.83],t:[-3.02,0.9,2.88],f:80},i_hall:{p:[-0.65,1.5,4.15],t:[0.09,1.3,0.29],f:75},i_store:{p:[-1.09,1.5,1.32],t:[-3.0,1.0,1.32],f:80}};
 P.road={p:[-14,2.2,27.5],t:[6,0.2,22.5],f:60}; // URL/test-only view down Whitworth St W (no button)
 let preset='street';
@@ -243,7 +298,7 @@ window.tod=k=>{let [el,az,col,I,env,expo]=T[k];[el,az]=sunPos(TODH[k]);{const c=
  if(!intr.visible){S.environmentIntensity=env;hemi.intensity=env*0.35;R.toneMappingExposure=expo}
  S.backgroundIntensity=Math.max(env,0.06);
  const n=(k=='night'||k=='dusk');lampG.children.forEach(l=>l.intensity=n?(k=='night'?18:8):0);lampG.visible=n&&!intr.visible;reshadow();};
-window.mode=k=>{const i=k=='i';ext.visible=!i;intr.visible=i;$('li').className=i?'':'x';$('le').className=i?'x':'';$('bi').className=i?'on':'';$('be').className=i?'':'on';$('presets').style.display=i?'none':'';$('ipresets').style.display=i?'':'none';sun.visible=!i;lampG.visible=false;if(i){S.environmentIntensity=0.26;hemi.color.set(0xffd6a6);hemi.groundColor.set(0xb07f52);hemi.intensity=0.75;R.toneMappingExposure=0.9;fill.visible=true;ssao.kernelRadius=0.16;ssao.maxDistance=0.1;ssao.minDistance=0.001}else{fill.visible=false;hemi.color.set(0xdfe8ff);hemi.groundColor.set(0x55504a);ssao.kernelRadius=0.3;ssao.maxDistance=0.22;if($('tod'))tod($('tod').value)}nf(i);reshadow();cam(i?'interior':'street')};
+window.mode=k=>{const i=k=='i';if(i)clearFloor();ext.visible=!i;intr.visible=i;$('li').className=i?'':'x';$('le').className=i?'x':'';$('bi').className=i?'on':'';$('be').className=i?'':'on';$('presets').style.display=i?'none':'';$('ipresets').style.display=i?'':'none';sun.visible=!i;lampG.visible=false;if(i){S.environmentIntensity=0.26;hemi.color.set(0xffd6a6);hemi.groundColor.set(0xb07f52);hemi.intensity=0.75;R.toneMappingExposure=0.9;fill.visible=true;ssao.kernelRadius=0.16;ssao.maxDistance=0.1;ssao.minDistance=0.001}else{fill.visible=false;hemi.color.set(0xdfe8ff);hemi.groundColor.set(0x55504a);ssao.kernelRadius=0.3;ssao.maxDistance=0.22;if($('tod'))tod($('tod').value)}nf(i);reshadow();cam(i?'interior':'street')};
 window.ar=()=>{O.autoRotate=!O.autoRotate;draw=true;$('ba').className=O.autoRotate?'on':''};
 const rs=()=>{const w=$('v').clientWidth,h=$('v').clientHeight;R.setSize(w,h);comp.setSize(w,h);C.aspect=w/h;C.updateProjectionMatrix();draw=true};addEventListener('resize',rs);if(window.ResizeObserver)new ResizeObserver(rs).observe($('v'));rs();
 const q=new URLSearchParams(location.search);mode(q.get('m')||'e');if(q.get('cam'))cam(q.get('cam'));if(q.get('tod')){$('tod').value=q.get('tod')}tod($('tod').value);
