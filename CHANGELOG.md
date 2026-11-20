@@ -1,5 +1,28 @@
 # CHANGELOG
 
+## 2026-11-20 11:38 UTC+4 — lane/walls: merge lane/furniture (CC0) onto the plan trace; #18 furniture-masked mode; handedness check
+- Why: lane/furniture (CC0 models) was merged to origin/barclay (cbf78d9b). Barclay House Interior asked for the trace to drive the walls and `furniture_cc0.py` to drive the models, with the peninsula dropped (the plan wins), no CC0 clipping, the chair assert passing, a #18 furniture-masked score, a handedness check, and the #21 phone timing rerun.
+- Merge: `git merge origin/barclay` (no rebase, no force-push). The only conflict was `interior/build_twobed_v4.py` plus 4 binaries. I kept the trace geometry and added `furniture_cc0.place_trace(ctx, FUR, JOIN)`, which places the same CC0 prototypes at the trace positions and footprints from `interior/trace/twobed_layout.py`, sized with a non-uniform root scale. The furniture lane's `place_all` is unchanged and still used by `kit_lineup.py`. The binaries were rebuilt.
+- Plan wins:
+  - The peninsula, quartz top and built-in oven are dropped.
+  - The dining table stays a procedural rectangle: the plan draws 48 x 29 px (1.43 x 0.86 m) at x 203-251, y 228-257, and the round CC0 table doesn't match.
+  - Built-in wardrobes stay traced joinery.
+  - The kitchen is CC0 Kenney units on the drawn L-run: washer, stove at the drawn hob, sink unit at the drawn sink, and wall units along the south wall only. There is no microwave or tall fridge (not drawn).
+  - The plant is removed (not drawn).
+  - CC0 chairs sit with their backs on the drawn chair outer edges (y 221.5 and 265 px), tucked under the table as drawn.
+- Correction: the bathroom symbols were swapped in the trace. The upper rounded box (x 17-26, y 271-286, 0.27 x 0.45 m) is the basin; the lower box with the cistern strip (x 17-41, y 291-305, 0.71 x 0.42 m) is the WC.
+- Fit check, new `tests/furniture_fit/check_fit.py` (5 mm raster, 10 mm contact tolerance): **PASS, 35/35 pieces.** It checks each piece against walls/partitions (minus gaps), the floor outline, wardrobes, door swing sectors, and doorway zones (each gap and opening extended 0.375 m each side, half the ADM 750 mm). All pieces are 100% inside their own room. The rug and shower tray (walk-over) are exempt from the doorway test only.
+  - Fixes it forced: the bed head stops at partition face +1 cm (was 1 px off the centreline); the washer and wall units clear the stair partition; wall units sit 25 mm off the wall; the TV bench is 1 cm inside its drawn box; the shower tray stays 1 cm off the walls.
+- Chair assert: the lane/furniture criteria are unchanged (dot > 0.9, backrest farther from the table than the opening). The target is the nearest point on the rectangular table's long axis instead of the round table's centre. **4/4 PASS.**
+- #18 furniture-masked mode (`plan_overlay.py`, `FURNITURE_SYMBOLS` / `ROOM_ERODE_PX`):
+  - Mask = the polygons of the plan's own loose-furniture symbols only (Bed1/Bed2 with bedsides, sofa, rug ellipse, dining table + chairs, WC, basin; from `plan_furniture_px`, measured on the PNG), AND each traced room interior eroded by 3 px, so wall, partition or exterior ink is never masked.
+  - Labels, hangers, the stair arrow, hob rings and the shower line are not masked.
+  - Masked pixels are removed from both the plan and the layout: 702 plan-ink px; 0 layout px.
+  - Raw is the headline and the gate: identity 0.7783, buffered 0.6562 (FAIL vs 0.85). Masked: identity 0.8416, buffered 0.8332. The APPROXIMATE badge stays.
+- Handedness: the overlay is not flipped. Ink IoU of overlay vs plan is 0.997 as-is, 0.259 mirrored left-right, 0.169 flipped up-down. Per-label correlation as-is is 0.996-1.000; mirrored it is 0.06-0.74. The labels are about 4 px tall anti-aliased text, so at 3x nearest-neighbour they look garbled in both images (`walls-shots/handedness_labels.png`). The model is not mirrored either: glTF room centroids are kitchen (+2.09, +3.46), storage (-2.58, +1.64), bedrooms z < 0. In a top view (+X right, +Z down) that puts the kitchen bottom-right and storage left, as on the plan.
+- #21: reachable 16.865 m² (JS = Python). Bedroom 2: 3.455 m², reachable. Phone recompute over 7 runs at load 16.6-23.7 on 8 cores: median 18.5 ms, 5/7 under 50 ms; desktop median 23.5 ms (`tests/accessible/timing_runs.json`).
+- Khronos validator: 0 errors and 0 warnings on `web/twobed.glb` (1.74 MB), `web/twobed_m.glb` (1.68 MB) and `interior/live/twobed_raw.glb` (7.76 MB).
+
 ## 2026-11-20 10:37 UTC+4 — lane/walls: retrace 2-bed walls/doors/windows from Rightmove plan, rebuild walk mode
 - Why: #18 plan_overlay failed (buffered IoU 0.2999) and #21 showed Bedroom 2 sealed (0 m² reachable). Walk mode was retraced from `apt02_fp.png` instead of replacing it with Pascal (#20 rejected; Pascal is reference only).
 - New `interior/trace/twobed_trace.py` → `twobed_trace.json`: every wall, window, door and opening measured in plan px (OpenCV contours/Hough + ink-fit, max drift 2.69 px). Scale K = sqrt(63 m² / internal-face floor 71278.9 px²) = 0.029730 m/px (the plan prints no dimensions). Rooms sum to 63.011 m²; raster floor 62.8925 m² (−0.17%).
