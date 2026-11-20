@@ -332,10 +332,10 @@ else:         # lane/polish: stills framed like the Rightmove CGI (bed square-on
     def _bedcam(n_,back):
         hd=Vector((-math.sin(n_[2]),math.cos(n_[2]),0)); c=Vector((n_[0],n_[1],0))
         return (tuple(c-hd*back)[:2]+(1.35,)),(tuple(c+hd*1.0)[:2]+(0.75,))
-    _yc3=ky0+0.3+3*0.6
-    shot("v3_kitchen",(kx-0.34-1.6,_yc3,1.6),(kx,_yc3,1.82),20)
-    shot("v3_bedroom1",*_bedcam(_n1,1.65),17)
-    shot("v3_bedroom2",*_bedcam(_n2,2.1),18)
+    # kitchen + bedrooms keep the r9 cameras (with the beds moved they show the window wall + bed side); bathroom from the door
+    shot("v3_kitchen",(m(110,230).x,m(110,230).y,E),(kx,(ky0+ky1)/2,1.1),20)
+    shot("v3_bedroom1",(b1.x+0.2,0.85,1.3),(b1.x,_hy-0.6,0.8),24)
+    shot("v3_bedroom2",(b2.x+0.1,1.6,1.3),(b2.x-0.05,_h2-0.8,0.8),24)
     shot("v3_bathroom",(m(84,0).x-0.2,m(0,315).y,1.5),(bx0+0.3,m(0,302).y,0.85),15)
 shot("latest",(0.6,-11,12),(0.2,0.3,0),26,ceiling=False)
 # lane/polish: locked cameras = web viewer presets (web/src/app.js P.i_*), three.js (x,y,z) -> Blender (x,-z,y), vertical fov; no collision nudge

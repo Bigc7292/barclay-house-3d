@@ -80,11 +80,11 @@ def fbm(n,oct=5):
         out+=im/(2**o)
     return out/out.max()
 v=fbm(TS); vein=np.abs(np.sin((np.linspace(0,1,TS)[None,:]*7+v*5)*math.pi)); vein=1-np.clip(vein*6,0,1)
-base=0.50+0.10*(v-0.5)-0.16*vein
+base=0.20+0.08*(v-0.5)-0.09*vein+0.10*vein*(v>0.6)   # mid-grey stone (sRGB ~0.48), white+dark veins
 t=np.dstack([base*1.0,base*1.0,base*1.03])
 gp=max(2,int(0.004/1.2*TS))
-for x in (0,TS//2): t[:,max(0,x-gp//2):x+gp//2+1]=0.30
-t[0:gp,:]=0.30; t[-gp:,:]=0.30
+for x in (0,TS//2): t[:,max(0,x-gp//2):x+gp//2+1]=0.06
+t[0:gp,:]=0.06; t[-gp:,:]=0.06
 Image.fromarray((np.clip(t,0,1)**(1/2.2)*255).astype(np.uint8)).save(D+'tile_stone_grey_p5.jpg',quality=90)
 # ---------------- window backdrop: street facades opposite (illustrative, view UNSOURCED) instead of a soft sky (score: window grid edges)
 BW,BH=1024,2048; im=Image.new('RGB',(BW,BH)); d=ImageDraw.Draw(im)
