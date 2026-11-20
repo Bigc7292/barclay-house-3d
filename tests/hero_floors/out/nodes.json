@@ -1,0 +1,109 @@
+{
+  "out/barclay_hero_floors.glb": {
+    "size_bytes": 3819052,
+    "nodes": [
+      "HERO_body",
+      "HERO_roof_tower",
+      "HERO_voussoir_024",
+      "HERO_front_frame",
+      "HERO_side_block_base",
+      "HERO_side_frame",
+      "HERO_side_frame_001",
+      "HERO_side_frame_002",
+      "HERO_side_frame_003",
+      "HERO_side_frame_004",
+      "Window_00_sill",
+      "Floor_00",
+      "Door_entrance_frame",
+      "Door_entrance_L_leaf",
+      "Door_entrance_R_leaf",
+      "HERO_cartouche",
+      "HERO_rustication_groove_020",
+      "Window_01_frame",
+      "Window_01_glass",
+      "Floor_01",
+      "HERO_oriel_base",
+      "Window_02_frame",
+      "Window_02_glass",
+      "Floor_02",
+      "Window_03_frame",
+      "Window_03_glass",
+      "Window_03_sill",
+      "Floor_03",
+      "HERO_cornice_001",
+      "Window_04_frame",
+      "Window_04_glass",
+      "Floor_04",
+      "Cornice",
+      "Window_05_frame",
+      "Window_05_glass",
+      "Floor_05",
+      "Building"
+    ],
+    "Floor_*": [
+      "Floor_00",
+      "Floor_01",
+      "Floor_02",
+      "Floor_03",
+      "Floor_04",
+      "Floor_05"
+    ],
+    "Door_*": [
+      "Door_entrance_frame",
+      "Door_entrance_L_leaf",
+      "Door_entrance_R_leaf"
+    ],
+    "required_missing": [],
+    "dotted": []
+  },
+  "tests/hero_floors/out/mobile/barclay_hero_mobile.glb": {
+    "size_bytes": 1760288,
+    "nodes": [
+      "HERO_body",
+      "HERO_voussoir_024",
+      "Window_00_sill",
+      "Floor_00",
+      "Door_entrance_frame",
+      "Door_entrance_L_leaf",
+      "Door_entrance_R_leaf",
+      "HERO_cartouche",
+      "HERO_rustication_groove_020",
+      "Window_01_frame",
+      "Window_01_glass",
+      "Floor_01",
+      "HERO_oriel_base",
+      "Window_02_frame",
+      "Window_02_glass",
+      "Floor_02",
+      "Window_03_frame",
+      "Window_03_glass",
+      "Window_03_sill",
+      "Floor_03",
+      "HERO_cornice_001",
+      "Window_04_frame",
+      "Window_04_glass",
+      "Floor_04",
+      "Cornice",
+      "Window_05_frame",
+      "Window_05_glass",
+      "Floor_05"
+    ],
+    "Floor_*": [
+      "Floor_00",
+      "Floor_01",
+      "Floor_02",
+      "Floor_03",
+      "Floor_04",
+      "Floor_05"
+    ],
+    "Door_*": [
+      "Door_entrance_frame",
+      "Door_entrance_L_leaf",
+      "Door_entrance_R_leaf"
+    ],
+    "required_missing": [
+      "Building"
+    ],
+    "dotted": []
+  }
+}

@@ -75,8 +75,34 @@ HIT = {"car": lambda o: in_col(o, "Roads_Terrain_Water") and not o.name.startswi
        "walk": lambda o: in_col(o, "Roads_Terrain_Water") and not o.name.startswith(("canal", "water")),
        "train": lambda o: o.name.endswith("_deck") or "_deck" in o.name}
 
+
+def _kit():
+    p = os.path.join(HERE, "assets", "life", "normalized", "kit.json")
+    if os.path.isfile(p):
+        return json.load(open(p))
+    return None
+
+def asset_path_and_scale(rel, default_scale, default_stretch):
+    """Prefer a normalised GLB (already at sourced size, scale 1) when present.
+    Train keeps the certified #9 scale (keep_life_scale)."""
+    kit = _kit()
+    if not kit:
+        return os.path.join(K, rel), default_scale, default_stretch
+    rec = next((p for p in kit.get("props", []) if p.get("asset") == rel), None)
+    if not rec:
+        return os.path.join(K, rel), default_scale, default_stretch
+    glb = rec.get("glb")
+    if rec.get("scale_reason") == "keep_life_scale" or rec.get("keep_life_scale"):
+        return os.path.join(K, rel), default_scale, default_stretch
+    if glb and os.path.isfile(os.path.join(HERE, glb)):
+        return os.path.join(HERE, glb), 1.0, 1.0
+    if rec.get("scale"):
+        return os.path.join(K, rel), rec["scale"], 1.0
+    return os.path.join(K, rel), default_scale, default_stretch
+
 def load(rel, name, scale, stretch, col):
-    before = set(bpy.data.objects); bpy.ops.import_scene.gltf(filepath=os.path.join(K, rel))
+    path, scale, stretch = asset_path_and_scale(rel, scale, stretch)
+    before = set(bpy.data.objects); bpy.ops.import_scene.gltf(filepath=path)
     new = [o for o in bpy.data.objects if o not in before]
     for o in new:
         if o.type == "MESH" and o.name.startswith("Icosphere"): bpy.data.objects.remove(o)   # Kenney helper sphere

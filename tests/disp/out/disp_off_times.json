@@ -1,0 +1,15 @@
+{
+ "tag": "off",
+ "res": [
+  960,
+  540
+ ],
+ "samples": 32,
+ "times": {
+  "Cam_Street": {
+   "s": 29.707663536071777,
+   "maxrss_mb": 1709.21875
+  }
+ },
+ "applied": false
+}

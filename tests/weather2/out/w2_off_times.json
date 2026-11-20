@@ -1,0 +1,14 @@
+{
+ "tag": "off",
+ "res": [
+  960,
+  540
+ ],
+ "samples": 64,
+ "times": {
+  "Cam_Street": 56.020986795425415,
+  "Cam_Match_geograph": 73.47962880134583,
+  "Cam_Viaduct": 97.61427688598633
+ },
+ "applied": false
+}
