@@ -354,6 +354,7 @@ def run(layout, plan_path: Path, out_prefix: Path, sourced_m2=SOURCED_M2, ink_lu
             "iou_buffered_4px": round(float(iou(dilate_n(lm2, BUFFER_PX), dilate_n(pm2, BUFFER_PX))[0]), 4),
             "note": "secondary score: plan furniture symbols masked (see FURNITURE_SYMBOLS / ROOM_ERODE_PX in plan_overlay.py). NOT the gate; raw iou_buffered_4px is the headline.",
         }
+        out_prefix.parent.mkdir(parents=True, exist_ok=True)
         Image.fromarray((fmask * 255).astype(np.uint8)).save(Path(str(out_prefix) + "_furniture_mask.png"))
 
     area_note = ""
