@@ -1,0 +1,2342 @@
+{
+ "_provenance": {
+  "plan": "interior/twobed/apt02_fp.png",
+  "listing": "https://www.rightmove.co.uk/properties/92163630",
+  "method": "Single source for the walk-mode rebuild (build_twobed_v4.py), #18 plan_overlay and\n#21 accessible_area. Every coordinate is MEASURED on interior/twobed/apt02_fp.png\n(268x351 px) in plan-pixel index space (pixel centre = integer, x right, y down),\nread from 6-8x zoomed gridded crops and the ink mask (luminance < 80) plus\nOpenCV contour/Hough output (cv2.findContours on the 3x3-opened ink for the thick\nwalls, cv2.HoughLinesP on thin ink for 1-2 px partitions). Nothing was copied from\nbuild_twobed_v4.py (v4 outline is off by up to 16 px, e.g. right wall x=262 vs ink 254-259).\ntests/pascal/layout_pascal.json (rejected #20) was used ONLY as a cross-check of\nthe entrance (x 99-129) and bathroom door (y 268-298) ink breaks.",
+  "scale": "metres_per_px = sqrt(63 m2 / 71278.9 px2) = 0.029730 (area 63 m2 by construction; plan has no printed dimensions)",
+  "area_source": [
+   "https://barclay-house.com/two-bedroom-apartment/",
+   "https://www.rightmove.co.uk/properties/92163630 (679 sq ft = 63.08 m2)"
+  ],
+  "secondary_reference": "tests/pascal/layout_pascal.json (#20, rejected) used only to cross-check entrance and bath door ink breaks",
+  "not_found": [
+   "partition thickness",
+   "clear ceiling height",
+   "window sill/head heights",
+   "door leaf height",
+   "bedroom door leaves",
+   "entrance step riser heights"
+  ],
+  "generator": "interior/trace/twobed_trace.py"
+ },
+ "units": "plan_px",
+ "metres_per_px": 0.02972965411046673,
+ "metres_per_px_source": "sqrt(63 m2 sourced total / internal-face floor polygon px2): 63 m2 BY CONSTRUCTION, not an independent measurement",
+ "floor_px_area": 71278.875,
+ "outline": [
+  [
+   16.5,
+   343.5
+  ],
+  [
+   16.5,
+   186
+  ],
+  [
+   26.5,
+   185.5
+  ],
+  [
+   7.5,
+   84
+  ],
+  [
+   14.5,
+   81
+  ],
+  [
+   12.5,
+   66.5
+  ],
+  [
+   88.5,
+   54
+  ],
+  [
+   89.5,
+   61
+  ],
+  [
+   90.5,
+   68
+  ],
+  [
+   110.5,
+   63.5
+  ],
+  [
+   109,
+   48
+  ],
+  [
+   214,
+   9.5
+  ],
+  [
+   217.5,
+   9
+  ],
+  [
+   221.5,
+   21.5
+  ],
+  [
+   229,
+   19
+  ],
+  [
+   259,
+   98.5
+  ],
+  [
+   253.5,
+   103.5
+  ],
+  [
+   253.5,
+   343.5
+  ]
+ ],
+ "walls": [
+  {
+   "name": "Ext_W_lower",
+   "kind": "wall",
+   "a": [
+    13,
+    349.0
+   ],
+   "b": [
+    13,
+    183.5
+   ],
+   "thickness_px": 7,
+   "gaps": [],
+   "source": "measured on apt02_fp.png (Rightmove 92163630)",
+   "a_hand": [
+    13,
+    346.5
+   ],
+   "b_hand": [
+    13,
+    184.5
+   ],
+   "t_hand": 7,
+   "fit_drift_px": 2.5
+  },
+  {
+   "name": "Ext_W_jog",
+   "kind": "wall",
+   "a": [
+    12,
+    185.5
+   ],
+   "b": [
+    25,
+    182.5
+   ],
+   "thickness_px": 7,
+   "gaps": [],
+   "source": "measured on apt02_fp.png (Rightmove 92163630)",
+   "a_hand": [
+    13,
+    184.5
+   ],
+   "b_hand": [
+    23,
+    182.5
+   ],
+   "t_hand": 6,
+   "fit_drift_px": 2.0
+  },
+  {
+   "name": "Ext_W_rake",
+   "kind": "wall",
+   "a": [
+    24,
+    184.5
+   ],
+   "b": [
+    4.5,
+    78.5
+   ],
+   "thickness_px": 6,
+   "gaps": [],
+   "source": "measured on apt02_fp.png (Rightmove 92163630)",
+   "a_hand": [
+    23,
+    182.5
+   ],
+   "b_hand": [
+    4.5,
+    81
+   ],
+   "t_hand": 6,
+   "fit_drift_px": 2.5
+  },
+  {
+   "name": "Ext_W_jog_top",
+   "kind": "wall",
+   "a": [
+    4.5,
+    80
+   ],
+   "b": [
+    12,
+    80
+   ],
+   "thickness_px": 5,
+   "gaps": [],
+   "source": "measured on apt02_fp.png (Rightmove 92163630)",
+   "a_hand": [
+    4.5,
+    81
+   ],
+   "b_hand": [
+    11,
+    80
+   ],
+   "t_hand": 5,
+   "fit_drift_px": 1.0
+  },
+  {
+   "name": "Ext_NW_pier",
+   "kind": "wall",
+   "a": [
+    12,
+    81
+   ],
+   "b": [
+    9.5,
+    61
+   ],
+   "thickness_px": 7,
+   "gaps": [],
+   "source": "measured on apt02_fp.png (Rightmove 92163630)",
+   "a_hand": [
+    11,
+    80
+   ],
+   "b_hand": [
+    9.5,
+    62
+   ],
+   "t_hand": 7,
+   "fit_drift_px": 1.41
+  },
+  {
+   "name": "Ext_mid_pier_W",
+   "kind": "wall",
+   "a": [
+    88.5,
+    47
+   ],
+   "b": [
+    93.5,
+    67.0
+   ],
+   "thickness_px": 7,
+   "gaps": [],
+   "source": "measured on apt02_fp.png (Rightmove 92163630)",
+   "a_hand": [
+    89,
+    48
+   ],
+   "b_hand": [
+    92.5,
+    64.5
+   ],
+   "t_hand": 7,
+   "fit_drift_px": 2.69
+  },
+  {
+   "name": "Ext_mid_pier_S",
+   "kind": "wall",
+   "a": [
+    92.5,
+    64.5
+   ],
+   "b": [
+    109.0,
+    61.5
+   ],
+   "thickness_px": 7,
+   "gaps": [],
+   "source": "measured on apt02_fp.png (Rightmove 92163630)",
+   "a_hand": [
+    92.5,
+    64.5
+   ],
+   "b_hand": [
+    106.5,
+    61.5
+   ],
+   "t_hand": 6,
+   "fit_drift_px": 2.5
+  },
+  {
+   "name": "Ext_mid_pier_E",
+   "kind": "wall",
+   "a": [
+    107.5,
+    60.5
+   ],
+   "b": [
+    104.5,
+    44
+   ],
+   "thickness_px": 6,
+   "gaps": [],
+   "source": "measured on apt02_fp.png (Rightmove 92163630)",
+   "a_hand": [
+    106.5,
+    61.5
+   ],
+   "b_hand": [
+    104.5,
+    44
+   ],
+   "t_hand": 6,
+   "fit_drift_px": 1.41
+  },
+  {
+   "name": "Ext_NE_pier",
+   "kind": "wall",
+   "a": [
+    218,
+    3
+   ],
+   "b": [
+    223,
+    18
+   ],
+   "thickness_px": 6,
+   "gaps": [],
+   "source": "measured on apt02_fp.png (Rightmove 92163630)",
+   "a_hand": [
+    218,
+    3
+   ],
+   "b_hand": [
+    223,
+    18
+   ],
+   "t_hand": 6,
+   "fit_drift_px": 0.0
+  },
+  {
+   "name": "Ext_NE_pier_jog",
+   "kind": "wall",
+   "a": [
+    222,
+    19
+   ],
+   "b": [
+    230.5,
+    15.5
+   ],
+   "thickness_px": 6,
+   "gaps": [],
+   "source": "measured on apt02_fp.png (Rightmove 92163630)",
+   "a_hand": [
+    223,
+    18
+   ],
+   "b_hand": [
+    230.5,
+    15.5
+   ],
+   "t_hand": 6,
+   "fit_drift_px": 1.41
+  },
+  {
+   "name": "Ext_E_rake",
+   "kind": "wall",
+   "a": [
+    230.5,
+    13.5
+   ],
+   "b": [
+    263.5,
+    101
+   ],
+   "thickness_px": 7,
+   "gaps": [],
+   "source": "measured on apt02_fp.png (Rightmove 92163630)",
+   "a_hand": [
+    230.5,
+    15.5
+   ],
+   "b_hand": [
+    262.5,
+    101
+   ],
+   "t_hand": 7,
+   "fit_drift_px": 2.0
+  },
+  {
+   "name": "Ext_E_jog",
+   "kind": "wall",
+   "a": [
+    264.0,
+    101
+   ],
+   "b": [
+    256.5,
+    106.5
+   ],
+   "thickness_px": 7,
+   "gaps": [],
+   "source": "measured on apt02_fp.png (Rightmove 92163630)",
+   "a_hand": [
+    262.5,
+    101
+   ],
+   "b_hand": [
+    256.5,
+    105.5
+   ],
+   "t_hand": 6,
+   "fit_drift_px": 1.5
+  },
+  {
+   "name": "Ext_E",
+   "kind": "wall",
+   "a": [
+    256.5,
+    104.5
+   ],
+   "b": [
+    256.5,
+    349.0
+   ],
+   "thickness_px": 6,
+   "gaps": [],
+   "source": "measured on apt02_fp.png (Rightmove 92163630)",
+   "a_hand": [
+    256.5,
+    105.5
+   ],
+   "b_hand": [
+    256.5,
+    346.5
+   ],
+   "t_hand": 6,
+   "fit_drift_px": 2.5
+  },
+  {
+   "name": "Ext_S",
+   "kind": "wall",
+   "a": [
+    256.5,
+    346.5
+   ],
+   "b": [
+    13,
+    346.5
+   ],
+   "thickness_px": 7,
+   "gaps": [
+    [
+     128.0,
+     158.0
+    ]
+   ],
+   "source": "measured on apt02_fp.png (Rightmove 92163630)",
+   "note": "entrance opening = ink break x 99-128 (30 px)",
+   "a_hand": [
+    256.5,
+    346.5
+   ],
+   "b_hand": [
+    13,
+    346.5
+   ],
+   "t_hand": 6,
+   "fit_drift_px": 0.0
+  },
+  {
+   "name": "Win_bed1_outer",
+   "kind": "window",
+   "a": [
+    13.5,
+    60
+   ],
+   "b": [
+    83,
+    47
+   ],
+   "thickness_px": 2,
+   "gaps": [],
+   "source": "measured on apt02_fp.png (Rightmove 92163630)",
+   "note": "Hough (14,61)-(84,48)",
+   "a_hand": [
+    14,
+    61
+   ],
+   "b_hand": [
+    84,
+    48
+   ],
+   "t_hand": 2,
+   "fit_drift_px": 1.41
+  },
+  {
+   "name": "Win_bed1_inner",
+   "kind": "window",
+   "a": [
+    13.5,
+    66
+   ],
+   "b": [
+    82,
+    54
+   ],
+   "thickness_px": 2,
+   "gaps": [],
+   "source": "measured on apt02_fp.png (Rightmove 92163630)",
+   "note": "Hough (15,66)-(83,54)",
+   "a_hand": [
+    15,
+    66
+   ],
+   "b_hand": [
+    83,
+    54
+   ],
+   "t_hand": 2,
+   "fit_drift_px": 1.5
+  },
+  {
+   "name": "Win_bed2_outer",
+   "kind": "window",
+   "a": [
+    107,
+    42
+   ],
+   "b": [
+    214,
+    3.5
+   ],
+   "thickness_px": 1,
+   "gaps": [],
+   "source": "measured on apt02_fp.png (Rightmove 92163630)",
+   "note": "Hough (107,42)-(212,4) / (119,37)-(213,3)",
+   "a_hand": [
+    107,
+    42
+   ],
+   "b_hand": [
+    213,
+    3.5
+   ],
+   "t_hand": 2,
+   "fit_drift_px": 1.0
+  },
+  {
+   "name": "Win_bed2_inner",
+   "kind": "window",
+   "a": [
+    108,
+    47
+   ],
+   "b": [
+    213,
+    9
+   ],
+   "thickness_px": 2,
+   "gaps": [],
+   "source": "measured on apt02_fp.png (Rightmove 92163630)",
+   "note": "Hough (109,48)-(214,9)",
+   "a_hand": [
+    109,
+    48
+   ],
+   "b_hand": [
+    214,
+    9
+   ],
+   "t_hand": 2,
+   "fit_drift_px": 1.41
+  },
+  {
+   "name": "Part_bed_divider",
+   "kind": "wall",
+   "a": [
+    100,
+    67.1
+   ],
+   "b": [
+    131.5,
+    153.5
+   ],
+   "thickness_px": 2,
+   "gaps": [],
+   "source": "measured on apt02_fp.png (Rightmove 92163630)",
+   "note": "Hough (100,67)-(132,153), pier to wardrobe corner",
+   "a_hand": [
+    101,
+    65.6
+   ],
+   "b_hand": [
+    131.5,
+    153.5
+   ],
+   "t_hand": 2,
+   "fit_drift_px": 1.8
+  },
+  {
+   "name": "Part_bed1_living",
+   "kind": "wall",
+   "a": [
+    80,
+    171
+   ],
+   "b": [
+    131.5,
+    153.5
+   ],
+   "thickness_px": 2,
+   "gaps": [],
+   "source": "measured on apt02_fp.png (Rightmove 92163630)",
+   "a_hand": [
+    80,
+    172
+   ],
+   "b_hand": [
+    131.5,
+    153.5
+   ],
+   "t_hand": 2,
+   "fit_drift_px": 1.0
+  },
+  {
+   "name": "Joinery_bed2_wardrobe_back",
+   "kind": "wall",
+   "a": [
+    132.0,
+    153.5
+   ],
+   "b": [
+    151,
+    146
+   ],
+   "thickness_px": 1,
+   "gaps": [],
+   "source": "measured on apt02_fp.png (Rightmove 92163630)",
+   "note": "collinear with the bed1/living line; back of the Bedroom 2 wardrobe",
+   "a_hand": [
+    131.5,
+    153.5
+   ],
+   "b_hand": [
+    151,
+    146
+   ],
+   "t_hand": 2,
+   "fit_drift_px": 0.5
+  },
+  {
+   "name": "Part_bed2_living",
+   "kind": "wall",
+   "a": [
+    214,
+    124
+   ],
+   "b": [
+    254.5,
+    109.5
+   ],
+   "thickness_px": 1,
+   "gaps": [],
+   "source": "measured on apt02_fp.png (Rightmove 92163630)",
+   "a_hand": [
+    213,
+    124
+   ],
+   "b_hand": [
+    253.5,
+    109.5
+   ],
+   "t_hand": 2,
+   "fit_drift_px": 1.0
+  },
+  {
+   "name": "Part_store_N",
+   "kind": "wall",
+   "a": [
+    16.5,
+    225
+   ],
+   "b": [
+    84,
+    226
+   ],
+   "thickness_px": 2,
+   "gaps": [],
+   "source": "measured on apt02_fp.png (Rightmove 92163630)",
+   "a_hand": [
+    16.5,
+    226
+   ],
+   "b_hand": [
+    84,
+    226
+   ],
+   "t_hand": 2,
+   "fit_drift_px": 1.0
+  },
+  {
+   "name": "Part_store_E",
+   "kind": "wall",
+   "a": [
+    83,
+    226
+   ],
+   "b": [
+    84,
+    264
+   ],
+   "thickness_px": 2,
+   "gaps": [
+    [
+     5,
+     31
+    ]
+   ],
+   "source": "measured on apt02_fp.png (Rightmove 92163630)",
+   "note": "door opening y 231-257 (leaf drawn open, angled)",
+   "a_hand": [
+    84,
+    226
+   ],
+   "b_hand": [
+    84,
+    264
+   ],
+   "t_hand": 2,
+   "fit_drift_px": 1.0
+  },
+  {
+   "name": "Part_store_S",
+   "kind": "wall",
+   "a": [
+    16.5,
+    263
+   ],
+   "b": [
+    84,
+    264
+   ],
+   "thickness_px": 2,
+   "gaps": [],
+   "source": "measured on apt02_fp.png (Rightmove 92163630)",
+   "a_hand": [
+    16.5,
+    264
+   ],
+   "b_hand": [
+    84,
+    264
+   ],
+   "t_hand": 2,
+   "fit_drift_px": 1.0
+  },
+  {
+   "name": "Part_bath_E",
+   "kind": "wall",
+   "a": [
+    83,
+    264
+   ],
+   "b": [
+    84,
+    343.5
+   ],
+   "thickness_px": 2,
+   "gaps": [
+    [
+     5,
+     34
+    ]
+   ],
+   "source": "measured on apt02_fp.png (Rightmove 92163630)",
+   "note": "door opening y 269-298 (leaf + swing arc drawn)",
+   "a_hand": [
+    84,
+    264
+   ],
+   "b_hand": [
+    84,
+    343.5
+   ],
+   "t_hand": 2,
+   "fit_drift_px": 1.0
+  },
+  {
+   "name": "Part_lobby_N",
+   "kind": "wall",
+   "a": [
+    84,
+    300
+   ],
+   "b": [
+    122,
+    301
+   ],
+   "thickness_px": 2,
+   "gaps": [],
+   "source": "measured on apt02_fp.png (Rightmove 92163630)",
+   "a_hand": [
+    84,
+    301
+   ],
+   "b_hand": [
+    122,
+    301
+   ],
+   "t_hand": 2,
+   "fit_drift_px": 1.0
+  },
+  {
+   "name": "Part_stair_W",
+   "kind": "wall",
+   "a": [
+    122,
+    269
+   ],
+   "b": [
+    122,
+    301
+   ],
+   "thickness_px": 1,
+   "gaps": [],
+   "source": "measured on apt02_fp.png (Rightmove 92163630)",
+   "a_hand": [
+    122,
+    269
+   ],
+   "b_hand": [
+    122,
+    301
+   ],
+   "t_hand": 2,
+   "fit_drift_px": 0.0
+  },
+  {
+   "name": "Part_stair_E_kitchen",
+   "kind": "wall",
+   "a": [
+    160,
+    269
+   ],
+   "b": [
+    161,
+    343.5
+   ],
+   "thickness_px": 2,
+   "gaps": [],
+   "source": "measured on apt02_fp.png (Rightmove 92163630)",
+   "a_hand": [
+    161,
+    269
+   ],
+   "b_hand": [
+    161,
+    343.5
+   ],
+   "t_hand": 2,
+   "fit_drift_px": 1.0
+  },
+  {
+   "name": "Leaf_storage",
+   "kind": "door_leaf",
+   "a": [
+    81,
+    231
+   ],
+   "b": [
+    93,
+    256
+   ],
+   "thickness_px": 2,
+   "gaps": [],
+   "source": "measured on apt02_fp.png (Rightmove 92163630)",
+   "note": "leaf drawn (81,231)-(93,256), lum 30"
+  },
+  {
+   "name": "Wardrobe_bed2_0",
+   "kind": "joinery",
+   "a": [
+    111,
+    96
+   ],
+   "b": [
+    129,
+    89
+   ],
+   "thickness_px": 1,
+   "gaps": [],
+   "source": "hanger box: top (111,96)-(129,89), side Hough (129,89)-(150,145), back on bed1/living line"
+  },
+  {
+   "name": "Wardrobe_bed2_1",
+   "kind": "joinery",
+   "a": [
+    129,
+    89
+   ],
+   "b": [
+    151,
+    146
+   ],
+   "thickness_px": 1,
+   "gaps": [],
+   "source": "hanger box: top (111,96)-(129,89), side Hough (129,89)-(150,145), back on bed1/living line"
+  },
+  {
+   "name": "Wardrobe_bed2_2",
+   "kind": "joinery",
+   "a": [
+    151,
+    146
+   ],
+   "b": [
+    131.5,
+    153.5
+   ],
+   "thickness_px": 1,
+   "gaps": [],
+   "source": "hanger box: top (111,96)-(129,89), side Hough (129,89)-(150,145), back on bed1/living line"
+  },
+  {
+   "name": "Wardrobe_bed2_3",
+   "kind": "joinery",
+   "a": [
+    131.5,
+    153.5
+   ],
+   "b": [
+    111,
+    96
+   ],
+   "thickness_px": 1,
+   "gaps": [],
+   "source": "hanger box: top (111,96)-(129,89), side Hough (129,89)-(150,145), back on bed1/living line"
+  },
+  {
+   "name": "Wardrobe_living_W_0",
+   "kind": "joinery",
+   "a": [
+    16.5,
+    206
+   ],
+   "b": [
+    77,
+    206
+   ],
+   "thickness_px": 1,
+   "gaps": [],
+   "source": "hanger boxes x 17-77, y 206-226"
+  },
+  {
+   "name": "Wardrobe_living_W_1",
+   "kind": "joinery",
+   "a": [
+    77,
+    206
+   ],
+   "b": [
+    77,
+    226
+   ],
+   "thickness_px": 1,
+   "gaps": [],
+   "source": "hanger boxes x 17-77, y 206-226"
+  },
+  {
+   "name": "Wardrobe_living_W_2",
+   "kind": "joinery",
+   "a": [
+    77,
+    226
+   ],
+   "b": [
+    16.5,
+    226
+   ],
+   "thickness_px": 1,
+   "gaps": [],
+   "source": "hanger boxes x 17-77, y 206-226"
+  },
+  {
+   "name": "Wardrobe_living_W_3",
+   "kind": "joinery",
+   "a": [
+    16.5,
+    226
+   ],
+   "b": [
+    16.5,
+    206
+   ],
+   "thickness_px": 1,
+   "gaps": [],
+   "source": "hanger boxes x 17-77, y 206-226"
+  },
+  {
+   "name": "TV_unit_0",
+   "kind": "joinery",
+   "a": [
+    122,
+    158
+   ],
+   "b": [
+    137,
+    158
+   ],
+   "thickness_px": 1,
+   "gaps": [],
+   "source": "box x 122-137, y 158-198"
+  },
+  {
+   "name": "TV_unit_1",
+   "kind": "joinery",
+   "a": [
+    137,
+    158
+   ],
+   "b": [
+    137,
+    198
+   ],
+   "thickness_px": 1,
+   "gaps": [],
+   "source": "box x 122-137, y 158-198"
+  },
+  {
+   "name": "TV_unit_2",
+   "kind": "joinery",
+   "a": [
+    137,
+    198
+   ],
+   "b": [
+    122,
+    198
+   ],
+   "thickness_px": 1,
+   "gaps": [],
+   "source": "box x 122-137, y 158-198"
+  },
+  {
+   "name": "TV_unit_3",
+   "kind": "joinery",
+   "a": [
+    122,
+    198
+   ],
+   "b": [
+    122,
+    158
+   ],
+   "thickness_px": 1,
+   "gaps": [],
+   "source": "box x 122-137, y 158-198"
+  },
+  {
+   "name": "Wardrobe_living_C_0",
+   "kind": "joinery",
+   "a": [
+    122,
+    209
+   ],
+   "b": [
+    152,
+    209
+   ],
+   "thickness_px": 1,
+   "gaps": [],
+   "source": "hanger box x 122-152, y 209-229"
+  },
+  {
+   "name": "Wardrobe_living_C_1",
+   "kind": "joinery",
+   "a": [
+    152,
+    209
+   ],
+   "b": [
+    152,
+    229
+   ],
+   "thickness_px": 1,
+   "gaps": [],
+   "source": "hanger box x 122-152, y 209-229"
+  },
+  {
+   "name": "Wardrobe_living_C_2",
+   "kind": "joinery",
+   "a": [
+    152,
+    229
+   ],
+   "b": [
+    122,
+    229
+   ],
+   "thickness_px": 1,
+   "gaps": [],
+   "source": "hanger box x 122-152, y 209-229"
+  },
+  {
+   "name": "Wardrobe_living_C_3",
+   "kind": "joinery",
+   "a": [
+    122,
+    229
+   ],
+   "b": [
+    122,
+    209
+   ],
+   "thickness_px": 1,
+   "gaps": [],
+   "source": "hanger box x 122-152, y 209-229"
+  },
+  {
+   "name": "Kitchen_run_S_0",
+   "kind": "joinery",
+   "a": [
+    161,
+    321
+   ],
+   "b": [
+    253.5,
+    321
+   ],
+   "thickness_px": 1,
+   "gaps": [],
+   "source": "worktop line y=321 x 161-233 + hob circles"
+  },
+  {
+   "name": "Kitchen_run_S_1",
+   "kind": "joinery",
+   "a": [
+    253.5,
+    321
+   ],
+   "b": [
+    253.5,
+    343.5
+   ],
+   "thickness_px": 1,
+   "gaps": [],
+   "source": "worktop line y=321 x 161-233 + hob circles"
+  },
+  {
+   "name": "Kitchen_run_S_2",
+   "kind": "joinery",
+   "a": [
+    253.5,
+    343.5
+   ],
+   "b": [
+    161,
+    343.5
+   ],
+   "thickness_px": 1,
+   "gaps": [],
+   "source": "worktop line y=321 x 161-233 + hob circles"
+  },
+  {
+   "name": "Kitchen_run_S_3",
+   "kind": "joinery",
+   "a": [
+    161,
+    343.5
+   ],
+   "b": [
+    161,
+    321
+   ],
+   "thickness_px": 1,
+   "gaps": [],
+   "source": "worktop line y=321 x 161-233 + hob circles"
+  },
+  {
+   "name": "Kitchen_run_E_0",
+   "kind": "joinery",
+   "a": [
+    233,
+    277
+   ],
+   "b": [
+    253.5,
+    277
+   ],
+   "thickness_px": 1,
+   "gaps": [],
+   "source": "worktop x 233-251, y 277-321 + sink 237-250"
+  },
+  {
+   "name": "Kitchen_run_E_1",
+   "kind": "joinery",
+   "a": [
+    253.5,
+    277
+   ],
+   "b": [
+    253.5,
+    321
+   ],
+   "thickness_px": 1,
+   "gaps": [],
+   "source": "worktop x 233-251, y 277-321 + sink 237-250"
+  },
+  {
+   "name": "Kitchen_run_E_2",
+   "kind": "joinery",
+   "a": [
+    253.5,
+    321
+   ],
+   "b": [
+    233,
+    321
+   ],
+   "thickness_px": 1,
+   "gaps": [],
+   "source": "worktop x 233-251, y 277-321 + sink 237-250"
+  },
+  {
+   "name": "Kitchen_run_E_3",
+   "kind": "joinery",
+   "a": [
+    233,
+    321
+   ],
+   "b": [
+    233,
+    277
+   ],
+   "thickness_px": 1,
+   "gaps": [],
+   "source": "worktop x 233-251, y 277-321 + sink 237-250"
+  },
+  {
+   "name": "Entrance_steps_0",
+   "kind": "joinery",
+   "a": [
+    122,
+    278
+   ],
+   "b": [
+    161,
+    278
+   ],
+   "thickness_px": 1,
+   "gaps": [],
+   "source": "3 tread lines y 278/286/295 x 122-161, chevron; riser heights NOT FOUND"
+  },
+  {
+   "name": "Entrance_steps_1",
+   "kind": "joinery",
+   "a": [
+    161,
+    278
+   ],
+   "b": [
+    161,
+    295
+   ],
+   "thickness_px": 1,
+   "gaps": [],
+   "source": "3 tread lines y 278/286/295 x 122-161, chevron; riser heights NOT FOUND"
+  },
+  {
+   "name": "Entrance_steps_2",
+   "kind": "joinery",
+   "a": [
+    161,
+    295
+   ],
+   "b": [
+    122,
+    295
+   ],
+   "thickness_px": 1,
+   "gaps": [],
+   "source": "3 tread lines y 278/286/295 x 122-161, chevron; riser heights NOT FOUND"
+  },
+  {
+   "name": "Entrance_steps_3",
+   "kind": "joinery",
+   "a": [
+    122,
+    295
+   ],
+   "b": [
+    122,
+    278
+   ],
+   "thickness_px": 1,
+   "gaps": [],
+   "source": "3 tread lines y 278/286/295 x 122-161, chevron; riser heights NOT FOUND"
+  },
+  {
+   "name": "Joinery_detail_0",
+   "kind": "joinery",
+   "a": [
+    47,
+    206
+   ],
+   "b": [
+    47,
+    226
+   ],
+   "thickness_px": 1,
+   "gaps": [],
+   "source": "measured on apt02_fp.png (Rightmove 92163630)"
+  },
+  {
+   "name": "Joinery_detail_1",
+   "kind": "joinery",
+   "a": [
+    122,
+    286
+   ],
+   "b": [
+    161,
+    286
+   ],
+   "thickness_px": 1,
+   "gaps": [],
+   "source": "measured on apt02_fp.png (Rightmove 92163630)"
+  },
+  {
+   "name": "Joinery_detail_2",
+   "kind": "joinery",
+   "a": [
+    122,
+    198
+   ],
+   "b": [
+    122,
+    209
+   ],
+   "thickness_px": 1,
+   "gaps": [],
+   "source": "measured on apt02_fp.png (Rightmove 92163630)"
+  },
+  {
+   "name": "Joinery_detail_3",
+   "kind": "joinery",
+   "a": [
+    124,
+    168
+   ],
+   "b": [
+    124,
+    196
+   ],
+   "thickness_px": 1,
+   "gaps": [],
+   "source": "measured on apt02_fp.png (Rightmove 92163630)"
+  },
+  {
+   "name": "Joinery_detail_4",
+   "kind": "joinery",
+   "a": [
+    124,
+    196
+   ],
+   "b": [
+    136,
+    196
+   ],
+   "thickness_px": 1,
+   "gaps": [],
+   "source": "measured on apt02_fp.png (Rightmove 92163630)"
+  },
+  {
+   "name": "Joinery_detail_5",
+   "kind": "joinery",
+   "a": [
+    126,
+    164
+   ],
+   "b": [
+    127,
+    193
+   ],
+   "thickness_px": 1,
+   "gaps": [],
+   "source": "measured on apt02_fp.png (Rightmove 92163630)"
+  },
+  {
+   "name": "Joinery_detail_6",
+   "kind": "joinery",
+   "a": [
+    237,
+    301
+   ],
+   "b": [
+    250,
+    301
+   ],
+   "thickness_px": 1,
+   "gaps": [],
+   "source": "measured on apt02_fp.png (Rightmove 92163630)"
+  },
+  {
+   "name": "Joinery_detail_7",
+   "kind": "joinery",
+   "a": [
+    250,
+    301
+   ],
+   "b": [
+    250,
+    315
+   ],
+   "thickness_px": 1,
+   "gaps": [],
+   "source": "measured on apt02_fp.png (Rightmove 92163630)"
+  },
+  {
+   "name": "Joinery_detail_8",
+   "kind": "joinery",
+   "a": [
+    250,
+    315
+   ],
+   "b": [
+    237,
+    315
+   ],
+   "thickness_px": 1,
+   "gaps": [],
+   "source": "measured on apt02_fp.png (Rightmove 92163630)"
+  },
+  {
+   "name": "Joinery_detail_9",
+   "kind": "joinery",
+   "a": [
+    237,
+    315
+   ],
+   "b": [
+    237,
+    301
+   ],
+   "thickness_px": 1,
+   "gaps": [],
+   "source": "measured on apt02_fp.png (Rightmove 92163630)"
+  }
+ ],
+ "doors": [
+  {
+   "name": "Door_entrance",
+   "wall": "Ext_S",
+   "hinge_px": [
+    98.5,
+    343.5
+   ],
+   "w_px": 30,
+   "swing": "in",
+   "open_dir_px": [
+    0,
+    -1
+   ],
+   "source": "ink break x 99-128; leaf drawn open at x 94-97 against the lobby west side, arc to (125,343)"
+  },
+  {
+   "name": "Door_bath",
+   "wall": "Part_bath_E",
+   "hinge_px": [
+    84,
+    269
+   ],
+   "w_px": 29,
+   "swing": "in",
+   "open_dir_px": [
+    -1,
+    0
+   ],
+   "source": "opening y 269-298 on x=84; leaf drawn open along y=270 x 55-84; arc to (82,298)"
+  },
+  {
+   "name": "Door_storage",
+   "wall": "Part_store_E",
+   "hinge_px": [
+    84,
+    231
+   ],
+   "w_px": 26,
+   "swing": "out",
+   "open_dir_px": [
+    0.43,
+    0.9
+   ],
+   "source": "opening y 231-257 on x=84; leaf drawn open (81,231)-(93,256), arc to (84,257)"
+  }
+ ],
+ "windows": [
+  {
+   "name": "Window_bed1",
+   "room": "i_bed1",
+   "a_px": [
+    12.5,
+    63.5
+   ],
+   "b_px": [
+    88,
+    50.5
+   ],
+   "source": "glazed span between NW pier and mid pier (two glass lines)",
+   "sill_m": "NOT FOUND",
+   "head_m": "NOT FOUND"
+  },
+  {
+   "name": "Window_bed2",
+   "room": "i_bed2",
+   "a_px": [
+    106,
+    45
+   ],
+   "b_px": [
+    219,
+    5.5
+   ],
+   "source": "glazed span between mid pier and NE pier (two glass lines)",
+   "sill_m": "NOT FOUND",
+   "head_m": "NOT FOUND"
+  }
+ ],
+ "openings": [
+  {
+   "name": "Open_bed1",
+   "between": [
+    "i_bed1",
+    "i_living"
+   ],
+   "a_px": [
+    23.7,
+    179.6
+   ],
+   "b_px": [
+    80,
+    172
+   ],
+   "source": "gap between west wall inner face and the start of the bed1/living line (80,172); no leaf or swing drawn",
+   "leaf": "NOT FOUND (plan draws no door leaf)"
+  },
+  {
+   "name": "Open_bed2",
+   "between": [
+    "i_bed2",
+    "i_living"
+   ],
+   "a_px": [
+    151,
+    146
+   ],
+   "b_px": [
+    213,
+    124
+   ],
+   "source": "gap between wardrobe end (151,146) and the bed2/living line start (213,124); no leaf or swing drawn",
+   "leaf": "NOT FOUND (plan draws no door leaf)"
+  }
+ ],
+ "rooms": [
+  {
+   "id": "i_bed1",
+   "label": "Bedroom 1",
+   "poly": [
+    [
+     25.4,
+     179.6
+    ],
+    [
+     7.5,
+     84
+    ],
+    [
+     14.5,
+     81
+    ],
+    [
+     12.5,
+     66.5
+    ],
+    [
+     88.5,
+     54
+    ],
+    [
+     90.5,
+     68
+    ],
+    [
+     101,
+     65.6
+    ],
+    [
+     131.5,
+     153.5
+    ],
+    [
+     80,
+     172
+    ]
+   ],
+   "area_m2": 9.869
+  },
+  {
+   "id": "i_bed2",
+   "label": "Bedroom 2",
+   "poly": [
+    [
+     101,
+     65.6
+    ],
+    [
+     110.5,
+     63.5
+    ],
+    [
+     109,
+     48
+    ],
+    [
+     214,
+     9.5
+    ],
+    [
+     217.5,
+     9
+    ],
+    [
+     221.5,
+     21.5
+    ],
+    [
+     229,
+     19
+    ],
+    [
+     259,
+     98.5
+    ],
+    [
+     253.5,
+     103.5
+    ],
+    [
+     253.5,
+     109.5
+    ],
+    [
+     213,
+     124
+    ],
+    [
+     151,
+     146
+    ],
+    [
+     131.5,
+     153.5
+    ]
+   ],
+   "area_m2": 12.691
+  },
+  {
+   "id": "i_store",
+   "label": "Storage",
+   "poly": [
+    [
+     16.5,
+     226
+    ],
+    [
+     84,
+     226
+    ],
+    [
+     84,
+     264
+    ],
+    [
+     16.5,
+     264
+    ]
+   ],
+   "area_m2": 2.267
+  },
+  {
+   "id": "i_bath",
+   "label": "Bathroom",
+   "poly": [
+    [
+     16.5,
+     264
+    ],
+    [
+     84,
+     264
+    ],
+    [
+     84,
+     343.5
+    ],
+    [
+     16.5,
+     343.5
+    ]
+   ],
+   "area_m2": 4.743
+  },
+  {
+   "id": "i_hall",
+   "label": "Hall",
+   "poly": [
+    [
+     84,
+     301
+    ],
+    [
+     122,
+     301
+    ],
+    [
+     122,
+     269
+    ],
+    [
+     161,
+     269
+    ],
+    [
+     161,
+     343.5
+    ],
+    [
+     84,
+     343.5
+    ]
+   ],
+   "area_m2": 3.995
+  },
+  {
+   "id": "i_kitchen",
+   "label": "Kitchen",
+   "poly": [
+    [
+     161,
+     269
+    ],
+    [
+     253.5,
+     269
+    ],
+    [
+     253.5,
+     343.5
+    ],
+    [
+     161,
+     343.5
+    ]
+   ],
+   "area_m2": 6.091
+  },
+  {
+   "id": "i_living",
+   "label": "Living",
+   "poly": [
+    [
+     16.5,
+     186
+    ],
+    [
+     26.5,
+     185.5
+    ],
+    [
+     25.4,
+     179.6
+    ],
+    [
+     80,
+     172
+    ],
+    [
+     151,
+     146
+    ],
+    [
+     213,
+     124
+    ],
+    [
+     253.5,
+     109.5
+    ],
+    [
+     253.5,
+     269
+    ],
+    [
+     122,
+     269
+    ],
+    [
+     122,
+     301
+    ],
+    [
+     84,
+     301
+    ],
+    [
+     84,
+     226
+    ],
+    [
+     16.5,
+     226
+    ]
+   ],
+   "area_m2": 23.355
+  }
+ ],
+ "joinery": [
+  {
+   "name": "Wardrobe_bed2",
+   "room": "i_bed2",
+   "poly": [
+    [
+     111,
+     96
+    ],
+    [
+     129,
+     89
+    ],
+    [
+     151,
+     146
+    ],
+    [
+     131.5,
+     153.5
+    ]
+   ],
+   "source": "hanger box: top (111,96)-(129,89), side Hough (129,89)-(150,145), back on bed1/living line"
+  },
+  {
+   "name": "Wardrobe_living_W",
+   "room": "i_living",
+   "poly": [
+    [
+     16.5,
+     206
+    ],
+    [
+     77,
+     206
+    ],
+    [
+     77,
+     226
+    ],
+    [
+     16.5,
+     226
+    ]
+   ],
+   "source": "hanger boxes x 17-77, y 206-226"
+  },
+  {
+   "name": "TV_unit",
+   "room": "i_living",
+   "poly": [
+    [
+     122,
+     158
+    ],
+    [
+     137,
+     158
+    ],
+    [
+     137,
+     198
+    ],
+    [
+     122,
+     198
+    ]
+   ],
+   "source": "box x 122-137, y 158-198"
+  },
+  {
+   "name": "Wardrobe_living_C",
+   "room": "i_living",
+   "poly": [
+    [
+     122,
+     209
+    ],
+    [
+     152,
+     209
+    ],
+    [
+     152,
+     229
+    ],
+    [
+     122,
+     229
+    ]
+   ],
+   "source": "hanger box x 122-152, y 209-229"
+  },
+  {
+   "name": "Kitchen_run_S",
+   "room": "i_kitchen",
+   "poly": [
+    [
+     161,
+     321
+    ],
+    [
+     253.5,
+     321
+    ],
+    [
+     253.5,
+     343.5
+    ],
+    [
+     161,
+     343.5
+    ]
+   ],
+   "source": "worktop line y=321 x 161-233 + hob circles"
+  },
+  {
+   "name": "Kitchen_run_E",
+   "room": "i_kitchen",
+   "poly": [
+    [
+     233,
+     277
+    ],
+    [
+     253.5,
+     277
+    ],
+    [
+     253.5,
+     321
+    ],
+    [
+     233,
+     321
+    ]
+   ],
+   "source": "worktop x 233-251, y 277-321 + sink 237-250"
+  },
+  {
+   "name": "Entrance_steps",
+   "room": "i_hall",
+   "poly": [
+    [
+     122,
+     278
+    ],
+    [
+     161,
+     278
+    ],
+    [
+     161,
+     295
+    ],
+    [
+     122,
+     295
+    ]
+   ],
+   "source": "3 tread lines y 278/286/295 x 122-161, chevron; riser heights NOT FOUND",
+   "walkable": true
+  }
+ ],
+ "plan_furniture_px": [
+  {
+   "name": "Bed1_bedsides",
+   "poly": [
+    [
+     44,
+     103
+    ],
+    [
+     100,
+     82
+    ],
+    [
+     118,
+     141
+    ],
+    [
+     60,
+     150
+    ]
+   ]
+  },
+  {
+   "name": "Hangers_bed2_wardrobe",
+   "poly": [
+    [
+     121,
+     102
+    ],
+    [
+     138,
+     102
+    ],
+    [
+     138,
+     143
+    ],
+    [
+     121,
+     143
+    ]
+   ]
+  },
+  {
+   "name": "Bed2_bedsides",
+   "poly": [
+    [
+     170,
+     58
+    ],
+    [
+     207,
+     39
+    ],
+    [
+     249,
+     39
+    ],
+    [
+     249,
+     94
+    ],
+    [
+     186,
+     103
+    ]
+   ]
+  },
+  {
+   "name": "Sofa",
+   "poly": [
+    [
+     219,
+     151
+    ],
+    [
+     249,
+     151
+    ],
+    [
+     249,
+     204
+    ],
+    [
+     219,
+     204
+    ]
+   ]
+  },
+  {
+   "name": "Rug_ellipse",
+   "poly": [
+    [
+     181,
+     156
+    ],
+    [
+     207,
+     156
+    ],
+    [
+     207,
+     199
+    ],
+    [
+     181,
+     199
+    ]
+   ]
+  },
+  {
+   "name": "Dining_table_chairs",
+   "poly": [
+    [
+     201,
+     220
+    ],
+    [
+     252,
+     220
+    ],
+    [
+     252,
+     266
+    ],
+    [
+     201,
+     266
+    ]
+   ]
+  },
+  {
+   "name": "Hangers_living_W",
+   "poly": [
+    [
+     30,
+     210
+    ],
+    [
+     35,
+     210
+    ],
+    [
+     35,
+     216
+    ],
+    [
+     30,
+     216
+    ]
+   ]
+  },
+  {
+   "name": "Hangers_living_W2",
+   "poly": [
+    [
+     59,
+     210
+    ],
+    [
+     65,
+     210
+    ],
+    [
+     65,
+     218
+    ],
+    [
+     59,
+     218
+    ]
+   ]
+  },
+  {
+   "name": "Hangers_living_C",
+   "poly": [
+    [
+     134,
+     215
+    ],
+    [
+     140,
+     215
+    ],
+    [
+     140,
+     221
+    ],
+    [
+     134,
+     221
+    ]
+   ]
+  },
+  {
+   "name": "Stair_arrow",
+   "poly": [
+    [
+     136,
+     267
+    ],
+    [
+     147,
+     267
+    ],
+    [
+     147,
+     273
+    ],
+    [
+     136,
+     273
+    ]
+   ]
+  },
+  {
+   "name": "Basin",
+   "poly": [
+    [
+     18,
+     289
+    ],
+    [
+     25,
+     289
+    ],
+    [
+     25,
+     307
+    ],
+    [
+     18,
+     307
+    ]
+   ]
+  },
+  {
+   "name": "WC",
+   "poly": [
+    [
+     17,
+     270
+    ],
+    [
+     28,
+     270
+    ],
+    [
+     28,
+     288
+    ],
+    [
+     17,
+     288
+    ]
+   ]
+  },
+  {
+   "name": "Shower_dashed_line",
+   "poly": [
+    [
+     19,
+     312
+    ],
+    [
+     80,
+     312
+    ],
+    [
+     80,
+     314
+    ],
+    [
+     19,
+     314
+    ]
+   ]
+  },
+  {
+   "name": "Label_bedroom1",
+   "poly": [
+    [
+     28,
+     81
+    ],
+    [
+     50,
+     81
+    ],
+    [
+     50,
+     85
+    ],
+    [
+     28,
+     85
+    ]
+   ]
+  },
+  {
+   "name": "Label_bedroom2",
+   "poly": [
+    [
+     130,
+     64
+    ],
+    [
+     152,
+     64
+    ],
+    [
+     152,
+     68
+    ],
+    [
+     130,
+     68
+    ]
+   ]
+  },
+  {
+   "name": "Label_kitchen",
+   "poly": [
+    [
+     181,
+     291
+    ],
+    [
+     199,
+     291
+    ],
+    [
+     199,
+     295
+    ],
+    [
+     181,
+     295
+    ]
+   ]
+  },
+  {
+   "name": "Hob_rings",
+   "poly": [
+    [
+     189,
+     326
+    ],
+    [
+     200,
+     326
+    ],
+    [
+     200,
+     343
+    ],
+    [
+     189,
+     343
+    ]
+   ]
+  }
+ ]
+}

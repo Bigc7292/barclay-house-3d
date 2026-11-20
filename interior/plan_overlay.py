@@ -44,6 +44,7 @@ from PIL import Image, ImageDraw
 
 ROOT = Path(__file__).resolve().parents[1]
 DEFAULT_PLAN = ROOT / "interior/twobed/apt02_fp.png"
+DEFAULT_TRACE = ROOT / "interior/trace/twobed_trace.json"
 SOURCED_M2 = 63.0
 # Luminance cutoff for "ink" on the white marketing plan (measured on apt02_fp.png).
 # Dark navy walls are lum ≈ 30–40; residual furniture linework is thinner.
@@ -182,7 +183,8 @@ def compose_overlay(plan_im, plan_mask, layout_mask, shifted_layout=None):
 
 
 def default_2bed_layout():
-    """Walls as published in interior/build_twobed_v4.py (plan-pixel space)."""
+    """PRE-RETRACE walls of build_twobed_v4.py before 2026-11-20 (plan-pixel space). Kept for the
+    before/after comparison; the current builder reads interior/trace/twobed_trace.json."""
     P = [(12, 62), (92, 50), (98, 40), (228, 22), (262, 180), (262, 345), (18, 345), (18, 185)]
     # exterior edges; entrance gap on bottom edge i==6, same formula as v4:
     # gaps=((L-((128-18)*K), L-((100-18)*K)),) in metres, which in px is
@@ -296,6 +298,32 @@ def run(layout, plan_path: Path, out_prefix: Path, sourced_m2=SOURCED_M2, ink_lu
         near=_dilate(near)
     prec = float(np.logical_and(layout_mask, near).sum() / layout_mask.sum()) if layout_mask.sum() else 0.0
 
+    # Diagnostics (gate unchanged): (a) walls+windows only; (b) plan ink with the
+    # layout's own hand-classified loose-furniture boxes blanked (plan_furniture_px).
+    diag = {}
+    kinds_ww = ("wall", "window")
+    if any("kind" in w for w in walls):
+        ww = raster_walls((h, w), [x for x in walls if x.get("kind", "wall") in kinds_ww])
+        diag["walls_windows_only"] = {
+            "iou_identity": round(float(iou(ww, plan_mask)[0]), 4),
+            "iou_buffered_4px": round(float(iou(dilate_n(ww, BUFFER_PX), dilate_n(plan_mask, BUFFER_PX))[0]), 4),
+        }
+        diag["kinds_px"] = {k: int(raster_walls((h, w), [x for x in walls if x.get("kind", "wall") == k]).sum())
+                            for k in sorted({x.get("kind", "wall") for x in walls})}
+    if layout.get("plan_furniture_px"):
+        fim = Image.new("L", (w, h), 0)
+        fdr = ImageDraw.Draw(fim)
+        for f in layout["plan_furniture_px"]:
+            fdr.polygon([tuple(map(float, q)) for q in f["poly"]], fill=255)
+        fmask = np.array(fim) > 0
+        pm2 = plan_mask & ~fmask
+        diag["excl_plan_furniture"] = {
+            "furniture_ink_px": int((plan_mask & fmask).sum()),
+            "iou_identity": round(float(iou(layout_mask, pm2)[0]), 4),
+            "iou_buffered_4px": round(float(iou(dilate_n(layout_mask, BUFFER_PX), dilate_n(pm2, BUFFER_PX))[0]), 4),
+            "note": "plan ink with loose furniture / sanitaryware / symbol boxes blanked (boxes listed in the layout); diagnostic only, NOT the gate",
+        }
+
     area_note = ""
     area_m2 = None
     residual_pct = None
@@ -311,7 +339,7 @@ def run(layout, plan_path: Path, out_prefix: Path, sourced_m2=SOURCED_M2, ink_lu
             area_m2 = px_area * m_per_px ** 2
             residual_pct = (area_m2 - sourced_m2) / sourced_m2 * 100.0
             area_note = (
-                "Area uses layout['metres_per_px'] (independent scale). "
+                f"Area uses layout['metres_per_px'] ({layout.get('metres_per_px_source', 'independent scale')}). "
                 f"Outline {px_area:.1f} px² × ({m_per_px:.6f} m/px)² = {area_m2:.3f} m²."
             )
         else:
@@ -370,6 +398,8 @@ def run(layout, plan_path: Path, out_prefix: Path, sourced_m2=SOURCED_M2, ink_lu
         "area_residual_pct": residual_pct,
         "area_note": area_note,
         "gate": {"iou_ge_0.85": gate_iou, "area_within_3pct": gate_area, "pass": gate},
+        "area_within_1pct": bool(residual_pct is not None and abs(residual_pct) <= 1.0),
+        "diagnostics": diag,
         "overlay_png": str(png_path),
     }
 
@@ -383,6 +413,8 @@ def run(layout, plan_path: Path, out_prefix: Path, sourced_m2=SOURCED_M2, ink_lu
     md.append(f"- Wall-mask IoU buffered ±4 px (primary gate, absorbs stroke-width / inner-face vs centreline): **{iou_buf:.4f}**.")
     md.append(f"- Layout-on-ink precision (layout px within 2 px of plan ink): **{prec:.4f}**.")
     md.append(f"- Wall-mask IoU after translation-only search ±8 px: **{best_v:.4f}** at dx={bdx}, dy={bdy} (sensitivity only; no labelled corners on the plan).")
+    for k, v in diag.items():
+        md.append(f"- Diagnostic `{k}` (not the gate): `{json.dumps(v)}`")
     md.append(f"- Area: {area_note}")
     if residual_pct is not None:
         md.append(f"- Area residual vs {sourced_m2} m²: **{residual_pct:+.2f}%** (measured area {area_m2:.3f} m²).")
@@ -399,7 +431,7 @@ def run(layout, plan_path: Path, out_prefix: Path, sourced_m2=SOURCED_M2, ink_lu
 def main():
     ap = argparse.ArgumentParser(description=__doc__)
     ap.add_argument("--plan", type=Path, default=DEFAULT_PLAN)
-    ap.add_argument("--layout", type=Path, help="JSON with outline/walls in plan_px. Default: extract from build_twobed_v4.py")
+    ap.add_argument("--layout", type=Path, help="JSON with outline/walls in plan_px. Default: interior/trace/twobed_trace.json (the layout build_twobed_v4.py now builds); pre-retrace v4 walls via --write-default-layout")
     ap.add_argument("--out", type=Path, default=None, help="Output prefix (writes .png .md .json). Default: out/plan_overlay")
     ap.add_argument("--sourced-area", type=float, default=SOURCED_M2)
     ap.add_argument("--ink-lum", type=float, default=INK_LUM)
@@ -412,6 +444,8 @@ def main():
         return
     if args.layout:
         layout = json.loads(Path(args.layout).read_text())
+    elif DEFAULT_TRACE.exists():
+        layout = json.loads(DEFAULT_TRACE.read_text())   # 2026-11-20 retrace (builds walk mode)
     else:
         layout = default_2bed_layout()
     out = args.out or (ROOT / "out" / "plan_overlay")

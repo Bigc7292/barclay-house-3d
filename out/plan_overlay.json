@@ -1,44 +1,78 @@
 {
-  "plan": "/workspace/barclay/interior/twobed/apt02_fp.png",
+  "plan": "/workspace/barclay-lanes/walls/interior/twobed/apt02_fp.png",
   "plan_size_px": [
     268,
     351
   ],
   "layout_provenance": {
-    "source_script": "interior/build_twobed_v4.py",
     "plan": "interior/twobed/apt02_fp.png",
-    "note": "2bed.json has no wall polylines (cameras + door hinges only). These vertices are copied from build_twobed_v4.py, already in apt02_fp.png pixel space, scaled in 3D so outline area = sourced 63 m\u00b2."
+    "listing": "https://www.rightmove.co.uk/properties/92163630",
+    "method": "Single source for the walk-mode rebuild (build_twobed_v4.py), #18 plan_overlay and\n#21 accessible_area. Every coordinate is MEASURED on interior/twobed/apt02_fp.png\n(268x351 px) in plan-pixel index space (pixel centre = integer, x right, y down),\nread from 6-8x zoomed gridded crops and the ink mask (luminance < 80) plus\nOpenCV contour/Hough output (cv2.findContours on the 3x3-opened ink for the thick\nwalls, cv2.HoughLinesP on thin ink for 1-2 px partitions). Nothing was copied from\nbuild_twobed_v4.py (v4 outline is off by up to 16 px, e.g. right wall x=262 vs ink 254-259).\ntests/pascal/layout_pascal.json (rejected #20) was used ONLY as a cross-check of\nthe entrance (x 99-129) and bathroom door (y 268-298) ink breaks.",
+    "scale": "metres_per_px = sqrt(63 m2 / 71278.9 px2) = 0.029730 (area 63 m2 by construction; plan has no printed dimensions)",
+    "area_source": [
+      "https://barclay-house.com/two-bedroom-apartment/",
+      "https://www.rightmove.co.uk/properties/92163630 (679 sq ft = 63.08 m2)"
+    ],
+    "secondary_reference": "tests/pascal/layout_pascal.json (#20, rejected) used only to cross-check entrance and bath door ink breaks",
+    "not_found": [
+      "partition thickness",
+      "clear ceiling height",
+      "window sill/head heights",
+      "door leaf height",
+      "bedroom door leaves",
+      "entrance step riser heights"
+    ],
+    "generator": "interior/trace/twobed_trace.py"
   },
   "ink_lum": 80,
   "open_iters": 0,
   "plan_ink_px": 8376,
   "plan_wall_mask_px": 8376,
-  "layout_wall_mask_px": 6820,
-  "iou_identity": 0.1408,
-  "intersection_px": 1875,
-  "union_px": 13321,
-  "iou_buffered_4px": 0.2999,
+  "layout_wall_mask_px": 8232,
+  "iou_identity": 0.7783,
+  "intersection_px": 7269,
+  "union_px": 9339,
+  "iou_buffered_4px": 0.6562,
   "buffer_px": 4,
-  "layout_on_ink_precision_2px": 0.5733,
-  "iou_best_translation": 0.2773,
+  "layout_on_ink_precision_2px": 0.9977,
+  "iou_best_translation": 0.7783,
   "best_translation_px": [
-    -5,
-    2
+    0,
+    0
   ],
   "sourced_area_m2": 63.0,
   "sourced_area_url": [
     "https://barclay-house.com/two-bedroom-apartment/",
     "https://www.rightmove.co.uk/properties/92163630"
   ],
-  "outline_px_area": 72707.0,
-  "metres_per_px": 0.02943622826578239,
+  "outline_px_area": 71278.875,
+  "metres_per_px": 0.02972965411046673,
   "area_m2": 63.0,
   "area_residual_pct": 0.0,
-  "area_note": "No independent scale on the layout. metres_per_px = sqrt(63.0/72707.0 px\u00b2) = 0.029436. Area residual is 0% BY CONSTRUCTION because the 3D model was scaled to the sourced 63 m\u00b2. This is not an independent area measurement.",
+  "area_note": "Area uses layout['metres_per_px'] (sqrt(63 m2 sourced total / internal-face floor polygon px2): 63 m2 BY CONSTRUCTION, not an independent measurement). Outline 71278.9 px\u00b2 \u00d7 (0.029730 m/px)\u00b2 = 63.000 m\u00b2.",
   "gate": {
     "iou_ge_0.85": false,
     "area_within_3pct": true,
     "pass": false
   },
-  "overlay_png": "out/plan_overlay.png"
+  "area_within_1pct": true,
+  "diagnostics": {
+    "walls_windows_only": {
+      "iou_identity": 0.7239,
+      "iou_buffered_4px": 0.5202
+    },
+    "kinds_px": {
+      "door_leaf": 52,
+      "joinery": 1163,
+      "wall": 6914,
+      "window": 417
+    },
+    "excl_plan_furniture": {
+      "furniture_ink_px": 1102,
+      "iou_identity": 0.832,
+      "iou_buffered_4px": 0.8561,
+      "note": "plan ink with loose furniture / sanitaryware / symbol boxes blanked (boxes listed in the layout); diagnostic only, NOT the gate"
+    }
+  },
+  "overlay_png": "/workspace/barclay-lanes/walls/out/plan_overlay.png"
 }
