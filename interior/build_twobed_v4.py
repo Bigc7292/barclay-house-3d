@@ -14,6 +14,14 @@ sys.path.insert(0,_HERE); import furniture_cc0   # CC0 models (lane/furniture); 
 TX=os.path.join(_HERE,"tex")+"/"; OUT=os.path.join(_HERE,"live")+"/"
 K=LY.K; CX,CY=LY.CX,LY.CY; CEIL=LY.CEIL; T=LY.T_PART
 P=[tuple(p) for p in LY.TRACE["outline"]]
+OUT=next((a.split('=',1)[1].rstrip('/')+'/' for a in sys.argv if a.startswith('--out=')),OUT); os.makedirs(OUT,exist_ok=True)   # lane/polish
+import json
+# lane/polish fixes (default all): 4 wall material, 5 art, 6 bake denoise+AO, 7 bathroom stone-look tile + window street backdrop.
+# (2 vanity / 3 beds: placement now comes from the plan trace via furniture_cc0.place_trace, so the polish overrides are retired;
+#  1 storage: CC0 shelf here, texture fix applied to twobed_v5 by polish_v5.py)
+_fx=next((a.split('=',1)[1] for a in sys.argv if a.startswith('--fix=')),'4,5,6,7')
+FIX=set() if _fx=='none' else {int(x) for x in _fx.split(',') if x}
+print("FIX",sorted(FIX))
 def parea(P): return abs(sum(P[i][0]*P[(i+1)%len(P)][1]-P[(i+1)%len(P)][0]*P[i][1] for i in range(len(P))))/2
 def m(x,y): return Vector(((x-CX)*K,-(y-CY)*K,0))
 def V(t): return Vector((t[0],t[1],0))
@@ -33,8 +41,9 @@ def mat(n,c,r=0.5,met=0,img=None,emit=None,ew=0,alpha=1,trans=0,nor=None):
     return M
 OAK=mat("Floor_light_oak",(1,1,1),0.55,img="oak_light_diff.jpg",nor="wood_floor_nor_gl.jpg")
 OAKG=mat("Floor_pale_grey_woodlook_kitchen",(1,1,1),0.55,img="oak_grey_diff.jpg",nor="wood_floor_nor_gl.jpg")
-TILE=mat("Tile_grey_600x1200",(1,1,1),0.3,img="tile_light_r4.jpg")
-WALL=mat("Wall_warm_white",(0.86,0.83,0.78),0.85); CEILM=mat("Ceiling_warm_white",(0.9,0.88,0.84),0.9)
+TILE=mat("Tile_grey_600x1200",(1,1,1),0.3,img=("tile_stone_grey_p5.jpg" if 7 in FIX else "tile_light_r4.jpg"))
+# fix4: wall albedo V 0.86->0.74 (less washed), matte 0.92
+WALL=mat("Wall_warm_white",(0.74,0.71,0.66) if 4 in FIX else (0.86,0.83,0.78),0.92 if 4 in FIX else 0.85); CEILM=mat("Ceiling_warm_white",(0.9,0.88,0.84),0.9)
 SKIRT=mat("Skirting_white_satin",(0.92,0.91,0.88),0.35)
 WUNIT=mat("Kitchen_handleless_white",(0.9,0.89,0.86),0.3); DARK=mat("Peninsula_graphite",(0.042,0.042,0.045),0.5); QUARTZ=mat("Quartz_white",(0.88,0.88,0.87),0.25)
 WTOP=mat("Worktop_white",(0.93,0.93,0.92),0.2); BLK=mat("Appliance_black_gloss",(0.015,0.015,0.017),0.12)
@@ -44,12 +53,12 @@ NAVY=mat("Navy_velvet",(1,1,1),0.75,img="velvet_navy_diff.jpg"); BOUC=mat("Cream
 OAKF=mat("Oak_furniture",(0.62,0.42,0.24),0.5,img="oak_light_diff.jpg"); BMET=mat("Black_metal",(0.02,0.02,0.02),0.35,0.8)
 LIN=mat("Bedding_white",(0.93,0.93,0.91),0.9); RUG=mat("Rug_cream",(0.86,0.82,0.74),1.0)
 WHITEP=mat("Sanitary_white",(0.95,0.95,0.95),0.08); GREYV=mat("Vanity_grey",(0.45,0.45,0.46),0.4)
-GLASS=mat("Glass_clear",(0.95,0.97,0.97),0.02,trans=1); WGLASS=mat("Window_glass_clear",(0.95,0.97,1),0.02,trans=1); SKY=mat("Window_backdrop_sky_UNSOURCED_VIEW",(1,1,1),1,img="sky_backdrop_r4.jpg"); SKY.node_tree.links.new(SKY.node_tree.nodes["Image Texture"].outputs[0],SKY.node_tree.nodes["Principled BSDF"].inputs["Emission Color"]); SKY.node_tree.nodes["Principled BSDF"].inputs["Emission Strength"].default_value=1.2
+GLASS=mat("Glass_clear",(0.95,0.97,0.97),0.02,trans=1); WGLASS=mat("Window_glass_clear",(0.95,0.97,1),0.02,trans=1); SKY=mat("Window_backdrop_sky_UNSOURCED_VIEW",(1,1,1),1,img=("sky_backdrop_p5.jpg" if 7 in FIX else "sky_backdrop_r4.jpg")); SKY.node_tree.links.new(SKY.node_tree.nodes["Image Texture"].outputs[0],SKY.node_tree.nodes["Principled BSDF"].inputs["Emission Color"]); SKY.node_tree.nodes["Principled BSDF"].inputs["Emission Strength"].default_value=1.2
 FRAME=mat("Window_frame_black_steel",(0.015,0.015,0.015),0.4,0.6); DOOR=mat("Door_white",(0.9,0.9,0.88),0.4)
 GLOBE=mat("Globe_pendant_opal",(1,0.97,0.92),0.3,emit=(1,0.8,0.6),ew=4); LAMPS=mat("Lamp_shade_opal",(1,0.97,0.92),0.3,emit=(1,0.8,0.6),ew=3)
 LEAF=mat("Plant_leaf",(0.08,0.25,0.07),0.6); POT=mat("Pot_terracotta",(0.55,0.32,0.2),0.8); TVS=mat("TV_screen",(0.01,0.01,0.012),0.08)
 DLM=mat("Downlight_3000K",(1,0.9,0.75),0.3,emit=(1,0.78,0.55),ew=15)
-ART=[mat(f"Art_{i}_illustrative",(1,1,1),0.6,img=f"art_r4_{i}.jpg") for i in (1,2,3)]
+ART=[mat(f"Art_{i}_illustrative",(1,1,1),0.6,img=(f"art_p5_{i}.jpg" if 5 in FIX else f"art_r4_{i}.jpg")) for i in (1,2,3)]  # fix5: crisp sRGB 1024x1365 (tex/make_polish_tex.py)
 # ---------- helpers
 def obj_from(bm,n,M):
     me=bpy.data.meshes.new(n);bm.to_mesh(me);bm.free();o=bpy.data.objects.new(n,me);sc.collection.objects.link(o);o.data.materials.append(M);return o
@@ -62,6 +71,16 @@ def box(n,c,s,M,rz=0,bev=0.004):
             co=l.vert.co; a,b=[(co.y,co.z),(co.x,co.z),(co.x,co.y)][ax]; l[uv].uv=(a/1.2,b/1.2)
     o=obj_from(bm,n,M);o.location=c;o.rotation_euler[2]=rz
     if bev: md=o.modifiers.new("b","BEVEL");md.width=bev;md.segments=2;md.limit_method='ANGLE'
+    return o
+def uv_front(o,plain=(0.15,0.55)):
+    """lane/polish: map the +/-X face of a box 0..1 across its bbox (texture shows whole image, right way round); other faces -> plain texel"""
+    me=o.data; uv=me.uv_layers[0]; ys=[v.co.y for v in me.vertices]; zs=[v.co.z for v in me.vertices]
+    y0,y1,z0,z1=min(ys),max(ys),min(zs),max(zs)
+    for f in me.polygons:
+        for li in f.loop_indices:
+            co=me.vertices[me.loops[li].vertex_index].co
+            if abs(f.normal.x)>0.7: uu=(co.y-y0)/(y1-y0); uv.data[li].uv=(uu if f.normal.x>0 else 1-uu,(co.z-z0)/(z1-z0))
+            else: uv.data[li].uv=(plain[0]+0.002*(co.y-y0)/(y1-y0),plain[1]+0.002*(co.z-z0)/(z1-z0))
     return o
 def cyl(n,c,r,h,M,seg=32,r2=None):
     bm=bmesh.new();bmesh.ops.create_cone(bm,cap_ends=True,segments=seg,radius1=r,radius2=r if r2 is None else r2,depth=h)
@@ -167,7 +186,8 @@ ct=FC("Coffee_table_oak_top"); box("Coffee_book",(ct.x+0.1,ct.y-0.25,0.435),(0.2
 tv=FC("TV_on_media_unit"); tvx=m(137,0).x-0.12   # screen faces the sofa (+X); media unit = plan box x 122-137
 box("TV_stand_post",(tvx,tv.y,0.52),(0.03,0.06,0.14),BMET,0,0)
 box("TV_bezel_black_facing_sofa",(tvx,tv.y,0.92),(0.04,1.12,0.66),BLK,0,0.004); box("TV_screen",(tvx+0.021,tv.y,0.93),(0.002,1.08,0.61),TVS,0,0)
-ax=m(253.5,0).x-0.02; box("Art_living_frame",(ax,sf["c"][1],1.6),(0.03,0.8,1.05),BMET,0,0); box("Art_living",(ax-0.02,sf["c"][1],1.6),(0.01,0.72,0.97),ART[1],0,0)
+ax=m(253.5,0).x-0.02; box("Art_living_frame",(ax,sf["c"][1],1.6),(0.03,0.8,1.05),BMET,0,0); _a=box("Art_living",(ax-0.02,sf["c"][1],1.6),(0.01,0.72,0.97),ART[1],0,0)
+if 5 in FIX: uv_front(_a)
 dt=FUR["Dining_table_oak"]; dc=V(dt["c"]); tw,td=dt["s"]
 box("Dining_table_oak_top",(dc.x,dc.y,0.74),(tw,td,0.035),OAKF,0,0.006)
 for sx_ in (-1,1): box("Dining_table_leg_black",(dc.x+sx_*(tw/2-0.08),dc.y,0.36),(0.04,td-0.12,0.72),BMET,0,0)
@@ -195,7 +215,8 @@ b1,b2=FC("Bed1_navy"),FC("Bed2_navy")
 # art on the bedroom 1 west (raked) wall, half way along the inner face (7.5,84)-(25.4,179.6)
 wa,wb=m(7.5,84),m(25.4,179.6); wc=(wa+wb)/2; wu=(wb-wa).normalized(); wn=Vector((wu.y,-wu.x,0))
 if (b1-wc).dot(wn)<0: wn=-wn
-q=wc+wn*0.02; box("Art_bed1_frame_side_wall",(q.x,q.y,1.6),(0.6,0.03,0.8),BMET,math.atan2(wu.y,wu.x),0); q=wc+wn*0.037; box("Art_bed1",(q.x,q.y,1.6),(0.54,0.005,0.74),ART[0],math.atan2(wu.y,wu.x),0)
+q=wc+wn*0.02; box("Art_bed1_frame_side_wall",(q.x,q.y,1.6),(0.6,0.03,0.8),BMET,math.atan2(wu.y,wu.x),0); q=wc+wn*0.037; _a=box("Art_bed1",(q.x,q.y,1.6),(0.54,0.005,0.74),ART[0],math.atan2(wu.y,wu.x),0)
+if 5 in FIX: uv_front(_a)
 # ---------- BATHROOM (plan: WC + basin on the west wall, walk-in shower zone south of the dashed line y=313)
 bx0,by0=m(16.5,343.5).x,m(16.5,343.5).y; bx1,by1=m(84,264).x,m(84,264).y
 sh=FUR["Shower_tray"]; box("Shower_tray",(sh["c"][0],sh["c"][1],0.02),(sh["s"][0],sh["s"][1],0.04),WHITEP,0,0.004)
@@ -262,11 +283,21 @@ shot("v5_bedroom1",*cam_bl("i_bed1"),20)
 shot("v5_bedroom2",*cam_bl("i_bed2"),20)
 shot("v5_bathroom",*cam_bl("i_bath"),14)
 shot("latest",(0.6,-11,12),(0.2,0.3,0),26,ceiling=False)
+# lane/polish: locked cameras = web viewer presets (web/src/app.js P.i_*), three.js (x,y,z) -> Blender (x,-z,y), vertical fov; no collision nudge
+WEBCAMS={"w_living":([-0.5,1.5,1.91],[2.97,0.9,0.15],70),"w_bed1":([-2.0,1.3,-0.85],[-2.41,0.8,-3.17],70),"w_bed2":([1.5,1.3,-1.6],[1.36,0.8,-3.62],70),
+         "w_bath":([-2.08,1.55,3.83],[-3.02,0.9,2.88],80),"w_store":([-1.09,1.5,1.32],[-3.0,1.0,1.32],80)}
+def wshot(name):
+    if not ("--wshots" in sys.argv and ("--only" not in sys.argv or name in sys.argv)): return
+    p3,t3,fov=WEBCAMS[name]; p=Vector((p3[0],-p3[2],p3[1])); t=Vector((t3[0],-t3[2],t3[1]))
+    bpy.data.objects["Ceiling"].hide_render=False; rx,ry=sc.render.resolution_x,sc.render.resolution_y; sc.render.resolution_x,sc.render.resolution_y=1280,800
+    bpy.ops.object.camera_add(location=p);c=bpy.context.object;c.rotation_euler=(t-p).to_track_quat('-Z','Y').to_euler();c.data.sensor_fit='VERTICAL';c.data.angle_y=math.radians(fov);sc.camera=c
+    sc.render.filepath=OUT+name+".png";bpy.ops.render.render(write_still=True);print("WSHOT",name);sc.render.resolution_x,sc.render.resolution_y=rx,ry
+for _k in WEBCAMS: wshot(_k)
 bpy.data.objects["Ceiling"].hide_render=False
 if "--nobake" in sys.argv: sys.exit(0)
 # ===== BAKE lighting into one atlas so the web viewer matches Cycles =====
 import numpy as np
-KEEP_LIVE=lambda o: any(k in o.name for k in ("_glass","Shower_glass","Mirror_glass","_backdrop"))
+KEEP_LIVE=lambda o: any(k in o.name for k in ("_glass","Shower_glass","Mirror_glass","_backdrop")) or (5 in FIX and o.name in ("Art_living","Art_bed1"))  # fix5: art keeps its own texture (atlas texels too coarse)
 bpy.ops.object.select_all(action='DESELECT')
 meshes=[o for o in sc.objects if o.type=='MESH' and not KEEP_LIVE(o)]
 for o in meshes: o.select_set(True)
@@ -295,7 +326,28 @@ px=np.array(img.pixels[:]).reshape(RES,RES,4); rgb=px[...,:3]
 EXPO=float(next((a.split('=')[1] for a in sys.argv if a.startswith('--expo=')),1.6))
 from scipy.ndimage import gaussian_filter
 cov=(px[...,3]>0.5).astype(float)
-for ch in range(3):
+def _bake_to(name,typ,**kw):
+    im=bpy.data.images.new(name,RES,RES,float_buffer=True)
+    for M in J.data.materials: M.node_tree.nodes.active.image=im
+    for k,v in kw.items(): setattr(sc.render.bake,k,v)
+    bpy.ops.object.bake(type=typ); print("BAKED",name); return im
+if 6 in FIX:   # fix6: OIDN denoise (albedo-guided, edge preserving) instead of blur -> no blotchy wall/ceiling seams; + baked AO (contact shadows)
+    alb=_bake_to("bake_albedo","DIFFUSE",use_pass_direct=False,use_pass_indirect=False,use_pass_color=True)
+    sc.world.light_settings.distance=0.6; sc.cycles.samples=64
+    aoi=_bake_to("bake_ao","AO")
+    dn=bpy.data.scenes.new("denoise"); dn.render.engine='BLENDER_WORKBENCH'; dn.render.resolution_x=dn.render.resolution_y=RES; dn.render.resolution_percentage=100
+    cam_=bpy.data.objects.new("dncam",bpy.data.cameras.new("dncam")); dn.collection.objects.link(cam_); dn.camera=cam_
+    ng=bpy.data.node_groups.new("DN","CompositorNodeTree"); dn.compositing_node_group=ng; dn.render.use_compositing=True
+    ni=ng.nodes.new("CompositorNodeImage"); ni.image=img; na=ng.nodes.new("CompositorNodeImage"); na.image=alb; dd=ng.nodes.new("CompositorNodeDenoise")
+    ng.interface.new_socket("Image",in_out='OUTPUT',socket_type='NodeSocketColor'); go=ng.nodes.new("NodeGroupOutput")
+    ng.links.new(ni.outputs[0],dd.inputs["Image"]); ng.links.new(na.outputs[0],dd.inputs["Albedo"]); ng.links.new(dd.outputs[0],go.inputs[0])
+    dn.render.image_settings.file_format='OPEN_EXR'; dn.render.filepath=OUT+"_bake_dn.exr"; bpy.ops.render.render(write_still=True,scene=dn.name)
+    r_=bpy.data.images.load(OUT+"_bake_dn.exr"); d_=np.array(r_.pixels[:]).reshape(RES,RES,4)[...,:3]
+    ao=np.array(aoi.pixels[:]).reshape(RES,RES,4)[...,0]; ao=gaussian_filter(ao*cov,1.0)/(gaussian_filter(cov,1.0)+1e-6)
+    rgb[...]=np.where(cov[...,None]>0,d_,rgb)*(1-0.45*(1-np.clip(ao,0,1)))[...,None]
+    os.remove(OUT+"_bake_dn.exr"); print("DENOISED+AO", float(ao[cov>0].mean()))
+else:
+  for ch in range(3):
     num=gaussian_filter(rgb[...,ch]*cov,1.6); den=gaussian_filter(cov,1.6)+1e-6
     rgb[...,ch]=np.where(cov>0,num/den,rgb[...,ch])
 rgb=1-np.exp(-rgb*EXPO)                          # simple filmic shoulder; viewer shows it untonemapped
