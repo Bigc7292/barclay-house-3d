@@ -27,4 +27,11 @@ if [ "${MESHHEALTH:-0}" = 1 ]; then
     [ $mhrc = 0 ] || rc=1
   fi
 fi
+
+# trick #22: sun-time shadow gate (read-only). SUNCHECK=1 verifies tests/suncheck/out/result.json
+# and official-file hashes; it does not re-render. Default off so a plain ./validate.sh stays a
+# GLB/size check.
+if [ "${SUNCHECK:-0}" = 1 ]; then
+  if ! python3 sun_check.py --verify | tee -a $L; then rc=1; fi
+fi
 echo "report: $L  result: $([ $rc = 0 ] && echo PASS || echo FAIL)"; exit $rc

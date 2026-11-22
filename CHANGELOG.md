@@ -1,5 +1,13 @@
 # CHANGELOG
 
+## 2026-11-22 20:45 UTC+4 — trick #22 sun-time shadow-alignment gate (barclay)
+- Why: X Bookmark Analyst intake (SplatStroll method only, closed product). Barclay already has NOAA `tod_panel.sun_pos` / `web/src/app.js sunPos()` but presets are fixed to 21 June, so shadows were never checked against a dated photo.
+- New `sun_check.py` + `tests/suncheck/`: EXIF DateTimeOriginal treated as UK local (`tod_panel.is_bst`, assumed offset logged, sun not "fixed"); renders of a locked `camera_match` camera from a read-only open of the official blend; street-band shadow-mask IoU + edge-angle; ±3 h sweep so a peak can fall outside ±1 h. Official exports and `web/hero3.glb` sha256 unchanged. No deploy. `web/` not edited.
+- Verdict: **INSUFFICIENT_REFS** (camera-match coverage, not a method failure). Only `refs/critic1/real_geograph.jpg` has a locked camera (`Cam_Match_geograph`). That ref **passes**: street-band IoU peaks at the EXIF hour (0.344 at 12:34 BST on 2025-07-03; neighbours 0.339 / 0.336), edge-angle 0.74° ≤10°. The other four dated refs have no points JSON (viaduct street, canal, lane, Hotspur under-viaduct). Three intake times disagreed with file EXIF; EXIF was used (Whitworth 2018-01-06 13:38, canal 2017-03-09 13:32, lane 2011-02-28 16:55).
+- Camera note: the locked Geograph camera sits in unsourced set-dressing. `hide_near(8)` crashed Cycles/Embree here; `clip_start=4` is used instead (not saved). Render 960×720 (photo aspect), 32 spp, 121 s for seven hours.
+- Hook: `SUNCHECK=1 ./validate.sh` verifies `tests/suncheck/out/result.json` (no re-render). Optional viewer `?date=` patch is `tests/suncheck/web_date_param.patch` only, for Interior.
+- Docs: tricks_register row 22, x_tricks #22, AGENTS.md = CLAUDE.md = GROK.md, tests/suncheck/RESULT.md. Replay `tests/suncheck/run.sh`.
+
 ## 2026-11-20 11:54 UTC+4 — clickable floors in the main viewer (lane/floors)
 - Why: trick #5 export pipeline was certified (`out/barclay_hero3_floors.glb`, archive look). This wires it into the main viewer. Not deployed; Interior bot merges and deploys later with walls/polish.
 - Copied `out/barclay_hero3_floors.glb` → `web/hero3_floors.glb` (3,114,300 B, 2.97 MB) and the mobile build `tests/hero3_floors/out/mobile/barclay_hero_mobile.glb` → `web/hero3_floors_m.glb` (2,038,160 B, 1.94 MB). `web/hero3.glb` and `web/hero_mo3.glb` kept as fallbacks if the Floor_* file fails to load.

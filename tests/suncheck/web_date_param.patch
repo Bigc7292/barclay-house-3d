@@ -1,0 +1,17 @@
+--- a/web/src/app.js
++++ b/web/src/app.js
+@@ -283,7 +283,13 @@
+ window.cam=k=>{preset=k;const v=P[k];C.position.fromArray(v.p);O.target.fromArray(v.t);C.fov=v.f;C.updateProjectionMatrix();O.update();draw=true};
+ // sun elevation/azimuth = tod_panel.py sun_pos() (same NOAA formula, same preset hours, default date 21 June) so web == Blender renders
+ const LAT=53.4741,LON=-2.2442,TODH={sunrise:6.75,morning:9.0,midday:15.5,golden:18.5,dusk:19.75,night:23.0};
+-function sunPos(h,mo=6,dy=21){const n=[31,28,31,30,31,30,31,31,30,31,30,31].slice(0,mo-1).reduce((a,b)=>a+b,0)+dy,bst=(mo>3||(mo==3&&dy>=29))&&(mo<10||(mo==10&&dy<25)),hr=h-(bst?1:0),g=2*Math.PI/365*(n-1+(hr-12)/24),
++// ?date=YYYY-MM-DD overrides the default 21 June used by sunPos() so a
++// photographed day can be compared with Blender tod_panel.sun_pos. Preset
++// hours are unchanged. Added as a patch only (Interior owns web/ and deploys).
++const _dq=new URLSearchParams(location.search).get('date');
++let SUN_MO=6,SUN_DY=21;
++if(_dq){const p=_dq.split('-');if(p.length>=3){SUN_MO=+p[1];SUN_DY=+p[2];}}
++function sunPos(h,mo=SUN_MO,dy=SUN_DY){const n=[31,28,31,30,31,30,31,31,30,31,30,31].slice(0,mo-1).reduce((a,b)=>a+b,0)+dy,bst=(mo>3||(mo==3&&dy>=29))&&(mo<10||(mo==10&&dy<25)),hr=h-(bst?1:0),g=2*Math.PI/365*(n-1+(hr-12)/24),
+  eqt=229.18*(0.000075+0.001868*Math.cos(g)-0.032077*Math.sin(g)-0.014615*Math.cos(2*g)-0.040849*Math.sin(2*g)),
+  dec=0.006918-0.399912*Math.cos(g)+0.070257*Math.sin(g)-0.006758*Math.cos(2*g)+0.000907*Math.sin(2*g)-0.002697*Math.cos(3*g)+0.00148*Math.sin(3*g),
+  ha=THREE.MathUtils.degToRad((hr*60+eqt+4*LON)/4-180),la=THREE.MathUtils.degToRad(LAT),el=Math.asin(Math.max(-1,Math.min(1,Math.sin(la)*Math.sin(dec)+Math.cos(la)*Math.cos(dec)*Math.cos(ha)))),

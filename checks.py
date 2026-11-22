@@ -378,6 +378,11 @@ def main(argv=None):
     elapsed = time.time() - t0
     any_fail = any(not r["gate_pass"] for r in results)
     print(f"ELAPSED {elapsed:.2f}s  OVERALL_GATE={'FAIL' if any_fail else 'PASS'}")
+    # Optional trick #22 hook (same as SUNCHECK=1 ./validate.sh). Does not re-render.
+    if os.environ.get("SUNCHECK") == "1":
+        import sun_check
+        if sun_check.verify() != 0:
+            return 1
     # Non-zero exit if any camera fails the gate (useful in CI / validate).
     return 1 if any_fail else 0
 
