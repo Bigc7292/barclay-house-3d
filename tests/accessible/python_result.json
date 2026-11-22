@@ -94,20 +94,20 @@
     },
     "label": "indicative"
   },
-  "python_recompute_ms": 748.19,
+  "python_recompute_ms": 948.641,
   "hide_Bed1_navy": {
     "reachable_m2": 20.035,
     "room_i_bed1_m2": 5.155,
     "base_room_i_bed1_m2": 1.985,
     "room_area_rose": true,
-    "ms": 48.351
+    "ms": 147.531
   },
   "hide_Bed2_navy": {
     "reachable_m2": 20.0525,
     "room_i_bed2_m2": 6.6425,
     "base_room_i_bed2_m2": 3.455,
     "room_area_rose": true,
-    "ms": 45.704
+    "ms": 140.087
   },
   "floor_polygon_m2": 63.0,
   "floor_raster_m2": 62.8925,
