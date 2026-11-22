@@ -439,20 +439,23 @@ def place_all(ctx):
 
     # ---------- BEDROOMS
     b1 = m(55, 105)
-    instance("bed", "Bed1_navy", (b1.x, m(0, 62).y - 1.15, 0), 0)
-    instance("bedside", "Bedside_table_oak", (b1.x - 1.0, m(0, 62).y - 0.35, 0), 0)
-    instance("lamp", "Lamp_mushroom_opal", (b1.x - 1.0, m(0, 62).y - 0.35, 0.55), 0)
-    instance("bedside", "Bedside_table_oak", (b1.x + 1.0, m(0, 62).y - 0.35, 0), 0)
-    instance("lamp", "Lamp_mushroom_opal", (b1.x + 1.0, m(0, 62).y - 0.35, 0.55), 0)
+    pol = ctx.get("polish") or {}   # lane/polish: optional placement overrides (x, y, rot_z) only; same models
+    bp = pol.get("bed1", (b1.x, m(0, 62).y - 1.15, 0))
+    sides = pol.get("bed1_sides", [(b1.x - 1.0, m(0, 62).y - 0.35, 0), (b1.x + 1.0, m(0, 62).y - 0.35, 0)])
+    instance("bed", "Bed1_navy", (bp[0], bp[1], 0), bp[2])
+    for sx_s, sy_s, sa in sides:
+        instance("bedside", "Bedside_table_oak", (sx_s, sy_s, 0), sa)
+        instance("lamp", "Lamp_mushroom_opal", (sx_s, sy_s, 0.55), sa)
     # wardrobe doors face into the room; keep stand-in rotations
     instance("wardrobe", "Wardrobe_oak_2door", (m(28, 0).x + 0.3, m(0, 150).y, 0), -math.pi / 2)
 
     b2 = m(185, 70)
-    instance("bed", "Bed2_navy", (b2.x, m(0, 40).y - 1.30, 0), 0.06)
-    instance("bedside", "Bedside_table_oak", (b2.x - 1.0, m(0, 40).y - 0.45, 0), 0.06)
-    instance("lamp", "Lamp_mushroom_opal", (b2.x - 1.0, m(0, 40).y - 0.45, 0.55), 0.06)
-    instance("bedside", "Bedside_table_oak", (b2.x + 1.0, m(0, 40).y - 0.50, 0), 0.06)
-    instance("lamp", "Lamp_mushroom_opal", (b2.x + 1.0, m(0, 40).y - 0.50, 0.55), 0.06)
+    bp = pol.get("bed2", (b2.x, m(0, 40).y - 1.30, 0.06))
+    sides = pol.get("bed2_sides", [(b2.x - 1.0, m(0, 40).y - 0.45, 0.06), (b2.x + 1.0, m(0, 40).y - 0.50, 0.06)])
+    instance("bed", "Bed2_navy", (bp[0], bp[1], 0), bp[2])
+    for sx_s, sy_s, sa in sides:
+        instance("bedside", "Bedside_table_oak", (sx_s, sy_s, 0), sa)
+        instance("lamp", "Lamp_mushroom_opal", (sx_s, sy_s, 0.55), sa)
     instance("wardrobe", "Wardrobe_oak_2door", (m(140, 0).x, m(0, 135).y, 0), math.pi - 0.12)
 
     # ---------- BATHROOM fittings (wall tiles stay in the builder)
@@ -476,7 +479,7 @@ def place_all(ctx):
     box("WC_flush_plate_chrome", (bx0 + T / 2 + bw + 0.004, wcy, 0.85), (0.008, 0.22, 0.15), mats["CHROME"], 0, 0.002)
     wx0 = bx0 + T / 2 + bw
     instance("wc", "WC_pan_back", (wx0 + 0.31, wcy, 0), math.pi / 2)
-    vx = bx1 - 0.45
+    vx = pol.get("vanity_x", bx1 - 0.45)
     instance("basin", "Vanity_grey_stone_look", (vx, by1 - T / 2 - 0.24, 0), 0)
     instance("mirror", "Mirror_black_frame", (vx, by1 - T / 2 - 0.02, 1.18), 0)
 

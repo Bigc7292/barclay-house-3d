@@ -1,0 +1,83 @@
+{
+ "_note": "lane/polish fix3: beds moved off the windows, heads on the walls shown in interior/twobed/apt02_fp.png (bed1 head on the bed1/bed2 partition, bed2 head on the east wall). fix2: vanity+mirror centre x. Blender Z-up metres; twobed_v5 uses the same frame (interior/polish_v5.py).",
+ "groups": [
+  {
+   "kind": "bed",
+   "old": [
+    -2.4138,
+    2.6178,
+    0.0
+   ],
+   "new": [
+    -1.9389,
+    2.6278,
+    -1.4315
+   ]
+  },
+  {
+   "kind": "bedside",
+   "old": [
+    -3.4138,
+    3.4178,
+    0.0
+   ],
+   "new": [
+    -1.1617,
+    3.7465,
+    -1.4315
+   ]
+  },
+  {
+   "kind": "bedside",
+   "old": [
+    -1.4138,
+    3.4178,
+    0.0
+   ],
+   "new": [
+    -0.884,
+    1.7659,
+    -1.4315
+   ]
+  },
+  {
+   "kind": "bed",
+   "old": [
+    1.4129,
+    3.1154,
+    0.06
+   ],
+   "new": [
+    1.7644,
+    3.4188,
+    -1.3588
+   ]
+  },
+  {
+   "kind": "bedside",
+   "old": [
+    0.4129,
+    3.9654,
+    0.06
+   ],
+   "new": [
+    2.4667,
+    4.5519,
+    -1.3588
+   ]
+  },
+  {
+   "kind": "bedside",
+   "old": [
+    2.4129,
+    3.9154,
+    0.06
+   ],
+   "new": [
+    2.8706,
+    2.6749,
+    -1.3588
+   ]
+  }
+ ]
+}
