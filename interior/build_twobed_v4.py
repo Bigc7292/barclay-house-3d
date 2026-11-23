@@ -286,14 +286,18 @@ def free(p,r=0.3):
         hit,loc,*_=sc.ray_cast(dg,p,d,distance=r)
         if hit: return False
     return True
-def shot(name,loc,tgt,lens=20,ceiling=True):
+def shot(name,loc,tgt,lens=20,ceiling=True,nudge=True):
+    # Official cam_bl / LY.CAMS stills must keep the exact pose (i_bed2 was
+    # being pushed 0.30 m off (3.06, 2.53, 1.45) by collision avoidance).
     if "--noshots" in sys.argv or ("--only" in sys.argv and name not in sys.argv): return
     p=Vector(loc)
-    if not free(p): 
+    if nudge and not free(p):
         for dx,dy in itertools.product((-0.3,0,0.3,0.6,-0.6),(-0.3,0,0.3,0.6,-0.6)):
             q=p+Vector((dx,dy,0))
             if inside(q,OUTL) and free(q): p=q;break
         else: print("CAMERA COLLISION",name)
+    elif (not nudge) and not free(p):
+        print("CAMERA COLLISION official (nudge skipped)",name,tuple(round(v,2) for v in p))
     bpy.data.objects["Ceiling"].hide_render=not ceiling
     bpy.ops.object.camera_add(location=p);c=bpy.context.object;c.rotation_euler=(Vector(tgt)-p).to_track_quat('-Z','Y').to_euler();c.data.lens=lens;sc.camera=c
     sc.render.filepath=OUT+name+".png";bpy.ops.render.render(write_still=True);print("SHOT",name,tuple(round(v,2) for v in p))
@@ -304,12 +308,11 @@ for rid in LY.CAMS: print("PRESET",rid,*[tj(v) for v in cam_bl(rid)])
 # v5_* = walk-mode / trace presets (score.py prefers the highest vN_, so the
 # reference gate is run on a directory that contains only the v3_* stills).
 for _n,_rid,_lens in (("living","i_living",20),("kitchen","i_kitchen",20),("bedroom1","i_bed1",20),("bedroom2","i_bed2",20),("bathroom","i_bath",14)):
-    shot(f"v5_{_n}",*cam_bl(_rid),_lens)
-# v3_* stills for the reference gate use the same traced walk-mode cameras
-# as v5 (LY.CAMS). Score-chasing kitchen/living offsets and the old
-# furniture-commit bedroom/bath angles are reverted; stills are not re-rendered.
+    shot(f"v5_{_n}",*cam_bl(_rid),_lens,nudge=False)
+# v3_* stills for the reference gate use the same official walk-mode cameras
+# as v5 (LY.CAMS / cam_bl) with no collision nudge, so the pose stays exact.
 for _n,_rid,_lens in (("living","i_living",20),("kitchen","i_kitchen",20),("bedroom1","i_bed1",20),("bedroom2","i_bed2",20),("bathroom","i_bath",14)):
-    shot(f"v3_{_n}",*cam_bl(_rid),_lens)
+    shot(f"v3_{_n}",*cam_bl(_rid),_lens,nudge=False)
 shot("latest",(0.6,-11,12),(0.2,0.3,0),26,ceiling=False)
 # lane/polish: locked cameras = web viewer presets (web/src/app.js P.i_*), three.js (x,y,z) -> Blender (x,-z,y), vertical fov; no collision nudge
 WEBCAMS={"w_living":([-0.5,1.5,1.91],[2.97,0.9,0.15],70),"w_bed1":([-2.0,1.3,-0.85],[-2.41,0.8,-3.17],70),"w_bed2":([1.5,1.3,-1.6],[1.36,0.8,-3.62],70),

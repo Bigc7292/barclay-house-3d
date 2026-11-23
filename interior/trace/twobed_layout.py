@@ -211,10 +211,10 @@ CAMS = {   # viewpoint / target in plan px (chosen inside each room, clear of dr
     "i_living": ((150, 262), (232, 175), 1.5, 0.9, 70),
     "i_kitchen": ((185, 262), (240, 330), 1.5, 1.0, 70),
     "i_bed1": ((60, 166), (60, 85), 1.3, 0.8, 70),
-    "i_bed2": ((180, 128), (205, 40), 1.3, 0.8, 70),
-    "i_bath": ((76, 286), (30, 325), 1.55, 0.9, 80),
+    "i_bed2": ((240, 105), (160, 70), 1.45, 0.85, 70),   # official origin/barclay (polish r10 / bc5c5913)
+    "i_bath": ((76, 286), (30, 325), 1.55, 1.25, 80),   # official origin/barclay (polish r10 / bc5c5913)
     "i_hall": ((110, 336), (145, 262), 1.5, 1.0, 70),
-    "i_store": ((100, 245), (35, 245), 1.5, 1.0, 70),
+    "i_store": ((78, 252), (18, 240), 1.5, 1.0, 70),   # official origin/barclay (polish r10 / bc5c5913)
 }
 
 
