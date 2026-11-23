@@ -252,7 +252,9 @@ def normalize_group(objs, front="-Y", target=None, decimate_tris=None, name="pro
     size2 = maxs2 - mins2
     root["cc0_final_dims"] = [round(size2.x, 4), round(size2.y, 4), round(size2.z, 4)]
     if target is not None:
-        root["cc0_target_dims"] = [target[0], target[1], target[2]]
+        # Blender ID property arrays cannot contain None (e.g. free width on shelving).
+        if all(v is not None for v in target):
+            root["cc0_target_dims"] = [float(target[0]), float(target[1]), float(target[2])]
         if size.x and size.y and size.z:
             root["cc0_applied_scale"] = [round(sx, 4), round(sy, 4), round(sz, 4)]
             root["cc0_original_dims"] = [round(size.x, 4), round(size.y, 4), round(size.z, 4)]
