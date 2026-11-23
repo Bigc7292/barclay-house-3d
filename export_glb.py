@@ -134,6 +134,14 @@ def main():
          "Neighbour_red_brick": emat("Neighbour_red_brick", None, 1, 0.85, (0.45,0.2,0.14)), "Neighbour_render_cream": emat("Neighbour_render_cream", None, 1, 0.8, (0.8,0.76,0.66)),
          "Neighbour_grey_cladding": emat("Neighbour_grey_cladding", None, 1, 0.6, (0.35,0.36,0.38)), "Neighbour_glass_curtain": emat("Neighbour_glass_curtain", None, 1, 0.05, (0.05,0.07,0.09), 0.6),
          "Kerb": emat("Kerb", None, 1, 0.8, (0.55,0.55,0.53)), "Road_marking": emat("Road_marking", None, 1, 0.6, (0.85,0.85,0.8))}
+    if os.environ.get("BHERO4") == "1":   # r8 hero4: hero3 archive look (palette c7bda8 front, 222325 frames); same names so viewer rules still match
+        import hero4
+        H["Portland_stone_base"] = emat("Portland_stone", None, 1, 0.75, hero4.FRONT)
+        H["White_glazed_faience_Burmantofts"] = glazed(emat("Burmantofts_white_glazed_faience", None, 1, 0.3, hero4.FRONT))
+        H["Window_frame_dark"] = emat("Window_frame_black_metal", None, 1, 0.5, hero4.FRAME, 0.6)
+        H["Rustication_channel_shadow"] = emat("Rustication_channel", None, 1, 0.9, tuple(c*0.35 for c in hero4.FRONT))
+        H["Lettering_gilt"] = emat("Lettering_gilt", None, 1, 0.3, (0.78, 0.66, 0.42), 0.85)
+        H["Sign_panel_dark"] = emat("Sign_panel_dark", None, 1, 0.45, hero4.FRAME)
     heroset = set(hero); kids = lambda o: [o] + [k for c in o.children for k in kids(c)]
     for o in list(heroset):
         for k in kids(o): heroset.add(k)

@@ -15,8 +15,8 @@ WINDOW_NAMES = (
     "HERO_fan_bar", "HERO_fan_hub", "HERO_side_glass", "HERO_side_sill",
     "Window_",
 )
-FACADE_STONE = ("HERO_front_stone_base", "HERO_gf_pilaster", "HERO_rustication_groove", "HERO_cartouche", "HERO_cartouche_frame")
-FACADE_UPPER = ("HERO_front_terracotta", "HERO_giant_pilaster", "HERO_pilaster_capital", "HERO_oriel_base", "HERO_oriel_cheek", "HERO_oriel_head", "HERO_oriel_transom", "HERO_pediment", "HERO_RB_shield")
+FACADE_STONE = ("HERO_front_stone_base", "HERO_gf_pilaster", "HERO_rustication_groove", "HERO_cartouche", "HERO_cartouche_frame", "HERO_ashlar_joint", "HERO_entrance_sign", "HERO_entrance_lettering")
+FACADE_UPPER = ("HERO_front_terracotta", "HERO_giant_pilaster", "HERO_pilaster_capital", "HERO_oriel_base", "HERO_oriel_cheek", "HERO_oriel_head", "HERO_oriel_transom", "HERO_pediment", "HERO_RB_shield", "HERO_RB_cartouche", "HERO_RB_monogram", "HERO_oriel_spandrel", "HERO_parapet_coping", "HERO_parapet_plinth")
 
 
 def load_plan(path: str | None = None) -> dict:
