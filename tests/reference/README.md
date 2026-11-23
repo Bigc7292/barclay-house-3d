@@ -42,3 +42,12 @@ Each item records `object_anchor` (camera + object + box) and `reference_photo` 
 `kitchen_dining_chairs` is scored on `i_living` because official `i_kitchen` does not show the chairs.
 
 The `origin/barclay` `interior/live` v3 stills and `renders/polish/v3_final` were shot with earlier hardcoded furniture-commit cameras (`cbf78d9b`), not `cam_bl`. The official-camera stills are `origin/lane/furniture` `f2cac162` `interior/live/v3_*.png`.
+
+## Freeze v2 (navy-bed reference crops)
+
+Both Rightmove bedroom CGIs (listing 92163630) show navy upholstery and cream bedding. The v1 reference crops for `bedroom1_navy_bed` and `bedroom2_navy_bed` were landing on the cream bedding (median hue ~27–28°). Freeze v2 re-anchors those reference crops to the navy fabric that is actually in the photos; the item target stays navy fabric (not cream). Render crops, other items, rules, and the 0.05 presence floor are unchanged.
+
+- `bedroom1_navy_bed`: navy headboard fabric, `https://media.rightmove.co.uk/property-photo/6830c23cc/92163630/6830c23cc81166dfe894a94204f9eeeb.jpeg`, box `[0.335, 0.598, 0.620, 0.626]`
+- `bedroom2_navy_bed`: navy bed-base fabric, `https://media.rightmove.co.uk/property-photo/09a288504/92163630/09a28850469373714e2934f7bbf90dbb.jpeg`, box `[0.42, 0.870, 0.72, 0.935]`
+
+Visual check: `crop_previews/ref_overlay_bedroom*_navy_bed.png` and `ref_crop_bedroom*_navy_bed.png`.

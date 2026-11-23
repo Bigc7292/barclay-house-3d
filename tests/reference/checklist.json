@@ -319,10 +319,10 @@
         0.99
       ],
       "ref_crop": [
-        0.18,
-        0.5,
-        0.68,
-        0.92
+        0.335,
+        0.598,
+        0.62,
+        0.626
       ],
       "object_anchor": {
         "camera": "i_bed1",
@@ -338,15 +338,15 @@
         "id": "bedroom_windowed",
         "url": "https://media.rightmove.co.uk/property-photo/6830c23cc/92163630/6830c23cc81166dfe894a94204f9eeeb.jpeg",
         "file": "refs/critic1/92163630/6830c23cc81166dfe894a94204f9eeeb.jpeg",
-        "object": "navy upholstered bed",
+        "object": "navy upholstered headboard fabric",
         "box": [
-          0.18,
-          0.5,
-          0.68,
-          0.92
+          0.335,
+          0.598,
+          0.62,
+          0.626
         ]
       },
-      "source": "Rightmove 92163630 bedroom CGI 6830c23cc (navy upholstered bed). Official camera i_bed1 (LY.CAMS / cam_bl)."
+      "source": "Rightmove 92163630 bedroom CGI 6830c23cc (freeze v2: reference crop re-anchored to navy headboard fabric; URL https://media.rightmove.co.uk/property-photo/6830c23cc/92163630/6830c23cc81166dfe894a94204f9eeeb.jpeg, box [0.335, 0.598, 0.62, 0.626]). The photo also shows cream bedding, which the v1 crop was landing on. Item target remains navy fabric. Official camera i_bed1 (LY.CAMS / cam_bl). Render crop unchanged."
     },
     {
       "element": "bedroom1_detail",
@@ -401,10 +401,10 @@
         0.99
       ],
       "ref_crop": [
-        0.05,
-        0.48,
-        0.78,
-        0.95
+        0.42,
+        0.87,
+        0.72,
+        0.935
       ],
       "object_anchor": {
         "camera": "i_bed2",
@@ -420,15 +420,15 @@
         "id": "bedroom_wardrobe",
         "url": "https://media.rightmove.co.uk/property-photo/09a288504/92163630/09a28850469373714e2934f7bbf90dbb.jpeg",
         "file": "refs/critic1/92163630/09a28850469373714e2934f7bbf90dbb.jpeg",
-        "object": "navy bed + white bedding",
+        "object": "navy upholstered bed-base fabric",
         "box": [
-          0.05,
-          0.48,
-          0.78,
-          0.95
+          0.42,
+          0.87,
+          0.72,
+          0.935
         ]
       },
-      "source": "Rightmove 92163630 bedroom CGI 09a288504 (navy bed + white bedding). Official camera i_bed2 (LY.CAMS / cam_bl)."
+      "source": "Rightmove 92163630 bedroom CGI 09a288504 (freeze v2: reference crop re-anchored to navy bed-base fabric; URL https://media.rightmove.co.uk/property-photo/09a288504/92163630/09a28850469373714e2934f7bbf90dbb.jpeg, box [0.42, 0.87, 0.72, 0.935]). The photo also shows cream bedding, which the v1 crop was landing on. Item target remains navy fabric. Official camera i_bed2 (LY.CAMS / cam_bl). Render crop unchanged."
     },
     {
       "element": "bedroom2_detail",
@@ -605,5 +605,39 @@
       "bathroom": "i_bath"
     },
     "note": "Crops are frozen on the official walk-mode cameras (cam_bl(LY.CAMS[rid])). Reference stills used to place the boxes: origin/lane/furniture f2cac162 interior/live/v3_*.png, re-rendered with shot(v3_*, *cam_bl(rid)). Do not retune crops or thresholds after the freeze commit. kitchen_dining_chairs is scored on i_living because official i_kitchen does not show the chairs. origin/barclay interior/live v3 stills and renders/polish/v3_final were NOT shot on these cameras (they use the earlier furniture-commit hardcoded shot() positions from cbf78d9b)."
+  },
+  "freeze": {
+    "version": 2,
+    "note": "Freeze v2 re-anchors only the navy-bed REFERENCE crops onto navy fabric in the Rightmove CGI. Render crops, object_anchor boxes, rules, and the 0.05 presence floor are unchanged from freeze v1 (4226b8d4).",
+    "navy_bed_decision": {
+      "bedroom1_navy_bed": {
+        "photo_shows_navy_fabric": true,
+        "also_shows": "cream/white bedding and pillows (the v1 reference crop was mostly this, median hue ~27\u00b0)",
+        "action": "re-anchored reference crop to the navy upholstered headboard fabric; item target remains navy fabric, not cream bedding",
+        "url": "https://media.rightmove.co.uk/property-photo/6830c23cc/92163630/6830c23cc81166dfe894a94204f9eeeb.jpeg",
+        "file": "refs/critic1/92163630/6830c23cc81166dfe894a94204f9eeeb.jpeg",
+        "ref_crop": [
+          0.335,
+          0.598,
+          0.62,
+          0.626
+        ],
+        "object": "navy upholstered headboard fabric"
+      },
+      "bedroom2_navy_bed": {
+        "photo_shows_navy_fabric": true,
+        "also_shows": "cream/white bedding (the v1 reference crop was mostly this, median hue ~28\u00b0)",
+        "action": "re-anchored reference crop to the navy upholstered bed-base fabric; item target remains navy fabric, not cream bedding",
+        "url": "https://media.rightmove.co.uk/property-photo/09a288504/92163630/09a28850469373714e2934f7bbf90dbb.jpeg",
+        "file": "refs/critic1/92163630/09a28850469373714e2934f7bbf90dbb.jpeg",
+        "ref_crop": [
+          0.42,
+          0.87,
+          0.72,
+          0.935
+        ],
+        "object": "navy upholstered bed-base fabric"
+      }
+    }
   }
 }
