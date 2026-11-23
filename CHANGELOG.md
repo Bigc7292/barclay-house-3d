@@ -1,5 +1,17 @@
 # CHANGELOG
 
+## 2026-11-23 10:40 UTC+4 — r8c step 4: close street stills (hero4c)
+- `tests/hero4/render_cams.py` adds two cameras. Both framings are stand-ins; distances are from ray casts in the blend.
+  - `close_east`: camera at (60, −8, 1.7) looking at (80, −12, 3), lens 18. Shopfronts are 6.5–10 m away and the lamp at (66, −9) is about 6 m away.
+  - `close_west`: camera at (−72, −20, 1.7) looking at (−95, −10, 3.5), lens 16. Shopfronts are about 10.6 m away and the lamp at (−86, −24) is about 14.6 m away.
+  - There is also `--camdef` for ad-hoc cameras.
+- Stills, all 1920x1080 at 48 spp, rendered from `out/barclay_hero4c.blend`:
+  - `tests/hero4c/stills/hero4c_close_east_1920x1080.png`
+  - `tests/hero4c/stills/hero4c_close_west_1920x1080.png`
+  - `tests/hero4c/stills/hero4c_facade_1920x1080.png`
+  - Shield before/after sheet: `tests/hero4c/stills/cmp_rb_shields_hero4b_vs_hero4c.jpg`.
+- Step 5 (validate with MESHHEALTH=1) was done in steps 2–3: PASS, `tests/validate_20261123_1022.jsonl`.
+
 ## 2026-11-23 10:40 UTC+4 — combined deploy: polish r10 + hero4b
 - Merged `origin/lane/polish` (r10) and `origin/lane/hero4` into barclay. Rebuilt `web/app.js` from `web/src/app.js` (`app.js?v=44`). Floor_* click hooks and the storey Y-band picker are in the bundle. Polish bed/bath camera presets and mobile safe-area layout kept.
 - Polish comparison (same scorer, `tests/reference/score.py`): `renders/polish/v3_final` 78.8% (yes=10 no=3) vs `renders/polish/r10/stills_after` 61.2% (yes=8 no=5). The 17.6 point drop is a crop/scorer artefact: r10 reframed the kitchen, living and bath cameras, so the fixed checklist boxes now land on blank walls. `kitchen_white_units` (bidir 0.89) and `bathroom_grey_surfaces` (|Δhue|=3.0°) would still be yes on colour, but `luma_std` 0.026 / 0.032 is below the 0.05 presence floor so both were forced to no and scored 0. `living_window_grid` and `kitchen_black_appliances` already failed on v3; the r10 crop missed the window / appliances that are still in frame. Polish r10 therefore ships.
