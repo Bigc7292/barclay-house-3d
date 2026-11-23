@@ -1,5 +1,15 @@
 # CHANGELOG
 
+## 2026-11-23 09:45 UTC+4 — r8 stills + checklist
+- Stills in `tests/hero4/stills/`: before (official blend) and after (hero4) at 1920x1080 for street, facade, entrance and viaduct, plus wsw_east after; comparison sheets `cmp_*_before_after.jpg`; `after_hero4_street_4096x2304.png` (48 spp). The hero 4096 still was skipped because it takes too long under the shared CPU load.
+- `checks.py --cam street` on the 4K street still (`tests/hero4/checks_after_street.md`), compared with the official still (`checks_before_street.md`). The crops are not camera-matched, so treat these as indicative:
+  - ashlar: no → no (hf 2.44 → 2.15)
+  - arcade: no → no (edge 1.67 → 1.15, hf_excess 2.07 → 1.63)
+  - RB shields: partial → yes
+  - glazing and parapet: yes
+  - Gate: still FAIL (2 × no).
+- Shopfronts, lamps and trees inside 120 m are still the existing `build_surroundings.py` layers (applied to hero4). The only new 120 m detail in r8 is on the viaduct.
+
 ## 2026-11-23 08:40 UTC+4 — r8 exterior pass: hero4 (hero3 look in the procedural blend + facade fixes + viaduct detail)
 - Why: Colin asked for the facade and surroundings improvements next (ground-floor colour break, missing ornament, round-6 critic defects, 120 m zone).
 - New files only: `out/barclay_hero4.blend` (hero4 + surroundings detail layer, 65,628,044 B), `out/barclay_hero4.glb` (4,233,200 B, 4.04 MB, Floor_*/Door_*/Building names), `out/mobile/barclay_hero4_mobile.glb` (2,059,672 B, 1.96 MB). `out/barclay_hero.glb`, `out/barclay_scene.blend`, `web/hero3.glb` and all `*_floors.glb` untouched. No deploy, `web/` not edited.
