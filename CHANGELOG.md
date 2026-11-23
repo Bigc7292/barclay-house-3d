@@ -1,5 +1,27 @@
 # CHANGELOG
 
+## 2026-11-23 08:40 UTC+4 — r8 exterior pass: hero4 (hero3 look in the procedural blend + facade fixes + viaduct detail)
+- Why: Colin asked for the facade and surroundings improvements next (ground-floor colour break, missing ornament, round-6 critic defects, 120 m zone).
+- New files only: `out/barclay_hero4.blend` (hero4 + surroundings detail layer, 65,628,044 B), `out/barclay_hero4.glb` (4,233,200 B, 4.04 MB, Floor_*/Door_*/Building names), `out/mobile/barclay_hero4_mobile.glb` (2,059,672 B, 1.96 MB). `out/barclay_hero.glb`, `out/barclay_scene.blend`, `web/hero3.glb` and all `*_floors.glb` untouched. No deploy, `web/` not edited.
+- `hero4.py` (new, gated by `BHERO4=1`; with it unset `build_scene.py` / `export_glb.py` behave as before):
+  - Look: front tone `#c7bda8`, cornice `#c5b79a`, frames `#222325`, glass `#272a30`, all read from the `web/hero3.glb` palette texture. Cycles stills use a 0.80 tone factor so they read like the viewer; the GLB keeps the palette values.
+  - Ground-floor colour break fixed: Portland base and faience upper now share one tone (both reference photos show one tone). Stone photo texture at 35 %, normal 0.6 → 0.12.
+  - Ashlar: groove pitch 0.55 → 0.80 m plus staggered vertical joints every 1.6 m (stand-in).
+  - Arcade: arch glass set back to y −0.05 (cutter to −0.02); voussoirs 1.0 → 1.2 m radial (key 1.45), projection −0.58 → −0.64. The critic's "−0.40" had the sign flipped (−y is outward); the intent was a deeper reveal.
+  - RB shields: a layered cartouche behind each disc plus a raised "RB" monogram (0.08 m relief, stand-in).
+  - Glazed strips: oriel bays now cover floors 1–2 only (Commons photo shows the floor-3 triple window above the oriel head). There is a solid spandrel between storeys and two 3-light mullions. Previously one 3-storey glass strip was crossed by pale transoms.
+  - Parapet: moulded coping and plinth band (heights are stand-ins). Entrance: door leaves set back to y −0.02 (critic #4).
+  - BARCLAY HOUSE: gilt letters (0.26 m, stand-in) on a dark sign band on the porch frieze over the entrance (hero3 look + Commons photo).
+- `build_surroundings.py`:
+  - New `BSURR_R8=1` layer `viaduct_r8` (inside 120 m): blue-brick arch rings 0.45 m, red-brick pier pilasters and a blue-brick plinth. Source: Heritage Statement, "red brick with some small sections of blue brick"; all sizes are stand-ins.
+  - `BHERE` / `BSURR_BASE` env overrides added; the default is still `/workspace/barclay`. `export_surroundings_detail.py` gets the same `BHERE` / `BOUT` overrides.
+- `parts_plan.py`: the new hero4 part names are added to the facade groups (names only).
+- Replay: `tests/hero4/run.sh`.
+- Validate (`OUT=tests/hero4/exp MESHHEALTH=1 MESHHEALTH_BLEND=out/barclay_hero4.blend`): PASS. 0 errors on all 4 GLBs, check_parts 10/10 with 0 stray, MESHHEALTH 0 Blockers (19 majors, 3266 minors). Report: `tests/validate_20261123_0832.jsonl`.
+## 2026-11-23 — deploy dpl_H2sRhyhqZwAsvyhyrpbvHGnjycup
+- Live from 00f6fd85: walls retrace, CC0 furniture, polish (gate 78.8%), clickable floors.
+- Recommitted web/app.js rebuilt from web/src (sha1 1c736ed3); merge 5e4facac had kept a stale polish-only bundle without clickable floors.
+
 ## 2026-11-22 20:45 UTC+4 — trick #22 sun-time shadow-alignment gate (barclay)
 - Why: X Bookmark Analyst intake (SplatStroll method only, closed product). Barclay already has NOAA `tod_panel.sun_pos` / `web/src/app.js sunPos()` but presets are fixed to 21 June, so shadows were never checked against a dated photo.
 - New `sun_check.py` + `tests/suncheck/`: EXIF DateTimeOriginal treated as UK local (`tod_panel.is_bst`, assumed offset logged, sun not "fixed"); renders of a locked `camera_match` camera from a read-only open of the official blend; street-band shadow-mask IoU + edge-angle; ±3 h sweep so a peak can fall outside ±1 h. Official exports and `web/hero3.glb` sha256 unchanged. No deploy. `web/` not edited.
