@@ -219,8 +219,8 @@ let done=0;const need=4;const pr={};const bar=$('pb'),pbw=$('pbw');
 const upd=()=>{const v=Object.values(pr);const t=v.reduce((a,b)=>a+b,0)/need;if(bar)bar.style.width=Math.round(t*100)+'%';if(pbw)pbw.style.display=done>=need?'none':'';};
 const prog=()=>{done++;upd();draw=true;say(done<need?`Loading 3D models… ${done}/${need}${MOB?' (mobile quality)':''}`:'')};
 const INT=(q0.get('int')||'v5');const intU=INT==='v4'?(MOB?'twobed_m.glb':'twobed.glb'):(MOB?'twobed_v5_m.glb':'twobed_v5.glb');
-const heroU=MOB?'hero4b_mobile.glb':'hero4b.glb';
-const heroFb=MOB?'hero4_mobile.glb':'hero4.glb';
+const heroU=MOB?'hero4c_mobile.glb':'hero4c.glb';
+const heroFb=MOB?'hero4b_mobile.glb':'hero4b.glb';
 const queue=MOB?[[heroU,ext],['context_mo.glb',ext],['ext7_street_o.glb',ext],[intU,intr]]:[[heroU,ext],['context_typed_opt.glb',ext],['ext7_street.glb',ext],[intU,intr]];
 const loadOne=(u,g,fb)=>{pr[u]=0;const kind=u.startsWith('context')?'ctx':u.startsWith('hero')?'hero':u.startsWith('ext7')?'street':'in';
  L.load(u,x=>{pr[u]=1;prep(x.scene,kind);g.add(x.scene);if(/^Ceiling/.test(x.scene.name))ceil=x.scene;x.scene.traverse(o=>{if(/^Ceiling/.test(o.name)&&o.isMesh)ceil=o});if(kind==='hero')bindFloors(x.scene);prog();reshadow();loadNext()},
@@ -228,7 +228,7 @@ const loadOne=(u,g,fb)=>{pr[u]=0;const kind=u.startsWith('context')?'ctx':u.star
  e=>{if(fb){delete pr[u];loadOne(fb,g,null);return}say('Could not load '+u+' ('+(e&&e.message||'network error')+'). Check your connection and reload.',1)})};
 const loadNext=()=>{if(!queue.length)return;const [u,g]=queue.shift();loadOne(u,g,u===heroU?heroFb:null)};
 loadNext();
-// x_tricks #5: click a Floor_* node to highlight it and show its name/level. Shared materials are cloned so a tint does not leak across storeys. Live exterior is hero4b / hero4b_mobile (r8b: hero4 plus shopfronts, lamps and tree guards). hero4 / hero4_mobile remain the fallback if hero4b is missing. make_mobile flattens Floor_* children, so bindFloors also registers the named storey parts for picking, tint and isolate.
+// x_tricks #5: click a Floor_* node to highlight it and show its name/level. Shared materials are cloned so a tint does not leak across storeys. Live exterior is hero4c / hero4c_mobile (r8c: hero4b minus the lower RB shields on the oriel heads). hero4b / hero4b_mobile remain the fallback if hero4c is missing. make_mobile flattens Floor_* children, so bindFloors also registers the named storey parts for picking, tint and isolate.
 const floors=new Map();let selFloor=null,isoOn=false,ptrDown=null;
 const FLOOR_META={Floor_00:{title:'Basement',level:0,note:'Basement level NOT FOUND; stand-in at street level.'},Floor_01:{title:'Ground floor',level:1},Floor_02:{title:'First floor',level:2},Floor_03:{title:'Second floor',level:3},Floor_04:{title:'Third floor',level:4},Floor_05:{title:'Attic storey',level:5}};
 function floorOf(o){let p=o;while(p){if(/^Floor_\d+$/.test(p.name))return p;p=p.parent}p=o;while(p){if(p.userData&&p.userData.floorHost)return p.userData.floorHost;p=p.parent}return null}

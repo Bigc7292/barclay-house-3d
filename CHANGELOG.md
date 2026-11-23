@@ -1,5 +1,11 @@
 # CHANGELOG
 
+## 2026-11-23 10:45 UTC+4 — combined deploy: swap live exterior to hero4c
+- Swapped the live exterior from hero4b to hero4c: copied `out/barclay_hero4c.glb` → `web/hero4c.glb` (4,078,872 B, 3.89 MB) and `out/mobile/barclay_hero4c_mobile.glb` → `web/hero4c_mobile.glb` (1,960,368 B, 1.87 MB). sha256 matches out/. hero4c is hero4b with the overlapping lower RB shields removed from the oriel heads. Fallback is `hero4b` / `hero4b_mobile`. Floor_00–05 and Door_* names kept (Building on desktop only, same as hero4b). Storey Y-band click fix kept. `app.js?v=45`, bundle rebuilt from `web/src/app.js`.
+- Khronos: 0 errors on both (desktop 3 warnings, mobile 1 warning). Size budgets 3.89/5 MB and 1.87/2 MB.
+- Polish r10 remains shipped from the previous combined merge. hero4c does not change the interior.
+
+
 ## 2026-11-23 10:40 UTC+4 — r8c step 4: close street stills (hero4c)
 - `tests/hero4/render_cams.py` adds two cameras. Both framings are stand-ins; distances are from ray casts in the blend.
   - `close_east`: camera at (60, −8, 1.7) looking at (80, −12, 3), lens 18. Shopfronts are 6.5–10 m away and the lamp at (66, −9) is about 6 m away.
