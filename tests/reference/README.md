@@ -32,3 +32,13 @@ python tests/reference/make_walkthrough.py --out tests/reference/walkthrough.mp4
 ```
 
 Uses ffmpeg (libx264, yuv420p, `+faststart`, <25 MB) with slow pans and crossfades over the live interior stills. Near-blank frames (almost no edges or colours) are skipped: the current `v3_bedroom*.png` stills are washed-out walls, so the script falls back to `v2_bedroom1.png` / `closeup_bedroom2.png` in the same folder. `v3_bathroom.png` is kept (bright, but the fittings are visible).
+
+## Official cameras and frozen crops (23 Nov 2026)
+
+Crops in `checklist.json` are frozen on the official walk-mode cameras `LY.CAMS` / `cam_bl` (`interior/trace/twobed_layout.py`, used by `interior/build_twobed_v4.py`). Camera ids: `i_living`, `i_kitchen`, `i_bed1`, `i_bed2`, `i_bath`.
+
+Each item records `object_anchor` (camera + object + box) and `reference_photo` (Rightmove URL + local file + box). Visual check: `crop_previews/`. Do not retune crops or thresholds after the freeze commit.
+
+`kitchen_dining_chairs` is scored on `i_living` because official `i_kitchen` does not show the chairs.
+
+The `origin/barclay` `interior/live` v3 stills and `renders/polish/v3_final` were shot with earlier hardcoded furniture-commit cameras (`cbf78d9b`), not `cam_bl`. The official-camera stills are `origin/lane/furniture` `f2cac162` `interior/live/v3_*.png`.
