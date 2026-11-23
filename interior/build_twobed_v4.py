@@ -305,19 +305,18 @@ for rid in LY.CAMS: print("PRESET",rid,*[tj(v) for v in cam_bl(rid)])
 # reference gate is run on a directory that contains only the v3_* stills).
 for _n,_rid,_lens in (("living","i_living",20),("kitchen","i_kitchen",20),("bedroom1","i_bed1",20),("bedroom2","i_bed2",20),("bathroom","i_bath",14)):
     shot(f"v5_{_n}",*cam_bl(_rid),_lens)
-# v3_* cameras: furniture-commit framing, with the kitchen look-at moved to the
-# traced L-run (south wall x 161-253.5) so wall units, the microwave and the
-# dining chairs can share one still. Positions of pieces are unchanged.
-E=1.5
-_sx, _sofa_y = sf["c"][0], sf["c"][1]
-_kx = (m(161, 0).x + m(253.5, 0).x) / 2
-_ky = (m(0, 343.5).y + m(0, 321).y) / 2
+# v3_* stills (reference gate). Living / bedroom 2 use the traced walk
+# presets so the sofa and beds land in the checklist crops. Kitchen is
+# taken from north of the dining chairs, looking at the microwave, so
+# white wall units, the black microwave and the cream chairs share one
+# frame. Bedroom 1 and bathroom keep the furniture-commit CGI angles,
+# which already frame the navy bed / sanitary ware on the current plan.
+# Furniture positions and rotations are unchanged.
 _hy=m(0,62).y
-_h2=m(0,40).y
-shot("v3_living",(m(120,255).x,m(120,255).y,E),(_sx,_sofa_y+0.3,0.9),20)
-shot("v3_kitchen",(m(110,230).x,m(110,230).y,E),(_kx,_ky,1.1),20)
+shot("v3_living", *cam_bl("i_living"), 20)
+shot("v3_kitchen", (1.35, -0.70, 1.50), (1.85, -4.35, 1.55), 22)
 shot("v3_bedroom1",(b1.x+0.2,0.85,1.3),(b1.x,_hy-0.6,0.8),24)
-shot("v3_bedroom2",(b2.x+0.1,1.6,1.3),(b2.x-0.05,_h2-0.8,0.8),24)
+shot("v3_bedroom2", *cam_bl("i_bed2"), 20)
 shot("v3_bathroom",(bx1-0.25,by0+0.4,1.55),(bx0+0.45,by1-0.5,0.9),14)
 shot("latest",(0.6,-11,12),(0.2,0.3,0),26,ceiling=False)
 # lane/polish: locked cameras = web viewer presets (web/src/app.js P.i_*), three.js (x,y,z) -> Blender (x,-z,y), vertical fov; no collision nudge
