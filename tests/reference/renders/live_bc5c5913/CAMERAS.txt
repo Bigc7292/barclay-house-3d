@@ -1,0 +1,29 @@
+Official LY.CAMS stills of the current live build
+
+Source commit: origin/barclay bc5c591343ee98720d00cd7ad6e0a9fdbdb726f1
+  2026-11-23 10:46:21 +0400 (Asia/Dubai)
+  "barclay r8c: 4K hero still (hero4c look, 48 spp + OIDN) + JPG copy"
+Tip is later than 204b747b. Polish r10 is included: merge f494a8e91a1dd50790445011fce44b989d251ee3
+  (2026-11-23 10:25:17 +0400, "Merge lane/polish r10 and lane/hero4…") is an ancestor of this tip.
+
+Rendered headless with Blender 4.2.3 LTS from a detached worktree of that commit:
+  /home/box/apps/blender-4.2.3-linux-x64/blender --background --python interior/build_twobed_v4.py -- --out=... --nobake --only v5_living v5_kitchen v5_bedroom1 v5_bedroom2 v5_bathroom
+
+Cameras: shot("v5_<room>", *cam_bl("<official id>"), lens) in build_twobed_v4.py, where cam_bl reads LY.CAMS from interior/trace/twobed_layout.py.
+Default polish fixes applied: FIX [4, 5, 6, 7, 8]. Samples: 40 spp + denoising, 1600x1000.
+
+PRESET (three.js-style tj(cam_bl(rid)) as printed by the builder):
+  i_living  [0.39, 1.5, 2.14] [2.82, 0.9, -0.45]
+  i_kitchen [1.43, 1.5, 2.14] [3.06, 1.0, 4.16]
+  i_bed1    [-2.29, 1.3, -0.71] [-2.29, 0.8, -3.12]
+  i_bed2    [3.06, 1.45, -2.53] [0.68, 0.85, -3.57]
+  i_bath    [-1.81, 1.55, 2.85] [-3.18, 1.25, 4.01]
+
+SHOT Blender camera location actually used (x, y, z):
+  v5_living   (0.39, -2.14, 1.5)   matches cam_bl(i_living)
+  v5_kitchen  (1.43, -2.14, 1.5)   matches cam_bl(i_kitchen)
+  v5_bedroom1 (-2.29, 0.71, 1.3)   matches cam_bl(i_bed1)
+  v5_bedroom2 (2.76, 2.53, 1.45)   official i_bed2 cam_bl is (3.06, 2.53, 1.45); the builder's collision-avoidance nudge moved X by -0.30 m. No CAMERA COLLISION warning (a free point was found).
+  v5_bathroom (-1.81, -2.85, 1.55) matches cam_bl(i_bath)
+
+Bake and GLB export were skipped (--nobake) after the stills.

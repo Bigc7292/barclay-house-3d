@@ -150,14 +150,14 @@
       "element": "bedroom1_navy_bed",
       "room": "bedroom1",
       "rule": "hue_proximity",
-      "status": "no",
-      "score": 126.8966,
-      "score_norm": 0.0,
-      "metric": "|\u0394hue|=126.9\u00b0 (r=260 f=27) luma_std=0.207",
+      "status": "partial",
+      "score": 50.0,
+      "score_norm": 0.4444,
+      "metric": "|\u0394hue|=50.0\u00b0 (r=260 f=210) luma_std=0.207",
       "render": "interior/live/v3_bedroom1.png",
       "ref": "refs/critic1/92163630/6830c23cc81166dfe894a94204f9eeeb.jpeg",
       "ref_url": "https://media.rightmove.co.uk/property-photo/6830c23cc/92163630/6830c23cc81166dfe894a94204f9eeeb.jpeg",
-      "source": "Rightmove 92163630 bedroom CGI 6830c23cc (navy upholstered bed). Official camera i_bed1 (LY.CAMS / cam_bl)."
+      "source": "Rightmove 92163630 bedroom CGI 6830c23cc (freeze v2: reference crop re-anchored to navy headboard fabric; URL https://media.rightmove.co.uk/property-photo/6830c23cc/92163630/6830c23cc81166dfe894a94204f9eeeb.jpeg, box [0.335, 0.598, 0.62, 0.626]). The photo also shows cream bedding, which the v1 crop was landing on. Item target remains navy fabric. Official camera i_bed1 (LY.CAMS / cam_bl). Render crop unchanged."
     },
     {
       "element": "bedroom1_detail",
@@ -176,14 +176,14 @@
       "element": "bedroom2_navy_bed",
       "room": "bedroom2",
       "rule": "hue_proximity",
-      "status": "no",
-      "score": 133.5,
-      "score_norm": 0.0,
-      "metric": "|\u0394hue|=133.5\u00b0 (r=255 f=28) luma_std=0.202",
+      "status": "partial",
+      "score": 43.0,
+      "score_norm": 0.5222,
+      "metric": "|\u0394hue|=43.0\u00b0 (r=255 f=212) luma_std=0.202",
       "render": "interior/live/v3_bedroom2.png",
       "ref": "refs/critic1/92163630/09a28850469373714e2934f7bbf90dbb.jpeg",
       "ref_url": "https://media.rightmove.co.uk/property-photo/09a288504/92163630/09a28850469373714e2934f7bbf90dbb.jpeg",
-      "source": "Rightmove 92163630 bedroom CGI 09a288504 (navy bed + white bedding). Official camera i_bed2 (LY.CAMS / cam_bl)."
+      "source": "Rightmove 92163630 bedroom CGI 09a288504 (freeze v2: reference crop re-anchored to navy bed-base fabric; URL https://media.rightmove.co.uk/property-photo/09a288504/92163630/09a28850469373714e2934f7bbf90dbb.jpeg, box [0.42, 0.87, 0.72, 0.935]). The photo also shows cream bedding, which the v1 crop was landing on. Item target remains navy fabric. Official camera i_bed2 (LY.CAMS / cam_bl). Render crop unchanged."
     },
     {
       "element": "bedroom2_detail",
@@ -240,12 +240,12 @@
   ],
   "counts": {
     "yes": 7,
-    "partial": 0,
-    "no": 6,
+    "partial": 2,
+    "no": 4,
     "total": 13
   },
-  "score": 0.5571,
-  "score_pct": 55.7,
+  "score": 0.6315,
+  "score_pct": 63.1,
   "gate": {
     "pass": false,
     "verdict": "FAIL",
@@ -262,7 +262,23 @@
     "renders_path": "interior/live",
     "official_LY_CAMS": true,
     "camera": "cam_bl(LY.CAMS[rid]) from interior/trace/twobed_layout.py via interior/build_twobed_v4.py (i_living, i_kitchen, i_bed1, i_bed2, i_bath)",
-    "note": "Commit message: re-rendered v3_* on traced cam_bl walk presets only. Crops were frozen on these stills in 4226b8d4 before this score.",
-    "crops_freeze_commit": "4226b8d48090d2a2fa1f5eca70c021de1c4d5533"
-  }
+    "crops_freeze_commit": "36673d3ba348665600a577a28dbb3dae3e4161fe",
+    "crops_freeze_version": 2,
+    "note": "Scored from f2cac162 interior/live/v3_*.png with freeze v2 crops. Stills hashes differ from the bc5c5913 official set."
+  },
+  "presence_floor_only_failures": [
+    {
+      "element": "kitchen_white_units",
+      "would_have_been": "yes",
+      "luma_std": 0.01,
+      "metric": "mean_v 0.877/0.720 bidir=0.82 luma_std=0.010"
+    },
+    {
+      "element": "bathroom_grey_surfaces",
+      "would_have_been": "yes",
+      "luma_std": 0.042,
+      "metric": "|\u0394hue|=1.8\u00b0 (r=32 f=30) luma_std=0.042"
+    }
+  ],
+  "presence_floor": 0.05
 }
