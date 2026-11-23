@@ -358,7 +358,7 @@ out.filepath_raw=OUT+"bake_atlas.png"; out.file_format='PNG'; out.save()
 # single unlit-style material: base colour = baked atlas on 'bake' UV
 for uvl in list(J.data.uv_layers):
     if uvl.name!="bake": J.data.uv_layers.remove(uvl)
-CEIL_FACES=[f.index for f in J.data.polygons if J.data.materials[f.material_index].name=='Ceiling_warm_white']; print('ceil faces',len(CEIL_FACES))
+CEIL_FACES=[f.index for f in J.data.polygons if J.data.materials[f.material_index].name=='Ceiling_warm_white' or (8 in FIX and J.data.materials[f.material_index].name.startswith('Downlight'))]   # fix8: downlight discs go with the ceiling (hidden in the overview); print('ceil faces',len(CEIL_FACES))
 J.data.materials.clear()
 BM=bpy.data.materials.new("BAKED_lightmap");BM.use_nodes=True;N=BM.node_tree.nodes;b=N["Principled BSDF"];t=N.new("ShaderNodeTexImage");t.image=out
 BM.node_tree.links.new(t.outputs[0],b.inputs["Base Color"]);b.inputs["Roughness"].default_value=1;J.data.materials.append(BM)

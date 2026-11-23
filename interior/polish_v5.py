@@ -74,7 +74,10 @@ if 7 in FIX:   # window backdrops: top clamped below the wall tops (dollhouse vi
 if 8 in FIX:   # downlights: emissive discs read as hard white dots in three (emissive clips) -> dim warm glow
     for M in {m for o in sc.objects if o.type=='MESH' and o.name.startswith("Downlight_") and not o.name.startswith("Downlight_trim") for m in o.data.materials if m}:
         b=bsdf(M); b.inputs["Base Color"].default_value=(0.78,0.74,0.68,1); b.inputs["Emission Color"].default_value=(1,0.84,0.62,1); b.inputs["Emission Strength"].default_value=0.28
-    log.append("fix8 downlights")
+    ce=O["Ceiling"]; k=0
+    for o in [o for o in sc.objects if o.type=='MESH' and o.name.startswith("Downlight")]:   # hide with the ceiling in the dollhouse (no floating dots)
+        mw=o.matrix_world.copy(); o.parent=ce; o.matrix_world=mw; k+=1
+    log.append(f"fix8 downlights ({k} parented to Ceiling)")
 bpy.context.view_layer.update()
 if 6 in FIX:   # baked AO -> glTF occlusion (TEXCOORD_1) on the large static surfaces; light, so +size stays small
     AOM={"Wall_warm_white","Ceiling_warm_white","Floor_light_oak","Floor_pale_grey_woodlook_kitchen","Skirting_white_satin","Oak_furniture","Sanitary_white",
