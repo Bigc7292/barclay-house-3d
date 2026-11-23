@@ -372,6 +372,9 @@ bpy.ops.object.select_all(action='DESELECT');J.select_set(True);bpy.context.view
 bpy.ops.object.mode_set(mode='EDIT'); bpy.ops.mesh.separate(type='SELECTED'); bpy.ops.object.mode_set(mode='OBJECT')
 for o in sc.objects:
     if o.name.startswith("BAKED_interior") and o is not J: o.name="Ceiling_BAKED"; print("CEILING SPLIT",len(o.data.polygons))
+if 8 in FIX:   # fix8: window backdrops hide with the ceiling in the walk-mode overview (2bed.html hides ^Ceiling)
+    _ce=next(o for o in sc.objects if o.name=="Ceiling_BAKED")
+    for o in [o for o in sc.objects if o.type=="MESH" and o.name.endswith("_backdrop")]: _mw=o.matrix_world.copy(); o.parent=_ce; o.matrix_world=_mw
 bpy.ops.object.select_all(action='DESELECT')
 for o in sc.objects: o.select_set(o.type=='MESH')
 bpy.ops.export_scene.gltf(filepath=OUT+"twobed_raw.glb",export_format='GLB',use_selection=True,export_apply=True,export_lights=False,export_image_format='JPEG',export_jpeg_quality=92)

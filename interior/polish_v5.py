@@ -69,8 +69,9 @@ if 7 in FIX:   # window backdrops: top clamped below the wall tops (dollhouse vi
         for M in o.data.materials:
             for t in M.node_tree.nodes:
                 if t.type=='TEX_IMAGE': t.image=img
+        mw=o.matrix_world.copy(); o.parent=O["Ceiling"]; o.matrix_world=mw   # hidden with the ceiling in the dollhouse (a panel 0.6 m outside the wall always reads above the wall top from above)
         n+=1
-    log.append(f"fix7 backdrops {n}")
+    log.append(f"fix7 backdrops {n} (clamped, parented to Ceiling)")
 if 8 in FIX:   # downlights: emissive discs read as hard white dots in three (emissive clips) -> dim warm glow
     for M in {m for o in sc.objects if o.type=='MESH' and o.name.startswith("Downlight_") and not o.name.startswith("Downlight_trim") for m in o.data.materials if m}:
         b=bsdf(M); b.inputs["Base Color"].default_value=(0.78,0.74,0.68,1); b.inputs["Emission Color"].default_value=(1,0.84,0.62,1); b.inputs["Emission Strength"].default_value=0.28
