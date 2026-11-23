@@ -1,5 +1,12 @@
 # CHANGELOG
 
+## 2026-11-23 10:05 UTC+4 — r8b step 1: 120 m zone shopfronts, lamps, tree pits (code)
+- `build_surroundings.py` gets a `BSURR_R8B=1` layer; with it off, nothing changes.
+  - **Shopfronts** go on neighbour frontages within 120 m of the hero only where an OSM shop/café/bar/nightclub POI is within 12 m of that frontage (10 frontages). Each gets a stall riser, glazing with mullions, a transom, a recessed door, a fascia with a sign band, and end pilasters. All sizes are stand-ins.
+  - **Lamps**: the 53 lamp positions (still stand-ins; OSM has no lamp nodes) become slim galvanised columns with an upswept arm and a flat LED lantern, as in Geograph 8144686. Height 8 m and arm 1.6 m are stand-ins.
+  - **Street trees**: the 11 LIDAR trees on pavement next to a road get a cast grille (1.2 m) and an 8-bar guard (1.6 m). Both sizes are stand-ins.
+- `tests/hero4/render_cams.py` gains `shops_east` / `shops_west` cameras.
+
 ## 2026-11-23 09:45 UTC+4 — r8 stills + checklist
 - Stills in `tests/hero4/stills/`: before (official blend) and after (hero4) at 1920x1080 for street, facade, entrance and viaduct, plus wsw_east after; comparison sheets `cmp_*_before_after.jpg`; `after_hero4_street_4096x2304.png` (48 spp). The hero 4096 still was skipped because it takes too long under the shared CPU load.
 - `checks.py --cam street` on the 4K street still (`tests/hero4/checks_after_street.md`), compared with the official still (`checks_before_street.md`). The crops are not camera-matched, so treat these as indicative:

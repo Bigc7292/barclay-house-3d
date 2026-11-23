@@ -16,6 +16,8 @@ CAMS = {"street": "Cam_Street", "hero": "Cam_Hero_34", "viaduct": "Cam_Viaduct",
         "entrance": cam("Cam_Entrance", L2W(ex+2.0, -9.0, 1.7), L2W(ex, 0, 3.6), 22).name,
         "geograph": "Cam_Match_geograph",
         "wsw_east": cam("Cam_Surr_WSW_east", mathutils.Vector((-30, -27.5, 1.7)), (60, -12, 4), 20).name,   # same framings as build_surroundings.py --render
+        "shops_east": cam("Cam_R8b_shops_east", mathutils.Vector((25, -24, 1.7)), (75, -3, 2.8), 22).name,   # r8b: neighbour shopfronts / lamps / tree pits
+        "shops_west": cam("Cam_R8b_shops_west", mathutils.Vector((-40, -24, 1.7)), (-95, -3, 2.8), 22).name,
         "wsw_west": cam("Cam_Surr_WSW_west", mathutils.Vector((70, -10, 1.7)), (-40, -28, 5), 20).name}
 cf = arg("--camfile")
 if cf and os.path.exists(cf):   # copy a locked camera (e.g. Cam_Match_geograph) from another blend's dump
