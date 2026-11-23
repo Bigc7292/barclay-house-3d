@@ -693,7 +693,7 @@ def kit_groups():
         ("living", "Living / dining", [
             ("sofa", "Sofa"),
             ("chair", "Dining chair"),
-            ("dining_table", "Round table (kit; plan table is rectangular)"),
+            ("dining_table", "Round table (kit)"),
             ("coffee", "Coffee table"),
             ("tv_bench", "TV bench"),
         ]),
@@ -701,7 +701,7 @@ def kit_groups():
             ("bed", "Double bed"),
             ("bedside", "Bedside table"),
             ("lamp", "Bedside lamp"),
-            ("wardrobe", "Wardrobe (kit; plan uses traced joinery)"),
+            ("wardrobe", "Wardrobe (kit)"),
             ("shelves", "Storage shelving"),
         ]),
         ("kitchen", "Kitchen", [
@@ -711,12 +711,12 @@ def kit_groups():
             ("stove", "Induction stove"),
             ("washer", "Washing machine"),
             ("micro", "Microwave"),
-            ("fridge", "Fridge (kit; not on the plan run)"),
+            ("fridge", "Fridge (kit)"),
         ]),
         ("bath", "Bathroom", [
             ("wc", "WC"),
             ("basin", "Vanity / basin"),
-            ("shower", "Shower (kit; enclosure kept as stand-in)"),
+            ("shower", "Shower (kit)"),
             ("mirror", "Mirror"),
         ]),
     ]
