@@ -18,7 +18,12 @@ CAMS = {"street": "Cam_Street", "hero": "Cam_Hero_34", "viaduct": "Cam_Viaduct",
         "wsw_east": cam("Cam_Surr_WSW_east", mathutils.Vector((-30, -27.5, 1.7)), (60, -12, 4), 20).name,   # same framings as build_surroundings.py --render
         "shops_east": cam("Cam_R8b_shops_east", mathutils.Vector((25, -24, 1.7)), (75, -3, 2.8), 22).name,   # r8b: neighbour shopfronts / lamps / tree pits
         "shops_west": cam("Cam_R8b_shops_west", mathutils.Vector((-40, -24, 1.7)), (-95, -3, 2.8), 22).name,
+        "close_west": cam("Cam_R8c_close_west", mathutils.Vector((-48, -19, 1.7)), (-75, -11, 3.0), 20).name,   # r8c: ~12 m from shopfronts, lamp (-61,-26) in frame
+        "close_east": cam("Cam_R8c_close_east", mathutils.Vector((60, -8, 1.7)), (80, -12, 3.0), 18).name,     # r8c: shopfronts 6.5-10 m, lamp (66,-9) ~6 m
         "wsw_west": cam("Cam_Surr_WSW_west", mathutils.Vector((70, -10, 1.7)), (-40, -28, 5), 20).name}
+for cd_ in (arg("--camdef") or "").split(";"):   # ad-hoc: "Name:x,y,z:tx,ty,tz:lens[;...]" (STAND-IN framings)
+    if cd_:
+        n_, l_, t_, f_ = cd_.split(":"); CAMS[n_] = cam(n_, mathutils.Vector([float(v) for v in l_.split(",")]), [float(v) for v in t_.split(",")], float(f_)).name
 cf = arg("--camfile")
 if cf and os.path.exists(cf):   # copy a locked camera (e.g. Cam_Match_geograph) from another blend's dump
     for n, d in json.load(open(cf)).items():
