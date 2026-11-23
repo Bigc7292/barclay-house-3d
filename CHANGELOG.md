@@ -1,5 +1,28 @@
 # CHANGELOG
 
+## 2026-11-23 10:20 UTC+4 — r8c step 1: camera matched to the Geograph photo, aligned re-score
+- Ran `camera_match.py` on the hero4b surroundings blend with the 6 points in `tests/geograph_points.json` and clip_start 4 m.
+  - Solved `Cam_Match_geograph`: lens 21.69 mm, location (9.10, −32.71, 3.39), rotation (103.43, −0.53, 21.70)°, rms 14.2 px. The worst point is DoorT at −29.6 px in y.
+  - The camera is saved in `tests/hero4c/cam_match_geograph.json`, for use with `render_cams.py --camfile`. The solve report is `geomatch_solve.json.txt`.
+- Renders at 2048x1536, 32 spp:
+  - `tests/hero4c/match/hero4b_Cam_Match_geograph_2048x1536.png`
+  - A diagnostic copy with white bars, `hero4b_whitebars_…png`. It uses `render_cams.py --frame-rgb`, which only recolours at render time and never saves.
+  - Comparison sheet: `tests/hero4c/cmp_aligned_geograph.jpg`.
+- New script `tests/hero4c/aligned_score.py` applies the same crop box to the photo and the render, using the stock `checks.score_element` rules and thresholds. Boxes are picked above the poster hoarding, which starts at y≈0.73. Results are in `tests/hero4c/aligned_scores.json`.
+
+  | Row | Black bars (hero4b) | White bars (diagnostic) |
+  |---|---|---|
+  | Ashlar, east wall bay | hf 0.28, yes | 0.28, yes |
+  | Ashlar, west band/voussoirs | hf 0.98, yes | 1.03, yes |
+  | Arcade | edge 0.50, hf_excess 0.64, no | edge 0.84, hf 0.93, yes |
+
+  Unaligned stock rows for hero4b, for comparison: ashlar hf 2.01 (no); arcade 1.11 / 1.59 (no).
+- What this shows:
+  - With aligned crops the ashlar "no" goes away completely. The earlier gap came from the crops landing on different parts of the facade, not from a stone defect.
+  - The whole arcade gap is the bar colour. Black bars on dark glass give half the photo's edge density, and white bars give 0.84 (yes).
+  - No real facade defect was found, so hero4b's facade stays as it is.
+- Replay: `tests/hero4c/step1_match.sh`. The 64 MB scratch blend is not committed.
+
 ## 2026-11-23 10:40 UTC+4 — r8b step 4: before/after stills
 - `tests/hero4b/stills/`: 1920x1080 at 64 spp. Before = hero4 (`before_hero4_shops_{east,west}`, plus `tests/hero4/stills/after_hero4_{street,entrance}`); after = hero4b (`after_hero4b_{street,entrance,shops_east,shops_west}`). Comparison sheets: `cmp_*_hero4_vs_hero4b.jpg`.
 - At these street distances the shopfront and lamp changes are subtle, and the ashlar change is small.

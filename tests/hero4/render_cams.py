@@ -30,6 +30,10 @@ if "--dumpcams" in A:
     out = {o.name: {"mw": [list(r) for r in o.matrix_world], "lens": o.data.lens, "sensor": o.data.sensor_width, "shift": [o.data.shift_x, o.data.shift_y], "clip_start": o.data.clip_start}
            for o in bpy.data.objects if o.type == "CAMERA"}
     json.dump(out, open(arg("--dumpcams"), "w"), indent=1); print("DUMPED", list(out)); sys.exit(0)
+if arg("--frame-rgb"):   # diagnostic only (e.g. white bars as in the photo); never saved
+    c_ = [float(v) for v in arg("--frame-rgb").split(",")]
+    for m in bpy.data.materials:
+        if m.name.startswith("Window_frame_dark") and m.use_nodes: m.node_tree.nodes["Principled BSDF"].inputs["Base Color"].default_value = (*c_, 1); m.node_tree.nodes["Principled BSDF"].inputs["Metallic"].default_value = 0.0
 rx, ry = map(int, arg("--res", "1920x1080").split("x")); r = sc.render; r.resolution_x, r.resolution_y = rx, ry; r.resolution_percentage = 100
 sc.cycles.samples = int(arg("--samples", 64)); sc.cycles.device = "CPU"
 od = arg("--out"); os.makedirs(od, exist_ok=True); pre = arg("--prefix", "r")
