@@ -41,6 +41,7 @@ if arg("--frame-rgb"):   # diagnostic only (e.g. white bars as in the photo); ne
         if m.name.startswith("Window_frame_dark") and m.use_nodes: m.node_tree.nodes["Principled BSDF"].inputs["Base Color"].default_value = (*c_, 1); m.node_tree.nodes["Principled BSDF"].inputs["Metallic"].default_value = 0.0
 rx, ry = map(int, arg("--res", "1920x1080").split("x")); r = sc.render; r.resolution_x, r.resolution_y = rx, ry; r.resolution_percentage = 100
 sc.cycles.samples = int(arg("--samples", 64)); sc.cycles.device = "CPU"
+if "--denoise" in A: sc.cycles.use_denoising = True; sc.cycles.denoiser = "OPENIMAGEDENOISE"   # fewer samples + OIDN for big stills on the shared CPU
 od = arg("--out"); os.makedirs(od, exist_ok=True); pre = arg("--prefix", "r")
 import time
 for c in arg("--cams", "street,facade,entrance,viaduct").split(","):

@@ -1,5 +1,8 @@
 # CHANGELOG
 
+## 2026-11-23 10:47 UTC+4 — r8c: 4K hero still in the hero4c look
+- `tests/hero4c/stills/hero4c_hero_4096x2304.png` (12,462,205 B): rendered from `out/barclay_hero4c.blend` with Cam_Hero_34, Cycles on CPU, 48 spp plus the OpenImageDenoise denoiser, in 419 s. JPG copy for sending: `hero4c_hero_4096x2304.jpg` (2,027,884 B, quality 95). `render_cams.py` has a new `--denoise` flag.
+
 ## 2026-11-23 10:45 UTC+4 — combined deploy: swap live exterior to hero4c
 - Swapped the live exterior from hero4b to hero4c: copied `out/barclay_hero4c.glb` → `web/hero4c.glb` (4,078,872 B, 3.89 MB) and `out/mobile/barclay_hero4c_mobile.glb` → `web/hero4c_mobile.glb` (1,960,368 B, 1.87 MB). sha256 matches out/. hero4c is hero4b with the overlapping lower RB shields removed from the oriel heads. Fallback is `hero4b` / `hero4b_mobile`. Floor_00–05 and Door_* names kept (Building on desktop only, same as hero4b). Storey Y-band click fix kept. `app.js?v=45`, bundle rebuilt from `web/src/app.js`.
 - Khronos: 0 errors on both (desktop 3 warnings, mobile 1 warning). Size budgets 3.89/5 MB and 1.87/2 MB.
