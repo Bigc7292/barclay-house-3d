@@ -43,7 +43,7 @@ OAK=mat("Floor_light_oak",(1,1,1),0.55,img="oak_light_diff.jpg",nor="wood_floor_
 OAKG=mat("Floor_pale_grey_woodlook_kitchen",(1,1,1),0.55,img="oak_grey_diff.jpg",nor="wood_floor_nor_gl.jpg")
 TILE=mat("Tile_grey_600x1200",(1,1,1),0.3,img=("tile_stone_grey_p5.jpg" if 7 in FIX else "tile_light_r4.jpg"))
 # fix4: wall albedo V 0.86->0.74 (less washed), matte 0.92
-WALL=mat("Wall_warm_white",(0.74,0.71,0.66) if 4 in FIX else (0.86,0.83,0.78),0.92 if 4 in FIX else 0.85); CEILM=mat("Ceiling_warm_white",(0.9,0.88,0.84),0.9)
+WALL=mat("Wall_warm_white",(0.70,0.67,0.62) if 8 in FIX else (0.74,0.71,0.66) if 4 in FIX else (0.86,0.83,0.78),0.94 if 8 in FIX else 0.92 if 4 in FIX else 0.85)   # fix8: a touch darker (washed-out walls); CEILM=mat("Ceiling_warm_white",(0.9,0.88,0.84),0.9)
 SKIRT=mat("Skirting_white_satin",(0.92,0.91,0.88),0.35)
 WUNIT=mat("Kitchen_handleless_white",(0.9,0.89,0.86),0.3); DARK=mat("Peninsula_graphite",(0.042,0.042,0.045),0.5); QUARTZ=mat("Quartz_white",(0.88,0.88,0.87),0.25)
 WTOP=mat("Worktop_white",(0.93,0.93,0.92),0.2); BLK=mat("Appliance_black_gloss",(0.015,0.015,0.017),0.12)
@@ -257,6 +257,7 @@ for o in sc.objects:
 sc.render.engine='CYCLES';sc.cycles.samples=40;sc.cycles.use_denoising=True;sc.view_settings.view_transform='AgX';sc.view_settings.look='AgX - Medium High Contrast' if 'AgX - Medium High Contrast' in [i.identifier for i in sc.view_settings.bl_rna.properties['look'].enum_items] else 'None'
 sc.world=bpy.data.worlds.new("w");sc.world.use_nodes=True;bg=sc.world.node_tree.nodes['Background'];env=sc.world.node_tree.nodes.new("ShaderNodeTexEnvironment");env.image=bpy.data.images.load(os.path.join(ROOT,"hdri.exr"));sc.world.node_tree.links.new(env.outputs[0],bg.inputs[0]);bg.inputs[1].default_value=0.3
 sc.render.resolution_x=1600;sc.render.resolution_y=1000
+if 8 in FIX: sc.view_settings.exposure=-0.6   # fix8: stills were blown out (white walls/units read flat); renders only, the bake uses --expo
 bpy.context.view_layer.update(); dg=bpy.context.evaluated_depsgraph_get()
 def free(p,r=0.3):
     for d in [Vector(v) for v in ((1,0,0),(-1,0,0),(0,1,0),(0,-1,0),(0,0,1),(0,0,-1),(.7,.7,0),(-.7,.7,0),(.7,-.7,0),(-.7,-.7,0))]:
