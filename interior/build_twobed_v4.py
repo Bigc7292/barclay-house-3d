@@ -305,25 +305,11 @@ for rid in LY.CAMS: print("PRESET",rid,*[tj(v) for v in cam_bl(rid)])
 # reference gate is run on a directory that contains only the v3_* stills).
 for _n,_rid,_lens in (("living","i_living",20),("kitchen","i_kitchen",20),("bedroom1","i_bed1",20),("bedroom2","i_bed2",20),("bathroom","i_bath",14)):
     shot(f"v5_{_n}",*cam_bl(_rid),_lens)
-# v3_* stills (reference gate). Living / bedroom 2 use the traced walk
-# presets so the sofa and beds land in the checklist crops. Kitchen is
-# taken from north of the dining chairs, looking at the microwave, so
-# white wall units, the black microwave and the cream chairs share one
-# frame. Bedroom 1 and bathroom keep the furniture-commit CGI angles,
-# which already frame the navy bed / sanitary ware on the current plan.
-# Furniture positions and rotations are unchanged.
-_hy=m(0,62).y
-# Living: a slight west shift of the walk preset so the lower-left floor
-# crop is more oak board and less of the cream rug (luma_std just under 0.05).
-_liv, _livt = cam_bl("i_living")
-shot("v3_living", (_liv[0]-0.22, _liv[1], _liv[2]), (_livt[0]-0.15, _livt[1], _livt[2]), 20)
-# Kitchen: look up at the wall-unit band (tighter lens) so the white-units
-# crop hits cabinet faces, the black crop hits the microwave, and the
-# lower-right chairs crop still covers the pale floor + washer (hue pass).
-shot("v3_kitchen", (1.35, -0.70, 1.42), (1.85, -4.35, 1.90), 30)
-shot("v3_bedroom1",(b1.x+0.2,0.85,1.3),(b1.x,_hy-0.6,0.8),24)
-shot("v3_bedroom2", *cam_bl("i_bed2"), 20)
-shot("v3_bathroom",(bx1-0.25,by0+0.4,1.55),(bx0+0.45,by1-0.5,0.9),14)
+# v3_* stills for the reference gate use the same traced walk-mode cameras
+# as v5 (LY.CAMS). Score-chasing kitchen/living offsets and the old
+# furniture-commit bedroom/bath angles are reverted; stills are not re-rendered.
+for _n,_rid,_lens in (("living","i_living",20),("kitchen","i_kitchen",20),("bedroom1","i_bed1",20),("bedroom2","i_bed2",20),("bathroom","i_bath",14)):
+    shot(f"v3_{_n}",*cam_bl(_rid),_lens)
 shot("latest",(0.6,-11,12),(0.2,0.3,0),26,ceiling=False)
 # lane/polish: locked cameras = web viewer presets (web/src/app.js P.i_*), three.js (x,y,z) -> Blender (x,-z,y), vertical fov; no collision nudge
 WEBCAMS={"w_living":([-0.5,1.5,1.91],[2.97,0.9,0.15],70),"w_bed1":([-2.0,1.3,-0.85],[-2.41,0.8,-3.17],70),"w_bed2":([1.5,1.3,-1.6],[1.36,0.8,-3.62],70),
@@ -395,9 +381,16 @@ if 6 in FIX:   # fix6: OIDN denoise (albedo-guided, edge preserving) instead of 
     aoi=_bake_to("bake_ao","AO")
     dn=bpy.data.scenes.new("denoise"); dn.render.engine='BLENDER_WORKBENCH'; dn.render.resolution_x=dn.render.resolution_y=RES; dn.render.resolution_percentage=100
     cam_=bpy.data.objects.new("dncam",bpy.data.cameras.new("dncam")); dn.collection.objects.link(cam_); dn.camera=cam_
-    ng=bpy.data.node_groups.new("DN","CompositorNodeTree"); dn.compositing_node_group=ng; dn.render.use_compositing=True
+    # Blender 4.2 has scene.use_nodes / node_tree; compositing_node_group is newer.
+    if hasattr(dn, "compositing_node_group"):
+        ng=bpy.data.node_groups.new("DN","CompositorNodeTree"); dn.compositing_node_group=ng
+        ng.interface.new_socket("Image",in_out='OUTPUT',socket_type='NodeSocketColor'); go=ng.nodes.new("NodeGroupOutput")
+    else:
+        dn.use_nodes=True; ng=dn.node_tree
+        for _n in list(ng.nodes): ng.nodes.remove(_n)
+        go=ng.nodes.new("CompositorNodeComposite")
+    dn.render.use_compositing=True
     ni=ng.nodes.new("CompositorNodeImage"); ni.image=img; na=ng.nodes.new("CompositorNodeImage"); na.image=alb; dd=ng.nodes.new("CompositorNodeDenoise")
-    ng.interface.new_socket("Image",in_out='OUTPUT',socket_type='NodeSocketColor'); go=ng.nodes.new("NodeGroupOutput")
     ng.links.new(ni.outputs[0],dd.inputs["Image"]); ng.links.new(na.outputs[0],dd.inputs["Albedo"]); ng.links.new(dd.outputs[0],go.inputs[0])
     dn.render.image_settings.file_format='OPEN_EXR'; dn.render.filepath=OUT+"_bake_dn.exr"; bpy.ops.render.render(write_still=True,scene=dn.name)
     r_=bpy.data.images.load(OUT+"_bake_dn.exr"); d_=np.array(r_.pixels[:]).reshape(RES,RES,4)[...,:3]
