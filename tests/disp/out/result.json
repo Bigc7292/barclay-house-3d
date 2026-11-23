@@ -1,0 +1,66 @@
+{
+  "trick": 8,
+  "street_pixel": {
+    "mean_abs_255": 0.4160783290863037,
+    "pct_px_changed_gt2": 5.253279320987654
+  },
+  "ref_check_off_vs_official": {
+    "f1": 0.990244465656011
+  },
+  "ref_check_on_vs_official": {
+    "f1": 0.9905128135642398
+  },
+  "stone_base_mean_off": [
+    105.88428497314453,
+    97.98921966552734,
+    88.05046844482422
+  ],
+  "stone_base_mean_on": [
+    105.81922912597656,
+    97.92493438720703,
+    87.98938751220703
+  ],
+  "terracotta_mean_off": [
+    133.04185485839844,
+    131.58074951171875,
+    127.42681121826172
+  ],
+  "terracotta_mean_on": [
+    133.11868286132812,
+    131.66302490234375,
+    127.52162170410156
+  ],
+  "times_off": {
+    "tag": "off",
+    "res": [
+      960,
+      540
+    ],
+    "samples": 32,
+    "times": {
+      "Cam_Street": {
+        "s": 29.707663536071777,
+        "maxrss_mb": 1709.21875
+      }
+    },
+    "applied": false
+  },
+  "times_on": {
+    "tag": "on",
+    "res": [
+      960,
+      540
+    ],
+    "samples": 32,
+    "times": {
+      "Cam_Street": {
+        "s": 50.0426185131073,
+        "maxrss_mb": 1719.91015625
+      }
+    },
+    "applied": true
+  },
+  "time_ratio": 1.6845019956666845,
+  "time_ok_le_2x": true,
+  "maxrss_mb_on": 1719.91015625
+}

@@ -1,0 +1,65 @@
+{
+  "ok": true,
+  "khronos": {
+    "hero4.glb": {
+      "MB": 4.04,
+      "budget": 5,
+      "errors": 0,
+      "warnings": 3,
+      "ok": true
+    },
+    "hero4_mobile.glb": {
+      "MB": 1.96,
+      "budget": 2,
+      "errors": 0,
+      "warnings": 1,
+      "ok": true
+    }
+  },
+  "sha256": {
+    "web/hero4.glb": "35d4a2cd6abf05415bf1de2f0570f486d43e91d0ecc6838849cfc64fe8d8af4e",
+    "web/hero4_mobile.glb": "1cdbafebc96524eb268edec3681858956fc66163c4376aa0f2a0082c8997fbf2"
+  },
+  "runs": {
+    "desktop": {
+      "ok": true,
+      "console_errors": 0,
+      "external_requests": 0,
+      "click_fail": [],
+      "floors": [
+        "Floor_00",
+        "Floor_01",
+        "Floor_02",
+        "Floor_03",
+        "Floor_04",
+        "Floor_05"
+      ],
+      "fps_local": 0.3,
+      "fps_live": 0.3,
+      "fps_note": "SwiftShader inconclusive (both 0.3)",
+      "source": "tests/floors/hero4_run4_desk.log"
+    },
+    "phone_Galaxy_S9+": {
+      "ok": true,
+      "console_errors": 0,
+      "external_requests": 0,
+      "click_fail": [],
+      "floors": [
+        "Floor_00",
+        "Floor_01",
+        "Floor_02",
+        "Floor_03",
+        "Floor_04",
+        "Floor_05"
+      ],
+      "fps_local": 25.3,
+      "fps_live": 28.3,
+      "fps_ok": true,
+      "source": "tests/floors/hero4_run5_phone.log"
+    }
+  },
+  "shots": {
+    "hero4_street": "shots/r13/hero4_street.png",
+    "live_street": "shots/r13/live_street.png"
+  }
+}

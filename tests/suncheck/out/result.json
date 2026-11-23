@@ -1,0 +1,445 @@
+{
+  "trick": 22,
+  "name": "sun-time shadow-alignment gate",
+  "verdict": "INSUFFICIENT_REFS",
+  "reason": "Only 1 ref(s) have a camera_match solve; the pass rule needs the IoU peak within \u00b11 h and edge-angle \u226410\u00b0 on at least 2 refs. This is a camera-match coverage limit, not a failure of the sun / EXIF method.",
+  "gate_pass": false,
+  "n_scored": 1,
+  "n_pass": 1,
+  "n_required": 2,
+  "shadow_percentile": 35.0,
+  "street_y0": 0.55,
+  "sweep_hours": [
+    -3,
+    -2,
+    -1,
+    0,
+    1,
+    2,
+    3
+  ],
+  "spp": 32,
+  "render_seconds": null,
+  "official_untouched": true,
+  "official": {
+    "out/barclay_scene.blend": {
+      "exists": true,
+      "mtime": 1795364785.9203124,
+      "size": 51030255,
+      "sha256": "bdf98bd8a317c625d36d1d7438df3d2ba42f39f0c07509ad1c2a5860c40e26b4"
+    },
+    "out/barclay_hero.glb": {
+      "exists": true,
+      "mtime": 1795364785.6323113,
+      "size": 3847036,
+      "sha256": "6069785b0d1b54d769f8f770451ff3108f9f9c716bf8e407e440e8715cc5edd9"
+    },
+    "web/hero3.glb": {
+      "exists": true,
+      "mtime": 1795364799.1363661,
+      "size": 1927996,
+      "sha256": "73bd2efabb99970cb817c1b0826734ae29a71c1a34901cac43dcc3203d9d5023"
+    },
+    "out/barclay_hero_floors.glb": {
+      "exists": true,
+      "mtime": 1795364785.6523113,
+      "size": 3819052,
+      "sha256": "22c46e5491edb760a15f1f553d08146c062963c13672f832b6471ada51e020ef"
+    },
+    "out/barclay_hero3_floors.glb": {
+      "exists": true,
+      "mtime": 1795364785.6403112,
+      "size": 3114300,
+      "sha256": "ad3e8e81e1b932e3122d46e5eeaf50d0e00e76a0f890c8fcaf4e1992f8951edc"
+    }
+  },
+  "refs": [
+    {
+      "id": "real_geograph",
+      "path": "refs/critic1/real_geograph.jpg",
+      "solvable": true,
+      "camera": "Cam_Match_geograph",
+      "camera_source": "tests/scene_matched_geograph.blend",
+      "exif": {
+        "datetime_original_raw": "'2025:07:03 12:34:22'",
+        "datetime_original": "2025:07:03 12:34:22",
+        "offset_tag": null,
+        "make": "Canon",
+        "model": "Canon PowerShot SX700 HS",
+        "size": [
+          1024,
+          768
+        ]
+      },
+      "capture": {
+        "datetime": "2025-07-03 12:34:22",
+        "year": 2025,
+        "month": 7,
+        "day": 3,
+        "hour": 12.572777777777777,
+        "is_bst": true,
+        "actual_uk_bst": true,
+        "assumed_offset": "BST UTC+1",
+        "sun_el": 58.708,
+        "sun_az": 162.785,
+        "spec_listed": "2025-07-03 12:34"
+      },
+      "flags": [
+        "No EXIF OffsetTimeOriginal; assumed UK local BST UTC+1 via tod_panel.is_bst (approx. BST if date >= 29 Mar and < 25 Oct)."
+      ],
+      "sweep": [
+        {
+          "offset_h": -3,
+          "hour": 9.572777777777777,
+          "sun_el": 39.184,
+          "sun_az": 104.585,
+          "render": "tests/suncheck/out/render_real_geograph_off-3.png",
+          "mask": "street_y0=0.55",
+          "iou": 0.29295,
+          "photo_thr": 86.9066,
+          "render_thr": 81.5536,
+          "photo_shadow_frac": 0.34995,
+          "render_shadow_frac": 0.34999,
+          "photo_edge_angle_deg": 179.15023,
+          "render_edge_angle_deg": 0.90269,
+          "edge_angle_diff_deg": 1.75247,
+          "analysis_frac": 0.45,
+          "full_frame": {
+            "iou": 0.30599,
+            "photo_thr": 93.9398,
+            "render_thr": 65.7634,
+            "photo_shadow_frac": 0.34999,
+            "render_shadow_frac": 0.35,
+            "photo_edge_angle_deg": 171.59018,
+            "render_edge_angle_deg": 115.52706,
+            "edge_angle_diff_deg": 56.06312,
+            "analysis_frac": 0.82798
+          }
+        },
+        {
+          "offset_h": -2,
+          "hour": 10.572777777777777,
+          "sun_el": 47.436,
+          "sun_az": 119.847,
+          "render": "tests/suncheck/out/render_real_geograph_off-2.png",
+          "mask": "street_y0=0.55",
+          "iou": 0.32092,
+          "photo_thr": 86.9066,
+          "render_thr": 89.8596,
+          "photo_shadow_frac": 0.34995,
+          "render_shadow_frac": 0.34964,
+          "photo_edge_angle_deg": 179.15023,
+          "render_edge_angle_deg": 0.11915,
+          "edge_angle_diff_deg": 0.96893,
+          "analysis_frac": 0.45,
+          "full_frame": {
+            "iou": 0.29917,
+            "photo_thr": 94.02608,
+            "render_thr": 81.2086,
+            "photo_shadow_frac": 0.35,
+            "render_shadow_frac": 0.35,
+            "photo_edge_angle_deg": 171.54876,
+            "render_edge_angle_deg": 112.08867,
+            "edge_angle_diff_deg": 59.46009,
+            "analysis_frac": 0.83075
+          }
+        },
+        {
+          "offset_h": -1,
+          "hour": 11.572777777777777,
+          "sun_el": 54.34,
+          "sun_az": 138.896,
+          "render": "tests/suncheck/out/render_real_geograph_off-1.png",
+          "mask": "street_y0=0.55",
+          "iou": 0.33934,
+          "photo_thr": 86.9066,
+          "render_thr": 94.0682,
+          "photo_shadow_frac": 0.34995,
+          "render_shadow_frac": 0.35,
+          "photo_edge_angle_deg": 179.15023,
+          "render_edge_angle_deg": 179.63427,
+          "edge_angle_diff_deg": 0.48404,
+          "analysis_frac": 0.45,
+          "full_frame": {
+            "iou": 0.31624,
+            "photo_thr": 94.05501,
+            "render_thr": 80.15357,
+            "photo_shadow_frac": 0.34998,
+            "render_shadow_frac": 0.35,
+            "photo_edge_angle_deg": 171.51162,
+            "render_edge_angle_deg": 108.28616,
+            "edge_angle_diff_deg": 63.22546,
+            "analysis_frac": 0.83121
+          }
+        },
+        {
+          "offset_h": 0,
+          "hour": 12.572777777777777,
+          "sun_el": 58.708,
+          "sun_az": 162.785,
+          "render": "tests/suncheck/out/render_real_geograph_off+0.png",
+          "mask": "street_y0=0.55",
+          "iou": 0.34365,
+          "photo_thr": 86.9066,
+          "render_thr": 96.8596,
+          "photo_shadow_frac": 0.34995,
+          "render_shadow_frac": 0.34831,
+          "photo_edge_angle_deg": 179.15023,
+          "render_edge_angle_deg": 179.89442,
+          "edge_angle_diff_deg": 0.74419,
+          "analysis_frac": 0.45,
+          "full_frame": {
+            "iou": 0.32043,
+            "photo_thr": 94.05779,
+            "render_thr": 81.1708,
+            "photo_shadow_frac": 0.35,
+            "render_shadow_frac": 0.34997,
+            "photo_edge_angle_deg": 171.50501,
+            "render_edge_angle_deg": 110.52874,
+            "edge_angle_diff_deg": 60.97627,
+            "analysis_frac": 0.83133
+          }
+        },
+        {
+          "offset_h": 1,
+          "hour": 13.572777777777777,
+          "sun_el": 59.292,
+          "sun_az": 189.731,
+          "render": "tests/suncheck/out/render_real_geograph_off+1.png",
+          "mask": "street_y0=0.55",
+          "iou": 0.33648,
+          "photo_thr": 86.9066,
+          "render_thr": 97.7874,
+          "photo_shadow_frac": 0.34995,
+          "render_shadow_frac": 0.34757,
+          "photo_edge_angle_deg": 179.15023,
+          "render_edge_angle_deg": 178.7573,
+          "edge_angle_diff_deg": 0.39293,
+          "analysis_frac": 0.45,
+          "full_frame": {
+            "iou": 0.32442,
+            "photo_thr": 94.0583,
+            "render_thr": 86.6768,
+            "photo_shadow_frac": 0.35,
+            "render_shadow_frac": 0.34999,
+            "photo_edge_angle_deg": 171.49907,
+            "render_edge_angle_deg": 116.95091,
+            "edge_angle_diff_deg": 54.54816,
+            "analysis_frac": 0.83147
+          }
+        },
+        {
+          "offset_h": 2,
+          "hour": 14.572777777777777,
+          "sun_el": 55.882,
+          "sun_az": 214.845,
+          "render": "tests/suncheck/out/render_real_geograph_off+2.png",
+          "mask": "street_y0=0.55",
+          "iou": 0.3139,
+          "photo_thr": 86.9066,
+          "render_thr": 95.9318,
+          "photo_shadow_frac": 0.34995,
+          "render_shadow_frac": 0.34986,
+          "photo_edge_angle_deg": 179.15023,
+          "render_edge_angle_deg": 175.85451,
+          "edge_angle_diff_deg": 3.29572,
+          "analysis_frac": 0.45,
+          "full_frame": {
+            "iou": 0.32178,
+            "photo_thr": 94.0562,
+            "render_thr": 86.4424,
+            "photo_shadow_frac": 0.35,
+            "render_shadow_frac": 0.35,
+            "photo_edge_angle_deg": 171.48097,
+            "render_edge_angle_deg": 115.75695,
+            "edge_angle_diff_deg": 55.72402,
+            "analysis_frac": 0.83148
+          }
+        },
+        {
+          "offset_h": 3,
+          "hour": 15.572777777777777,
+          "sun_el": 49.553,
+          "sun_az": 235.215,
+          "render": "tests/suncheck/out/render_real_geograph_off+3.png",
+          "mask": "street_y0=0.55",
+          "iou": 0.29362,
+          "photo_thr": 86.9066,
+          "render_thr": 93.0,
+          "photo_shadow_frac": 0.34995,
+          "render_shadow_frac": 0.34779,
+          "photo_edge_angle_deg": 179.15023,
+          "render_edge_angle_deg": 177.30818,
+          "edge_angle_diff_deg": 1.84205,
+          "analysis_frac": 0.45,
+          "full_frame": {
+            "iou": 0.30401,
+            "photo_thr": 94.10705,
+            "render_thr": 84.3112,
+            "photo_shadow_frac": 0.35,
+            "render_shadow_frac": 0.34996,
+            "photo_edge_angle_deg": 171.5525,
+            "render_edge_angle_deg": 105.39657,
+            "edge_angle_diff_deg": 66.15593,
+            "analysis_frac": 0.82871
+          }
+        }
+      ],
+      "peak_offset_h": 0,
+      "peak_iou": 0.34365,
+      "exif_iou": 0.34365,
+      "exif_edge_angle_diff_deg": 0.74419,
+      "peak_within_pm1h": true,
+      "angle_ok": true,
+      "ref_pass": true,
+      "status": "PASS"
+    },
+    {
+      "id": "whitworth_5809790",
+      "path": "refs/surroundings/Whitworth_Street_West_-_geograph.org.uk_-_5809790.jpg",
+      "solvable": false,
+      "camera": null,
+      "camera_source": null,
+      "exif": {
+        "datetime_original_raw": "'2018:01:06 13:38:17\\x00'",
+        "datetime_original": "2018:01:06 13:38:17",
+        "offset_tag": null,
+        "make": "Panasonic",
+        "model": "DMC-FZ72",
+        "size": [
+          1280,
+          960
+        ]
+      },
+      "capture": {
+        "datetime": "2018-01-06 13:38:17",
+        "year": 2018,
+        "month": 1,
+        "day": 6,
+        "hour": 13.638055555555555,
+        "is_bst": false,
+        "actual_uk_bst": false,
+        "assumed_offset": "GMT UTC+0",
+        "sun_el": 11.792,
+        "sun_az": 199.801,
+        "spec_listed": "2018-06-16 15:15"
+      },
+      "flags": [
+        "EXIF DateTimeOriginal 2018-01-06 13:38 (plus seconds) != analyst/spec listed time 2018-06-16 15:15. Using EXIF. Camera clock, not a Geograph page date.",
+        "No EXIF OffsetTimeOriginal; assumed UK local GMT UTC+0 via tod_panel.is_bst (approx. BST if date >= 29 Mar and < 25 Oct)."
+      ],
+      "status": "skipped",
+      "skip_reason": "No camera_match solve. Photo looks east along Whitworth Street West at the viaduct shops; the Barclay House facade is not the subject, and there is no points JSON for this plate."
+    },
+    {
+      "id": "canal_5477629",
+      "path": "refs/surroundings/Rochdale_Canal_-_geograph.org.uk_-_5477629.jpg",
+      "solvable": false,
+      "camera": null,
+      "camera_source": null,
+      "exif": {
+        "datetime_original_raw": "'2017:03:09 13:32:11\\x00'",
+        "datetime_original": "2017:03:09 13:32:11",
+        "offset_tag": null,
+        "make": "Panasonic",
+        "model": "DMC-FZ72",
+        "size": [
+          1280,
+          1001
+        ]
+      },
+      "capture": {
+        "datetime": "2017-03-09 13:32:11",
+        "year": 2017,
+        "month": 3,
+        "day": 9,
+        "hour": 13.536388888888888,
+        "is_bst": false,
+        "actual_uk_bst": false,
+        "assumed_offset": "GMT UTC+0",
+        "sun_el": 29.82,
+        "sun_az": 200.791,
+        "spec_listed": "2017-07-27 18:20"
+      },
+      "flags": [
+        "EXIF DateTimeOriginal 2017-03-09 13:32 (plus seconds) != analyst/spec listed time 2017-07-27 18:20. Using EXIF. Camera clock, not a Geograph page date.",
+        "No EXIF OffsetTimeOriginal; assumed UK local GMT UTC+0 via tod_panel.is_bst (approx. BST if date >= 29 Mar and < 25 Oct)."
+      ],
+      "status": "skipped",
+      "skip_reason": "No camera_match solve. Canal / towpath view; the hero facade is not in frame, and there is no points JSON for this plate."
+    },
+    {
+      "id": "lane_2295568",
+      "path": "refs/surroundings/Lane_to_West_Whitworth_Street_-_geograph.org.uk_-_2295568.jpg",
+      "solvable": false,
+      "camera": null,
+      "camera_source": null,
+      "exif": {
+        "datetime_original_raw": "'2011:02:28 16:55:07'",
+        "datetime_original": "2011:02:28 16:55:07",
+        "offset_tag": null,
+        "make": "FUJIFILM",
+        "model": "FinePix S5600  ",
+        "size": [
+          480,
+          640
+        ]
+      },
+      "capture": {
+        "datetime": "2011-02-28 16:55:07",
+        "year": 2011,
+        "month": 2,
+        "day": 28,
+        "hour": 16.91861111111111,
+        "is_bst": false,
+        "actual_uk_bst": false,
+        "assumed_offset": "GMT UTC+0",
+        "sun_el": 5.953,
+        "sun_az": 247.594,
+        "spec_listed": "2011-03-28 16:55"
+      },
+      "flags": [
+        "EXIF DateTimeOriginal 2011-02-28 16:55 (plus seconds) != analyst/spec listed time 2011-03-28 16:55. Using EXIF. Camera clock, not a Geograph page date.",
+        "No EXIF OffsetTimeOriginal; assumed UK local GMT UTC+0 via tod_panel.is_bst (approx. BST if date >= 29 Mar and < 25 Oct)."
+      ],
+      "status": "skipped",
+      "skip_reason": "No camera_match solve. Nearby lane with concrete columns that are not hero-facade geometry; no points JSON."
+    },
+    {
+      "id": "hotspur_8088127",
+      "path": "refs/surroundings/Hotspur_Press_remains_-_geograph.org.uk_-_8088127.jpg",
+      "solvable": false,
+      "camera": null,
+      "camera_source": null,
+      "exif": {
+        "datetime_original_raw": "'2025:07:03 12:33:07'",
+        "datetime_original": "2025:07:03 12:33:07",
+        "offset_tag": null,
+        "make": "Canon",
+        "model": "Canon PowerShot SX700 HS",
+        "size": [
+          1920,
+          1440
+        ]
+      },
+      "capture": {
+        "datetime": "2025-07-03 12:33:07",
+        "year": 2025,
+        "month": 7,
+        "day": 3,
+        "hour": 12.551944444444445,
+        "is_bst": true,
+        "actual_uk_bst": true,
+        "assumed_offset": "BST UTC+1",
+        "sun_el": 58.652,
+        "sun_az": 162.243,
+        "spec_listed": "2025-07-03 12:33"
+      },
+      "flags": [
+        "No EXIF OffsetTimeOriginal; assumed UK local BST UTC+1 via tod_panel.is_bst (approx. BST if date >= 29 Mar and < 25 Oct)."
+      ],
+      "status": "skipped",
+      "skip_reason": "No camera_match solve. Under-viaduct view of the Hotspur Press ruins; no points JSON. The sharp viaduct-arch shadow on the road would be a good second ref if a locked camera is solved later."
+    }
+  ]
+}

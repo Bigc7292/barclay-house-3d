@@ -1,0 +1,67 @@
+{
+  "cam": "viaduct",
+  "locked_camera": "Cam_Viaduct",
+  "render": "out/render_viaduct_4096x2304.png",
+  "ref": "refs/surroundings/Oxford_Road_station_-_viaduct_to_Deansgate_-_geograph.org.uk_-_5724012.jpg",
+  "ref_source": "https://www.geograph.org.uk/photo/5724012 (Oxford Road station viaduct to Deansgate)",
+  "notes": "Parapet colour is the R4 open defect: sunlit tops/inner faces still salmon/orange; real = Manchester engineering brick dark red-brown (Heritage Statement).",
+  "elements": [
+    {
+      "element": "parapet_colour",
+      "rule": "max_salmon",
+      "render_crop": [
+        0.55,
+        0.58,
+        0.95,
+        0.78
+      ],
+      "ref_crop": [
+        0.1,
+        0.35,
+        0.9,
+        0.65
+      ],
+      "critic_note": "R4 OPEN: viaduct parapet sunlit faces still salmon/orange; need dark red-brown brick",
+      "source": "Heritage Statement 'Red brick\u2026 sandstone dressings' + geograph 5724012",
+      "status": "open"
+    },
+    {
+      "element": "viaduct_brick_body",
+      "rule": "max_salmon",
+      "render_crop": [
+        0.0,
+        0.55,
+        0.35,
+        0.75
+      ],
+      "ref_crop": [
+        0.05,
+        0.4,
+        0.5,
+        0.7
+      ],
+      "critic_note": "Side/structure brick must stay deep red, not washed",
+      "source": "geograph 5724012",
+      "status": "open"
+    },
+    {
+      "element": "neighbour_roofs_dark",
+      "rule": "dark_ratio",
+      "render_crop": [
+        0.6,
+        0.25,
+        0.92,
+        0.42
+      ],
+      "ref_crop": [
+        0.55,
+        0.15,
+        0.95,
+        0.4
+      ],
+      "critic_note": "R3/R4: neighbour roofs must read dark (membrane/slate), not pale under double sun",
+      "source": "geograph 5724012 skyline",
+      "status": "open"
+    }
+  ]
+}

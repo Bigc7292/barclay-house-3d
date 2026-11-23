@@ -1,0 +1,14 @@
+import { chromium, devices } from 'playwright';
+const [,,url,tag,kind]=process.argv;
+const b=await chromium.launch({args:['--use-gl=angle','--use-angle=swiftshader','--enable-unsafe-swiftshader','--ignore-gpu-blocklist']});
+const ctx=await b.newContext(kind==='phone'?{...devices['Pixel 7']}:{viewport:{width:1280,height:720}});
+const p=await ctx.newPage();p.setDefaultTimeout(300000);const errs=[];p.on('pageerror',e=>errs.push(e.message));p.on('console',m=>{if(m.type()==='error')errs.push(m.text())});
+await p.goto(url);await p.waitForFunction(()=>window.__ready&&window.__ready(),null,{polling:300});await p.waitForTimeout(1500);
+const snap=async n=>{await p.waitForTimeout(2500);await p.screenshot({path:`shots/${tag}_${kind}_${n}.png`})};
+await snap('street');
+await p.evaluate(()=>cam('aerial'));await snap('aerial');
+await p.evaluate(()=>{document.getElementById('tod').value='night';tod('night');cam('street')});await snap('night');
+await p.evaluate(()=>{document.getElementById('tod').value='midday';tod('midday');goRoom('i_living')});await p.waitForFunction(()=>window.__fp()&&!window.__flying(),null,{timeout:60000});await snap('living');
+await p.evaluate(()=>goRoom('i_bed1'));await p.waitForFunction(()=>window.__fp()&&!window.__flying(),null,{timeout:60000});await snap('bed1');
+await p.evaluate(()=>backExt());await p.waitForFunction(()=>!window.__flying(),null,{timeout:60000});await snap('back');
+console.log(tag,kind,'errs',errs);await b.close();

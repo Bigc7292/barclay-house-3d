@@ -4,13 +4,14 @@ Run on a COPY:  cp out/barclay_scene.blend tests/surr/scene_copy.blend
 Never saves over out/barclay_scene.blend. Data: scene_data.json + surroundings_data.json (OSM Overpass ODbL, EA LIDAR OGL).
 Tags: anything not from OSM/LIDAR/scene_data is STAND-IN (see surroundings_specs.md)."""
 import bpy, json, math, os, sys, random
-HERE = "/workspace/barclay"; A = sys.argv[sys.argv.index("--")+1:] if "--" in sys.argv else []
+HERE = os.environ.get("BHERE") or "/workspace/barclay"; A = sys.argv[sys.argv.index("--")+1:] if "--" in sys.argv else []
 arg = lambda k, d=None: A[A.index(k)+1] if k in A else d
 LAYERS = set((arg("--layers", "all")).split(",")); ON = lambda l: "all" in LAYERS or l in LAYERS
 G = {"__name__": "bs_helpers", "__file__": HERE+"/build_scene.py"}
 exec(open(HERE+"/build_scene.py").read().rsplit("\nmain()", 1)[0], G)   # reuse helpers (ground, pbr, mk, box, prism, glow, ...)
 ground, pbr, glow, weather, nwin = G["ground"], G["pbr"], G["glow"], G["weather"], G["neighbour_windows"]
 SD = json.load(open(HERE+"/scene_data.json")); SU = json.load(open(HERE+"/surroundings_data.json"))
+R8B = os.environ.get("BSURR_R8B") == "1"
 HERO_ID = "100646649"; R_HI, R_MID = 120.0, 250.0; random.seed(7)
 def coll(n):
     c = bpy.data.collections.get(n) or bpy.data.collections.new(n)
@@ -18,7 +19,7 @@ def coll(n):
     return c
 CS = coll("Surroundings_Detail")
 for im in bpy.data.images:   # copies live outside out/: re-anchor '//' paths to the master's folder
-    if im.filepath.startswith("//"): im.filepath = os.path.normpath(os.path.join(HERE, "out", im.filepath[2:]))
+    if im.filepath.startswith("//"): im.filepath = os.path.normpath(os.path.join(os.environ.get("BSURR_BASE") or os.path.join(HERE, "out"), im.filepath[2:]))
 # ---------- materials (Poly Haven CC0 textures in textures/; colours stand-in unless spec says confirmed) ----------
 def M_():
     return {"brick": nwin(weather(pbr("S_red_brick", "s_red_brick_03", (0.50,0.24,0.17), 0.85, scale=2.0), 0.25, 0.2, 1.0)),
@@ -216,6 +217,14 @@ def street(M):
         d, hit = near_road((x, y), 20); r, a, c = hit if hit else (None, (0,0), (1,0))
         L = math.dist(a, c) or 1; u = ((c[0]-a[0])/L, (c[1]-a[1])/L); nn = (-u[1], u[0])
         if hit and ((x-a[0])*nn[0]+(y-a[1])*nn[1]) > 0: nn = (-nn[0], -nn[1])   # arm points to road
+        if R8B:   # r8b: modern column as in Geograph 8144686 (slim column, long upswept arm, flat LED lantern). 8 m / 1.6 m arm: STAND-INS
+            lp.cyl(x, y, g, g+0.9, 0.11, 0.09, M["galv"], 12); lp.cyl(x, y, g+0.9, g+7.6, 0.075, 0.05, M["galv"], 12)
+            for j in range(4):   # upswept arm in 4 segments
+                t0, t1 = j/4, (j+1)/4; ax0, az0 = 1.6*t0, 7.6+0.35*math.sin(t0*math.pi/2); ax1, az1 = 1.6*t1, 7.6+0.35*math.sin(t1*math.pi/2)
+                lp.box((x+nn[0]*(ax0+ax1)/2, y+nn[1]*(ax0+ax1)/2), nn, 0.42, 0.06, 0.06, M["galv"], g+(az0+az1)/2-0.03)
+            hx, hy = x+nn[0]*1.75, y+nn[1]*1.75
+            lp.box((hx, hy), nn, 0.75, 0.26, 0.09, M["galv"], g+7.88); lp.box((hx, hy), nn, 0.65, 0.2, 0.02, M["lamp"], g+7.86)
+            continue
         lp.cyl(x, y, g, g+0.6, 0.12, 0.1, M["metal"]); lp.cyl(x, y, g+0.6, g+6.0, 0.08, 0.055, M["metal"])
         hx, hy = x+nn[0]*0.9, y+nn[1]*0.9; lp.box(((x+hx)/2, (y+hy)/2), nn, 0.9, 0.06, 0.06, M["metal"], g+5.95)
         lp.box((hx, hy), nn, 0.6, 0.28, 0.12, M["metal"], g+5.85); lp.box((hx, hy), nn, 0.5, 0.22, 0.03, M["lamp"], g+5.82)
@@ -329,13 +338,96 @@ def canal(M):
                 t = 0.0
                 while t < L: rl.box((A_[0]+u[0]*t, A_[1]+u[1]*t), u, 0.05, 0.05, 1.1, M["metal"], g); t += 2.0; n += 1
     rl.build(CS); return n
+# ---------- r8 (BSURR_R8=1): viaduct face detail within 120 m. Heritage Statement: "Red brick with some small sections of blue brick".
+# Ring depth 0.45 m, pilaster 0.9 m, plinth 0.6 m and their projections are STAND-INS (no dimensioned elevation of the viaduct found).
+def viaduct_r8(M):
+    import bmesh
+    blue = weather(pbr("S_viaduct_blue_brick", "s_red_brick_03", (0.09,0.09,0.12), 0.85, scale=2.0), 0.3, 0.3, 1.5)
+    vias = [r for r in SD["rails"] if r["k"] == "rail" and r.get("bridge") == "viaduct"]
+    mb = MB("SURR_viaduct_r8_rings_piers"); n_ring = 0
+    for rl in vias:
+        zz = sorted(z for z in rl["z"] if z is not None and 5 < z < 16); top = zz[len(zz)//2] if zz else 8.55
+        others = [o["pts"] for o in vias if o is not rl]
+        for i in range(len(rl["pts"])-1):
+            a, b = rl["pts"][i], rl["pts"][i+1]; L = math.dist(a, b)
+            if L < 0.5: continue
+            mid = ((a[0]+b[0])/2, (a[1]+b[1])/2)
+            if math.hypot(*mid) > R_HI: continue
+            u = ((b[0]-a[0])/L, (b[1]-a[1])/L); nl = (-u[1], u[0]); g = min(ground(*a), ground(*b))
+            for side in (-1, 1):
+                nn = (nl[0]*side, nl[1]*side); fa = (a[0]+nn[0]*VW/2, a[1]+nn[1]*VW/2)
+                probe = (mid[0]+nn[0]*(VW/2+1.0), mid[1]+nn[1]*(VW/2+1.0))
+                if any(dline(probe, q) < VW/2 for q in others): continue   # inner face: hidden
+                p = lambda t, z, off: (fa[0]+u[0]*t+nn[0]*off, fa[1]+u[1]*t+nn[1]*off, z)
+                mb.box((fa[0]+u[0]*L/2+nn[0]*0.05, fa[1]+u[1]*L/2+nn[1]*0.05), u, L, 0.1, 0.6, blue, g-0.1)   # blue-brick plinth
+                n = max(1, round(L/SPAN)); sp = L/n
+                for k in range(n):
+                    x0 = k*sp; w = max(1.0, sp-PW); r = w/2; spring = max(g+0.5, top-1.4-r); cx = x0+sp/2
+                    for j in range(12):   # arch ring (voussoir band) in blue brick, 0.06 m proud
+                        a0, a1 = math.pi*j/12, math.pi*(j+1)/12; R0, R1 = r, r+0.45
+                        q = [p(cx+R*math.cos(t), spring+R*math.sin(t), o) for o in (0.0, 0.06) for R in (R0, R1) for t in (a0, a1)]
+                        for f_ in ((0,2,3,1),(4,5,7,6),(0,1,5,4),(2,6,7,3),(0,4,6,2),(1,3,7,5)): mb.poly([q[x] for x in f_], blue)
+                    n_ring += 1
+                    if k > 0:   # pier pilaster between arches, red brick, 0.12 m proud, up to the string course
+                        c = p(x0, 0, 0.06); mb.box((c[0], c[1]), u, 0.9, 0.12, top-0.6-g, M["via"], g)
+    o = mb.build(CS)
+    if o:
+        bm = bmesh.new(); bm.from_mesh(o.data); bmesh.ops.recalc_face_normals(bm, faces=bm.faces); bm.to_mesh(o.data); bm.free()
+    return n_ring
+# ---------- r8b (BSURR_R8B=1): shopfronts where OSM puts a shop/cafe/bar POI on a neighbour frontage, street-tree pits + guards.
+# Shopfront design (stall riser 0.5 m, mullions ~1.5 m, recessed door 1.0 m, fascia 0.7 m) and tree pit 1.2 m / guard 1.6 m are STAND-INS.
+def shopfronts_r8b(M):
+    shops = [p for p in SU["pois"] if "shop" in p["tags"] or p["tags"].get("amenity") in ("cafe","restaurant","fast_food","bar","pub","nightclub")]
+    polys = {b["id"]: [tuple(p) for p in b["pts"][:-1]] for b in SD["buildings"]}
+    mb = MB("SURR_r8b_shopfronts"); n = 0
+    for b in SD["buildings"]:
+        if b["id"] == HERO_ID or "h" not in b: continue
+        P = polys[b["id"]]; cx = sum(p[0] for p in P)/len(P); cy = sum(p[1] for p in P)/len(P)
+        if math.hypot(cx, cy) > R_HI: continue
+        if sum(P[i][0]*P[(i+1)%len(P)][1]-P[(i+1)%len(P)][0]*P[i][1] for i in range(len(P))) < 0: P = P[::-1]
+        z0 = b.get("base", ground(cx, cy)); H = max(b["h"], 2.5); gf = min(4.2, H*0.4)
+        if gf < 3.0: continue
+        for i in range(len(P)):
+            a, c = P[i], P[(i+1)%len(P)]; L = math.dist(a, c)
+            if L < 4: continue
+            u = ((c[0]-a[0])/L, (c[1]-a[1])/L); nn = (u[1], -u[0])
+            mid = (a[0]+u[0]*L/2+nn[0]*1.5, a[1]+u[1]*L/2+nn[1]*1.5)
+            if near_road(mid, 14)[1] is None: continue
+            hits = [p for p in shops if dseg(p["xy"], a, c) < 12]
+            if not hits: continue   # only frontages with OSM evidence of a shop/venue
+            at = lambda t, off: (a[0]+u[0]*t+nn[0]*off, a[1]+u[1]*t+nn[1]*off)
+            mb.box(at(L/2, 0.08), u, L-0.2, 0.16, 0.5, M["fascia"], z0)                         # stall riser
+            mb.wallrect(a, u, nn, 0.3, L-0.3, z0+0.5, z0+gf-0.95, 0.045, M["shop"])               # glazing
+            k = max(1, int((L-0.6)//1.5))
+            for j in range(k+1): mb.box(at(0.3+(L-0.6)*j/k, 0.09), u, 0.07, 0.1, gf-1.45, M["metal"], z0+0.5)   # mullions
+            mb.box(at(L/2, 0.09), u, L-0.6, 0.1, 0.07, M["metal"], z0+gf-1.35)                    # transom
+            dx = min(L-1.2, max(1.2, L*0.5)); mb.wallrect(a, u, nn, dx-0.5, dx+0.5, z0+0.02, z0+2.3, 0.05, M["door"])
+            mb.box(at(L/2, 0.18), u, L, 0.36, 0.7, M["fascia"], z0+gf-0.9)                          # fascia
+            mb.wallrect(a, u, nn, 0.5, L-0.5, z0+gf-0.8, z0+gf-0.3, 0.37, M["sign"])
+            for t in (0.1, L-0.1): mb.box(at(t, 0.12), u, 0.3, 0.24, gf-0.2, M["stone"], z0)      # end pilasters
+            n += 1
+    mb.build(CS); return n
+def tree_pits_r8b(M):
+    mb = MB("SURR_r8b_tree_pits"); n = 0
+    for t in SU["trees_lidar"]:
+        if t["height"] < 4 or t["px"] < 10 or math.hypot(*t["xy"]) > R_HI: continue
+        x, y = t["xy"]; dr, hit = near_road((x, y), 8)
+        if not hit or dr < G["ROAD_W"].get(hit[0]["k"], 6)/2: continue   # only pavement trees next to a road
+        g = ground(x, y); r_, a_, c_ = hit; L = math.dist(a_, c_) or 1; u = ((c_[0]-a_[0])/L, (c_[1]-a_[1])/L)
+        mb.box((x, y), u, 1.2, 1.2, 0.03, M["metal"], g+0.06)                    # cast grille
+        for k in range(8):   # guard: 8 bars + top ring
+            an = 2*math.pi*k/8; mb.cyl(x+0.32*math.cos(an), y+0.32*math.sin(an), g+0.09, g+1.6, 0.015, 0.015, M["metal"], 5)
+        mb.cyl(x, y, g+1.5, g+1.55, 0.34, 0.34, M["metal"], 12); n += 1
+    mb.build(CS); return n
 if __name__ == "__main__":
     M = M_(); rep = {}
     if ON("bldg"): rep["buildings_detailed,removed_old"] = buildings(M)
     if ON("via"): rep["viaduct_arch_infills"] = viaduct(M)
+    if ON("via") and os.environ.get("BSURR_R8") == "1": rep["viaduct_r8_rings"] = viaduct_r8(M)
     if ON("street"): rep["street"] = street(M)
     if ON("trees"): rep["trees_lidar,removed_old"] = trees(M)
     if ON("canal"): rep["canal_railing_posts"] = canal(M)
+    if R8B: rep["r8b_shopfronts"] = shopfronts_r8b(M); rep["r8b_tree_pits"] = tree_pits_r8b(M)
     print("SURR REPORT", json.dumps(rep))
     sv = arg("--save")
     if sv:

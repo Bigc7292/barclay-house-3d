@@ -1,6 +1,6 @@
 # Surroundings-detail export (derived from export_glb.py). blender -b -y tests/surr/scene_surr.blend -P export_surroundings_detail.py -> out/barclay_surroundings_detail.glb (temp+mv). Hero NOT exported.
 import bpy, bmesh, os, json, math, mathutils
-HERE = "/workspace/barclay"; TX = HERE + "/textures/export/"; OUT = HERE + "/out/"
+HERE = os.environ.get("BHERE") or "/workspace/barclay"; TX = HERE + "/textures/export/"; OUT = os.environ.get("BOUT") or HERE + "/out/"   # r8: BHERE/BOUT overrides
 sc = bpy.context.scene
 # 1. remove cutters, apply modifiers on everything (booleans/solidify/displace)
 dg = bpy.context.evaluated_depsgraph_get()

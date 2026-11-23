@@ -1,0 +1,1 @@
+Water2 normal maps for x_tricks #10. Source: three.js r170 examples/textures/water/ (https://github.com/mrdoob/three.js/tree/r170/examples/textures/water), MIT (LICENSE-three.js.txt). Re-encoded JPEG q88 at the same 512 px (PIL), 400 KB -> 60 KB each. Water2.js itself is bundled into web/app.js from web/src/node_modules/three@0.170.0 (same version as the viewer), no CDN.

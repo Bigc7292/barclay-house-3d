@@ -1,0 +1,34 @@
+{
+ "origin_blender_world_offset_m": [
+  0.0,
+  -0.2,
+  0
+ ],
+ "hero_bbox": {
+  "min": [
+   -2.1,
+   -0.2,
+   -1.2
+  ],
+  "max": [
+   2.1,
+   16.55,
+   1.2
+  ]
+ },
+ "surroundings_bbox": {
+  "min": [
+   10.0,
+   0.0,
+   -1.2
+  ],
+  "max": [
+   12.0,
+   8.0,
+   0.8
+  ]
+ },
+ "cameras": {},
+ "hero_objects": 21,
+ "surr_objects": 1
+}

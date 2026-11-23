@@ -1,0 +1,37 @@
+[
+  {
+    "wall": "Wall_ext_13",
+    "pascal": "wall_gpbzyq36pabytay8",
+    "t": 0.5864197530864198,
+    "width_m": 0.8746532402134441,
+    "resp": "{\"ok\":true,\"doorId\":\"door_g8ns6svwdmb7jl8n\",\"wallId\":\"wall_gpbzyq36pabytay8\",\"localX\":4.154602891013861,\"t\":0.5864197530864198,\"wallLength\":7.084691245728898,\"clamped\":false,\"coordinateSystem\":\"wall-local-meters\",\"message\":\"Added door \\\"Door 1\\\" on wall wall_gpbzyq36pabytay8\",\"achieved\":{\"created\":{\"door\":1},\"updated\":0,\"deleted\":{}},\"project\":\"8ef51e1e8eb7\"}"
+  },
+  {
+    "wall": "Wall_bath_east",
+    "pascal": "wall_tdl51mtvxsoor1y7",
+    "t": 0.23030303030303031,
+    "width_m": 0.8746532402134441,
+    "resp": "{\"ok\":true,\"doorId\":\"door_mshia2mrfpwskvdo\",\"wallId\":\"wall_tdl51mtvxsoor1y7\",\"localX\":0.5539470521351814,\"t\":0.23030303030303031,\"wallLength\":2.4052964105869714,\"clamped\":false,\"coordinateSystem\":\"wall-local-meters\",\"message\":\"Added door \\\"Door 2\\\" on wall wall_tdl51mtvxsoor1y7\",\"achieved\":{\"created\":{\"door\":1},\"updated\":0,\"deleted\":{}},\"project\":\"8ef51e1e8eb7\"}"
+  },
+  {
+    "wall": "Wall_storage_east_lower",
+    "pascal": "wall_agm54e72qbgyc5rf",
+    "t": 0.5,
+    "width_m": 0.5489373411149626,
+    "resp": "{\"ok\":true,\"doorId\":\"door_m3x0qsh83frvrdmy\",\"wallId\":\"wall_agm54e72qbgyc5rf\",\"localX\":0.5489373411149628,\"t\":0.5,\"wallLength\":1.0978746822299257,\"clamped\":false,\"coordinateSystem\":\"wall-local-meters\",\"message\":\"Added door \\\"Door 3\\\" on wall wall_agm54e72qbgyc5rf\",\"achieved\":{\"created\":{\"door\":1},\"updated\":0,\"deleted\":{}},\"project\":\"8ef51e1e8eb7\"}"
+  },
+  {
+    "wall": "Wall_bed1_south",
+    "pascal": "wall_0op1mmaex8bn75m2",
+    "t": 0.82,
+    "width_m": 0.8163430241992146,
+    "resp": "{\"ok\":true,\"doorId\":\"door_4bfuwp5p38nfjjsi\",\"wallId\":\"wall_0op1mmaex8bn75m2\",\"localX\":2.3443677279421253,\"t\":0.82,\"wallLength\":2.8589850340757628,\"clamped\":false,\"coordinateSystem\":\"wall-local-meters\",\"message\":\"Added door \\\"Door 4\\\" on wall wall_0op1mmaex8bn75m2\",\"achieved\":{\"created\":{\"door\":1},\"updated\":0,\"deleted\":{}},\"project\":\"8ef51e1e8eb7\"}"
+  },
+  {
+    "wall": "Wall_bed2_south",
+    "pascal": "wall_z9qh8jqnm2h2g5qp",
+    "t": 0.22,
+    "width_m": 0.8163430241992146,
+    "resp": "{\"ok\":true,\"doorId\":\"door_0nr42itzna4u534u\",\"wallId\":\"wall_z9qh8jqnm2h2g5qp\",\"localX\":0.5506068546247075,\"t\":0.22,\"wallLength\":2.5027584301123067,\"clamped\":false,\"coordinateSystem\":\"wall-local-meters\",\"message\":\"Added door \\\"Door 5\\\" on wall wall_z9qh8jqnm2h2g5qp\",\"achieved\":{\"created\":{\"door\":1},\"updated\":0,\"deleted\":{}},\"project\":\"8ef51e1e8eb7\"}"
+  }
+]

@@ -1,0 +1,100 @@
+{
+  "trick": 13,
+  "props": [
+    {
+      "id": "lamp_column",
+      "stand_in": true,
+      "procedural": true
+    },
+    {
+      "id": "bollard",
+      "stand_in": true,
+      "procedural": true
+    },
+    {
+      "id": "post_box",
+      "stand_in": true,
+      "procedural": true
+    },
+    {
+      "id": "waste_basket",
+      "stand_in": true,
+      "procedural": true
+    },
+    {
+      "id": "bench",
+      "stand_in": true,
+      "procedural": true
+    },
+    {
+      "id": "traffic_signal",
+      "stand_in": true,
+      "procedural": true
+    },
+    {
+      "id": "kenney_sedan",
+      "stand_in": true,
+      "procedural": false,
+      "length_err_m": 0.0,
+      "length_ok": true,
+      "origin_z": 0.0,
+      "origin_ok": true,
+      "tris": 2032,
+      "lod1_tris": 508,
+      "lod1_ratio": 0.25,
+      "lod1_ok": true
+    },
+    {
+      "id": "kenney_van",
+      "stand_in": true,
+      "procedural": false,
+      "length_err_m": 0.0,
+      "length_ok": true,
+      "origin_z": 0.0,
+      "origin_ok": true,
+      "tris": 2082,
+      "lod1_tris": 520,
+      "lod1_ratio": 0.24975984630163303,
+      "lod1_ok": true
+    },
+    {
+      "id": "kenney_train_car",
+      "stand_in": true,
+      "procedural": false,
+      "origin_z": 0.0,
+      "origin_ok": true,
+      "tris": 1130,
+      "lod1_tris": 281,
+      "lod1_ratio": 0.24867256637168142,
+      "lod1_ok": true
+    },
+    {
+      "id": "kenney_walker_male",
+      "stand_in": true,
+      "procedural": false,
+      "height_err_m": 0.0,
+      "height_ok": true,
+      "origin_z": 0.0,
+      "origin_ok": true,
+      "tris": 771,
+      "lod1_tris": 192,
+      "lod1_ratio": 0.2490272373540856,
+      "lod1_ok": true
+    },
+    {
+      "id": "kenney_walker_female",
+      "stand_in": true,
+      "procedural": false,
+      "height_err_m": 0.0,
+      "height_ok": true,
+      "origin_z": 0.0,
+      "origin_ok": true,
+      "tris": 790,
+      "lod1_tris": 197,
+      "lod1_ratio": 0.24936708860759493,
+      "lod1_ok": true
+    }
+  ],
+  "lineup": "tests/props/out/props_lineup.png",
+  "pass": true
+}

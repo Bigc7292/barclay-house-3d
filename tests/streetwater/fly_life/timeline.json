@@ -1,0 +1,11 @@
+{
+ "duration": 12.5,
+ "fps": 2,
+ "beats": {
+  "approach_west": 0.0,
+  "front_3q": 3.0,
+  "entrance": 6.0,
+  "rise_east": 9.0,
+  "aerial_viaduct": 12.0
+ }
+}

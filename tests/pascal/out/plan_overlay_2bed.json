@@ -1,0 +1,44 @@
+{
+  "plan": "/workspace/barclay/interior/twobed/apt02_fp.png",
+  "plan_size_px": [
+    268,
+    351
+  ],
+  "layout_provenance": {
+    "source_script": "interior/build_twobed_v4.py",
+    "plan": "interior/twobed/apt02_fp.png",
+    "note": "2bed.json has no wall polylines (cameras + door hinges only). These vertices are copied from build_twobed_v4.py, already in apt02_fp.png pixel space, scaled in 3D so outline area = sourced 63 m\u00b2."
+  },
+  "ink_lum": 80,
+  "open_iters": 0,
+  "plan_ink_px": 8376,
+  "plan_wall_mask_px": 8376,
+  "layout_wall_mask_px": 6820,
+  "iou_identity": 0.1408,
+  "intersection_px": 1875,
+  "union_px": 13321,
+  "iou_buffered_4px": 0.2999,
+  "buffer_px": 4,
+  "layout_on_ink_precision_2px": 0.5733,
+  "iou_best_translation": 0.2773,
+  "best_translation_px": [
+    -5,
+    2
+  ],
+  "sourced_area_m2": 63.0,
+  "sourced_area_url": [
+    "https://barclay-house.com/two-bedroom-apartment/",
+    "https://www.rightmove.co.uk/properties/92163630"
+  ],
+  "outline_px_area": 72707.0,
+  "metres_per_px": 0.02943622826578239,
+  "area_m2": 63.0,
+  "area_residual_pct": 0.0,
+  "area_note": "No independent scale on the layout. metres_per_px = sqrt(63.0/72707.0 px\u00b2) = 0.029436. Area residual is 0% BY CONSTRUCTION because the 3D model was scaled to the sourced 63 m\u00b2. This is not an independent area measurement.",
+  "gate": {
+    "iou_ge_0.85": false,
+    "area_within_3pct": true,
+    "pass": false
+  },
+  "overlay_png": "tests/pascal/out/plan_overlay_2bed.png"
+}

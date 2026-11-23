@@ -372,3 +372,18 @@ Progress R8 (08:05): LOCAL ONLY — chairs fixed+baked (twobed 1.47MB / twobed_m
 Progress R9 (08:21): chairs ang=a-pi/2 (geometric: opening=local -Y, backrest=+Y; verified 4/4). Rebuilding; NO deploy.
 Progress R9 (08:37): chairs fixed ang=a-pi/2; 4/4 geometric PASS; top+34+viewer shots; twobed recompressed; NO deploy.
 Progress R10 (08:44): merged chair twobeds onto perf worktree; stripped debug hooks; deployed dpl_745x9tBVeNR97MqscvVLfiU45SrC; verifying.
+Progress R10 (08:47): STOP further Vercel deploys (already live dpl_745x9tBVeNR97MqscvVLfiU45SrC). Pushed origin/interior-backup @ 25d7461. No main/archive touch.
+Progress (08:50): pushed origin/barclay @ 25d7461bfe3feabef2a8c1313b969dc2af8f901b from main+interior-backup merge; no force; no Vercel; no archive.
+Progress (08:51 Asia/Dubai): origin/barclay created from main, contains full interior-backup tree; push non-force; no Vercel; no LFS; no files >100MB; no path conflicts with other bots.
+
+Progress (08:35 Asia/Dubai) trick #18 + #20 (no Vercel, no exterior blend touch):
+- #18 CERTIFIED (gate). interior/plan_overlay.py vs apt02_fp.png (Rightmove 92163630, no printed dims) and sourced 63 m² (barclay-house.com / 679 sq ft). 2bed.json has no wall polylines; #14 walls from build_twobed_v4.py. #14: IoU identity 0.1408, buffered ±4 px 0.2999, layout-on-ink precision 0.5733; area residual 0% by construction (scale=sqrt(63/px²)). Gate IoU≥0.85 FAIL. 2bed.json provenance now carries these numbers (APPROXIMATE removed).
+- Independent Pascal centreline layout (tests/pascal/layout_pascal.json, not copied from v4): IoU 0.4691, precision 0.9168 (right-wall kink measured at plan y≈108 vs v4's (262,180)).
+- #20 REJECTED (keep #14). Local npx @pascal-app/cli editor 1.1.6, no account, no hosted MCP, PASCAL_HOME=tests/pascal/.pascal. MCP built 24 walls + 5 doors; verify_scene ok; Pascal zones 54.8+4.94+3.24=62.98 m² (−0.03% vs 63). export_glb not_implemented (browser renderer required); view_scene view_unavailable; issue #899 Send to Blender still broken. No Pascal GLB → no desktop/Galaxy S9+ fps/console comparison. OUT=tests/pascal/out ./validate.sh FAIL (exterior hero GLBs correctly absent). web/twobed.glb 1.41 MB / twobed_m 1.27 MB, Khronos 0 errors. Not adopted into web/floorplan3d (would break baked walk mode).
+
+Progress (08:42 Asia/Dubai) trick #21 CERTIFIED and adopted into web/floorplan3d/2bed.html:
+- Copy-test tests/accessible/2bed_overlay.html, then port. Desktop + Galaxy S9+ (headless Chrome swiftshader): 0 console errors, 0 external requests. Reachable 9.9325 m² ≤63, 0% vs Python twin. Hiding Bed1_navy raises Bedroom 1 0.8075→3.6475 m². Recompute 9.3 / 34.3 ms (<50).
+- ADM Vol 1 official PDF (2015/2016 amendments): no wheelchair body width. Erosion uses M4(2) 2.22.b 750 mm passage width. Ø1500 mm turning circle: M4(3) 3.14.d, 3.22.d, 3.43.e. Labelled indicative. APPROXIMATE layout badge because #18 IoU 0.1408.
+- 2bed.json has no floor polyline; layout from build_twobed_v4.py. Per-room Ø1500 mm: hall yes, storage yes; bed1/bed2/bath/kitchen/living no. Bed2 reachable 0 (door tight to corner).
+- Exterior Blender files not touched. Deploy copies live with 2bed.html via deploy.sh (FILES + accessible_area.js / accessible_layout.json).
+

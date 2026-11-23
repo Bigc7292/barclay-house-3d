@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Barclay House exterior</title>
+<style>
+:root{--bg:#f6f4ef;--ink:#1d1b18;--muted:#6b665d;--line:#ddd7cc;--accent:#1d4ed8}
+@media (prefers-color-scheme:dark){:root{--bg:#141311;--ink:#efece6;--muted:#a49e93;--line:#2e2b27;--accent:#7aa2ff}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.5 system-ui,-apple-system,Segoe UI,sans-serif}
+main{max-width:1080px;margin:0 auto;padding:24px 16px 48px}
+h1{font-size:22px;margin:0 0 4px}
+p.sub{color:var(--muted);margin:0 0 20px}
+a{color:var(--accent)}
+video{width:100%;display:block;border-radius:8px;background:#000;aspect-ratio:16/9}
+.note{color:var(--muted);font-size:13px;margin:8px 0 28px}
+h2{font-size:16px;margin:28px 0 10px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:12px}
+figure{margin:0}
+figure img{width:100%;display:block;border-radius:6px;border:1px solid var(--line)}
+figcaption{font-size:13px;color:var(--muted);margin-top:4px}
+.wide img{border-radius:6px}
+</style>
+</head>
+<body>
+<main>
+<h1>Barclay House exterior</h1>
+<p class="sub">Blender renders from the exterior 7-step pass (Whitworth Street West, Manchester). <a href="../">Open the 3D viewer</a></p>
+
+<video src="barclay_exterior_step7.mp4" controls muted loop playsinline preload="metadata" poster="img/corner.jpg"></video>
+<p class="note">6 seconds: camera push-in on the corner, drifting cloud, a car and a van passing, the signal changing, and one lamp left burning and flickering. The car and van are simple blockouts.</p>
+
+<h2>Target, start, and now</h2>
+<figure class="wide"><img src="img/compare_corner.jpg" alt="Target image, the model at the start of the pass, and the model after the critique step" loading="lazy">
+<figcaption>Left: the target image (used for look only; the building's shape follows the real photos). Middle: start of the pass. Right: after Step 6.</figcaption></figure>
+
+<h2>Views</h2>
+<div class="grid">
+<figure><img src="img/corner.jpg" alt="Corner view down Whitworth Street West" loading="lazy"><figcaption>Corner, raised view down the street</figcaption></figure>
+<figure><img src="img/front.jpg" alt="Front elevation from the far kerb" loading="lazy"><figcaption>Front, from the far kerb</figcaption></figure>
+<figure><img src="img/aerial.jpg" alt="Aerial view with the viaduct" loading="lazy"><figcaption>Aerial</figcaption></figure>
+<figure><img src="img/entrance.jpg" alt="Entrance and arches close up" loading="lazy"><figcaption>Entrance and arches: soot, streaks, splash at the base</figcaption></figure>
+<figure><img src="img/lintel.jpg" alt="BARCLAY HOUSE carved on the entrance lintel" loading="lazy"><figcaption>BARCLAY HOUSE carved on the lintel</figcaption></figure>
+<figure><img src="img/pole.jpg" alt="Signal pole with a faded notice and stickers" loading="lazy"><figcaption>Faded, peeled notice and stickers</figcaption></figure>
+</div>
+</main>
+</body>
+</html>

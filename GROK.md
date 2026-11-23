@@ -11,37 +11,63 @@ Read this FIRST on every task. CLAUDE.md and GROK.md are copies/symlinks of this
 ## Tool map (use these, in this order)
 - Facts: dossier Page + listings_findings.md + docs/ (planning drawings). Data: area.osm, scene_data.json, lidar/.
 - Build: build_scene.py, tod_panel.py via Blender 4.2.3 (-y). Blender MCP (port 9876) for live inspection/edits.
-- Check: camera_match.py -> ref_check.py against refs/. Render: Cycles 128 samples + denoise.
-- Export: export_glb.py -> make_mobile.sh (hero + surroundings, full + mobile). Then ./validate.sh (Khronos validator + size budgets + stale-mobile check; must PASS).
+- Check: camera_match.py -> ref_check.py against refs/ -> checks.py (per-element checklist gate, trick #15). Render: Cycles 128 samples + denoise.
+- Export: export_glb.py -> make_mobile.sh (hero + surroundings, full + mobile). Then ./validate.sh (Khronos validator + size budgets + stale-mobile check; must PASS). Mesh health (trick #19): `blender -b out/barclay_scene.blend --python mesh_health.py` (read-only, bmesh only) writes out/mesh_health.{md,json}; `MESHHEALTH=1 ./validate.sh` runs it before the done-criteria line "mesh_health 0 Blockers". Sun-time shadow gate (trick #22): `python3 sun_check.py --render` (read-only blend); `SUNCHECK=1 ./validate.sh` verifies tests/suncheck/out/result.json. Numeric ≥2-ref pass is not yet met (only real_geograph is camera_match-solvable).
 - Interior walk page (trick #14, CERTIFIED): web/floorplan3d/2bed.html + 2bed.json (rooms, fly-to cams, door hinges recomputed from interior/build_twobed_v4.py). three r160 vendored in web/floorplan3d/vendor/three-r160 (no CDN). Test: node tests/floorplan3d/check.cjs (serve repo root on :18490).
+- Parts plan (trick #16): parts_plan.json + parts_plan.py (name/parent only). validate.sh checks required node names in the hero GLB. Floor_* / Door_* hero exports: out/barclay_hero_floors.glb (official pale blend look) and out/barclay_hero3_floors.glb (live web/hero3.glb archive look). Do not overwrite out/barclay_hero.glb, out/barclay_scene.blend or web/hero3.glb.
+- Procedural grime (trick #12): weather2.py behind BWEATHER2=1, stills/flythrough only (Cycles AO, not baked into the GLB). Copy-test: tests/weather2/run.sh.
+- Displacement (trick #8): derive_height.py + displace.py. BDISP=1 enables bump-only height maps on street-cam stills (not in the GLB). BDISP_ADAPTIVE=1 (method BOTH + adaptive subdiv) is unsafe on the booleaned facade slabs and must stay off. Copy-test: tests/disp/run.sh.
+- Prop normaliser (trick #13): props_dims.json + props_normalize.py → assets/life/normalized/; life_paths.py prefers those GLBs at scale 1 (viaduct train keeps the certified #9 keep_life_scale). Copy-test: tests/props/run.sh.
+- Fresh critic (trick #17): critic_prompt.md (inputs, schema, rank-1-only). checks.py remains the numeric gate.
 - Ideas: x_tricks.md and x_workflows.md (from X Bookmark Analyst). Skills: teardown, canvas, box-desktop.
 
 ## The pipeline (same order every time)
 0. READ: AGENTS.md, critic_log.md (last round), x_tricks.md. Note which tricks apply this round.
 1. FACTS: any new dimension/material? Source it (URL) or mark NOT FOUND; keep searching before reporting missing.
 2. BUILD: one change set only, from the latest critic defect list. One thing per pass where possible (locked camera).
-3. CHECK: render preview from locked camera, run ref_check.py vs reference photo. Compare to refs/ side by side.
-4. CRITIC: independent critic (separate executor or Interior bot) scores and lists defects. Log in critic_log.md (round, score, defects, fix, applied tricks, skipped tricks + why).
-5. EXPORT: GLB hero + surroundings, then make_mobile.sh; validate; if twobed.glb or door/room layout changed, regenerate web/floorplan3d/2bed.json and run tests/floorplan3d/check.cjs (0 console errors, 5 doors carved, walk blocked by walls); tell Interior bot to redeploy viewer.
+3. CHECK: render preview from locked camera, run ref_check.py vs reference photo, then python3 checks.py --cam <cam>. Compare to refs/ side by side. Flythroughs: `flythrough.py --life` adds certified street life (#9, life_paths.py; clip_check must report 0).
+4. CRITIC: spawn a fresh critic (separate executor or Interior bot) with no prior-round history. Give it only the locked-cam render, the matching ref crop, and the checks.py report — not critic_log.md. It answers yes/no plus at most 5 ranked problems, each with a numeric fix (e.g. albedo V 0.62→0.48). Taste calls are A/B. The builder applies only the rank-1 fix this pass (trick #1). Log the critic output verbatim in critic_log.md using the format in critic_prompt.md.
+5. EXPORT: GLB hero + surroundings, then make_mobile.sh; validate (OUT=tests/x/out for test exports); run canal_web.py and rebuild web/app.js (cd web/src && ./node_modules/.bin/esbuild app.js --bundle --minify --outfile=../app.js) for the #10 Water2 canal; if twobed.glb or door/room layout changed, regenerate web/floorplan3d/2bed.json and run tests/floorplan3d/check.cjs (0 console errors, 5 doors carved, walk blocked by walls); keep the viewer render-on-demand (perf/viewer-speed): water animates only on rendered frames; tell Interior bot to redeploy viewer.
 6. DELIVER: 4K stills only when critic score meets target (>= online photos). One short message to Colin.
-Loop 2-5 until target met. Every round the critic_log must list which rules/MCPs/skills/tricks were used.
+   Done-criteria (all must hold before messaging Colin):
+   - ./validate.sh PASS (Khronos 0 errors; hero/surroundings/mobile within size budgets; mobile not stale).
+   - Checklist gate PASS: `python3 checks.py --cam street --cam hero` (and `--cam viaduct` when that still is open) writes out/checklist_<cam>.md with no "no" rows and ≤2 "partial"; hybrid ref_check edge F1 is logged on the same report.
+   - Human (or Interior critic) saw at least one multi-angle view this round.
+   - No stray *.001 empty objects in the blend/GLB (name search).
+   - mesh_health 0 Blockers (`MESHHEALTH=1 ./validate.sh` or `blender -b out/barclay_scene.blend --python mesh_health.py`; the script is read-only and must not save the .blend).
+Loop 2-5 until target met. Every round the critic_log must list which rules/MCPs/skills/tricks were used. Prefer citing checklist rows over prose for element defects.
 
 ## Improving this file
 After each round, add any repeated mistake as a rule (one line) under "Lessons". Keep the pipeline short.
 
 ## Lessons
+- Checklist crops must be compared at a shared modest size; upscaling a small ref crop to 4K wipes edges and falsely PASSes.
+- Ashlar rubble reads as high HF-edge excess vs smooth ref ashlar; do not treat raw edge_ratio alone as quality.
 - Cutters must stay until booleans applied; check windows/arches aren't solid in the GLB.
 - Tiled stone textures read as rubble in the GLB; use flat colours.
 - Phones: use out/mobile/ files, not full ones (36 MB surroundings GLB blanks Samsung).
 - Executors can't spawn subagents; the orchestrator runs the critic loop.
 - Don't message a running executor mid-task; it interrupts.
+- Canal water was hidden under the DTM terrain for rounds: check new set dressing is actually visible (sky ray-cast) before tuning its look.
 - Every hero/surroundings re-export must be followed by ./make_mobile.sh then ./validate.sh; R3 left mobile GLBs built from the 06:37 export.
 
 - Quantized/meshopt GLB geometry (int16) must be dequantized to Float32 before applyMatrix4 or splitting, else the mesh collapses (floorplan3d R1 bug).
 
 ## Bookmark-trick intake gate (Colin's rule, 2026-11-03)
 Every item X Bookmark Analyst adds to x_tricks.md is NOT adopted until Barclay House 3D has: (1) read the source + doc, (2) verified it's free and licence-OK, (3) checked where it fits (script/step/bot), (4) tested it on a copy in tests/, (5) certified it (PASS/FAIL with measured result, validate.sh must pass for exports), (6) integrated it into AGENTS.md pipeline or tool map, and (7) told all bots. Record each in /workspace/barclay/tricks_register.md: id, source, status (NEW/TESTING/CERTIFIED/REJECTED), test result, where integrated, date. Never leave a trick as NEW for more than one round.
-- Certified tricks (see tricks_register.md / tricks_for_bots.md): phone files via ./make_mobile_v2.sh (dedup+meshopt; viewer must use LOCAL meshopt_decoder.js); KTX2 off (bigger downloads); instancing needs linked mesh data in build_scene.py first.
+- Certified tricks (see tricks_register.md / tricks_for_bots.md): #9 street life (life_paths.py, Kenney CC0, render-only); #10 canal (water_ripple.py ripple + terrain cut in build_scene.py, Water2 in web/src/app.js); #12 procedural grime (weather2.py, BWEATHER2=1, stills only); #8 bump-only displacement (derive_height.py + displace.py, BDISP=1; adaptive/BOTH off); #13 prop normaliser (props_normalize.py, assets/life/normalized/); #16 named part hierarchy (parts_plan.json; export/mobile must not join across Floor_*/Door_*); #17 fresh-critic loop (critic_prompt.md, rank-1 only); #19 mesh-health gate (mesh_health.py, MESHHEALTH=1, 0 Blockers); #5 Floor_* / Door_* nodes in out/barclay_hero_floors.glb (pale official look) and out/barclay_hero3_floors.glb (archive look matching live web/hero3.glb; web/hero3.glb not overwritten, not deployed); #22 sun-time shadow gate (sun_check.py, SUNCHECK=1; method/gate built, numeric ≥2-ref pass not yet met); phone files via ./make_mobile_v2.sh (dedup+meshopt; viewer must use LOCAL meshopt_decoder.js); KTX2 off (bigger downloads); instancing needs linked mesh data in build_scene.py first. #7 instancing: see mesh_health duplicate_groups_unshared.
 
 ## Backup rule
 - After EVERY change set or round, run ./backup.sh "<msg>" and confirm it prints PUSH OK. Never add files >99 MB (backup.sh blocks them).
+
+## Viewer deploy (single source, 2026-11-09)
+- **Source of truth:** branch `barclay` of github.com/Bigc7292/barclay-house-3d, folder `web/` (viewer source `web/src/app.js` -> minified bundle `web/app.js`; bump `app.js?v=N` in `web/index.html` on every change). Not barclay-house-archive (read-only history; never push its main).
+- **Method:** `web/deploy.sh` (fetches origin/barclay into /workspace/barclay-deploy, rebuilds app.js with esbuild, writes /workspace/barclay-deploy-out/manifest.json + b64 files), then the Vercel connector: `upload_file` for changed files, ONE `create_deployment` {project barclay-house-viewer, target production, skipAutoDetectionConfirmation "1", files = manifest}.
+- **Top-level upload only:** paths like `index.html`, `app.js`, `hero3.glb`. NEVER a `vercel-live/` prefix (caused a 404 outage 2026-11-09 08:33-08:39 UTC+4).
+- **Required files:** listed in `web/deploy.sh` FILES (index.html, app.js, vercel.json, env*.hdr, hero3/hero_mo3, context_typed_opt/context_mo, ext7_street/_o, twobed_v5/_m (main viewer), twobed/_m (walk mode), tex/, water/, video/, floorplan3d/ + vendor licences). deploy.sh exits on any MISSING file.
+- **Verify right after:** `curl -sI` on /, /app.js, /hero3.glb = 200; `node /workspace/perf/m.mjs https://barclay-house-viewer.vercel.app/ desktop` and `... phone` -> errs [] and s404 []. Roll back with the Vercel dashboard "Promote" on the previous deployment if not.
+- **Perf rules (keep):** render on demand; static shadow map (needsUpdate on ToD/load); SSAO+bloom desktop only, half-res, SSAO skipped while moving (progressive refine); DPR cap 1.5 desktop / 1.25 phone + adaptive; phones load meshopt `_mo`/`_o` GLBs and `tex/*_m.jpg`; Water2 desktop only.
+- **Git auto-deploy (2026-11-09, setup):** Vercel project `barclay-house-viewer` is to be Git-linked to `Bigc7292/barclay-house-3d`, **production branch `barclay`, Root Directory `web`**, framework Other, no build/install command (static). The repo link + branch tracking is a dashboard step (Settings -> Git -> Connect; Settings -> Environments -> Production -> Branch Tracking = `barclay`); the connector cannot link. Once linked, every push to `barclay` deploys production.
+  - `web/.vercelignore` is a whitelist AUTO-GENERATED by `deploy.sh` from FILES, so a Git build ships exactly the same 67 files as a deploy.sh upload (no src/, node_modules, shots/, *.b64). After adding a file to FILES, run `web/deploy.sh --local` and commit the regenerated `.vercelignore` with the asset.
+  - `web/app.js` is committed pre-built (Vercel does not run esbuild): rebuild with deploy.sh or esbuild and commit app.js + bumped `?v=N` together.
+  - Never push to the GitHub default branch expecting production; only `barclay` is production. deploy.sh + connector stays as the manual / emergency path (rollback: Promote the previous deployment, last known good dpl_H7TqPZYWijdZAYP5PnbDbDVkMnNd, v41).

@@ -1,0 +1,18 @@
+{
+  "f1": 0.9986690470059117,
+  "mean_abs_255": 0.14492307603359222,
+  "pct_px_changed_gt2": 0.28018951416015625,
+  "new_shape": [
+    2304,
+    4096,
+    3
+  ],
+  "official_shape": [
+    2304,
+    4096,
+    3
+  ],
+  "render_s": 1343.3,
+  "new": "tests/hero_floors/out/render_street_4096x2304.png",
+  "official": "out/render_street_4096x2304.png"
+}

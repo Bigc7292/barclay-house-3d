@@ -1,12 +1,17 @@
 """Barclay House exterior scene. Blender 4.x, free/open-source only.
 Run:  blender -b -P build_scene.py -- [--render] [--noexport]
 Env:  BRES=4096x2304  BSAMPLES=256  BCAMS=street,aerial,viaduct
+#        BWEATHER2=1  procedural grime (trick #12, weather2.py). BDISP=1 true displacement on street-cam hero facade (trick #8, displace.py).
 Inputs (same folder): scene_data.json (prep.py: OSM (c) OpenStreetMap contributors ODbL +
 EA LIDAR Composite 1m DSM/DTM, OGL), textures/* (Poly Haven CC0), hdri.exr (Poly Haven CC0).
 Every hero number below is SOURCED; see SOURCES. Values with no source are marked NOT_FOUND
 and only drive set dressing, never the hero massing."""
 import bpy, json, math, os, sys, mathutils
 HERE = os.path.dirname(os.path.abspath(__file__))
+sys.path.insert(0, HERE)
+import parts_plan
+import weather2, displace
+import hero4   # BHERO4=1: r8 facade pass (hero3 look + critic fixes); off = unchanged
 # ---------------- HERO PARAMETERS (all sourced) ----------------
 SOURCES = {
  "E05": "Howard & Seddon dwg 12,982 E05 rev C 'Existing Front Elevation' https://docs.planning.org.uk/20210803/27/QKTOMYBCKT600/goza3b6sv2a2q83u.pdf",
@@ -138,7 +143,7 @@ def faience():
     bm = nt.nodes.new("ShaderNodeBump"); bm.inputs["Strength"].default_value = 0.25; bm.inputs["Distance"].default_value = 0.01; nt.links.new(br.outputs["Fac"], bm.inputs["Height"]); nt.links.new(bm.outputs[0], b.inputs["Normal"])
     return weather(m, 0.15, 0.22, 0.0)
 def mats():
-    return {
+    M = {
      "stone": weather(pbr("Portland_stone_base", "stone", (0.58,0.52,0.40), 0.75, scale=3), 0.35, 0.2, 1.5),
      "groove": pbr("Rustication_channel_shadow", None, (0.12,0.12,0.12), 0.9),
      "terracotta": faience(),
@@ -157,6 +162,13 @@ def mats():
      "leaf": pbr("Tree_leaves", None, (0.12,0.22,0.08), 0.8), "bark": pbr("Bark", None, (0.2,0.15,0.1), 0.9),
      "lamp": pbr("Lamp_post", None, (0.05,0.05,0.05), 0.4, metal=0.8),
      "lamphead": glow(pbr("Lamp_head", None, (0.9,0.9,0.85), 0.3), 40.0, -1.0)}
+    hero4.mats(M)
+    if weather2.enabled():
+        zs = weather2.overhang_zs()
+        weather2.weather2(M["stone"], overhangs=zs)
+        weather2.weather2(M["terracotta"], soot=0.3, drip=0.25, edge=0.15, overhangs=zs)
+        weather2.weather2(M["viaduct"], soot=0.3, drip=0.25, edge=0.0, overhangs=None)
+    return M
 def coll(n, parent=None):
     c = bpy.data.collections.new(n); (parent or bpy.context.scene.collection).children.link(c); return c
 def mk(name, v, f, m, c):
@@ -213,10 +225,10 @@ def hero(M, C, pts):
     base = box("HERO_front_stone_base", 0, W, -0.45, 0.0, -0.3, LEVELS[1], M["stone"], C, fr)
     upper = box("HERO_front_terracotta", 0, W, -0.40, 0.0, LEVELS[1], ROOF, M["terracotta"], C, fr)
     cut = coll("HERO_cutters"); 
-    def cutter(x0, x1, z0, z1, arch=False):
-        o = box("cut", x0, x1, -1.0, -0.12, z0, z1, M["glass"], cut, fr); res = [o]
+    def cutter(x0, x1, z0, z1, arch=False, back=-0.12):
+        o = box("cut", x0, x1, -1.0, back, z0, z1, M["glass"], cut, fr); res = [o]
         if arch:
-            r = (x1-x0)/2; bpy.ops.mesh.primitive_cylinder_add(vertices=32, radius=r, depth=0.88, location=(x0+r, -0.56, z1), rotation=(math.pi/2,0,0))
+            r = (x1-x0)/2; bpy.ops.mesh.primitive_cylinder_add(vertices=32, radius=r, depth=1.0+back, location=(x0+r, (-1.0+back)/2, z1), rotation=(math.pi/2,0,0))
             cy = bpy.context.object; [cl.objects.unlink(cy) for cl in cy.users_collection]; cut.objects.link(cy); cy.parent = fr; res.append(cy)
         return res
     def glass(x0, x1, z0, z1, depth=-0.12, arch=False, panes=(2, 2)):
@@ -246,12 +258,12 @@ def hero(M, C, pts):
     # ground-floor arches (6) with radiating voussoirs + keystone + pilasters between (E05)
     for f in ARCH_CENTRES:
         x = f*W; x0, x1 = x-ARCH_W/2, x+ARCH_W/2; zt = LEVELS[1]-0.6-ARCH_W/2; r = ARCH_W/2
-        cutter(x0, x1, 0.6, zt, arch=True); glass(x0, x1, 0.6, zt, arch=True, panes=(4, 3))
+        cutter(x0, x1, 0.6, zt, arch=True, back=hero4.P["arch_cut_back"]); glass(x0, x1, 0.6, zt, depth=hero4.P["arch_glass"], arch=True, panes=(4, 3))
         openings.append((x0-0.05, x1+0.05, zt+r+0.75))
         NV = 9
         for j in range(NV):
-            a0 = math.pi*j/NV; a1 = math.pi*(j+1)/NV; ext = 1.25 if j == NV//2 else 1.0
-            wedge("HERO_voussoir", x, zt, r, r+ext, a0+0.012, a1-0.012, -0.58, -0.40, M["stone"])
+            a0 = math.pi*j/NV; a1 = math.pi*(j+1)/NV; ext = hero4.P["vous_key"] if j == NV//2 else hero4.P["vous_ext"]
+            wedge("HERO_voussoir", x, zt, r, r+ext, a0+0.012, a1-0.012, hero4.P["vous_y0"], -0.40, M["stone"])
     for f in ARCH_CENTRES + [ENTRANCE[0]]:
         pass
     pil = sorted([f*W for f in ARCH_CENTRES])
@@ -262,10 +274,10 @@ def hero(M, C, pts):
         box("HERO_gf_pilaster", xm-0.3, xm+0.3, -0.62, -0.40, 0.0, LEVELS[1]-0.45, M["stone"], C, fr)
     # projecting entrance porch (E05 + CGI): pilasters, recessed glazed door, framed panel above, steps
     ex = ENTRANCE[0]*W; ew = ENTRANCE[1]
-    cutter(ex-ew/2, ex+ew/2, 0.0, LEVELS[1]-0.8); openings.append((ex-ew/2-0.9, ex+ew/2+0.9, LEVELS[1]))
-    box("HERO_door_left", ex-ew/2+0.1, ex-0.01, -0.30, -0.22, 0.0, 3.4, M["door"], C, fr)   # Geograph 2025: dark double doors at pavement
-    box("HERO_door_right", ex+0.01, ex+ew/2-0.1, -0.30, -0.22, 0.0, 3.4, M["door"], C, fr)
-    box("HERO_door_lintel", ex-ew/2, ex+ew/2, -0.45, -0.22, 3.4, 3.7, M["stone"], C, fr)
+    cutter(ex-ew/2, ex+ew/2, 0.0, LEVELS[1]-0.8, back=hero4.P["arch_cut_back"]); openings.append((ex-ew/2-0.9, ex+ew/2+0.9, LEVELS[1]))
+    box("Door_entrance_L_leaf", ex-ew/2+0.1, ex-0.01, *hero4.P["door_y"], 0.0, 3.4, M["door"], C, fr)   # Geograph 2025: dark double doors at pavement
+    box("Door_entrance_R_leaf", ex+0.01, ex+ew/2-0.1, *hero4.P["door_y"], 0.0, 3.4, M["door"], C, fr)
+    box("Door_entrance_frame", ex-ew/2, ex+ew/2, -0.45, -0.22, 3.4, 3.7, M["stone"], C, fr)
     glass(ex-ew/2+0.2, ex+ew/2-0.2, 3.7, LEVELS[1]-0.9, depth=-0.25, panes=(4, 1))
     for sgn in (-1, 1):
         xp = ex + sgn*(ew/2+0.45)
@@ -304,13 +316,14 @@ def hero(M, C, pts):
         x = f*W; box("HERO_giant_pilaster", x-0.38, x+0.38, -0.62, -0.40, LEVELS[1], LEVELS[4]-0.55, M["terracotta"], C, fr)
         box("HERO_pilaster_capital", x-0.32, x+0.32, -0.7, -0.40, LEVELS[4]-0.85, LEVELS[4]-0.55, M["terracotta"], C, fr)
     # oriel bays at the triple-window bays, floors 1-2 (Commons 2015 photo: projecting bay, flat moulded head). Projection depth NOT FOUND: 0.6 m stand-in
-    for a_, b_ in TRIPLE:
+    for a_, b_ in ([] if hero4.P["oriel_floors12"] else TRIPLE):
         xa, xb = a_*W-0.15, b_*W+0.15; z0_ = LEVELS[1]+0.15; zt_ = LEVELS[4]-0.6; d_ = -1.0   # R4: Commons photo shows the oriel over floors 1-3
         for xx in (xa, xb): box("HERO_oriel_cheek", xx-0.12, xx+0.12, d_, -0.40, z0_, zt_, M["terracotta"], C, fr)
         box("HERO_oriel_base", xa-0.15, xb+0.15, d_-0.1, -0.40, z0_-0.45, z0_, M["terracotta"], C, fr)
         box("HERO_oriel_head", xa-0.25, xb+0.25, d_-0.2, -0.40, zt_, zt_+0.45, M["terracotta"], C, fr)
         for lv in (2, 3): box("HERO_oriel_transom", xa, xb, d_, d_+0.15, LEVELS[lv]-0.2, LEVELS[lv]+0.3, M["terracotta"], C, fr)
         glass(xa+0.12, xb-0.12, z0_, zt_, depth=d_+0.05, panes=(6, 6))
+    hero4.oriel(M, C, fr, W, LEVELS, box, glass, TRIPLE)
     # small triangular pediments over the corner-bay first-floor windows (Commons + Geograph photos)
     for f in (PAVILION/2, 1-PAVILION/2):
         xm = f*W; zt_ = LEVELS[2]-0.25; h_ = 0.5
@@ -322,9 +335,9 @@ def hero(M, C, pts):
         cuts_ = sorted((a_, b_) for a_, b_, zt_ in openings if z < zt_)
         xs = 0.0
         for a_, b_ in cuts_ + [(W, W)]:
-            if a_ > xs + 0.05: box("HERO_rustication_groove", xs, a_, -0.455, -0.449, z-0.035, z+0.035, M["groove"], C, fr)
+            if a_ > xs + 0.05: box("HERO_rustication_groove", xs, a_, -0.455, -0.449, z-hero4.P["groove_hh"], z+hero4.P["groove_hh"], M["groove"], C, fr)
             xs = max(xs, b_)
-        z += 0.55
+        z += hero4.P["groove_pitch"]
     for zc, d, h, m in ((LEVELS[1], 0.75, 0.45, "stone"), (LEVELS[4], 0.95, 0.55, "terracotta"), (ROOF, 0.85, 0.55, "terracotta")):
         box("HERO_cornice", -0.3, W+0.3, -d, 0.0, zc-h, zc, M[m], C, fr)
         box("HERO_cornice_drip", -0.3, W+0.3, -d-0.05, -d+0.05, zc-h-0.08, zc-h, M[m], C, fr)
@@ -361,15 +374,19 @@ def hero(M, C, pts):
             if a_ < 0.5 and xx < a_*W: continue
             if a_ > 0.5 and xx > b_*W: continue
             for zz in (LEVELS[3]+0.3, LEVELS[4]-1.6):
+                if hero4.rb_skip(xx, zz, W, LEVELS, TRIPLE): continue
                 disc("HERO_RB_shield", xx, zz, 0.42, 0.52, -0.78, -0.55, M["terracotta"], 16)
     for sgn in (-1, 1):   # moulded doorcase: stepped architrave (3 fasciae)
         for k, (w_, d_) in enumerate(((0.12, -0.55), (0.10, -0.65), (0.08, -0.75))):
             xx = ex + sgn*(ew/2 + 0.05 + k*0.12)
             box("HERO_doorcase", xx-w_/2, xx+w_/2, d_, -0.40, 0.0, LEVELS[1]-0.8+k*0.12, M["stone"], C, fr)
     for k in range(3): box("HERO_doorcase_head", ex-ew/2-0.1-k*0.12, ex+ew/2+0.1+k*0.12, -0.55-k*0.1, -0.40, LEVELS[1]-0.8+k*0.12, LEVELS[1]-0.68+k*0.12, M["stone"], C, fr)
+    hero4.ornament(bpy, M, C, fr, W, LEVELS, ROOF, box, disc, ex, ew, TRIPLE, openings)
     for o in (base, upper):  # restore window/arch booleans (lost in R1 hero rewrite)
         bm = o.modifiers.new("windows", "BOOLEAN"); bm.operation = "DIFFERENCE"; bm.operand_type = "COLLECTION"; bm.collection = cut; bm.solver = "EXACT"
     for o_ in cut.objects: o_.hide_render = True; o_.display_type = "WIRE"
+    # trick #16: name/parent from parts_plan.json (no geometry change)
+    parts_plan.apply(bpy, collection=C)
     return fr, W
 def viaduct(name, pts, zs, M, C):
     zz = sorted(z for z in zs if z is not None and 5 < z < 16); deck = zz[len(zz)//2] if zz else 8.55
@@ -403,6 +420,7 @@ ROAD_W = {"primary":10,"secondary":9,"tertiary":8,"residential":6,"unclassified"
 def main():
     bpy.ops.wm.read_factory_settings(use_empty=True)
     M = mats(); sc = bpy.context.scene
+    sys.path.insert(0, HERE); import water_ripple; water_ripple.ripple(M["water"])   # x_tricks #10: Noise->Bump 0.05 on Canal_water (tests/streetwater)
     CB, CR, CT, CH, CN = coll("Buildings"), coll("Roads_Terrain_Water"), coll("Rail_Viaduct"), coll("Hero"), coll("Trees_Furniture")
     R, Cc, st = DT["rows"], DT["cols"], DT["step"]; v = []; f = []
     for r in range(R):
@@ -446,6 +464,7 @@ def main():
             z = min(ground(*p) for p in wt["pts"]) - 0.4
             prism("canal_"+wt["id"], wt["pts"], z-0.5, z, M["water"], CR)
         elif wt["k"] == "canal": ribbon("canal_"+wt["id"], wt["pts"], 6, M["water"], CR, -1.0)
+    water_ripple.cut_terrain(bpy.data.objects["Terrain_EA_DTM"], [o for o in CR.objects if o.name.startswith("canal_")])   # x_tricks #10: canal was hidden under the DTM
     tx = bpy.data.textures.new("treeN", "CLOUDS"); tx.noise_scale = 1.0
     for x, y, h in D["trees"]:
         h = h if h and 3 < h < 25 else 6.0; g = ground(x, y)
@@ -519,7 +538,9 @@ def main():
     TOD["apply"](None, bpy.context)
     if "BRES" in os.environ: r.resolution_x, r.resolution_y = RES
     if "BSAMPLES" in os.environ: sc.cycles.samples = SAMPLES
-    out = os.path.join(HERE, "out"); os.makedirs(out, exist_ok=True)
+    if displace.enabled():
+        hooked, nobj = displace.apply_all(sc); print(f"BDISP materials={hooked} facade_objs={nobj}")
+    out = os.environ.get("BOUT") or os.path.join(HERE, "out"); os.makedirs(out, exist_ok=True)
     bpy.ops.wm.save_as_mainfile(filepath=os.path.join(out, "barclay_scene.blend"))
     if "--noexport" not in sys.argv:
         bpy.ops.export_scene.gltf(filepath=os.path.join(out, "barclay_scene.glb"), export_apply=True)

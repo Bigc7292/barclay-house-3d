@@ -1,0 +1,42 @@
+import { chromium, devices } from 'playwright';
+const [,,url,kind]=process.argv;
+const b=await chromium.launch({args:['--use-gl=angle','--use-angle=swiftshader','--enable-unsafe-swiftshader','--ignore-gpu-blocklist']});
+const ctx=await b.newContext(kind==='phone'?{...devices['Pixel 7']}:{viewport:{width:1600,height:900}});
+const p=await ctx.newPage();p.setDefaultTimeout(400000);
+const errs=[],warns=[],reqs=[];
+p.on('console',m=>{if(m.type()==='error')errs.push(m.text().slice(0,160));if(m.type()==='warning')warns.push(m.text().slice(0,160))});
+p.on('pageerror',e=>errs.push('PAGE '+e.message));
+p.on('requestfinished',async r=>{try{const s=await r.sizes();const res=await r.response();reqs.push({u:r.url().replace(/^https?:\/\/[^/]+/,''),b:s.responseBodySize+s.responseHeadersSize,st:res&&res.status()})}catch(e){}});
+await p.addInitScript(()=>{
+ window.__m={draws:0,tris:0,frames:0,firstDraw:0,threeRev:new Set(),gl:{}};
+ const wrap=(proto)=>{const de=proto.drawElements,da=proto.drawArrays,dei=proto.drawElementsInstanced;
+  proto.drawElements=function(m,c,t,o){__m.draws++;__m.tris+=c/3;if(!__m.firstDraw)__m.firstDraw=performance.now();return de.apply(this,arguments)};
+  proto.drawArrays=function(m,f,c){__m.draws++;__m.tris+=c/3;if(!__m.firstDraw)__m.firstDraw=performance.now();return da.apply(this,arguments)};
+  if(dei)proto.drawElementsInstanced=function(m,c,t,o,n){__m.draws++;__m.tris+=c/3*n;return dei.apply(this,arguments)};
+  const vp=proto.viewport;proto.viewport=function(x,y,w,h){__m.gl.vp=[w,h];return vp.apply(this,arguments)};
+  const ti=proto.texImage2D;proto.texImage2D=function(){if(arguments.length>=9&&arguments[0]===this.TEXTURE_2D&&arguments[4]>=1024&&arguments[4]===arguments[3]){__m.gl.bigsq=(__m.gl.bigsq||[]);__m.gl.bigsq.push(arguments[3])}return ti.apply(this,arguments)};
+ };
+ wrap(WebGLRenderingContext.prototype);wrap(WebGL2RenderingContext.prototype);
+ const raf=window.requestAnimationFrame.bind(window);window.requestAnimationFrame=cb=>raf(t=>{__m.frames++;cb(t)});
+ addEventListener('__THREE_DEVTOOLS__',e=>{if(e.detail&&e.detail.revision)__m.threeRev.add(e.detail.revision)});
+});
+const cdp=await ctx.newCDPSession(p);
+if(kind==='phone')await cdp.send('Emulation.setCPUThrottlingRate',{rate:4});
+const t0=Date.now();
+await p.goto(url,{waitUntil:'domcontentloaded'});
+let tExt=null;if(!url.includes('floorplan3d')){await p.waitForFunction(()=>(window.__extReady?window.__extReady():(window.__ready&&window.__ready())),null,{polling:100,timeout:400000});tExt=Date.now()-t0;}
+const isFP=url.includes('floorplan3d');
+await p.waitForFunction(isFP?()=>window.__fp3d&&window.__fp3d.ready:()=>window.__ready&&window.__ready(),null,{polling:250,timeout:400000});
+const tReady=Date.now()-t0;
+await p.waitForTimeout(500);
+const idle0=await p.evaluate(()=>({f:__m.frames,d:__m.draws}));await p.waitForTimeout(3000);
+const idle1=await p.evaluate(()=>({f:__m.frames,d:__m.draws}));
+if(!isFP)await p.evaluate(()=>{window.ar&&ar()});
+// simulate drag on desktop too for robustness
+const s0=await p.evaluate(()=>({f:__m.frames,d:__m.draws,t:__m.tris,ts:performance.now()}));
+await p.waitForTimeout(10000);
+const s1=await p.evaluate(()=>({f:__m.frames,d:__m.draws,t:__m.tris,ts:performance.now(),dpr:devicePixelRatio,vp:__m.gl.vp,bigsq:__m.gl.bigsq,rev:[...__m.threeRev],mob:window.__mobile,cw:document.querySelector('canvas')&&document.querySelector('canvas').width,ch:document.querySelector('canvas')&&document.querySelector('canvas').height}));
+const fr=s1.f-s0.f,secs=(s1.ts-s0.ts)/1000;
+const total=reqs.reduce((a,r)=>a+r.b,0);
+console.log(JSON.stringify({kind,url,readyMs:tReady,firstViewMs:tExt,fps:+(fr/secs).toFixed(1),drawsPerFrame:Math.round((s1.d-s0.d)/Math.max(fr,1)),trisPerFrame:Math.round((s1.t-s0.t)/Math.max(fr,1)),idleFps:+((idle1.f-idle0.f)/3).toFixed(1),idleDraws:idle1.d-idle0.d,canvas:[s1.cw,s1.ch],dpr:s1.dpr,mobileFlag:s1.mob,bigTexSq:s1.bigsq,threeRevs:s1.rev,totalMB:+(total/1e6).toFixed(2),big:reqs.filter(r=>r.b>5e5).map(r=>r.u+' '+(r.b/1e6).toFixed(2)+'MB'),reqs:reqs.length,fp3dReqs:isFP?undefined:reqs.filter(r=>/floorplan3d/.test(r.u)).length,s404:reqs.filter(r=>r.st>=400).map(r=>r.u),errs:errs.slice(0,8),warns:[...new Set(warns)].slice(0,6)},null,0));
+await b.close();

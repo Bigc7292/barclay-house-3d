@@ -1,0 +1,33 @@
+[
+  {
+    "id": "real_geograph",
+    "path": "/workspace/barclay-suncheck/refs/critic1/real_geograph.jpg",
+    "cam": "Cam_Match_geograph",
+    "cam_source": "tests/scene_matched_geograph.blend",
+    "month": 7,
+    "day": 3,
+    "hours": [
+      9.572777777777777,
+      10.572777777777777,
+      11.572777777777777,
+      12.572777777777777,
+      13.572777777777777,
+      14.572777777777777,
+      15.572777777777777
+    ],
+    "offsets": [
+      -3,
+      -2,
+      -1,
+      0,
+      1,
+      2,
+      3
+    ],
+    "exif_hour": 12.572777777777777,
+    "width": 1024,
+    "height": 768,
+    "hide_near": 8,
+    "clip_start": 4
+  }
+]

@@ -1,0 +1,6 @@
+interior
+i_living
+i_kitchen
+i_bed1
+i_bed2
+i_bath

@@ -1,0 +1,12 @@
+{
+  "times": {
+    "real_geograph_off-3": 16.717108488082886,
+    "real_geograph_off-2": 16.384459733963013,
+    "real_geograph_off-1": 16.952373504638672,
+    "real_geograph_off+0": 16.20352530479431,
+    "real_geograph_off+1": 16.518676280975342,
+    "real_geograph_off+2": 18.02438235282898,
+    "real_geograph_off+3": 18.14720058441162
+  },
+  "samples": 32
+}

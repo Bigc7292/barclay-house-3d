@@ -1,0 +1,265 @@
+{
+  "_provenance": {
+    "source_script": "interior/build_twobed_v4.py",
+    "plan": "interior/twobed/apt02_fp.png",
+    "note": "2bed.json has no wall polylines (cameras + door hinges only). These vertices are copied from build_twobed_v4.py, already in apt02_fp.png pixel space, scaled in 3D so outline area = sourced 63 m\u00b2."
+  },
+  "units": "plan_px",
+  "outline": [
+    [
+      12,
+      62
+    ],
+    [
+      92,
+      50
+    ],
+    [
+      98,
+      40
+    ],
+    [
+      228,
+      22
+    ],
+    [
+      262,
+      180
+    ],
+    [
+      262,
+      345
+    ],
+    [
+      18,
+      345
+    ],
+    [
+      18,
+      185
+    ]
+  ],
+  "walls": [
+    {
+      "name": "Wall_ext_0",
+      "a": [
+        12,
+        62
+      ],
+      "b": [
+        92,
+        50
+      ],
+      "thickness_px": 5,
+      "gaps": []
+    },
+    {
+      "name": "Wall_ext_1",
+      "a": [
+        92,
+        50
+      ],
+      "b": [
+        98,
+        40
+      ],
+      "thickness_px": 5,
+      "gaps": []
+    },
+    {
+      "name": "Wall_ext_2",
+      "a": [
+        98,
+        40
+      ],
+      "b": [
+        228,
+        22
+      ],
+      "thickness_px": 5,
+      "gaps": []
+    },
+    {
+      "name": "Wall_ext_3",
+      "a": [
+        228,
+        22
+      ],
+      "b": [
+        262,
+        180
+      ],
+      "thickness_px": 5,
+      "gaps": []
+    },
+    {
+      "name": "Wall_ext_4",
+      "a": [
+        262,
+        180
+      ],
+      "b": [
+        262,
+        345
+      ],
+      "thickness_px": 5,
+      "gaps": []
+    },
+    {
+      "name": "Wall_ext_5",
+      "a": [
+        262,
+        345
+      ],
+      "b": [
+        18,
+        345
+      ],
+      "thickness_px": 5,
+      "gaps": [
+        [
+          134,
+          162
+        ]
+      ],
+      "gap_note": "Entrance opening from v4 comment/door at m(100,345) and (128-18) px formula, placed on bottom edge i=5 (plan + door coords). v4 code attaches this gap to i=6 (west wall) which does not contain (100,345); overlay follows the plan/door."
+    },
+    {
+      "name": "Wall_ext_6",
+      "a": [
+        18,
+        345
+      ],
+      "b": [
+        18,
+        185
+      ],
+      "thickness_px": 5,
+      "gaps": []
+    },
+    {
+      "name": "Wall_ext_7",
+      "a": [
+        18,
+        185
+      ],
+      "b": [
+        12,
+        62
+      ],
+      "thickness_px": 5,
+      "gaps": []
+    },
+    {
+      "name": "Wall_bed1_bed2",
+      "a": [
+        105,
+        45
+      ],
+      "b": [
+        120,
+        152
+      ],
+      "thickness_px": 4,
+      "gaps": []
+    },
+    {
+      "name": "Wall_bed1_south",
+      "a": [
+        18,
+        185
+      ],
+      "b": [
+        120,
+        152
+      ],
+      "thickness_px": 4,
+      "gaps": [
+        [
+          71.32633720738227,
+          100.20231929059184
+        ]
+      ]
+    },
+    {
+      "name": "Wall_bed2_south",
+      "a": [
+        120,
+        152
+      ],
+      "b": [
+        215,
+        140
+      ],
+      "thickness_px": 4,
+      "gaps": [
+        [
+          4.712988045637717,
+          33.58897012884731
+        ]
+      ]
+    },
+    {
+      "name": "Wall_storage_north",
+      "a": [
+        18,
+        200
+      ],
+      "b": [
+        90,
+        200
+      ],
+      "thickness_px": 4,
+      "gaps": []
+    },
+    {
+      "name": "Wall_storage_east",
+      "a": [
+        90,
+        200
+      ],
+      "b": [
+        90,
+        270
+      ],
+      "thickness_px": 4,
+      "gaps": [
+        [
+          20.562008958395204,
+          49.437991041604796
+        ]
+      ]
+    },
+    {
+      "name": "Wall_bath_north",
+      "a": [
+        18,
+        270
+      ],
+      "b": [
+        90,
+        270
+      ],
+      "thickness_px": 4,
+      "gaps": []
+    },
+    {
+      "name": "Wall_bath_east",
+      "a": [
+        86,
+        270
+      ],
+      "b": [
+        86,
+        345
+      ],
+      "thickness_px": 4,
+      "gaps": [
+        [
+          30.562008958395204,
+          59.437991041604796
+        ]
+      ]
+    }
+  ]
+}

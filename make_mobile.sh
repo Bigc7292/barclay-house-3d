@@ -1,8 +1,8 @@
 #!/bin/bash
 # Re-run after hero/surroundings re-export. Free tools: gltf-transform + sharp + meshoptimizer (no Draco/meshopt/KTX2 in output).
-set -e; cd /workspace/barclay
+set -e; cd "$(dirname "$(readlink -f "$0")")"; O=${OUT:-out}   # OUT=tests/x/out ./make_mobile.sh for test exports
 [ -d .gltf/node_modules/@gltf-transform/functions ] || npm i --no-save --prefix .gltf @gltf-transform/core@4 @gltf-transform/functions@4 @gltf-transform/extensions@4 @gltf-transform/cli@4 sharp meshoptimizer gltf-validator playwright
-M=out/mobile; mkdir -p $M/src; cp -p out/barclay_hero.glb out/barclay_surroundings.glb $M/src/
+M=$O/mobile; mkdir -p $M/src; cp -p $O/barclay_hero.glb $O/barclay_surroundings.glb $M/src/
 export NODE_PATH=$PWD/.gltf/node_modules
 cp make_mobile.mjs .gltf/make_mobile.mjs
 node .gltf/make_mobile.mjs $M/src/barclay_hero.glb $M/barclay_hero_mobile.glb 1024 0 1

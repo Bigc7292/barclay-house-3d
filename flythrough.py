@@ -9,7 +9,8 @@ teardown's sheet.mjs can build review contact sheets per beat.
   ffmpeg -y -framerate 12 -i tests/fly/f_%04d.png -c:v libx264 -pix_fmt yuv420p tests/fly/fly.mp4
   node ~/apps/addons/teardown/sheet.mjs --video tests/fly/fly.mp4 --timeline tests/fly/timeline.json --cols 3
 If Blender crashes mid-run just re-run the same command: finished frames are skipped.
-Add --keyframe to bake the path into a camera "Cam_Fly" (for interactive scrubbing/final renders) instead of rendering.
+Add --life for x_tricks #9 street life (life_paths.py: Kenney CC0 car/van, train on the viaduct deck, walkers on the hero
+footway, all on OSM geometry, pure function of t; stand-in sizes/speeds, illustrative). Add --keyframe to bake the path into a camera "Cam_Fly" (for interactive scrubbing/final renders) instead of rendering.
 """
 import bpy, json, math, os, sys
 from mathutils import Vector
@@ -40,7 +41,7 @@ def place(cam, t, mw):
     c, l = pose(t); cam.location = mw @ c
     cam.rotation_euler = ((mw @ l) - cam.location).to_track_quat("-Z", "Y").to_euler()
 
-def main(out, res="480x270", fps=12, samples=8, tod="midday", keyframe=False, lens=24.0):
+def main(out, res="480x270", fps=12, samples=8, tod="midday", keyframe=False, lens=24.0, life=False):
     sc = bpy.context.scene; mw = bpy.data.objects["HERO_front_frame"].matrix_world.copy()
     cam = bpy.data.objects.get("Cam_Fly") or bpy.data.objects.new("Cam_Fly", bpy.data.cameras.new("Cam_Fly"))
     if cam.name not in sc.collection.objects: sc.collection.objects.link(cam)
@@ -51,19 +52,27 @@ def main(out, res="480x270", fps=12, samples=8, tod="midday", keyframe=False, le
         try: sc.barclay_camera = cam.name
         except Exception: pass
         m.apply(None, bpy.context)
-    sc.camera = cam; os.makedirs(out, exist_ok=True)
+    sc.camera = cam; os.makedirs(out, exist_ok=True); actors = None
+    if life:
+        sys.path.insert(0, os.path.dirname(os.path.abspath(__file__))); import life_paths; actors = life_paths.setup(sc)
+    def step(t):
+        if actors: life_paths.update(actors, t, sc)   # sets the scene frame first (walk cycles)
+        place(cam, t, mw)
     json.dump({"duration": DURATION, "fps": fps, "beats": {n: t for t, n, _, _ in SCRIPT}},
               open(os.path.join(out, "timeline.json"), "w"), indent=1)
     n = int(DURATION * fps) + 1
     if keyframe:
         sc.render.fps = fps; sc.frame_start, sc.frame_end = 1, n
-        for i in range(n): place(cam, i / fps, mw); cam.keyframe_insert("location", frame=i + 1); cam.keyframe_insert("rotation_euler", frame=i + 1)
+        for i in range(n):
+            step(i / fps)
+            for o in [cam] + [r for a in (actors or []) for r in a["parts"]]:
+                o.keyframe_insert("location", frame=i + 1); o.keyframe_insert("rotation_euler", frame=i + 1)
         return
     r = sc.render; r.resolution_x, r.resolution_y = (int(v) for v in res.split("x")); r.resolution_percentage = 100
     sc.cycles.samples = samples; r.image_settings.file_format = "PNG"
     for i in range(n):   # resumable: existing frames are skipped (Cycles/Embree can segfault on long headless loops)
         if os.path.exists(os.path.join(out, f"f_{i:04d}.png")): continue
-        place(cam, i / fps, mw); r.filepath = os.path.join(out, f"f_{i:04d}.png"); bpy.ops.render.render(write_still=True)
+        step(i / fps); r.filepath = os.path.join(out, f"f_{i:04d}.png"); bpy.ops.render.render(write_still=True)
 
 if __name__ == "__main__":
     import argparse
@@ -71,4 +80,5 @@ if __name__ == "__main__":
     ap = argparse.ArgumentParser(); ap.add_argument("--out", required=True); ap.add_argument("--res", default="480x270")
     ap.add_argument("--fps", type=int, default=12); ap.add_argument("--samples", type=int, default=8)
     ap.add_argument("--tod", default="midday"); ap.add_argument("--keyframe", action="store_true"); ap.add_argument("--lens", type=float, default=24.0)
-    a = ap.parse_args(A); main(os.path.abspath(a.out), a.res, a.fps, a.samples, a.tod, a.keyframe, a.lens)
+    ap.add_argument("--life", action="store_true")
+    a = ap.parse_args(A); main(os.path.abspath(a.out), a.res, a.fps, a.samples, a.tod, a.keyframe, a.lens, a.life)

@@ -1,0 +1,1206 @@
+{
+  "coord": "gltf XZ metres, Y-up, same frame as web/floorplan3d/2bed.json and web/twobed.glb",
+  "floor_source": "interior/trace/twobed_trace.json internal-face outline (Rightmove 92163630 plan retrace 2026-11-20), scaled so area = 63 m2",
+  "furniture_source": "interior/trace/twobed_layout.py footprints (plan-drawn positions; sizes illustrative) + plan joinery",
+  "cell_m": 0.05,
+  "wheelchair_width_m": 0.75,
+  "erode_radius_m": 0.375,
+  "turning_circle_diameter_m": 1.5,
+  "sourced_floor_m2": 63.0,
+  "wall_thickness_m": {
+    "partitions": 0.1,
+    "exterior": "plan ink width x K"
+  },
+  "standins": {
+    "ceiling_m": 3.0,
+    "partition_thickness_m": 0.1,
+    "door_head_m": 2.1,
+    "window_sill_m": 0.5,
+    "window_head_m": 2.75
+  },
+  "sources": {
+    "govuk": "https://www.gov.uk/government/publications/access-to-and-use-of-buildings-approved-document-m",
+    "pdf": "https://assets.publishing.service.gov.uk/media/5a7f8a82ed915d74e622b17b/BR_PDF_AD_M1_2015_with_2016_amendments_V3.pdf",
+    "pdf_edition": "Approved Document M Volume 1: Dwellings, 2015 edition with 2016 amendments",
+    "wheelchair_width": {
+      "mm": 750,
+      "used_as": "passage width for raster erosion (ADM does not state a wheelchair body width)",
+      "paragraph": "M4(2) 2.22.b",
+      "quote": "the corridor is not reduced below a minimum 750mm width at any point"
+    },
+    "m4_3_hall_clear_width_mm": {
+      "mm": 1050,
+      "paragraph": "M4(3) 3.24.a",
+      "not_used_for": "erosion"
+    },
+    "turning_circle_mm": {
+      "diameter_mm": 1500,
+      "paragraphs": [
+        "M4(3) 3.14.d",
+        "M4(3) 3.22.d",
+        "M4(3) 3.43.e"
+      ],
+      "quote_3_14_d": "A clear turning circle 1500mm in diameter is provided inside the entrance area, behind the entrance door when closed.",
+      "quote_3_22_d": "There is a minimum 1500mm clear turning circle inside the entrance area, in front of the door when closed.",
+      "quote_3_43_e": "The bathroom (or bathrooms) provides a minimum 1500mm clear turning circle."
+    },
+    "floor_area": {
+      "m2": 63,
+      "urls": [
+        "https://barclay-house.com/two-bedroom-apartment/",
+        "https://www.rightmove.co.uk/properties/92163630"
+      ],
+      "note": "679 sq ft; outline scaled so shoelace area equals 63 m\u00b2 (#18 residual 0% by construction)"
+    },
+    "plan_iou": {
+      "layout": "interior/trace/twobed_trace.json",
+      "report": "out/plan_overlay.json",
+      "gate": 0.85,
+      "trick": 18
+    },
+    "label": "indicative"
+  },
+  "floor": [
+    [
+      -3.582423,
+      4.563502
+    ],
+    [
+      -3.582423,
+      -0.118919
+    ],
+    [
+      -3.285127,
+      -0.133783
+    ],
+    [
+      -3.84999,
+      -3.151343
+    ],
+    [
+      -3.641883,
+      -3.240532
+    ],
+    [
+      -3.701342,
+      -3.671612
+    ],
+    [
+      -1.441888,
+      -4.043233
+    ],
+    [
+      -1.412159,
+      -3.835125
+    ],
+    [
+      -1.382429,
+      -3.627018
+    ],
+    [
+      -0.787836,
+      -3.760801
+    ],
+    [
+      -0.83243,
+      -4.221611
+    ],
+    [
+      2.289183,
+      -5.366203
+    ],
+    [
+      2.393237,
+      -5.381067
+    ],
+    [
+      2.512156,
+      -5.009447
+    ],
+    [
+      2.735128,
+      -5.083771
+    ],
+    [
+      3.627018,
+      -2.720263
+    ],
+    [
+      3.463505,
+      -2.571615
+    ],
+    [
+      3.463505,
+      4.563502
+    ]
+  ],
+  "walls": [
+    {
+      "name": "Ext_W_lower",
+      "a": [
+        -3.686477,
+        4.831069
+      ],
+      "b": [
+        -3.686477,
+        -0.297297
+      ],
+      "t": 0.208108,
+      "gaps": []
+    },
+    {
+      "name": "Ext_W_jog",
+      "a": [
+        -3.817596,
+        -0.110386
+      ],
+      "b": [
+        -3.228332,
+        -0.24637
+      ],
+      "t": 0.208108,
+      "gaps": []
+    },
+    {
+      "name": "Ext_W_rake",
+      "a": [
+        -3.343314,
+        -0.075796
+      ],
+      "b": [
+        -3.955316,
+        -3.402573
+      ],
+      "t": 0.178378,
+      "gaps": []
+    },
+    {
+      "name": "Ext_W_jog_top",
+      "a": [
+        -4.013503,
+        -3.270262
+      ],
+      "b": [
+        -3.641883,
+        -3.270262
+      ],
+      "t": 0.148648,
+      "gaps": []
+    },
+    {
+      "name": "Ext_NW_pier",
+      "a": [
+        -3.7033,
+        -3.137282
+      ],
+      "b": [
+        -3.803437,
+        -3.938376
+      ],
+      "t": 0.208108,
+      "gaps": []
+    },
+    {
+      "name": "Ext_mid_pier_W",
+      "a": [
+        -1.467125,
+        -4.352288
+      ],
+      "b": [
+        -1.268003,
+        -3.5558
+      ],
+      "t": 0.208108,
+      "gaps": []
+    },
+    {
+      "name": "Ext_mid_pier_S",
+      "a": [
+        -1.425345,
+        -3.712458
+      ],
+      "b": [
+        -0.730055,
+        -3.838874
+      ],
+      "t": 0.208108,
+      "gaps": []
+    },
+    {
+      "name": "Ext_mid_pier_E",
+      "a": [
+        -0.86107,
+        -3.76224
+      ],
+      "b": [
+        -0.982168,
+        -4.42828
+      ],
+      "t": 0.178378,
+      "gaps": []
+    },
+    {
+      "name": "Ext_NE_pier",
+      "a": [
+        2.379898,
+        -5.644057
+      ],
+      "b": [
+        2.584954,
+        -5.028888
+      ],
+      "t": 0.178378,
+      "gaps": []
+    },
+    {
+      "name": "Ext_NE_pier_jog",
+      "a": [
+        2.44455,
+        -5.049812
+      ],
+      "b": [
+        2.862194,
+        -5.221783
+      ],
+      "t": 0.178378,
+      "gaps": []
+    },
+    {
+      "name": "Ext_E_rake",
+      "a": [
+        2.743004,
+        -5.344644
+      ],
+      "b": [
+        3.79752,
+        -2.548579
+      ],
+      "t": 0.208108,
+      "gaps": []
+    },
+    {
+      "name": "Ext_E_jog",
+      "a": [
+        3.859576,
+        -2.707473
+      ],
+      "b": [
+        3.468784,
+        -2.420892
+      ],
+      "t": 0.208108,
+      "gaps": []
+    },
+    {
+      "name": "Ext_E",
+      "a": [
+        3.552694,
+        -2.631074
+      ],
+      "b": [
+        3.552694,
+        4.816204
+      ],
+      "t": 0.178378,
+      "gaps": []
+    },
+    {
+      "name": "Ext_S",
+      "a": [
+        3.656747,
+        4.652691
+      ],
+      "b": [
+        -3.790531,
+        4.652691
+      ],
+      "t": 0.208108,
+      "gaps": [
+        [
+          3.90945,
+          4.801339
+        ]
+      ]
+    },
+    {
+      "name": "Part_bed_divider",
+      "a": [
+        -1.099997,
+        -3.653774
+      ],
+      "b": [
+        -0.163513,
+        -1.085132
+      ],
+      "t": 0.1,
+      "gaps": []
+    },
+    {
+      "name": "Part_bed1_living",
+      "a": [
+        -1.69459,
+        -0.564863
+      ],
+      "b": [
+        -0.163513,
+        -1.085132
+      ],
+      "t": 0.1,
+      "gaps": []
+    },
+    {
+      "name": "Part_bed2_living",
+      "a": [
+        2.289183,
+        -1.962157
+      ],
+      "b": [
+        3.493234,
+        -2.393237
+      ],
+      "t": 0.1,
+      "gaps": []
+    },
+    {
+      "name": "Part_store_N",
+      "a": [
+        -3.582423,
+        1.040538
+      ],
+      "b": [
+        -1.575672,
+        1.070268
+      ],
+      "t": 0.1,
+      "gaps": []
+    },
+    {
+      "name": "Part_store_E",
+      "a": [
+        -1.605401,
+        1.070268
+      ],
+      "b": [
+        -1.575672,
+        2.199994
+      ],
+      "t": 0.1,
+      "gaps": [
+        [
+          0.148648,
+          0.921619
+        ]
+      ]
+    },
+    {
+      "name": "Part_store_S",
+      "a": [
+        -3.582423,
+        2.170265
+      ],
+      "b": [
+        -1.575672,
+        2.199994
+      ],
+      "t": 0.1,
+      "gaps": []
+    },
+    {
+      "name": "Part_bath_E",
+      "a": [
+        -1.605401,
+        2.199994
+      ],
+      "b": [
+        -1.575672,
+        4.563502
+      ],
+      "t": 0.1,
+      "gaps": [
+        [
+          0.148648,
+          1.010808
+        ]
+      ]
+    },
+    {
+      "name": "Part_lobby_N",
+      "a": [
+        -1.575672,
+        3.270262
+      ],
+      "b": [
+        -0.445945,
+        3.299992
+      ],
+      "t": 0.1,
+      "gaps": []
+    },
+    {
+      "name": "Part_stair_W",
+      "a": [
+        -0.445945,
+        2.348643
+      ],
+      "b": [
+        -0.445945,
+        3.299992
+      ],
+      "t": 0.1,
+      "gaps": []
+    },
+    {
+      "name": "Part_stair_E_kitchen",
+      "a": [
+        0.683782,
+        2.348643
+      ],
+      "b": [
+        0.713512,
+        4.563502
+      ],
+      "t": 0.1,
+      "gaps": []
+    },
+    {
+      "name": "Part_bed1_living_full_lintel_only",
+      "a": [
+        -3.36837,
+        -0.309188
+      ],
+      "b": [
+        -1.69459,
+        -0.535134
+      ],
+      "t": 0.1,
+      "gaps": [
+        [
+          0.0,
+          1.688961
+        ]
+      ]
+    },
+    {
+      "name": "Part_bed2_living_full_lintel_only",
+      "a": [
+        0.416215,
+        -1.308105
+      ],
+      "b": [
+        2.259454,
+        -1.962157
+      ],
+      "t": 0.1,
+      "gaps": [
+        [
+          0.0,
+          1.955841
+        ]
+      ]
+    }
+  ],
+  "rooms": [
+    {
+      "id": "i_bed1",
+      "label": "Bedroom 1",
+      "poly": [
+        [
+          -3.3178,
+          -0.3092
+        ],
+        [
+          -3.85,
+          -3.1513
+        ],
+        [
+          -3.6419,
+          -3.2405
+        ],
+        [
+          -3.7013,
+          -3.6716
+        ],
+        [
+          -1.4419,
+          -4.0432
+        ],
+        [
+          -1.3824,
+          -3.627
+        ],
+        [
+          -1.0703,
+          -3.6984
+        ],
+        [
+          -0.1635,
+          -1.0851
+        ],
+        [
+          -1.6946,
+          -0.5351
+        ]
+      ]
+    },
+    {
+      "id": "i_bed2",
+      "label": "Bedroom 2",
+      "poly": [
+        [
+          -1.0703,
+          -3.6984
+        ],
+        [
+          -0.7878,
+          -3.7608
+        ],
+        [
+          -0.8324,
+          -4.2216
+        ],
+        [
+          2.2892,
+          -5.3662
+        ],
+        [
+          2.3932,
+          -5.3811
+        ],
+        [
+          2.5122,
+          -5.0094
+        ],
+        [
+          2.7351,
+          -5.0838
+        ],
+        [
+          3.627,
+          -2.7203
+        ],
+        [
+          3.4635,
+          -2.5716
+        ],
+        [
+          3.4635,
+          -2.3932
+        ],
+        [
+          2.2595,
+          -1.9622
+        ],
+        [
+          0.4162,
+          -1.3081
+        ],
+        [
+          -0.1635,
+          -1.0851
+        ]
+      ]
+    },
+    {
+      "id": "i_store",
+      "label": "Storage",
+      "poly": [
+        [
+          -3.5824,
+          1.0703
+        ],
+        [
+          -1.5757,
+          1.0703
+        ],
+        [
+          -1.5757,
+          2.2
+        ],
+        [
+          -3.5824,
+          2.2
+        ]
+      ]
+    },
+    {
+      "id": "i_bath",
+      "label": "Bathroom",
+      "poly": [
+        [
+          -3.5824,
+          2.2
+        ],
+        [
+          -1.5757,
+          2.2
+        ],
+        [
+          -1.5757,
+          4.5635
+        ],
+        [
+          -3.5824,
+          4.5635
+        ]
+      ]
+    },
+    {
+      "id": "i_hall",
+      "label": "Hall",
+      "poly": [
+        [
+          -1.5757,
+          3.3
+        ],
+        [
+          -0.4459,
+          3.3
+        ],
+        [
+          -0.4459,
+          2.3486
+        ],
+        [
+          0.7135,
+          2.3486
+        ],
+        [
+          0.7135,
+          4.5635
+        ],
+        [
+          -1.5757,
+          4.5635
+        ]
+      ]
+    },
+    {
+      "id": "i_kitchen",
+      "label": "Kitchen",
+      "poly": [
+        [
+          0.7135,
+          2.3486
+        ],
+        [
+          3.4635,
+          2.3486
+        ],
+        [
+          3.4635,
+          4.5635
+        ],
+        [
+          0.7135,
+          4.5635
+        ]
+      ]
+    },
+    {
+      "id": "i_living",
+      "label": "Living",
+      "poly": [
+        [
+          -3.5824,
+          -0.1189
+        ],
+        [
+          -3.2851,
+          -0.1338
+        ],
+        [
+          -3.3178,
+          -0.3092
+        ],
+        [
+          -1.6946,
+          -0.5351
+        ],
+        [
+          0.4162,
+          -1.3081
+        ],
+        [
+          2.2595,
+          -1.9622
+        ],
+        [
+          3.4635,
+          -2.3932
+        ],
+        [
+          3.4635,
+          2.3486
+        ],
+        [
+          -0.4459,
+          2.3486
+        ],
+        [
+          -0.4459,
+          3.3
+        ],
+        [
+          -1.5757,
+          3.3
+        ],
+        [
+          -1.5757,
+          1.0703
+        ],
+        [
+          -3.5824,
+          1.0703
+        ]
+      ]
+    }
+  ],
+  "furniture": [
+    {
+      "name": "Bed1_navy",
+      "kind": "bed",
+      "room": "i_bed1",
+      "shape": "rect",
+      "c": [
+        -1.569829,
+        -2.162762
+      ],
+      "s": [
+        1.405886,
+        1.844809
+      ],
+      "rot": 1.225639
+    },
+    {
+      "name": "Bed1_bedside_0",
+      "kind": "bedside",
+      "room": "i_bed1",
+      "shape": "rect",
+      "c": [
+        -1.309939,
+        -3.2795
+      ],
+      "s": [
+        0.45,
+        0.4
+      ],
+      "rot": 1.225639
+    },
+    {
+      "name": "Bed1_bedside_1",
+      "kind": "bedside",
+      "room": "i_bed1",
+      "shape": "rect",
+      "c": [
+        -0.658325,
+        -1.467199
+      ],
+      "s": [
+        0.45,
+        0.4
+      ],
+      "rot": 1.225639
+    },
+    {
+      "name": "Bed2_navy",
+      "kind": "bed",
+      "room": "i_bed2",
+      "shape": "rect",
+      "c": [
+        2.297422,
+        -3.504751
+      ],
+      "s": [
+        1.353924,
+        1.875161
+      ],
+      "rot": 1.235158
+    },
+    {
+      "name": "Bed2_bedside_0",
+      "kind": "bedside",
+      "room": "i_bed2",
+      "shape": "rect",
+      "c": [
+        2.590817,
+        -4.599432
+      ],
+      "s": [
+        0.45,
+        0.4
+      ],
+      "rot": 1.235158
+    },
+    {
+      "name": "Bed2_bedside_1",
+      "kind": "bedside",
+      "room": "i_bed2",
+      "shape": "rect",
+      "c": [
+        3.208035,
+        -2.830072
+      ],
+      "s": [
+        0.45,
+        0.4
+      ],
+      "rot": 1.235158
+    },
+    {
+      "name": "Sofa_navy_velvet_3seat",
+      "kind": "sofa",
+      "room": "i_living",
+      "shape": "rect",
+      "c": [
+        2.898641,
+        -0.371621
+      ],
+      "s": [
+        0.86216,
+        1.575672
+      ],
+      "rot": -0.0
+    },
+    {
+      "name": "Coffee_table_oak_top",
+      "kind": "table",
+      "room": "i_living",
+      "shape": "rect",
+      "c": [
+        1.69459,
+        -0.371621
+      ],
+      "s": [
+        0.55,
+        1.05
+      ],
+      "rot": -0.0
+    },
+    {
+      "name": "TV_on_media_unit",
+      "kind": "furniture",
+      "room": "i_living",
+      "shape": "rect",
+      "c": [
+        -0.208108,
+        -0.356756
+      ],
+      "s": [
+        0.12,
+        1.12
+      ],
+      "rot": -0.0
+    },
+    {
+      "name": "Dining_table_oak",
+      "kind": "table",
+      "room": "i_living",
+      "shape": "rect",
+      "c": [
+        2.660804,
+        1.605401
+      ],
+      "s": [
+        1.456753,
+        0.89189
+      ],
+      "rot": -0.0
+    },
+    {
+      "name": "Tub_chair_0",
+      "kind": "chair",
+      "room": "i_living",
+      "shape": "circle",
+      "c": [
+        2.304048,
+        0.889457
+      ],
+      "s": [
+        0.56,
+        0.56
+      ],
+      "rot": 0.0
+    },
+    {
+      "name": "Tub_chair_1",
+      "kind": "chair",
+      "room": "i_living",
+      "shape": "circle",
+      "c": [
+        3.032425,
+        0.889457
+      ],
+      "s": [
+        0.56,
+        0.56
+      ],
+      "rot": 0.0
+    },
+    {
+      "name": "Tub_chair_2",
+      "kind": "chair",
+      "room": "i_living",
+      "shape": "circle",
+      "c": [
+        2.304048,
+        2.321346
+      ],
+      "s": [
+        0.56,
+        0.56
+      ],
+      "rot": 0.0
+    },
+    {
+      "name": "Tub_chair_3",
+      "kind": "chair",
+      "room": "i_living",
+      "shape": "circle",
+      "c": [
+        3.032425,
+        2.321346
+      ],
+      "s": [
+        0.56,
+        0.56
+      ],
+      "rot": 0.0
+    },
+    {
+      "name": "Plant_pot",
+      "kind": "plant",
+      "room": "i_living",
+      "shape": "circle",
+      "c": [
+        -3.359451,
+        0.178378
+      ],
+      "s": [
+        0.36,
+        0.36
+      ],
+      "rot": 0.0
+    },
+    {
+      "name": "Hob",
+      "kind": "kitchen",
+      "room": "i_kitchen",
+      "shape": "rect",
+      "c": [
+        1.709455,
+        4.28107
+      ],
+      "s": [
+        0.52,
+        0.56
+      ],
+      "rot": -0.0
+    },
+    {
+      "name": "Sink",
+      "kind": "kitchen",
+      "room": "i_kitchen",
+      "shape": "rect",
+      "c": [
+        3.166208,
+        3.508099
+      ],
+      "s": [
+        0.5,
+        0.42
+      ],
+      "rot": -0.0
+    },
+    {
+      "name": "Washing_machine",
+      "kind": "kitchen",
+      "room": "i_kitchen",
+      "shape": "rect",
+      "c": [
+        1.040538,
+        4.251341
+      ],
+      "s": [
+        0.6,
+        0.6
+      ],
+      "rot": -0.0
+    },
+    {
+      "name": "WC_pan",
+      "kind": "sanitary",
+      "room": "i_bath",
+      "shape": "rect",
+      "c": [
+        -3.252423,
+        2.645939
+      ],
+      "s": [
+        0.62,
+        0.4
+      ],
+      "rot": -0.0
+    },
+    {
+      "name": "Vanity_basin",
+      "kind": "sanitary",
+      "room": "i_bath",
+      "shape": "rect",
+      "c": [
+        -3.352423,
+        3.195938
+      ],
+      "s": [
+        0.46,
+        0.55
+      ],
+      "rot": -0.0
+    },
+    {
+      "name": "Storage_shelving_white",
+      "kind": "storage",
+      "room": "i_store",
+      "shape": "rect",
+      "c": [
+        -3.382423,
+        1.635131
+      ],
+      "s": [
+        0.4,
+        0.879727
+      ],
+      "rot": -0.0
+    },
+    {
+      "name": "Wardrobe_bed2",
+      "kind": "wardrobe",
+      "room": "i_bed2",
+      "shape": "rect",
+      "c": [
+        -0.200257,
+        -2.042838
+      ],
+      "s": [
+        0.625743,
+        1.816425
+      ],
+      "rot": -0.370891
+    },
+    {
+      "name": "Wardrobe_living_W",
+      "kind": "wardrobe",
+      "room": "i_living",
+      "shape": "rect",
+      "c": [
+        -2.683101,
+        0.772971
+      ],
+      "s": [
+        1.798644,
+        0.594593
+      ],
+      "rot": 0.0
+    },
+    {
+      "name": "TV_unit",
+      "kind": "furniture",
+      "room": "i_living",
+      "shape": "rect",
+      "c": [
+        -0.222972,
+        -0.356756
+      ],
+      "s": [
+        0.445945,
+        1.189186
+      ],
+      "rot": 0.0
+    },
+    {
+      "name": "Wardrobe_living_C",
+      "kind": "wardrobe",
+      "room": "i_living",
+      "shape": "rect",
+      "c": [
+        0.0,
+        0.86216
+      ],
+      "s": [
+        0.89189,
+        0.594593
+      ],
+      "rot": 0.0
+    },
+    {
+      "name": "Kitchen_run_S",
+      "kind": "kitchen",
+      "room": "i_kitchen",
+      "shape": "rect",
+      "c": [
+        2.088508,
+        4.229043
+      ],
+      "s": [
+        2.749993,
+        0.668917
+      ],
+      "rot": 0.0
+    },
+    {
+      "name": "Kitchen_run_E",
+      "kind": "kitchen",
+      "room": "i_kitchen",
+      "shape": "rect",
+      "c": [
+        3.158776,
+        3.240532
+      ],
+      "s": [
+        0.609458,
+        1.308105
+      ],
+      "rot": 0.0
+    }
+  ],
+  "walkable_not_obstacles": [
+    "Rug_cream",
+    "Shower_tray"
+  ],
+  "steps": {
+    "name": "Entrance_steps",
+    "poly": [
+      [
+        -0.445945,
+        2.61621
+      ],
+      [
+        0.713512,
+        2.61621
+      ],
+      [
+        0.713512,
+        3.121614
+      ],
+      [
+        -0.445945,
+        3.121614
+      ]
+    ],
+    "note": "entrance steps drawn on the plan (3 treads); riser heights NOT FOUND. Walk mode is flat, so the default run treats them as floor; the steps_as_barrier variant blocks them."
+  },
+  "entrance": {
+    "name": "Door_entrance",
+    "hinge": [
+      -1.1446,
+      4.5635
+    ],
+    "w": 0.8919,
+    "source": "interior/trace/twobed_trace.json (ink break x 99-128)",
+    "seed": [
+      -0.69865,
+      4.2135
+    ]
+  },
+  "label": "indicative",
+  "approximate_layout": true
+}
