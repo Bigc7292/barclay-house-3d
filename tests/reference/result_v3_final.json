@@ -1,0 +1,268 @@
+{
+  "listing": "92163630",
+  "listing_url": "https://www.rightmove.co.uk/properties/92163630",
+  "renders_dir": "renders/polish/v3_final",
+  "resolved_renders": {
+    "bathroom": "renders/polish/v3_final/v3_bathroom.png",
+    "bedroom1": "renders/polish/v3_final/v3_bedroom1.png",
+    "bedroom2": "renders/polish/v3_final/v3_bedroom2.png",
+    "kitchen": "renders/polish/v3_final/v3_kitchen.png",
+    "living": "renders/polish/v3_final/v3_living.png"
+  },
+  "cgi_urls": [
+    {
+      "id": "living_window",
+      "room": "living",
+      "url": "https://media.rightmove.co.uk/property-photo/de28ab1c5/92163630/de28ab1c5b90dbae970eacd3de3139fd.jpeg",
+      "file": "refs/critic1/92163630/de28ab1c5b90dbae970eacd3de3139fd.jpeg",
+      "caption": "Living room: navy sofa, oak coffee table, cream rug, steel grid window, boucle dining chairs"
+    },
+    {
+      "id": "living_kitchen",
+      "room": "kitchen",
+      "url": "https://media.rightmove.co.uk/property-photo/8bf225e51/92163630/8bf225e51bb76ab9c25f721bb114d3ab.jpeg",
+      "file": "refs/critic1/92163630/8bf225e51bb76ab9c25f721bb114d3ab.jpeg",
+      "caption": "Open-plan living/kitchen/dining: navy sofa, cream kitchen wall, globe pendant, boucle chairs, oak TV unit"
+    },
+    {
+      "id": "kitchen_run",
+      "room": "kitchen",
+      "url": "https://media.rightmove.co.uk/property-photo/fdf49394c/92163630/fdf49394c5986a242d14570ec6355111.png",
+      "file": "refs/critic1/92163630/fdf49394c5986a242d14570ec6355111.png",
+      "caption": "Kitchen run: handleless white units, black washer, black microwave, stainless sink, induction hob"
+    },
+    {
+      "id": "bedroom_windowed",
+      "room": "bedroom1",
+      "url": "https://media.rightmove.co.uk/property-photo/6830c23cc/92163630/6830c23cc81166dfe894a94204f9eeeb.jpeg",
+      "file": "refs/critic1/92163630/6830c23cc81166dfe894a94204f9eeeb.jpeg",
+      "caption": "Bedroom (square-on): navy bed, two oak nightstands, arched window, slatted oak wardrobe, art"
+    },
+    {
+      "id": "bedroom_wardrobe",
+      "room": "bedroom2",
+      "url": "https://media.rightmove.co.uk/property-photo/09a288504/92163630/09a28850469373714e2934f7bbf90dbb.jpeg",
+      "file": "refs/critic1/92163630/09a28850469373714e2934f7bbf90dbb.jpeg",
+      "caption": "Bedroom: slatted oak wardrobe, navy bed, oak nightstand, monochrome art"
+    },
+    {
+      "id": "bathroom",
+      "room": "bathroom",
+      "url": "https://media.rightmove.co.uk/property-photo/22723505c/92163630/22723505c9916e51b0ecb89a1b4a70ca.jpeg",
+      "file": "refs/critic1/92163630/22723505c9916e51b0ecb89a1b4a70ca.jpeg",
+      "caption": "Bathroom: grey stone vanity, wall-hung basin, WC, chrome towel rail, glass shower"
+    },
+    {
+      "id": "floorplan",
+      "room": null,
+      "url": "https://media.rightmove.co.uk/property-floorplan/096c71654/92163630/096c71654d083ef9e9f57e39a2b5da53.png",
+      "file": "refs/critic1/92163630/096c71654d083ef9e9f57e39a2b5da53.png",
+      "caption": "Apt 02 floor plan (rooms: 2 bedrooms, living, kitchen, storage, bathroom). Not a CGI room photo; not scored as a render."
+    },
+    {
+      "id": "exterior",
+      "room": null,
+      "url": "https://media.rightmove.co.uk/property-photo/61e68eb54/92163630/61e68eb54a8054aa3e26c3f22411d527.jpeg",
+      "file": "refs/critic1/92163630/61e68eb54a8054aa3e26c3f22411d527.jpeg",
+      "caption": "Exterior facade CGI (shared across listings). Not an interior room photo; not scored here."
+    }
+  ],
+  "items": [
+    {
+      "element": "living_navy_sofa",
+      "room": "living",
+      "rule": "hue_proximity",
+      "status": "yes",
+      "score": 28.2353,
+      "score_norm": 0.6863,
+      "metric": "|\u0394hue|=28.2\u00b0 (r=32 f=60) luma_std=0.231",
+      "render": "renders/polish/v3_final/v3_living.png",
+      "ref": "refs/critic1/92163630/de28ab1c5b90dbae970eacd3de3139fd.jpeg",
+      "ref_url": "https://media.rightmove.co.uk/property-photo/de28ab1c5/92163630/de28ab1c5b90dbae970eacd3de3139fd.jpeg",
+      "source": "Rightmove 92163630 living CGI de28ab1c5 (navy velvet sofa)"
+    },
+    {
+      "element": "living_window_grid",
+      "room": "living",
+      "rule": "hybrid_edge_dark",
+      "status": "no",
+      "score": 0.4146,
+      "score_norm": 0.4146,
+      "metric": "edge=0.41 dark=1.10",
+      "render": "renders/polish/v3_final/v3_living.png",
+      "ref": "refs/critic1/92163630/de28ab1c5b90dbae970eacd3de3139fd.jpeg",
+      "ref_url": "https://media.rightmove.co.uk/property-photo/de28ab1c5/92163630/de28ab1c5b90dbae970eacd3de3139fd.jpeg",
+      "source": "Rightmove 92163630 living CGI de28ab1c5 (dark steel grid window)"
+    },
+    {
+      "element": "living_wood_floor",
+      "room": "living",
+      "rule": "hue_proximity",
+      "status": "yes",
+      "score": 2.8618,
+      "score_norm": 0.9682,
+      "metric": "|\u0394hue|=2.9\u00b0 (r=25 f=28) luma_std=0.141",
+      "render": "renders/polish/v3_final/v3_living.png",
+      "ref": "refs/critic1/92163630/de28ab1c5b90dbae970eacd3de3139fd.jpeg",
+      "ref_url": "https://media.rightmove.co.uk/property-photo/de28ab1c5/92163630/de28ab1c5b90dbae970eacd3de3139fd.jpeg",
+      "source": "Rightmove 92163630 living CGI de28ab1c5 (light oak floor)"
+    },
+    {
+      "element": "kitchen_white_units",
+      "room": "kitchen",
+      "rule": "value_ratio",
+      "status": "yes",
+      "score": 0.8706,
+      "score_norm": 0.8706,
+      "metric": "mean_v 0.827/0.720 bidir=0.87 luma_std=0.163",
+      "render": "renders/polish/v3_final/v3_kitchen.png",
+      "ref": "refs/critic1/92163630/fdf49394c5986a242d14570ec6355111.png",
+      "ref_url": "https://media.rightmove.co.uk/property-photo/fdf49394c/92163630/fdf49394c5986a242d14570ec6355111.png",
+      "source": "Rightmove 92163630 kitchen CGI fdf49394c (handleless white wall units)"
+    },
+    {
+      "element": "kitchen_black_appliances",
+      "room": "kitchen",
+      "rule": "dark_ratio",
+      "status": "no",
+      "score": 0.0905,
+      "score_norm": 0.0905,
+      "metric": "dark 0.046/0.513=0.09",
+      "render": "renders/polish/v3_final/v3_kitchen.png",
+      "ref": "refs/critic1/92163630/fdf49394c5986a242d14570ec6355111.png",
+      "ref_url": "https://media.rightmove.co.uk/property-photo/fdf49394c/92163630/fdf49394c5986a242d14570ec6355111.png",
+      "source": "Rightmove 92163630 kitchen CGI fdf49394c (black microwave / dark appliance faces)"
+    },
+    {
+      "element": "kitchen_dining_chairs",
+      "room": "kitchen",
+      "rule": "hue_proximity",
+      "status": "yes",
+      "score": 4.1448,
+      "score_norm": 0.9539,
+      "metric": "|\u0394hue|=4.1\u00b0 (r=31 f=27) luma_std=0.145",
+      "render": "renders/polish/v3_final/v3_kitchen.png",
+      "ref": "refs/critic1/92163630/8bf225e51bb76ab9c25f721bb114d3ab.jpeg",
+      "ref_url": "https://media.rightmove.co.uk/property-photo/8bf225e51/92163630/8bf225e51bb76ab9c25f721bb114d3ab.jpeg",
+      "source": "Rightmove 92163630 living-kitchen CGI 8bf225e51 (cream boucle dining chairs)"
+    },
+    {
+      "element": "bedroom1_navy_bed",
+      "room": "bedroom1",
+      "rule": "hue_proximity",
+      "status": "yes",
+      "score": 3.1034,
+      "score_norm": 0.9655,
+      "metric": "|\u0394hue|=3.1\u00b0 (r=30 f=27) luma_std=0.195",
+      "render": "renders/polish/v3_final/v3_bedroom1.png",
+      "ref": "refs/critic1/92163630/6830c23cc81166dfe894a94204f9eeeb.jpeg",
+      "ref_url": "https://media.rightmove.co.uk/property-photo/6830c23cc/92163630/6830c23cc81166dfe894a94204f9eeeb.jpeg",
+      "source": "Rightmove 92163630 bedroom CGI 6830c23cc (navy upholstered bed)"
+    },
+    {
+      "element": "bedroom1_detail",
+      "room": "bedroom1",
+      "rule": "edge_ratio",
+      "status": "yes",
+      "score": 1.466,
+      "score_norm": 1.0,
+      "metric": "edge 0.0607/0.0414=1.47",
+      "render": "renders/polish/v3_final/v3_bedroom1.png",
+      "ref": "refs/critic1/92163630/6830c23cc81166dfe894a94204f9eeeb.jpeg",
+      "ref_url": "https://media.rightmove.co.uk/property-photo/6830c23cc/92163630/6830c23cc81166dfe894a94204f9eeeb.jpeg",
+      "source": "Rightmove 92163630 bedroom CGI 6830c23cc (wardrobe, art, lamps, bedding edges)"
+    },
+    {
+      "element": "bedroom2_navy_bed",
+      "room": "bedroom2",
+      "rule": "hue_proximity",
+      "status": "yes",
+      "score": 3.5,
+      "score_norm": 0.9611,
+      "metric": "|\u0394hue|=3.5\u00b0 (r=32 f=28) luma_std=0.199",
+      "render": "renders/polish/v3_final/v3_bedroom2.png",
+      "ref": "refs/critic1/92163630/09a28850469373714e2934f7bbf90dbb.jpeg",
+      "ref_url": "https://media.rightmove.co.uk/property-photo/09a288504/92163630/09a28850469373714e2934f7bbf90dbb.jpeg",
+      "source": "Rightmove 92163630 bedroom CGI 09a288504 (navy bed + white bedding)"
+    },
+    {
+      "element": "bedroom2_detail",
+      "room": "bedroom2",
+      "rule": "edge_ratio",
+      "status": "yes",
+      "score": 1.9173,
+      "score_norm": 1.0,
+      "metric": "edge 0.0665/0.0347=1.92",
+      "render": "renders/polish/v3_final/v3_bedroom2.png",
+      "ref": "refs/critic1/92163630/09a28850469373714e2934f7bbf90dbb.jpeg",
+      "ref_url": "https://media.rightmove.co.uk/property-photo/09a288504/92163630/09a28850469373714e2934f7bbf90dbb.jpeg",
+      "source": "Rightmove 92163630 bedroom CGI 09a288504 (slatted wardrobe, nightstand, art, bedding)"
+    },
+    {
+      "element": "bathroom_sanitary_white",
+      "room": "bathroom",
+      "rule": "value_ratio",
+      "status": "yes",
+      "score": 0.9798,
+      "score_norm": 0.9798,
+      "metric": "mean_v 0.640/0.653 bidir=0.98 luma_std=0.128",
+      "render": "renders/polish/v3_final/v3_bathroom.png",
+      "ref": "refs/critic1/92163630/22723505c9916e51b0ecb89a1b4a70ca.jpeg",
+      "ref_url": "https://media.rightmove.co.uk/property-photo/22723505c/92163630/22723505c9916e51b0ecb89a1b4a70ca.jpeg",
+      "source": "Rightmove 92163630 bathroom CGI 22723505c (white WC)"
+    },
+    {
+      "element": "bathroom_fittings_edge",
+      "room": "bathroom",
+      "rule": "edge_ratio",
+      "status": "no",
+      "score": 0.4007,
+      "score_norm": 0.4007,
+      "metric": "edge 0.0178/0.0444=0.40",
+      "render": "renders/polish/v3_final/v3_bathroom.png",
+      "ref": "refs/critic1/92163630/22723505c9916e51b0ecb89a1b4a70ca.jpeg",
+      "ref_url": "https://media.rightmove.co.uk/property-photo/22723505c/92163630/22723505c9916e51b0ecb89a1b4a70ca.jpeg",
+      "source": "Rightmove 92163630 bathroom CGI 22723505c (basin, shower glass, towel rail, fittings)"
+    },
+    {
+      "element": "bathroom_grey_surfaces",
+      "room": "bathroom",
+      "rule": "hue_proximity",
+      "status": "yes",
+      "score": 4.7368,
+      "score_norm": 0.9474,
+      "metric": "|\u0394hue|=4.7\u00b0 (r=35 f=30) luma_std=0.066",
+      "render": "renders/polish/v3_final/v3_bathroom.png",
+      "ref": "refs/critic1/92163630/22723505c9916e51b0ecb89a1b4a70ca.jpeg",
+      "ref_url": "https://media.rightmove.co.uk/property-photo/22723505c/92163630/22723505c9916e51b0ecb89a1b4a70ca.jpeg",
+      "source": "Rightmove 92163630 bathroom CGI 22723505c (grey stone vanity / tile)"
+    }
+  ],
+  "counts": {
+    "yes": 10,
+    "partial": 0,
+    "no": 3,
+    "total": 13
+  },
+  "score": 0.7876,
+  "score_pct": 78.8,
+  "gate": {
+    "pass": false,
+    "verdict": "FAIL",
+    "threshold": "no 'no' rows and <=2 'partial'",
+    "yes_ratio": 0.8,
+    "partial_ratio": 0.6
+  },
+  "method": "trick #15; /home/box/x-bookmarks/implementations/barclay/2026-11-09-reference-checklist-gate.md; x_tricks.md #15",
+  "source": {
+    "kind": "polish_v3_final",
+    "branch": "origin/barclay",
+    "commit": "00f6fd852b9193056b7446b2a1e3f483744b0191",
+    "commit_date": "2026-11-22 20:43:41 +0400 (Asia/Dubai)",
+    "renders_path": "renders/polish/v3_final",
+    "stills_introduced_in": "e8d90c2009b1d60d0500803f43cef91f583f3111",
+    "stills_introduced_date": "2026-11-20 11:38:06 +0400 (Asia/Dubai)",
+    "stills_introduced_subject": "lane/polish: final v3_* stills on CC0 base, gate 78.8% (was 69.8%)",
+    "note": "Newer than interior/live room stills (same origin/barclay tip). Not copied into interior/live. Also present on origin/lane/polish."
+  }
+}
