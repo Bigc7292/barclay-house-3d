@@ -665,8 +665,9 @@ def place_trace(ctx, FUR, JOIN):
         if i == 1:
             # CGI kitchen_run: black microwave in the second wall-unit bay.
             # Neighbouring bays keep their centres; this bay is the microwave only.
-            put("micro", "Microwave_frame_black", Vector((wloc.x, wloc.y, 1.45 + 0.06)),
-                math.pi, "i_kitchen", w=min(0.50, ww - 0.06))
+            # Fill more of the wall-unit bay (CGI kitchen_run), same bay centre.
+            put("micro", "Microwave_frame_black", Vector((wloc.x, wloc.y, 1.45 + 0.08)),
+                math.pi, "i_kitchen", w=min(0.55, ww - 0.04), h=0.52)
         else:
             put("kwall", f"Wall_unit_{i}", wloc, math.pi, "i_kitchen", w=ww - 0.003)
 
