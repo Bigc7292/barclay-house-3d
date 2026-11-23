@@ -13,6 +13,12 @@ EVERY size here that is not in build_scene.SOURCES is a STAND-IN (photo-read, no
 import os, math
 ON = os.environ.get("BHERO4") == "1"
 B4B = ON and os.environ.get("BHERO4B") == "1"   # r8b: cheaper-to-read ashlar/arcade (checks.py hf rows); off = hero4 exactly
+B4C = B4B and os.environ.get("BHERO4C") == "1"   # r8c: no lower RB shield where it would sit on the oriel head; off = hero4b exactly
+def rb_skip(xx, zz, W, L, TRIPLE, rx=0.48):
+    """r8c: True for a lower-row RB shield (z = L[3]+0.3) whose disc overlaps an oriel head (head x = a*W-0.4 .. b*W+0.4,
+    z = L[3]-0.35 .. L[3]+0.10). The upper-row shield at L[4]-1.6 on the same pier stays, clear above the head."""
+    if not B4C or abs(zz - (L[3]+0.3)) > 1e-6: return False
+    return any(a_*W-0.4-rx-0.05 < xx < b_*W+0.4+rx+0.05 for a_, b_ in TRIPLE)
 # hero3.glb PaletteBaseColor entries (sRGB) -> linear
 def _lin(h):
     c = [int(h[i:i+2], 16)/255 for i in (0, 2, 4)]
@@ -96,6 +102,7 @@ def ornament(bpy, M, C, fr, W, L, ROOF, box, disc, ex, ew, TRIPLE, openings):
             if a_ < 0.5 and xx < a_*W: continue
             if a_ > 0.5 and xx > b_*W: continue
             for zz in (L[3]+0.3, L[4]-1.6):
+                if rb_skip(xx, zz, W, L, TRIPLE): continue
                 disc("HERO_RB_cartouche", xx, zz, 0.48, 0.58, -0.62, -0.40, M["terracotta"], 20)
                 _text(bpy, "HERO_RB_monogram", "RB", 0.40, 0.08, C, fr, (xx, -0.78-0.04, zz-0.02), M["terracotta"])
     # (c) parapet: moulded coping + plinth band (heights STAND-IN; E05 shows a light parapet, not dimensioned)

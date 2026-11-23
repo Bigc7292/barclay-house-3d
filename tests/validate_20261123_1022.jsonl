@@ -1,0 +1,6 @@
+{"file":"tests/hero4c/exp/barclay_hero.glb","MB":3.89,"budget":5,"errors":0,"warnings":3,"primitives_drawcalls":33,"materials":12,"textures":3,"ok":true}
+{"file":"tests/hero4c/exp/mobile/barclay_hero_mobile.glb","MB":1.87,"budget":2,"errors":0,"warnings":1,"primitives_drawcalls":31,"materials":11,"textures":3,"ok":true}
+{"file":"tests/hero4c/exp/mobile/barclay_surroundings_mobile.glb","MB":4.52,"budget":6,"errors":0,"warnings":4,"primitives_drawcalls":20,"materials":20,"textures":12,"ok":true}
+{"file":"tests/hero4c/exp/barclay_surroundings.glb","MB":34.1,"budget":null,"errors":0,"warnings":3,"primitives_drawcalls":5453,"materials":21,"textures":12,"ok":true}
+{"file":"tests/hero4c/exp/barclay_hero.glb","check":"parts_plan_nodes","required":10,"present":10,"missing":[],"stray_dot001":[],"stray_count":0,"node_count":39,"ok":true}
+MESHHEALTH status=PASS blockers=0 majors=16 minors=3268 dup_unshared=23 seconds=10.42 blend_unchanged=True md=tests/hero4c/exp/mesh_health.md json=tests/hero4c/exp/mesh_health.json

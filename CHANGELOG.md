@@ -14,6 +14,26 @@
 - Clickable floors: `make_mobile` flattens Floor_* children, so `bindFloors` also registers the named storey parts (Facade_01, Window_0N_*, doorcase, etc.) for picking, tint and isolate. Hits are classified by storey Y-band so the Floor_02 giant pilaster (y 5.5–20) does not steal Floor_03–05 clicks. Floor_00's coarse slab has no centre verts, so its click point is synthesised at the front centre.
 - Headless Playwright (desktop 1280×720 and Galaxy S9+): Floor_00–05 each return the right name; isolate and empty-clear work; 0 console errors; 0 external requests. Street still: `shots/r13/hero4_street.png`.
 - Not deployed from this lane. Interior bot merges and includes this in the next combined deploy.
+## 2026-11-23 10:25 UTC+4 — r8c steps 2–3: hero4c (lower RB shields off the oriel heads), validate PASS
+- Step 2: the aligned scores from step 1 show no real facade defect, so hero4b's facade is unchanged. hero4c carries only the shield fix.
+- Step 3: `hero4.py` gets a new `BHERO4C=1` switch, which needs BHERO4B.
+  - It adds `hero4.rb_skip()`, used by `build_scene.py` (the base `HERO_RB_shield`) and by `hero4.ornament` (cartouche and monogram).
+  - It drops a lower-row RB shield (z = L3 + 0.3) wherever its disc overlaps or touches an oriel head. The head spans a·W − 0.4 to b·W + 0.4 and L3 − 0.35 to L3 + 0.10.
+  - All 3 lower shields met that test: 2 on the east bay, at its edges, and the west one, which was 0.02 m from its head. The 3 upper-row shields at L4 − 1.6 stay, clear above the heads.
+  - With BHERO4C off, the build is byte-for-byte hero4b.
+- New files. No hero4, hero4b or protected file was touched.
+
+  | File | Size |
+  |---|---|
+  | `out/barclay_hero4c.glb` | 4,078,872 B |
+  | `out/mobile/barclay_hero4c_mobile.glb` | 1,960,368 B |
+  | `out/barclay_hero4c.blend` (with R8 and R8B surroundings) | 65,913,692 B |
+
+  Replay: `tests/hero4c/run.sh`.
+- Validate (`OUT=tests/hero4c/exp MESHHEALTH=1 MESHHEALTH_BLEND=out/barclay_hero4c.blend`): PASS.
+  - 0 errors on all 4 GLBs. check_parts 10/10 with 0 stray.
+  - MESHHEALTH: 0 Blockers and 16 majors (hero4b had 19; the 3 removed shields accounted for 3 majors).
+  - Report: `tests/validate_20261123_1022.jsonl`.
 
 ## 2026-11-23 10:20 UTC+4 — r8c step 1: camera matched to the Geograph photo, aligned re-score
 - Ran `camera_match.py` on the hero4b surroundings blend with the 6 points in `tests/geograph_points.json` and clip_start 4 m.

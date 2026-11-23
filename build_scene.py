@@ -374,6 +374,7 @@ def hero(M, C, pts):
             if a_ < 0.5 and xx < a_*W: continue
             if a_ > 0.5 and xx > b_*W: continue
             for zz in (LEVELS[3]+0.3, LEVELS[4]-1.6):
+                if hero4.rb_skip(xx, zz, W, LEVELS, TRIPLE): continue
                 disc("HERO_RB_shield", xx, zz, 0.42, 0.52, -0.78, -0.55, M["terracotta"], 16)
     for sgn in (-1, 1):   # moulded doorcase: stepped architrave (3 fasciae)
         for k, (w_, d_) in enumerate(((0.12, -0.55), (0.10, -0.65), (0.08, -0.75))):
