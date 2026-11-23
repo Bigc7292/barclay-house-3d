@@ -219,8 +219,8 @@ let done=0;const need=4;const pr={};const bar=$('pb'),pbw=$('pbw');
 const upd=()=>{const v=Object.values(pr);const t=v.reduce((a,b)=>a+b,0)/need;if(bar)bar.style.width=Math.round(t*100)+'%';if(pbw)pbw.style.display=done>=need?'none':'';};
 const prog=()=>{done++;upd();draw=true;say(done<need?`Loading 3D models… ${done}/${need}${MOB?' (mobile quality)':''}`:'')};
 const INT=(q0.get('int')||'v5');const intU=INT==='v4'?(MOB?'twobed_m.glb':'twobed.glb'):(MOB?'twobed_v5_m.glb':'twobed_v5.glb');
-const heroU=MOB?'hero3_floors_m.glb':'hero3_floors.glb';
-const heroFb=MOB?'hero_mo3.glb':'hero3.glb';
+const heroU=MOB?'hero4_mobile.glb':'hero4.glb';
+const heroFb=MOB?'hero3_floors_m.glb':'hero3_floors.glb';
 const queue=MOB?[[heroU,ext],['context_mo.glb',ext],['ext7_street_o.glb',ext],[intU,intr]]:[[heroU,ext],['context_typed_opt.glb',ext],['ext7_street.glb',ext],[intU,intr]];
 const loadOne=(u,g,fb)=>{pr[u]=0;const kind=u.startsWith('context')?'ctx':u.startsWith('hero')?'hero':u.startsWith('ext7')?'street':'in';
  L.load(u,x=>{pr[u]=1;prep(x.scene,kind);g.add(x.scene);if(/^Ceiling/.test(x.scene.name))ceil=x.scene;x.scene.traverse(o=>{if(/^Ceiling/.test(o.name)&&o.isMesh)ceil=o});if(kind==='hero')bindFloors(x.scene);prog();reshadow();loadNext()},
@@ -228,38 +228,49 @@ const loadOne=(u,g,fb)=>{pr[u]=0;const kind=u.startsWith('context')?'ctx':u.star
  e=>{if(fb){delete pr[u];loadOne(fb,g,null);return}say('Could not load '+u+' ('+(e&&e.message||'network error')+'). Check your connection and reload.',1)})};
 const loadNext=()=>{if(!queue.length)return;const [u,g]=queue.shift();loadOne(u,g,u===heroU?heroFb:null)};
 loadNext();
-// x_tricks #5: click a Floor_* node to highlight it and show its name/level. Shared materials are cloned so a tint does not leak across storeys. hero3.glb remains the fallback if the Floor_* file is missing.
+// x_tricks #5: click a Floor_* node to highlight it and show its name/level. Shared materials are cloned so a tint does not leak across storeys. Live exterior is hero4 / hero4_mobile (r8). hero3_floors / hero3_floors_m remain the fallback if hero4 is missing. make_mobile flattens Floor_* children, so bindFloors also registers the named storey parts for picking, tint and isolate.
 const floors=new Map();let selFloor=null,isoOn=false,ptrDown=null;
 const FLOOR_META={Floor_00:{title:'Basement',level:0,note:'Basement level NOT FOUND; stand-in at street level.'},Floor_01:{title:'Ground floor',level:1},Floor_02:{title:'First floor',level:2},Floor_03:{title:'Second floor',level:3},Floor_04:{title:'Third floor',level:4},Floor_05:{title:'Attic storey',level:5}};
-function floorOf(o){while(o){if(/^Floor_\d+$/.test(o.name))return o;o=o.parent}return null}
+function floorOf(o){let p=o;while(p){if(/^Floor_\d+$/.test(p.name))return p;p=p.parent}p=o;while(p){if(p.userData&&p.userData.floorHost)return p.userData.floorHost;p=p.parent}return null}
 function floorNo(name){const m=/^Floor_(\d+)$/.exec(name);return m?+m[1]:null}
 function ensureFlab(){let el=$('flab');if(el)return el;el=document.createElement('div');el.id='flab';el.className='x';el.setAttribute('role','status');$('v').appendChild(el);return el}
 function setLab(node){const el=ensureFlab();if(!node){el.className='x';el.innerHTML='';return}const meta=FLOOR_META[node.name]||{title:node.name,level:floorNo(node.name)};
  el.className='';el.innerHTML=`<div id=flabn>${meta.title} · level ${meta.level}<span class=flid> ${node.name}</span></div>${meta.note?`<div class=flnote>${meta.note}</div>`:''}<div class=flacts><button type=button id=fliso>${isoOn?'Show all floors':'Hide floors above'}</button>${node.name==='Floor_01'?'<button type=button id=flint>View Two Bed interior</button>':''}</div>`;
  const iso=$('fliso');if(iso)iso.onclick=e=>{e.stopPropagation();isoOn=!isoOn;applyIso();setLab(selFloor);draw=true};
  const inn=$('flint');if(inn)inn.onclick=e=>{e.stopPropagation();window.mode('i')}}
-function tintFloor(node,on){node.traverse(o=>{if(!o.isMesh||!o.material)return;const mats=Array.isArray(o.material)?o.material:[o.material];
+function tintFloor(node,on){[node,...(node.userData.extras||[])].forEach(root=>root.traverse(o=>{if(!o.isMesh||!o.material)return;const mats=Array.isArray(o.material)?o.material:[o.material];
  if(on){if(o.userData._mat0)return;o.userData._mat0=mats;const cloned=mats.map(m=>{const c=m.clone();if(c.emissive){c.emissive.setHex(0x1d4ed8);c.emissiveIntensity=(c.emissiveIntensity||0)+0.45}c.needsUpdate=true;return c});o.material=Array.isArray(o.material)?cloned:cloned[0]}
- else if(o.userData._mat0){const cur=Array.isArray(o.material)?o.material:[o.material];cur.forEach(m=>{if(!o.userData._mat0.includes(m))m.dispose()});o.material=Array.isArray(o.material)?o.userData._mat0:o.userData._mat0[0];delete o.userData._mat0}})}
-function applyIso(){const n=selFloor?floorNo(selFloor.name):null;floors.forEach((node,name)=>{const i=floorNo(name);node.visible=!isoOn||n==null||i<=n});reshadow();draw=true}
+ else if(o.userData._mat0){const cur=Array.isArray(o.material)?o.material:[o.material];cur.forEach(m=>{if(!o.userData._mat0.includes(m))m.dispose()});o.material=Array.isArray(o.material)?o.userData._mat0:o.userData._mat0[0];delete o.userData._mat0}}))}
+function applyIso(){const n=selFloor?floorNo(selFloor.name):null;floors.forEach((node,name)=>{const vis=!isoOn||n==null||floorNo(name)<=n;node.visible=vis;(node.userData.extras||[]).forEach(o=>{o.visible=vis})});reshadow();draw=true}
 function clearFloor(){if(selFloor)tintFloor(selFloor,false);selFloor=null;isoOn=false;applyIso();setLab(null);draw=true}
 function selectFloor(node){if(selFloor&&selFloor!==node)tintFloor(selFloor,false);selFloor=node;tintFloor(node,true);applyIso();setLab(node);draw=true}
+const FLOOR_PARTS={Floor_00:['Window_00_sill'],Floor_01:['Door_entrance_frame','Facade_01','HERO_entrance_lettering','HERO_entrance_sign','HERO_rustication_groove_009','Window_01_frame','Window_01_glass'],Floor_02:['HERO_giant_pilaster_005','Window_02_frame','Window_02_glass'],Floor_03:['Window_03_frame','Window_03_glass','Window_03_sill'],Floor_04:['Window_04_frame','Window_04_glass','Window_04_sill'],Floor_05:['Window_05_frame','Window_05_glass','Window_05_sill']};
+function floorPickables(){const arr=[];floors.forEach(node=>{arr.push(node);if(node.userData.extras)arr.push(...node.userData.extras)});return arr}
 function bindFloors(root){floors.clear();selFloor=null;isoOn=false;root.traverse(o=>{if(/^Floor_\d+$/.test(o.name))floors.set(o.name,o)});
+ const under=new Set();floors.forEach(node=>node.traverse(o=>under.add(o)));
+ const byName=new Map();root.traverse(o=>{if(o.name&&!byName.has(o.name))byName.set(o.name,o)});
+ floors.forEach((node,name)=>{const extras=[];(FLOOR_PARTS[name]||[]).forEach(part=>{const o=byName.get(part);if(!o||under.has(o))return;extras.push(o);o.traverse(c=>{c.userData.floorHost=node;under.add(c)})});node.userData.extras=extras});
  const tmp=new THREE.Vector3();
- floors.forEach((node,name)=>{const pts=[];node.traverse(o=>{if(!o.isMesh||!o.geometry||/^Door_/.test(o.name))return;const pos=o.geometry.attributes.position;if(!pos)return;o.updateWorldMatrix(true,false);
-  for(let i=0;i<pos.count;i++){tmp.fromBufferAttribute(pos,i).applyMatrix4(o.matrixWorld);if(tmp.z>14)pts.push([tmp.x,tmp.y,tmp.z])}});
-  const BAND={Floor_00:{y0:-0.05,y1:0.25,x0:12,x1:99},Floor_01:{y0:2.4,y1:5.0,x0:-3,x1:3},Floor_02:{y0:6.5,y1:9.0,x0:-3,x1:3},Floor_03:{y0:10.5,y1:12.2,x0:-3,x1:3},Floor_04:{y0:13.7,y1:15.5,x0:-3,x1:3},Floor_05:{y0:17.2,y1:19.0,x0:-3,x1:3}};
+ floors.forEach((node,name)=>{const pts=[];const collect=o=>{if(!o.isMesh||!o.geometry||/^Door_/.test(o.name))return;const pos=o.geometry.attributes.position;if(!pos)return;o.updateWorldMatrix(true,false);
+  for(let i=0;i<pos.count;i++){tmp.fromBufferAttribute(pos,i).applyMatrix4(o.matrixWorld);if(tmp.z>14)pts.push([tmp.x,tmp.y,tmp.z])}};
+  node.traverse(collect);(node.userData.extras||[]).forEach(o=>o.traverse(collect));
+  const BAND={Floor_00:{y0:-0.05,y1:0.25,x0:-3,x1:3},Floor_01:{y0:2.4,y1:5.0,x0:-3,x1:3},Floor_02:{y0:6.5,y1:9.0,x0:-3,x1:3},Floor_03:{y0:10.5,y1:12.2,x0:-3,x1:3},Floor_04:{y0:13.7,y1:15.5,x0:-3,x1:3},Floor_05:{y0:17.2,y1:19.0,x0:-3,x1:3}};
   const band=BAND[name];
   let cand=band?pts.filter(p=>p[1]>=band.y0&&p[1]<=band.y1&&p[0]>=band.x0&&p[0]<=band.x1):pts;
-  if(!cand.length)cand=pts;
-  let pick;if(!cand.length){const b=new THREE.Box3().setFromObject(node);pick=b.getCenter(new THREE.Vector3())}
-  else{cand.sort((a,b)=>b[2]-a[2]-Math.abs(a[0])*0.35+Math.abs(b[0])*0.35);pick=new THREE.Vector3(cand[0][0],cand[0][1],cand[0][2])}
+  let pick;
+  if(cand.length){cand.sort((a,b)=>b[2]-a[2]-Math.abs(a[0])*0.35+Math.abs(b[0])*0.35);pick=new THREE.Vector3(cand[0][0],cand[0][1],cand[0][2])}
+  else{const b=new THREE.Box3().setFromObject(node);(node.userData.extras||[]).forEach(o=>b.expandByObject(o));
+   const y=band?(band.y0+band.y1)/2:(b.min.y+b.max.y)/2;pick=new THREE.Vector3(0,y,b.max.z)}
   pick.z+=0.08;node.userData.clickPt=pick});
  window.__floorsReady=()=>floors.size>0}
 const floorRay=new THREE.Raycaster(),floorNdc=new THREE.Vector2();
+// Storey Y bands from hero4 Floor_* slabs. Used so a mesh parented to the wrong storey
+// (hero4's giant pilaster is under Floor_02 but runs y 5.5–20) still picks the storey you clicked.
+const FLOOR_Y={0:[-0.5,1.9],1:[1.9,5.56],2:[5.56,9.49],3:[9.49,12.78],4:[12.78,16.1],5:[16.1,30]};
+function floorAtY(y){for(const [name,node] of floors){const i=floorNo(name),b=FLOOR_Y[i];if(b&&y>=b[0]&&y<b[1])return node}return null}
 function pickFloorAt(cx,cy){if(!floors.size||!ext.visible||fp||flying)return null;const r=R.domElement.getBoundingClientRect();
  floorNdc.set(((cx-r.left)/r.width)*2-1,-((cy-r.top)/r.height)*2+1);floorRay.setFromCamera(floorNdc,C);
- const hits=floorRay.intersectObjects([...floors.values()],true);for(const h of hits){const n=floorOf(h.object);if(n&&n.visible)return n}return null}
+ const hits=floorRay.intersectObjects(floorPickables(),true);for(const h of hits){const byY=floorAtY(h.point.y);if(byY&&byY.visible)return byY;const n=floorOf(h.object);if(n&&n.visible)return n}return null}
 function onFloorClick(cx,cy){const n=pickFloorAt(cx,cy);if(!n){if(selFloor)clearFloor();return null}if(selFloor===n){clearFloor();return null}selectFloor(n);return n.name}
 R.domElement.addEventListener('pointerdown',e=>{if(fp||flying||!ext.visible||e.button)return;ptrDown={x:e.clientX,y:e.clientY,id:e.pointerId}});
 const floorUp=e=>{if(!ptrDown||e.pointerId!==ptrDown.id)return;const dx=e.clientX-ptrDown.x,dy=e.clientY-ptrDown.y;const x=ptrDown.x,y=ptrDown.y;ptrDown=null;if(fp||flying||!ext.visible)return;if(Math.hypot(dx,dy)>6)return;onFloorClick(x,y)};
@@ -273,6 +284,7 @@ window.__selectFloor=name=>{const n=floors.get(name);if(!n)return false;selectFl
 window.__clearFloor=()=>{clearFloor()};
 window.__isolateFloors=on=>{isoOn=!!on;applyIso();if(selFloor)setLab(selFloor)};
 window.__projectFloor=projectFloor;
+window.__clickPt=name=>{const n=floors.get(name);if(!n||!n.userData.clickPt)return null;const p=n.userData.clickPt;return[p.x,p.y,p.z]};
 window.__pickFloorAt=(x,y)=>onFloorClick(x,y);
 window.__hitFloorAt=(x,y)=>{const n=pickFloorAt(x,y);return n?n.name:null};
 window.__floorVisible=name=>{const n=floors.get(name);return n?n.visible:null};

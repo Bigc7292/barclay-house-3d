@@ -25,7 +25,7 @@ if [[ -x src/node_modules/.bin/esbuild ]]; then E=src/node_modules/.bin/esbuild;
 (cd src && "../$E" app.js --bundle --minify --format=iife --legal-comments=eof --outfile=../app.js 2>&1 | tail -1) || (cd src && "$E" app.js --bundle --minify --format=iife --legal-comments=eof --outfile=../app.js)
 FILES=(
   index.html app.js vercel.json apt02_fp.png env.hdr env_m.hdr
-  hero3.glb hero_mo3.glb hero3_floors.glb hero3_floors_m.glb context_typed_opt.glb context_mo.glb ext7_street.glb ext7_street_o.glb
+  hero3.glb hero_mo3.glb hero3_floors.glb hero3_floors_m.glb hero4.glb hero4_mobile.glb context_typed_opt.glb context_mo.glb ext7_street.glb ext7_street_o.glb
   twobed_v5.glb twobed_v5_m.glb twobed.glb twobed_m.glb
   tex/oak_n.jpg tex/oak_r.jpg tex/teddy_d.jpg tex/teddy_n.jpg tex/teddy_r.jpg tex/whitworth.jpg
   tex/oak_n_m.jpg tex/oak_r_m.jpg tex/teddy_d_m.jpg tex/teddy_n_m.jpg tex/teddy_r_m.jpg

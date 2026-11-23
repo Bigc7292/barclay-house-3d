@@ -1,5 +1,14 @@
 # CHANGELOG
 
+## 2026-11-23 10:20 UTC+4 — wire hero4 into the main viewer
+- Copied `out/barclay_hero4.glb` → `web/hero4.glb` (4,233,200 B, 4.04 MB) and `out/mobile/barclay_hero4_mobile.glb` → `web/hero4_mobile.glb` (2,059,672 B, 1.96 MB). sha256 matches the out/ files. Official `out/` files and `web/hero3.glb` untouched.
+- Main viewer now loads `hero4.glb` (desktop) / `hero4_mobile.glb` (mobile). Fallback is `hero3_floors` / `hero3_floors_m` if hero4 fails to load. `app.js?v=43`.
+- Khronos gltf-validator: 0 errors on both files (desktop 3 warnings: missing tangents + unused objects; mobile 1 warning: missing tangents + 24 degenerate triangles of 1200). Size budgets: 4.04/5 MB and 1.96/2 MB.
+- Clickable floors: `make_mobile` flattens Floor_* children, so `bindFloors` also registers the named storey parts (Facade_01, Window_0N_*, doorcase, etc.) for picking, tint and isolate. Hits are classified by storey Y-band so the Floor_02 giant pilaster (y 5.5–20) does not steal Floor_03–05 clicks. Floor_00's coarse slab has no centre verts, so its click point is synthesised at the front centre.
+- Headless Playwright (desktop 1280×720 and Galaxy S9+): Floor_00–05 each return the right name; isolate and empty-clear work; 0 console errors; 0 external requests. Street still: `shots/r13/hero4_street.png`.
+- Not deployed from this lane. Interior bot merges and includes this in the next combined deploy.
+
+
 ## 2026-11-23 09:45 UTC+4 — r8 stills + checklist
 - Stills in `tests/hero4/stills/`: before (official blend) and after (hero4) at 1920x1080 for street, facade, entrance and viaduct, plus wsw_east after; comparison sheets `cmp_*_before_after.jpg`; `after_hero4_street_4096x2304.png` (48 spp). The hero 4096 still was skipped because it takes too long under the shared CPU load.
 - `checks.py --cam street` on the 4K street still (`tests/hero4/checks_after_street.md`), compared with the official still (`checks_before_street.md`). The crops are not camera-matched, so treat these as indicative:
