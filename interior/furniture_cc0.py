@@ -28,7 +28,15 @@ _PROTO = {}  # name -> root empty (hidden prototypes)
 # Tuple is (sRGB albedo, roughness, metallic). Builder materials use the same
 # names/finishes (and may attach a texture, tinted toward these albedos).
 PALETTE = {
-    "NAVY":   ((0.04, 0.08, 0.145), 0.85, 0.0),  # teal-navy velvet, matte (CGI sofa/beds)
+    # CGI navy, freeze v2 fabric crops (lane/reference b8612440):
+    # bed1 headboard, Rightmove 92163630 photo 6830c23cc,
+    #   https://media.rightmove.co.uk/property-photo/6830c23cc/92163630/6830c23cc81166dfe894a94204f9eeeb.jpeg
+    #   box [0.335, 0.598, 0.62, 0.626]: mean RGB (19, 30, 40), HSV hue 210.1°, sat 0.529, val 0.157
+    # bed2 base, photo 09a288504,
+    #   https://media.rightmove.co.uk/property-photo/09a288504/92163630/09a28850469373714e2934f7bbf90dbb.jpeg
+    #   box [0.42, 0.87, 0.72, 0.935]: mean RGB (18, 24, 32), HSV hue 213.3°, sat 0.445, val 0.125
+    # Shared sofa/bed albedo is HSV hue 211°, sat 0.53, val 0.18.
+    "NAVY":   ((0.0846, 0.1307, 0.18), 0.85, 0.0),  # CGI navy (~210–213°)
     "BOUC":   ((0.88, 0.84, 0.76), 0.95, 0.0),   # cream boucle
     "OAKF":   ((0.76, 0.61, 0.41), 0.50, 0.0),   # pale satin oak (CGI coffee / bedside)
     "WUNIT":  ((0.90, 0.89, 0.86), 0.36, 0.0),   # handleless painted, satin

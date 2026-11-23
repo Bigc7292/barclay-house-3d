@@ -8,7 +8,18 @@ General licences:
 - Poly Haven: all site assets are [CC0](https://polyhaven.com/license) (“Our assets are all licensed as CC0”).
 - Kenney Furniture Kit 2.0 (2018-10-20): [CC0](https://creativecommons.org/publicdomain/zero/1.0/) on [kenney.nl/assets/furniture-kit](https://kenney.nl/assets/furniture-kit) and in `kenney_furniture_kit/License.txt`.
 
-Shared palette (`furniture_cc0.PALETTE`, kit normaliser + `build_twobed_v4.py`): teal-navy velvet (matte), cream boucle, pale satin oak, handleless white (satin), satin black appliances, sanitary white (soft gloss), grey stone vanity, espresso chair frames, dark dining-table top. Roughness/albedo tuned to the Rightmove Apt 02 CGI (listing 92163630, `refs/critic1/92163630/`). Wood prototypes are remapped onto this oak; dining chairs use espresso frames, not pale oak.
+Shared palette (`furniture_cc0.PALETTE`, kit normaliser + `build_twobed_v4.py`): CGI navy velvet (matte, hue ~211°), cream boucle, pale satin oak, handleless white (satin), satin black appliances, sanitary white (soft gloss), grey stone vanity, espresso chair frames, dark dining-table top. Roughness/albedo tuned to the Rightmove Apt 02 CGI (listing 92163630, `refs/critic1/92163630/`). Wood prototypes are remapped onto this oak; dining chairs use espresso frames, not pale oak.
+
+### Navy fabric (sofa + beds) — sampled 23 Nov 2026
+
+Freeze v2 checklist (`lane/reference` `b8612440`) re-anchored the navy-bed reference crops to the fabric, not the cream bedding. Sofa and both beds share one navy, sampled from those crops:
+
+| Sample | Photo / licence-source URL | Crop (frac) | Mean RGB | HSV |
+|---|---|---|---|---|
+| Bedroom 1 headboard | [6830c23cc](https://media.rightmove.co.uk/property-photo/6830c23cc/92163630/6830c23cc81166dfe894a94204f9eeeb.jpeg) (`refs/critic1/92163630/6830c23cc81166dfe894a94204f9eeeb.jpeg`) | [0.335, 0.598, 0.62, 0.626] | (19, 30, 40) | hue 210.1°, sat 0.529, val 0.157 |
+| Bedroom 2 bed base | [09a288504](https://media.rightmove.co.uk/property-photo/09a288504/92163630/09a28850469373714e2934f7bbf90dbb.jpeg) (`refs/critic1/92163630/09a28850469373714e2934f7bbf90dbb.jpeg`) | [0.42, 0.87, 0.72, 0.935] | (18, 24, 32) | hue 213.3°, sat 0.445, val 0.125 |
+
+Palette albedo is HSV hue **211°**, sat 0.53, val 0.18 (linear RGB 0.0846, 0.1307, 0.18). The velvet texture (`interior/tex/velvet_navy_diff.jpg`) is hue-shifted in `build_twobed_v4.py` (`_hs(NAVY, 0.335, 0.95, 0.85)`) so the AgX stills land near that CGI hue rather than the previous ~255–260°.
 
 Prototype sizes are checked against `furniture_dims.json` (see `interior/assets/scale_audit.json`). After `place_trace`, some pieces are then fitted to the plan footprint (sofa, beds, kitchen run, vanity, shelving) so positions stay trace-driven.
 

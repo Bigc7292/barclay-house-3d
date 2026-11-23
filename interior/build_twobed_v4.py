@@ -78,8 +78,11 @@ def _hs(M,h=0.5,s=1.0,v=1.0):
     hs=N.new("ShaderNodeHueSaturation"); hs.inputs["Hue"].default_value=h; hs.inputs["Saturation"].default_value=s; hs.inputs["Value"].default_value=v
     if inc:
         fr=inc[0].from_socket; L.remove(inc[0]); L.new(fr,hs.inputs["Color"]); L.new(hs.outputs["Color"],b.inputs["Base Color"])
-# velvet_navy_diff is a royal blue; CGI sofa/beds are a darker teal-navy.
-_hs(NAVY,0.47,0.92,0.72)
+# velvet_navy_diff is royal blue (circ hue ~229°). Previous _hs(0.47) left the
+# texture at ~218°, which rendered at ~255–260° under AgX + warm lighting.
+# Freeze v2 CGI fabric is hue 210–213°. Pre-shift to ~170° (0.335) so the
+# lit stills land near 211°. Value 0.85 keeps the nap visible.
+_hs(NAVY,0.335,0.95,0.85)
 # oak_light_diff is a medium floor oak; CGI furniture oak is paler and less orange.
 _hs(OAKF,0.50,0.78,1.18)
 # ---------- helpers
