@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 2026-11-23 — deploy dpl_H2sRhyhqZwAsvyhyrpbvHGnjycup
+- Live from 00f6fd85: walls retrace, CC0 furniture, polish (gate 78.8%), clickable floors.
+- Recommitted web/app.js rebuilt from web/src (sha1 1c736ed3); merge 5e4facac had kept a stale polish-only bundle without clickable floors.
+
 ## 2026-11-22 20:45 UTC+4 — trick #22 sun-time shadow-alignment gate (barclay)
 - Why: X Bookmark Analyst intake (SplatStroll method only, closed product). Barclay already has NOAA `tod_panel.sun_pos` / `web/src/app.js sunPos()` but presets are fixed to 21 June, so shadows were never checked against a dated photo.
 - New `sun_check.py` + `tests/suncheck/`: EXIF DateTimeOriginal treated as UK local (`tod_panel.is_bst`, assumed offset logged, sun not "fixed"); renders of a locked `camera_match` camera from a read-only open of the official blend; street-band shadow-mask IoU + edge-angle; ±3 h sweep so a peak can fall outside ±1 h. Official exports and `web/hero3.glb` sha256 unchanged. No deploy. `web/` not edited.
