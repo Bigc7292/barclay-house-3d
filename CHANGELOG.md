@@ -1,5 +1,23 @@
 # CHANGELOG
 
+## 2026-11-23 10:15 UTC+4 — r8b steps 2–3: hero4b (ashlar/arcade tweaks + 120 m layers), validate PASS
+- `hero4.py`: new `BHERO4B=1` switch, which requires `BHERO4=1`; hero4 itself is unchanged.
+  - Rustication channel half-height 0.035 → 0.06 m and joint width 0.03 → 0.06 m (stand-ins); channel tone softened from 0.35 to 0.55 of the front.
+  - Stone photo texture 35 % → 8 %, stone normal 0.12 → 0.04, faience bump 0.15 → 0.06.
+  - `build_scene.py` reads the groove height from `hero4.P`.
+- New files:
+  - `out/barclay_hero4b.blend`: hero4b plus the R8 viaduct layer and the R8B shopfront/lamp/tree-pit layers, 66,136,712 B.
+  - `out/barclay_hero4b.glb`: 4,233,068 B (4.04 MB).
+  - `out/mobile/barclay_hero4b_mobile.glb`: 2,059,612 B (1.96 MB).
+  - No hero4 file or protected file was changed.
+  - Replay: `tests/hero4b/run.sh`.
+- Validate (`OUT=tests/hero4b/exp MESHHEALTH=1 MESHHEALTH_BLEND=out/barclay_hero4b.blend`): PASS. 0 errors on all 4 GLBs, check_parts 10/10 with 0 stray, MESHHEALTH 0 Blockers (19 majors, 3268 minors). Report: `tests/validate_20261123_0951.jsonl`.
+- `checks.py` street rows (1600x900, 24 spp still):
+  - ashlar: hf 2.15 → 2.01, still no.
+  - arcade: edge 1.11, hf_excess 1.63 → 1.59, still no.
+  - RB shields: yes.
+- Why ashlar and arcade can't reach yes cheaply: on the uncalibrated `Cam_Street` the ashlar/arcade crops land on the upper windows and arches, and the reference crop lands on the photo's upper floors. The high-frequency score is driven mainly by the black glazing bars, which are Colin's approved look and are white in the photo. Getting to "yes" needs a camera-matched still (Cam_Match_geograph via `camera_match.py`) or recalibrated crops, not more facade changes.
+
 ## 2026-11-23 10:05 UTC+4 — r8b step 1: 120 m zone shopfronts, lamps, tree pits (code)
 - `build_surroundings.py` gets a `BSURR_R8B=1` layer; with it off, nothing changes.
   - **Shopfronts** go on neighbour frontages within 120 m of the hero only where an OSM shop/café/bar/nightclub POI is within 12 m of that frontage (10 frontages). Each gets a stall riser, glazing with mullions, a transom, a recessed door, a fascia with a sign band, and end pilasters. All sizes are stand-ins.
