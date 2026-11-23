@@ -19,7 +19,7 @@ import json
 # lane/polish fixes (default all): 4 wall material, 5 art, 6 bake denoise+AO, 7 bathroom stone-look tile + window street backdrop.
 # (2 vanity / 3 beds: placement now comes from the plan trace via furniture_cc0.place_trace, so the polish overrides are retired;
 #  1 storage: CC0 shelf here, texture fix applied to twobed_v5 by polish_v5.py)
-_fx=next((a.split('=',1)[1] for a in sys.argv if a.startswith('--fix=')),'4,5,6,7')
+_fx=next((a.split('=',1)[1] for a in sys.argv if a.startswith('--fix=')),'4,5,6,7,8')   # r10: 8 = backdrop clamped under the wall tops + softer downlight discs + stronger AO
 FIX=set() if _fx=='none' else {int(x) for x in _fx.split(',') if x}
 print("FIX",sorted(FIX))
 def parea(P): return abs(sum(P[i][0]*P[(i+1)%len(P)][1]-P[(i+1)%len(P)][0]*P[i][1] for i in range(len(P))))/2
@@ -53,11 +53,11 @@ NAVY=mat("Navy_velvet",(1,1,1),0.75,img="velvet_navy_diff.jpg"); BOUC=mat("Cream
 OAKF=mat("Oak_furniture",(0.62,0.42,0.24),0.5,img="oak_light_diff.jpg"); BMET=mat("Black_metal",(0.02,0.02,0.02),0.35,0.8)
 LIN=mat("Bedding_white",(0.93,0.93,0.91),0.9); RUG=mat("Rug_cream",(0.86,0.82,0.74),1.0)
 WHITEP=mat("Sanitary_white",(0.95,0.95,0.95),0.08); GREYV=mat("Vanity_grey",(0.45,0.45,0.46),0.4)
-GLASS=mat("Glass_clear",(0.95,0.97,0.97),0.02,trans=1); WGLASS=mat("Window_glass_clear",(0.95,0.97,1),0.02,trans=1); SKY=mat("Window_backdrop_sky_UNSOURCED_VIEW",(1,1,1),1,img=("sky_backdrop_p5.jpg" if 7 in FIX else "sky_backdrop_r4.jpg")); SKY.node_tree.links.new(SKY.node_tree.nodes["Image Texture"].outputs[0],SKY.node_tree.nodes["Principled BSDF"].inputs["Emission Color"]); SKY.node_tree.nodes["Principled BSDF"].inputs["Emission Strength"].default_value=1.2
+GLASS=mat("Glass_clear",(0.95,0.97,0.97),0.02,trans=1); WGLASS=mat("Window_glass_clear",(0.95,0.97,1),0.02,trans=1); SKY=mat("Window_backdrop_sky_UNSOURCED_VIEW",(1,1,1),1,img=("sky_backdrop_p10.jpg" if 8 in FIX else "sky_backdrop_p5.jpg" if 7 in FIX else "sky_backdrop_r4.jpg")); SKY.node_tree.links.new(SKY.node_tree.nodes["Image Texture"].outputs[0],SKY.node_tree.nodes["Principled BSDF"].inputs["Emission Color"]); SKY.node_tree.nodes["Principled BSDF"].inputs["Emission Strength"].default_value=1.2
 FRAME=mat("Window_frame_black_steel",(0.015,0.015,0.015),0.4,0.6); DOOR=mat("Door_white",(0.9,0.9,0.88),0.4)
 GLOBE=mat("Globe_pendant_opal",(1,0.97,0.92),0.3,emit=(1,0.8,0.6),ew=4); LAMPS=mat("Lamp_shade_opal",(1,0.97,0.92),0.3,emit=(1,0.8,0.6),ew=3)
 LEAF=mat("Plant_leaf",(0.08,0.25,0.07),0.6); POT=mat("Pot_terracotta",(0.55,0.32,0.2),0.8); TVS=mat("TV_screen",(0.01,0.01,0.012),0.08)
-DLM=mat("Downlight_3000K",(1,0.9,0.75),0.3,emit=(1,0.78,0.55),ew=15)
+DLM=mat("Downlight_3000K",(1,0.9,0.75),0.3,emit=(1,0.78,0.55),ew=(2.5 if 8 in FIX else 15))   # fix8: ew 15 baked to hard white dots
 ART=[mat(f"Art_{i}_illustrative",(1,1,1),0.6,img=(f"art_p5_{i}.jpg" if 5 in FIX else f"art_r4_{i}.jpg")) for i in (1,2,3)]  # fix5: crisp sRGB 1024x1365 (tex/make_polish_tex.py)
 # ---------- helpers
 def obj_from(bm,n,M):
@@ -132,7 +132,8 @@ def rect_window(n,a,b,depth,sill,head):
     for k in range(nm+1):
         p=a+u*(L*k/nm); box(n+"_mullion",(p.x,p.y,(sill+head)/2),(fw if 0<k<nm else 0.08,0.05,head-sill),FRAME,ang,0)
     for z in (sill,sill+(head-sill)*0.62,head): box(n+"_transom",(c.x,c.y,z),(L,0.05,fw),FRAME,ang,0)
-    bp=c-nrm*(depth/2+0.6); box(n+"_backdrop",(bp.x,bp.y,(sill+head)/2),(L+1.2,0.01,head-sill+1.0),SKY,ang,0)
+    bz0,bz1=sill-0.5,(min(head+0.5,CEIL-0.03) if 8 in FIX else head+0.5)   # fix8: never above the wall tops (dollhouse)
+    bp=c-nrm*(depth/2+0.6); box(n+"_backdrop",(bp.x,bp.y,(bz0+bz1)/2),(L+1.2,0.01,bz1-bz0),SKY,ang,0)
     lp=c-nrm*(depth/2+0.45); bpy.ops.object.light_add(type='AREA',location=(lp.x,lp.y,(sill+head)/2)); L_=bpy.context.object; L_.name=n+"_daylight"
     L_.data.shape='RECTANGLE'; L_.data.size=L; L_.data.size_y=head-sill; L_.data.energy=90*L; L_.data.color=(0.95,0.97,1)
     L_.rotation_euler=Vector((0,0,1)).rotation_difference(nrm).to_euler()
@@ -344,7 +345,7 @@ if 6 in FIX:   # fix6: OIDN denoise (albedo-guided, edge preserving) instead of 
     dn.render.image_settings.file_format='OPEN_EXR'; dn.render.filepath=OUT+"_bake_dn.exr"; bpy.ops.render.render(write_still=True,scene=dn.name)
     r_=bpy.data.images.load(OUT+"_bake_dn.exr"); d_=np.array(r_.pixels[:]).reshape(RES,RES,4)[...,:3]
     ao=np.array(aoi.pixels[:]).reshape(RES,RES,4)[...,0]; ao=gaussian_filter(ao*cov,1.0)/(gaussian_filter(cov,1.0)+1e-6)
-    rgb[...]=np.where(cov[...,None]>0,d_,rgb)*(1-0.45*(1-np.clip(ao,0,1)))[...,None]
+    rgb[...]=np.where(cov[...,None]>0,d_,rgb)*(1-(0.62 if 8 in FIX else 0.45)*(1-np.clip(ao,0,1)))[...,None]
     os.remove(OUT+"_bake_dn.exr"); print("DENOISED+AO", float(ao[cov>0].mean()))
 else:
   for ch in range(3):
