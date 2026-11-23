@@ -70,7 +70,16 @@ No photoreal modern CC0 bed, kitchen run, or bathroom fittings exist on Poly Hav
 | Worktop, plinth, LED strip, WC boxing / flush plate | Built-in architectural fittings, not standalone CC0 models. |
 | Rug, TV screen / stand, wall art, plants, globe pendant, chrome towel ladder | Not in the required furniture/fittings swap, and no suitable matching CC0 model was used. |
 | Shower enclosure (`Shower_tray` + glass screen + head) | Kenney `shower.glb` is a 0.9×0.9×2.1 m cubicle; the existing bathroom camera stands inside that tray, so the enclosure goes black in frame. The original glass-screen stand-in is kept. |
-| Bathroom wall tiles | Architecture / finish, not furniture. Unchanged. |
+| Bathroom wall / floor tiles | Replaced with a CC0 veined marble — see Finishes below. Wall geometry unchanged. |
+
+
+## Finishes (CC0 textures)
+
+| Used on | Asset | Licence page | File |
+|---|---|---|---|
+| Bathroom wall and floor tiles (`Tile_grey_600x1200`, `Bath_wall_tile_*`, `Floor_bathroom_tile`, shower tray finish) | [ambientCG Marble 012](https://ambientcg.com/view?id=Marble012) (veined grey marble; 1K color, contrast-boosted and JPEG-compressed for the GLB) | https://ambientcg.com/view?id=Marble012 — [CC0 1.0](https://docs.ambientcg.com/license/) | `interior/tex/marble012_veined_diff.jpg` |
+
+All ambientCG assets are [CC0 1.0 Universal](https://docs.ambientcg.com/license/). The Marble 012 page was checked CC0 on 23 Nov 2026.
 
 ## Unused asset already in the tree
 

@@ -41,7 +41,7 @@ def mat(n,c,r=0.5,met=0,img=None,emit=None,ew=0,alpha=1,trans=0,nor=None):
     return M
 OAK=mat("Floor_light_oak",(1,1,1),0.55,img="oak_light_diff.jpg",nor="wood_floor_nor_gl.jpg")
 OAKG=mat("Floor_pale_grey_woodlook_kitchen",(1,1,1),0.55,img="oak_grey_diff.jpg",nor="wood_floor_nor_gl.jpg")
-TILE=mat("Tile_grey_600x1200",(1,1,1),0.3,img=("tile_stone_grey_p5.jpg" if 7 in FIX else "tile_light_r4.jpg"))
+TILE=mat("Tile_grey_600x1200",(1,1,1),0.3,img="marble012_veined_diff.jpg")  # ambientCG Marble012 CC0
 # fix4: wall albedo V 0.86->0.74 (less washed), matte 0.92
 WALL=mat("Wall_warm_white",(0.74,0.71,0.66) if 4 in FIX else (0.86,0.83,0.78),0.92 if 4 in FIX else 0.85); CEILM=mat("Ceiling_warm_white",(0.9,0.88,0.84),0.9)
 SKIRT=mat("Skirting_white_satin",(0.92,0.91,0.88),0.35)
