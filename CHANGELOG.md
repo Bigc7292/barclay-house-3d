@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 2026-11-23 10:40 UTC+4 — r8b step 4: before/after stills
+- `tests/hero4b/stills/`: 1920x1080 at 64 spp. Before = hero4 (`before_hero4_shops_{east,west}`, plus `tests/hero4/stills/after_hero4_{street,entrance}`); after = hero4b (`after_hero4b_{street,entrance,shops_east,shops_west}`). Comparison sheets: `cmp_*_hero4_vs_hero4b.jpg`.
+- At these street distances the shopfront and lamp changes are subtle, and the ashlar change is small.
+
 ## 2026-11-23 10:15 UTC+4 — r8b steps 2–3: hero4b (ashlar/arcade tweaks + 120 m layers), validate PASS
 - `hero4.py`: new `BHERO4B=1` switch, which requires `BHERO4=1`; hero4 itself is unchanged.
   - Rustication channel half-height 0.035 → 0.06 m and joint width 0.03 → 0.06 m (stand-ins); channel tone softened from 0.35 to 0.55 of the front.
