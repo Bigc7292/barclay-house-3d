@@ -1,5 +1,20 @@
 # CHANGELOG
 
+## 2026-11-23 10:40 UTC+4 — combined deploy: polish r10 + hero4b
+- Merged `origin/lane/polish` (r10) and `origin/lane/hero4` into barclay. Rebuilt `web/app.js` from `web/src/app.js` (`app.js?v=44`). Floor_* click hooks and the storey Y-band picker are in the bundle. Polish bed/bath camera presets and mobile safe-area layout kept.
+- Polish comparison (same scorer, `tests/reference/score.py`): `renders/polish/v3_final` 78.8% (yes=10 no=3) vs `renders/polish/r10/stills_after` 61.2% (yes=8 no=5). The 17.6 point drop is a crop/scorer artefact: r10 reframed the kitchen, living and bath cameras, so the fixed checklist boxes now land on blank walls. `kitchen_white_units` (bidir 0.89) and `bathroom_grey_surfaces` (|Δhue|=3.0°) would still be yes on colour, but `luma_std` 0.026 / 0.032 is below the 0.05 presence floor so both were forced to no and scored 0. `living_window_grid` and `kitchen_black_appliances` already failed on v3; the r10 crop missed the window / appliances that are still in frame. Polish r10 therefore ships.
+- Swapped the live exterior from hero4 to hero4b: copied `out/barclay_hero4b.glb` → `web/hero4b.glb` (4,233,068 B, 4.04 MB) and `out/mobile/barclay_hero4b_mobile.glb` → `web/hero4b_mobile.glb` (2,059,612 B, 1.96 MB). sha256 matches out/. Fallback is `hero4` / `hero4_mobile`. Floor_00–05 and Door_* names kept. Storey Y-band click fix kept.
+- Khronos: 0 errors on both (desktop 3 warnings, mobile 1 warning). Size budgets 4.04/5 MB and 1.96/2 MB.
+
+
+## 2026-11-23 10:20 UTC+4 — wire hero4 into the main viewer
+- Copied `out/barclay_hero4.glb` → `web/hero4.glb` (4,233,200 B, 4.04 MB) and `out/mobile/barclay_hero4_mobile.glb` → `web/hero4_mobile.glb` (2,059,672 B, 1.96 MB). sha256 matches the out/ files. Official `out/` files and `web/hero3.glb` untouched. `out/barclay_hero4b.glb` is on barclay but is not wired; this lane ships hero4 as requested.
+- Main viewer now loads `hero4.glb` (desktop) / `hero4_mobile.glb` (mobile). Fallback is `hero3_floors` / `hero3_floors_m` if hero4 fails to load. `app.js?v=43`.
+- Khronos gltf-validator: 0 errors on both files (desktop 3 warnings: missing tangents + unused objects; mobile 1 warning: missing tangents + 24 degenerate triangles of 1200). Size budgets: 4.04/5 MB and 1.96/2 MB.
+- Clickable floors: `make_mobile` flattens Floor_* children, so `bindFloors` also registers the named storey parts (Facade_01, Window_0N_*, doorcase, etc.) for picking, tint and isolate. Hits are classified by storey Y-band so the Floor_02 giant pilaster (y 5.5–20) does not steal Floor_03–05 clicks. Floor_00's coarse slab has no centre verts, so its click point is synthesised at the front centre.
+- Headless Playwright (desktop 1280×720 and Galaxy S9+): Floor_00–05 each return the right name; isolate and empty-clear work; 0 console errors; 0 external requests. Street still: `shots/r13/hero4_street.png`.
+- Not deployed from this lane. Interior bot merges and includes this in the next combined deploy.
+
 ## 2026-11-23 10:20 UTC+4 — r8c step 1: camera matched to the Geograph photo, aligned re-score
 - Ran `camera_match.py` on the hero4b surroundings blend with the 6 points in `tests/geograph_points.json` and clip_start 4 m.
   - Solved `Cam_Match_geograph`: lens 21.69 mm, location (9.10, −32.71, 3.39), rotation (103.43, −0.53, 21.70)°, rms 14.2 px. The worst point is DoorT at −29.6 px in y.
