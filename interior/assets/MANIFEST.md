@@ -19,7 +19,7 @@ Freeze v2 checklist (`lane/reference` `b8612440`) re-anchored the navy-bed refer
 | Bedroom 1 headboard | [6830c23cc](https://media.rightmove.co.uk/property-photo/6830c23cc/92163630/6830c23cc81166dfe894a94204f9eeeb.jpeg) (`refs/critic1/92163630/6830c23cc81166dfe894a94204f9eeeb.jpeg`) | [0.335, 0.598, 0.62, 0.626] | (19, 30, 40) | hue 210.1°, sat 0.529, val 0.157 |
 | Bedroom 2 bed base | [09a288504](https://media.rightmove.co.uk/property-photo/09a288504/92163630/09a28850469373714e2934f7bbf90dbb.jpeg) (`refs/critic1/92163630/09a28850469373714e2934f7bbf90dbb.jpeg`) | [0.42, 0.87, 0.72, 0.935] | (18, 24, 32) | hue 213.3°, sat 0.445, val 0.125 |
 
-Palette albedo is HSV hue **211°**, sat 0.53, val 0.18 (linear RGB 0.0846, 0.1307, 0.18). The velvet texture (`interior/tex/velvet_navy_diff.jpg`) is hue-shifted in `build_twobed_v4.py` (`_hs(NAVY, 0.335, 0.95, 0.85)`) so the AgX stills land near that CGI hue rather than the previous ~255–260°.
+Palette albedo is HSV hue **211°**, sat 0.53, val 0.18 (linear RGB 0.0846, 0.1307, 0.18). `interior/tex/velvet_navy_cgi.jpg` is the nap of `velvet_navy_diff.jpg` recolored to that hue (sat 0.53, mean value 0.20); `build_twobed_v4.py` applies `_hs(NAVY, 0.5, 1.0, 1.05)` (no further hue rotation).
 
 Prototype sizes are checked against `furniture_dims.json` (see `interior/assets/scale_audit.json`). After `place_trace`, some pieces are then fitted to the plan footprint (sofa, beds, kitchen run, vanity, shelving) so positions stay trace-driven.
 

@@ -56,7 +56,7 @@ for _k in ("Specular IOR Level","Specular"):
     if _k in _bp.inputs: _bp.inputs[_k].default_value=0.12
 _c,_r,_m=_p("STEEL"); STEEL=mat("Stainless_steel",_c,_r,_m); _c,_r,_m=_p("CHROME"); CHROME=mat("Chrome",_c,_r,_m)
 LED=mat("LED_strip_3000K",(1,0.85,0.65),0.5,emit=(1,0.78,0.55),ew=40)
-_c,_r,_m=_p("NAVY"); NAVY=mat("Navy_velvet",(1,1,1),_r,img="velvet_navy_diff.jpg")
+_c,_r,_m=_p("NAVY"); NAVY=mat("Navy_velvet",(1,1,1),_r,img="velvet_navy_cgi.jpg")
 _c,_r,_m=_p("BOUC"); BOUC=mat("Cream_boucle",(1,1,1),_r,img="boucle_diff.jpg")
 _c,_r,_m=_p("OAKF"); OAKF=mat("Oak_furniture",_c,_r,img="oak_light_diff.jpg")
 _c,_r,_m=_p("BMET"); BMET=mat("Black_metal",_c,_r,_m)
@@ -78,11 +78,10 @@ def _hs(M,h=0.5,s=1.0,v=1.0):
     hs=N.new("ShaderNodeHueSaturation"); hs.inputs["Hue"].default_value=h; hs.inputs["Saturation"].default_value=s; hs.inputs["Value"].default_value=v
     if inc:
         fr=inc[0].from_socket; L.remove(inc[0]); L.new(fr,hs.inputs["Color"]); L.new(hs.outputs["Color"],b.inputs["Base Color"])
-# velvet_navy_diff is royal blue (circ hue ~229°). Previous _hs(0.47) left the
-# texture at ~218°, which rendered at ~255–260° under AgX + warm lighting.
-# Freeze v2 CGI fabric is hue 210–213°. Pre-shift to ~170° (0.335) so the
-# lit stills land near 211°. Value 0.85 keeps the nap visible.
-_hs(NAVY,0.335,0.95,0.85)
+# velvet_navy_cgi.jpg is the nap of velvet_navy_diff recolored to the sampled
+# CGI fabric hue 211° (see MANIFEST). Hue node stays at 0.5 (no extra shift);
+# sat/value only fine-tune the nap so AgX does not crush it.
+_hs(NAVY,0.5,1.0,1.05)
 # oak_light_diff is a medium floor oak; CGI furniture oak is paler and less orange.
 _hs(OAKF,0.50,0.78,1.18)
 # ---------- helpers
