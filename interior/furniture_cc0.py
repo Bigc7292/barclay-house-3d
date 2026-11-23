@@ -40,6 +40,8 @@ PALETTE = {
     "BOUC":   ((0.88, 0.84, 0.76), 0.95, 0.0),   # cream boucle
     "OAKF":   ((0.76, 0.61, 0.41), 0.50, 0.0),   # pale satin oak (CGI coffee / bedside)
     "WUNIT":  ((0.90, 0.89, 0.86), 0.36, 0.0),   # handleless painted, satin
+    "WUNIT_PANEL": ((0.78, 0.77, 0.74), 0.45, 0.0),  # door panel / reveal (Kenney woodDark)
+    "WUNIT_HANDLE": ((0.40, 0.39, 0.37), 0.42, 0.0), # existing Kenney bar handle, satin grey
     "BLK":    ((0.004, 0.004, 0.005), 0.48, 0.0), # matte black appliance (holds under LED)
     "WHITEP": ((0.95, 0.94, 0.92), 0.18, 0.0),   # ceramic sanitary, soft gloss
     "GREYV":  ((0.38, 0.37, 0.36), 0.50, 0.0),   # grey stone vanity
@@ -318,7 +320,8 @@ MAP_CHAIR = [("glass", "GLASS"), ("metal", "DARKW"), ("wood", "DARKW"), ("dining
 MAP_STOVE = [("glass", "GLASS"), ("electric_stove", "BLK"), ("stove", "BLK")]
 MAP_MICRO = [("glass", "BLK"), ("metal", "BLK"), ("carpetwhite", "BLK"), ("_defaultmat", "BLK")]
 MAP_KITCHEN = [("glass", "GLASS"), ("metallight", "CHROME"), ("metaldark", "BLK"),
-               ("metalmedium", "STEEL"), ("metal", "CHROME"), ("wooddark", "WUNIT"),
+               ("metalmedium", "STEEL"), ("metal", "WUNIT_HANDLE"),
+               ("wooddark", "WUNIT_PANEL"),
                ("wood", "WUNIT"), ("carpetwhite", "WHITEP"), ("carpet", "WUNIT"),
                ("_defaultmat", "WUNIT")]
 MAP_BED = [("glass", "GLASS"), ("metal", "BMET"), ("wood", "NAVY"),

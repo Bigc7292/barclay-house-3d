@@ -49,7 +49,7 @@ SKIRT=mat("Skirting_white_satin",(0.92,0.91,0.88),0.35)
 _P=furniture_cc0.PALETTE
 def _p(key):
     c,r,m=_P[key]; return c,r,m
-WUNIT=mat("Kitchen_handleless_white",*_p("WUNIT")[:2]); DARK=mat("Peninsula_graphite",(0.042,0.042,0.045),0.5); QUARTZ=mat("Quartz_white",(0.88,0.88,0.87),0.25)
+WUNIT=mat("Kitchen_handleless_white",*_p("WUNIT")[:2]); WUNIT_PANEL=mat("Kitchen_unit_panel",*_p("WUNIT_PANEL")[:2]); WUNIT_HANDLE=mat("Kitchen_unit_handle",*_p("WUNIT_HANDLE")[:2]); DARK=mat("Peninsula_graphite",(0.042,0.042,0.045),0.5); QUARTZ=mat("Quartz_white",(0.88,0.88,0.87),0.25)
 WTOP=mat("Worktop_white",(0.93,0.93,0.92),0.28); _c,_r,_m=_p("BLK"); BLK=mat("Appliance_black_gloss",_c,_r)
 _bp=BLK.node_tree.nodes["Principled BSDF"]
 for _k in ("Specular IOR Level","Specular"):
@@ -198,7 +198,7 @@ while x<max(xs):
 FUR={f["name"]:f for f in LY.furniture()}
 def FC(n): return V(FUR[n]["c"])
 # ---------- CC0 FURNITURE (models: lane/furniture furniture_cc0.py; positions/footprints: plan trace)
-_furn_mats=dict(WUNIT=WUNIT,DARK=DARK,QUARTZ=QUARTZ,WTOP=WTOP,BLK=BLK,STEEL=STEEL,CHROME=CHROME,
+_furn_mats=dict(WUNIT=WUNIT,WUNIT_PANEL=WUNIT_PANEL,WUNIT_HANDLE=WUNIT_HANDLE,DARK=DARK,QUARTZ=QUARTZ,WTOP=WTOP,BLK=BLK,STEEL=STEEL,CHROME=CHROME,
                 LED=LED,NAVY=NAVY,BOUC=BOUC,OAKF=OAKF,LIN=LIN,WHITEP=WHITEP,GREYV=GREYV,GLASS=GLASS,
                 BMET=BMET,DARKW=DARKW,DTOP=DTOP,LAMPS=LAMPS,TILE=TILE,TVS=TVS,FRAME=FRAME)
 JOIN={j["name"]:j for j in LY.joinery_bl()}
