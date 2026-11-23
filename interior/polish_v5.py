@@ -1,13 +1,14 @@
 # lane/polish: apply the Two Bed interior fixes to the main-viewer model web/twobed_v5.glb (no builder exists for v5 in the repo;
 # its node names/positions match build_twobed_v4.py exactly, so the same layout numbers are reused from interior/polish_layout.json).
 # Materials / placement / AO bake only: no wall geometry change, no furniture model swap.
-# Usage: ~/bvenv/bin/python polish_v5.py --in=<decoded v5 .glb (no meshopt)> --out=<raw .glb> [--ao=2048] [--fix=1,2,3,4,5,6]
+# Usage: ~/bvenv/bin/python polish_v5.py --in=<decoded ORIGINAL v5 .glb (no meshopt)> --out=<raw .glb> [--ao=2048] [--fix=1,...,8]
+# r10 (23 Nov, Colin): fix1 is now a CC0 model swap (Poly Haven Wooden Display Shelves 01, CC0) at the block's footprint; 7 window backdrop clamp+street/canal image; 8 downlight dots; 6 stronger AO, fewer seams.
 import bpy, bmesh, sys, os, json, math
 import numpy as np
 from mathutils import Vector, Matrix
 ROOT=os.path.dirname(os.path.dirname(os.path.abspath(__file__))); TX=ROOT+"/interior/tex/"
 arg=lambda k,d=None: next((a.split('=',1)[1] for a in sys.argv if a.startswith(f'--{k}=')),d)
-IN,OUT=arg('in'),arg('out'); RES=int(arg('ao','2048')); FIX={int(x) for x in arg('fix','1,2,3,4,5,6').split(',')}
+IN,OUT=arg('in'),arg('out'); RES=int(arg('ao','2048')); FIX={int(x) for x in arg('fix','1,2,3,4,5,6,7,8').split(',')}
 LAY=json.load(open(ROOT+"/interior/polish_layout.json"))
 bpy.ops.wm.read_factory_settings(use_empty=True); sc=bpy.context.scene
 bpy.ops.import_scene.gltf(filepath=IN)
@@ -29,23 +30,25 @@ def single(o):
     if o.data.users>1: o.data=o.data.copy()
 log=[]
 if 4 in FIX:   # walls: albedo V 0.86->0.74, matte
-    b=bsdf(MATS["Wall_warm_white"]); b.inputs["Base Color"].default_value=(0.74,0.71,0.66,1); b.inputs["Roughness"].default_value=0.92; log.append("fix4 wall")
+    b=bsdf(MATS["Wall_warm_white"]); b.inputs["Base Color"].default_value=(0.70,0.67,0.62,1); b.inputs["Roughness"].default_value=0.94; log.append("fix4 wall")   # r10: 0.74->0.70 (washed-out walls)
 if 5 in FIX:   # art: crisp 1024x1365 sRGB, UVs cover the whole canvas
     for mn,obn,img in (("Art_1_illustrative","Art_bed1","art_p5_1.jpg"),("Art_2_illustrative","Art_living","art_p5_2.jpg")):
         M=MATS[mn]; t=next(n for n in M.node_tree.nodes if n.type=='TEX_IMAGE'); t.image=bpy.data.images.load(TX+img); t.image.colorspace_settings.name='sRGB'
         single(O[obn]); uv_front(O[obn]); bsdf(M).inputs["Roughness"].default_value=0.6
     log.append("fix5 art")
-if 1 in FIX:   # storage: same mesh, painted doors/drawers/handles/plinth + normal map
-    M=bpy.data.materials.new("Storage_doors_white_satin"); M.use_nodes=True; N=M.node_tree.nodes; L=M.node_tree.links; b=N["Principled BSDF"]
-    t=N.new("ShaderNodeTexImage"); t.image=bpy.data.images.load(TX+"storage_front_diff.jpg"); L.new(t.outputs[0],b.inputs["Base Color"]); b.inputs["Roughness"].default_value=0.4
-    tn=N.new("ShaderNodeTexImage"); tn.image=bpy.data.images.load(TX+"storage_front_nor_gl.png"); tn.image.colorspace_settings.name="Non-Color"
-    nm=N.new("ShaderNodeNormalMap"); L.new(tn.outputs[0],nm.inputs[1]); L.new(nm.outputs[0],b.inputs["Normal"])
-    o=O["Storage_shelving_white"]; single(o); o.data.materials.clear(); o.data.materials.append(M); uv_front(o,(0.1,0.6)); log.append("fix1 storage")
-if 2 in FIX:   # vanity/basin/tap/mirror: new centre (Blender Z-up) + size ratio vs v4 sizes
-    OLD={"Vanity_grey_stone_look":(0.6,0.46,0.3),"Basin_white_wallhung":(0.56,0.42,0.12),"Mirror_black_frame":(0.55,0.02,0.75),"Mirror_glass":(0.5,0.006,0.7)}
-    for k,(loc,size) in LAY["vanity"].items():
-        o=O[k]; o.location=Vector(loc); print('VAN',k,tuple(round(x,4) for x in o.scale),tuple(round(x,3) for x in o.rotation_euler))
-        if size: o.scale=Vector([o.scale[i]*size[i]/OLD[k][i] for i in range(3)])   # multiply: dequantized nodes carry a non-unit scale
+if 1 in FIX:   # storage: plain block -> CC0 Poly Haven "Wooden Display Shelves 01" (CC0, https://polyhaven.com/a/wooden_display_shelves_01), fitted to the block's footprint
+    sys.path.insert(0,ROOT+"/interior"); import furniture_cc0 as FC
+    o=O["Storage_shelving_white"]; W=[o.matrix_world@v.co for v in o.data.vertices]
+    lo=Vector([min(w[i] for w in W) for i in range(3)]); hi=Vector([max(w[i] for w in W) for i in range(3)]); sz=hi-lo
+    pr=FC.load_prototype("shelves",FC._ph("wooden_display_shelves_01"),front="+X",decimate_tris=3000)
+    e=FC.instance("shelves","Storage_shelving_CC0_polyhaven_wooden_display_shelves_01",((lo.x+hi.x)/2,(lo.y+hi.y)/2,lo.z),math.pi/2)   # front -Y -> +X (into the store)
+    d=pr["cc0_final_dims"]; e.scale=(sz.y/d[0],sz.x/d[1],sz.z/d[2]); e["cc0_source"]="https://polyhaven.com/a/wooden_display_shelves_01"; e["licence"]="CC0"
+    for ch in list(pr.children): bpy.data.objects.remove(ch,do_unlink=True)
+    bpy.data.objects.remove(pr,do_unlink=True); bpy.data.objects.remove(o,do_unlink=True); O.pop("Storage_shelving_white")
+    log.append(f"fix1 storage CC0 {tuple(round(x,3) for x in sz)}")
+if 2 in FIX:   # vanity/basin/tap/mirror off the corner + no wall clipping: node TRS recorded in glTF Y-up frame -> Blender Z-up
+    for k,v in LAY["vanity_nodes"].items():
+        t,sc_=v["t"],v["s"]; o=O[k]; o.location=Vector((t[0],-t[2],t[1])); o.scale=Vector((sc_[0],sc_[2],sc_[1]))
     log.append("fix2 vanity")
 if 3 in FIX:   # beds + bedsides: rigid move old pivot -> new pivot
     BEDP=("Bed_base","Mattress","Duvet","Throw","Pillow","Scatter_cushion","Cushion_navy","Headboard")
@@ -57,6 +60,25 @@ if 3 in FIX:   # beds + bedsides: rigid move old pivot -> new pivot
         sel=[o for o in sc.objects if o.type=='MESH' and o.name not in taken and o.name.startswith(pref) and (Vector((o.matrix_world.translation.x-ox,o.matrix_world.translation.y-oy))).length<rad]
         for o in sel: o.matrix_world=Mx@o.matrix_world; taken.add(o.name)
         log.append(f"fix3 {g['kind']} moved {len(sel)}")
+if 7 in FIX:   # window backdrops: top clamped below the wall tops (dollhouse view) + plausible street/canal image, still UNSOURCED
+    TOP=2.97; img=bpy.data.images.load(TX+"sky_backdrop_p10.jpg"); n=0
+    for o in [o for o in sc.objects if o.type=='MESH' and o.name.endswith("_backdrop")]:
+        single(o); mw=o.matrix_world; inv=mw.inverted(); W=[mw@v.co for v in o.data.vertices]; z0=min(w.z for w in W); z1=max(w.z for w in W)
+        if z1>TOP:
+            for v,w in zip(o.data.vertices,W): v.co=inv@Vector((w.x,w.y,z0+(w.z-z0)*(TOP-z0)/(z1-z0)))
+        for M in o.data.materials:
+            for t in M.node_tree.nodes:
+                if t.type=='TEX_IMAGE': t.image=img
+        mw=o.matrix_world.copy(); o.parent=O["Ceiling"]; o.matrix_world=mw   # hidden with the ceiling in the dollhouse (a panel 0.6 m outside the wall always reads above the wall top from above)
+        n+=1
+    log.append(f"fix7 backdrops {n} (clamped, parented to Ceiling)")
+if 8 in FIX:   # downlights: emissive discs read as hard white dots in three (emissive clips) -> dim warm glow
+    for M in {m for o in sc.objects if o.type=='MESH' and o.name.startswith("Downlight_") and not o.name.startswith("Downlight_trim") for m in o.data.materials if m}:
+        b=bsdf(M); b.inputs["Base Color"].default_value=(0.78,0.74,0.68,1); b.inputs["Emission Color"].default_value=(1,0.84,0.62,1); b.inputs["Emission Strength"].default_value=0.28
+    ce=O["Ceiling"]; k=0
+    for o in [o for o in sc.objects if o.type=='MESH' and o.name.startswith("Downlight")]:   # hide with the ceiling in the dollhouse (no floating dots)
+        mw=o.matrix_world.copy(); o.parent=ce; o.matrix_world=mw; k+=1
+    log.append(f"fix8 downlights ({k} parented to Ceiling)")
 bpy.context.view_layer.update()
 if 6 in FIX:   # baked AO -> glTF occlusion (TEXCOORD_1) on the large static surfaces; light, so +size stays small
     AOM={"Wall_warm_white","Ceiling_warm_white","Floor_light_oak","Floor_pale_grey_woodlook_kitchen","Skirting_white_satin","Oak_furniture","Sanitary_white",
@@ -71,7 +93,7 @@ if 6 in FIX:   # baked AO -> glTF occlusion (TEXCOORD_1) on the large static sur
     for o in aos: o.select_set(True)
     bpy.context.view_layer.objects.active=aos[0]
     bpy.ops.object.mode_set(mode='EDIT'); bpy.ops.mesh.select_all(action='SELECT')
-    bpy.ops.uv.smart_project(angle_limit=math.radians(66),island_margin=0.004,area_weight=1.0,scale_to_bounds=False)
+    bpy.ops.uv.smart_project(angle_limit=math.radians(66),island_margin=0.008,area_weight=1.0,scale_to_bounds=False)
     bpy.ops.object.mode_set(mode='OBJECT')
     img=bpy.data.images.new("ao_bake",RES,RES,float_buffer=True)
     used={m for o in aos for m in o.data.materials if m}
@@ -79,7 +101,7 @@ if 6 in FIX:   # baked AO -> glTF occlusion (TEXCOORD_1) on the large static sur
         n=M.node_tree.nodes.new("ShaderNodeTexImage"); n.image=img; n.name="AO_BAKE"; M.node_tree.nodes.active=n
     sc.render.engine='CYCLES'; sc.cycles.device='CPU'; sc.cycles.samples=int(arg('aos','96'))
     if not sc.world: sc.world=bpy.data.worlds.new("w")
-    sc.world.light_settings.distance=0.6; sc.render.bake.margin=8
+    sc.world.light_settings.distance=0.9; sc.render.bake.margin=16   # r10: longer AO reach + wider margin (fewer seams at island borders)
     bpy.ops.object.bake(type='AO'); print("AO BAKED",len(aos),"objects",len(used),"materials")
     # OIDN denoise in a throwaway scene (compositor only)
     dn=bpy.data.scenes.new("dn"); dn.render.engine='BLENDER_WORKBENCH'; dn.render.resolution_x=dn.render.resolution_y=RES
@@ -90,7 +112,7 @@ if 6 in FIX:   # baked AO -> glTF occlusion (TEXCOORD_1) on the large static sur
     ng.links.new(ni.outputs[0],dd.inputs["Image"]); ng.links.new(dd.outputs[0],go.inputs[0])
     tmp=OUT+".ao_dn.exr"; dn.render.image_settings.file_format='OPEN_EXR'; dn.render.filepath=tmp; bpy.ops.render.render(write_still=True,scene=dn.name)
     a=np.array(bpy.data.images.load(tmp).pixels[:]).reshape(RES,RES,4)[...,0]; os.remove(tmp)
-    a=np.clip(0.18+0.82*np.clip(a,0,1),0,1)           # keep a floor so corners never go black under the viewer's env/hemi light
+    a=np.clip(0.07+0.93*np.clip(a,0,1)**1.35,0,1)    # r10: stronger contact AO (floor 0.18->0.07, gamma 1.35); still never fully black
     px=np.ones((RES,RES,4),np.float32); px[...,0]=px[...,1]=px[...,2]=a
     out=bpy.data.images.new("ao_v5",RES,RES); out.colorspace_settings.name='Non-Color'; out.pixels.foreach_set(px.ravel())
     out.filepath_raw=os.path.dirname(OUT)+"/ao_v5.png"; out.file_format='PNG'; out.save()

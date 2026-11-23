@@ -3,6 +3,7 @@ set -e
 G=$(cd "$(dirname "$0")/../.." && pwd)/.gltf/node_modules
 RAW=$1; OUT=$2; SZ=$3
 npx -y @gltf-transform/cli@4 optimize "$RAW" "$OUT" --compress meshopt --texture-compress webp --texture-size $SZ --simplify false --join false --flatten false --instance false >/dev/null 2>&1
+if [ -n "$CEILFIX" ]; then cp "$(dirname "$0")/ceiling_parent.mjs" "$G/../_cp.mjs" && node "$G/../_cp.mjs" "$OUT" "$OUT" && rm "$G/../_cp.mjs"; fi
 ls -la "$OUT" | awk '{print $5, $9}'
 node -e "
 const v=require('$G/gltf-validator');const b=require('fs').readFileSync('$OUT');
