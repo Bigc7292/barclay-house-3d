@@ -6,3 +6,6 @@ __pycache__/
 
 # Local Pascal Editor runtime/data (trick #20). Never commit the 127 MB runtime or mcp-token.
 tests/pascal/.pascal/
+
+# Intermediate kit-lineup renders (annotated outputs live in interior/assets/kit_lineup*.png)
+interior/assets/_lineup_raw/

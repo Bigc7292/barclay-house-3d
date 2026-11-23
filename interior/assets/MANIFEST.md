@@ -8,7 +8,9 @@ General licences:
 - Poly Haven: all site assets are [CC0](https://polyhaven.com/license) (“Our assets are all licensed as CC0”).
 - Kenney Furniture Kit 2.0 (2018-10-20): [CC0](https://creativecommons.org/publicdomain/zero/1.0/) on [kenney.nl/assets/furniture-kit](https://kenney.nl/assets/furniture-kit) and in `kenney_furniture_kit/License.txt`.
 
-Shared palette (kit normaliser): navy velvet, cream boucle, oak, handleless white, black appliance, sanitary white (plus chrome / black metal / glass).
+Shared palette (`furniture_cc0.PALETTE`, kit normaliser + `build_twobed_v4.py`): teal-navy velvet (matte), cream boucle, pale satin oak, handleless white (satin), satin black appliances, sanitary white (soft gloss), grey stone vanity, espresso chair frames, dark dining-table top. Roughness/albedo tuned to the Rightmove Apt 02 CGI (listing 92163630, `refs/critic1/92163630/`). Wood prototypes are remapped onto this oak; dining chairs use espresso frames, not pale oak.
+
+Prototype sizes are checked against `furniture_dims.json` (see `interior/assets/scale_audit.json`). After `place_trace`, some pieces are then fitted to the plan footprint (sofa, beds, kitchen run, vanity, shelving) so positions stay trace-driven.
 
 ## Placed Poly Haven models
 
@@ -67,5 +69,7 @@ No photoreal modern CC0 bed, kitchen run, or bathroom fittings exist on Poly Hav
 
 - Module: `interior/furniture_cc0.py`, imported by `interior/build_twobed_v4.py` (object names unchanged so the lane merges with walls/polish).
 - Dims: `interior/assets/furniture_dims.json`.
-- Lineup (1 m bar): `interior/assets/kit_lineup.png`, rendered by `interior/kit_lineup.py`.
+- Lineup (vertical + horizontal 1 m bars, labels, real-world metres): `interior/assets/kit_lineup.png` (overall) plus per-category `kit_lineup_{living,bedroom,kitchen,bath}.png`, rendered by `interior/kit_lineup.py` and annotated by `interior/kit_lineup_annotate.py`.
+- Scale audit: `interior/assets/scale_audit.json` (prototype vs `furniture_dims.json`). Sink unit height is 0.90 m (tap included); storage shelving is scaled to 0.4 × 2.2 m; bedside lamp is listed.
 - Dining chairs: four empties `Tub_chair_cream_boucle*`, front = local −Y; `build_twobed_v4.py` keeps the dot-product assert.
+- Kitchen: the plan L-run has no drawn microwave; a CC0 black microwave is placed in the second south wall-unit bay (CGI kitchen_run) without moving neighbouring units.

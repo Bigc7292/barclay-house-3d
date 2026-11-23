@@ -24,6 +24,32 @@ DIMS_PATH = os.path.join(ASSETS, "furniture_dims.json")
 
 _PROTO = {}  # name -> root empty (hidden prototypes)
 
+# Shared furniture palette, tuned to Rightmove Apt 02 CGI (listing 92163630).
+# Tuple is (sRGB albedo, roughness, metallic). Builder materials use the same
+# names/finishes (and may attach a texture, tinted toward these albedos).
+PALETTE = {
+    "NAVY":   ((0.04, 0.08, 0.145), 0.85, 0.0),  # teal-navy velvet, matte (CGI sofa/beds)
+    "BOUC":   ((0.88, 0.84, 0.76), 0.95, 0.0),   # cream boucle
+    "OAKF":   ((0.76, 0.61, 0.41), 0.50, 0.0),   # pale satin oak (CGI coffee / bedside)
+    "WUNIT":  ((0.90, 0.89, 0.86), 0.36, 0.0),   # handleless painted, satin
+    "BLK":    ((0.004, 0.004, 0.005), 0.48, 0.0), # matte black appliance (holds under LED)
+    "WHITEP": ((0.95, 0.94, 0.92), 0.18, 0.0),   # ceramic sanitary, soft gloss
+    "GREYV":  ((0.38, 0.37, 0.36), 0.50, 0.0),   # grey stone vanity
+    "LIN":    ((0.94, 0.93, 0.90), 0.88, 0.0),   # white linen
+    "CHROME": ((0.90, 0.90, 0.90), 0.08, 1.0),
+    "BMET":   ((0.025, 0.022, 0.02), 0.38, 0.85),
+    "DARKW":  ((0.055, 0.042, 0.032), 0.42, 0.0), # espresso chair / table frame
+    "DTOP":   ((0.07, 0.06, 0.055), 0.35, 0.0),  # dark dining-table top (CGI)
+    "STEEL":  ((0.75, 0.75, 0.76), 0.28, 1.0),
+    "GLASS":  ((0.95, 0.97, 0.97), 0.02, 0.0),
+    "LAMPS":  ((1.0, 0.97, 0.92), 0.35, 0.0),
+}
+
+
+def palette_defaults(key):
+    col, rough, met = PALETTE[key]
+    return col, rough, met
+
 
 def _dims():
     with open(DIMS_PATH) as f:
@@ -275,9 +301,10 @@ def instance(key, name, loc, rot_z=0.0, hide_proto=True):
 
 
 # Material maps: first matching needle in the imported material name wins.
-MAP_WOOD = [("glass", "GLASS"), ("metal", "CHROME"), ("wood", "OAKF"), ("carpetwhite", "LIN"), ("carpet", "OAKF")]
+MAP_WOOD = [("glass", "GLASS"), ("metal", "BMET"), ("wood", "OAKF"), ("carpetwhite", "LIN"), ("carpet", "OAKF")]
 MAP_SOFA = [("glass", "GLASS"), ("metal", "BMET"), ("wood", "BMET"), ("sofa", "NAVY")]
-MAP_CHAIR = [("glass", "GLASS"), ("metal", "BMET"), ("wood", "OAKF"), ("dining_chair", "BOUC")]
+# CGI chairs: cream boucle on a dark espresso / black frame (not pale oak).
+MAP_CHAIR = [("glass", "GLASS"), ("metal", "DARKW"), ("wood", "DARKW"), ("dining_chair", "BOUC")]
 MAP_STOVE = [("glass", "GLASS"), ("electric_stove", "BLK"), ("stove", "BLK")]
 MAP_MICRO = [("glass", "BLK"), ("metal", "BLK"), ("carpetwhite", "BLK"), ("_defaultmat", "BLK")]
 MAP_KITCHEN = [("glass", "GLASS"), ("metallight", "CHROME"), ("metaldark", "BLK"),
@@ -305,18 +332,24 @@ def _prepare_prototypes(mats):
                    decimate_tris=4000, mat_map=MAP_SOFA, mats=mats)
     load_prototype("chair", _ph("dining_chair_02"), front="-Y", target=_t(items, "dining_chair"),
                    decimate_tris=7000, mat_map=MAP_CHAIR, mats=mats)
+    _darken_chair_frame(_PROTO["chair"], mats)
     load_prototype("dining_table", _ph("round_wooden_table_01"), front="-Y",
-                   target=_t(items, "dining_table_round"), decimate_tris=5000, mats=mats)
+                   target=_t(items, "dining_table_round"), decimate_tris=5000,
+                   mat_map=MAP_WOOD, mats=mats)
     load_prototype("coffee", _ph("modern_coffee_table_01"), front="-Y",
-                   target=_t(items, "coffee_table"), decimate_tris=3500, mats=mats)
+                   target=_t(items, "coffee_table"), decimate_tris=3500,
+                   mat_map=MAP_WOOD, mats=mats)
     load_prototype("tv_bench", _ph("modern_wooden_cabinet"), front="-Y",
-                   target=_t(items, "tv_bench"), decimate_tris=8000, mats=mats)
+                   target=_t(items, "tv_bench"), decimate_tris=8000,
+                   mat_map=MAP_WOOD, mats=mats)
     load_prototype("bedside", _ph("side_table_01"), front="-Y",
-                   target=_t(items, "bedside"), decimate_tris=2500, mats=mats)
+                   target=_t(items, "bedside"), decimate_tris=2500,
+                   mat_map=MAP_WOOD, mats=mats)
     load_prototype("wardrobe", _ph("drawer_cabinet"), front="-Y",
-                   target=_t(items, "wardrobe"), decimate_tris=8000, mats=mats)
+                   target=_t(items, "wardrobe"), decimate_tris=8000,
+                   mat_map=MAP_WOOD, mats=mats)
     load_prototype("shelves", _ph("wooden_display_shelves_01"), front="+X",
-                   target=None, decimate_tris=3000, mats=mats)  # width set per room
+                   target=_t(items, "storage_shelving"), decimate_tris=3000, mat_map=MAP_WOOD, mats=mats)
     load_prototype("stove", _ph("electric_stove"), front="-Y",
                    target=_t(items, "electric_stove"), decimate_tris=8000,
                    mat_map=MAP_STOVE, mats=mats, glass_tag="Stove")
@@ -331,7 +364,7 @@ def _prepare_prototypes(mats):
     load_prototype("kwalld", _kn("kitchenCabinetUpperDouble"), front="-Y",
                    target=_t(items, "kitchen_wall_unit"), mat_map=MAP_KITCHEN, mats=mats)
     load_prototype("ksink", _kn("kitchenSink"), front="-Y",
-                   target=(_t(items, "kitchen_base_unit")[0], _t(items, "kitchen_base_unit")[1], 0.90),
+                   target=_t(items, "kitchen_sink_unit"),
                    mat_map=MAP_KITCHEN, mats=mats)
     load_prototype("washer", _kn("washer"), front="-Y",
                    target=_t(items, "washer"), mat_map=MAP_WASHER, mats=mats, glass_tag="WM")
@@ -626,8 +659,14 @@ def place_trace(ctx, FUR, JOIN):
     # wall units along the south wall only (plan shows no east wall units; heights STAND-IN)
     nw = max(1, round((xe - xw) / 0.6)); ww = (xe - xw) / nw; wd = proto_dims("kwall").y
     for i in range(nw):
-        put("kwalld" if i == 1 else "kwall", f"Wall_unit_{i}", Vector((xw + ww * (i + 0.5), yb + 0.025 + wd / 2, 1.45)),
-            math.pi, "i_kitchen", w=ww - 0.003)
+        wloc = Vector((xw + ww * (i + 0.5), yb + 0.025 + wd / 2, 1.45))
+        if i == 1:
+            # CGI kitchen_run: black microwave in the second wall-unit bay.
+            # Neighbouring bays keep their centres; this bay is the microwave only.
+            put("micro", "Microwave_frame_black", Vector((wloc.x, wloc.y, 1.45 + 0.06)),
+                math.pi, "i_kitchen", w=min(0.50, ww - 0.06))
+        else:
+            put("kwall", f"Wall_unit_{i}", wloc, math.pi, "i_kitchen", w=ww - 0.003)
 
     # ---------- BATHROOM (plan: WC + basin on the west wall, face +X)
     xwb = m(16.5, 0).x
@@ -644,6 +683,76 @@ def place_trace(ctx, FUR, JOIN):
 
     discard_prototypes()
     return [e for e in out if e is not None]
+
+
+def kit_groups():
+    """Category lineups: (group_key, title, [(proto_key, label), ...])."""
+    return [
+        ("living", "Living / dining", [
+            ("sofa", "Sofa"),
+            ("chair", "Dining chair"),
+            ("dining_table", "Round table (kit; plan table is rectangular)"),
+            ("coffee", "Coffee table"),
+            ("tv_bench", "TV bench"),
+        ]),
+        ("bedroom", "Bedroom / storage", [
+            ("bed", "Double bed"),
+            ("bedside", "Bedside table"),
+            ("lamp", "Bedside lamp"),
+            ("wardrobe", "Wardrobe (kit; plan uses traced joinery)"),
+            ("shelves", "Storage shelving"),
+        ]),
+        ("kitchen", "Kitchen", [
+            ("kcab", "Base unit"),
+            ("ksink", "Sink unit"),
+            ("kwall", "Wall unit"),
+            ("stove", "Induction stove"),
+            ("washer", "Washing machine"),
+            ("micro", "Microwave"),
+            ("fridge", "Fridge (kit; not on the plan run)"),
+        ]),
+        ("bath", "Bathroom", [
+            ("wc", "WC"),
+            ("basin", "Vanity / basin"),
+            ("shower", "Shower (kit; enclosure kept as stand-in)"),
+            ("mirror", "Mirror"),
+        ]),
+    ]
+
+
+def scale_audit():
+    """Compare each loaded prototype to furniture_dims.json (metres)."""
+    items = _dims()
+    key_to_dim = {
+        "sofa": "sofa_3seat", "chair": "dining_chair", "dining_table": "dining_table_round",
+        "coffee": "coffee_table", "tv_bench": "tv_bench", "bedside": "bedside",
+        "wardrobe": "wardrobe", "shelves": "storage_shelving", "stove": "electric_stove",
+        "bed": "bed_double", "kcab": "kitchen_base_unit", "kcabd": "kitchen_base_unit",
+        "kwall": "kitchen_wall_unit", "kwalld": "kitchen_wall_unit",
+        "ksink": "kitchen_sink_unit", "washer": "washer", "micro": "microwave",
+        "fridge": "fridge_tall", "wc": "wc", "basin": "basin_vanity",
+        "shower": "shower", "mirror": "mirror", "lamp": "bedside_lamp",
+    }
+    rows = []
+    for key, root in _PROTO.items():
+        final = list(root.get("cc0_final_dims", [0, 0, 0]))
+        target = list(root.get("cc0_target_dims", [])) if "cc0_target_dims" in root.keys() else None
+        dim_key = key_to_dim.get(key)
+        specified = None
+        if dim_key and dim_key in items:
+            it = items[dim_key]
+            specified = [it.get("w"), it.get("d"), it.get("h")]
+        err = None
+        if specified:
+            err = []
+            for a, b in zip(final, specified):
+                if a is None or b is None:
+                    err.append(None)
+                else:
+                    err.append(round(a - b, 4))
+        rows.append({"key": key, "final": [round(x, 4) for x in final],
+                     "target": target, "furniture_dims": specified, "delta_m": err})
+    return rows
 
 
 def iter_kit_items():
@@ -670,6 +779,31 @@ def iter_kit_items():
         ("mirror", "Kenney bathroomMirror"),
         ("lamp", "Kenney lampRoundTable"),
     ]
+
+
+
+def _darken_chair_frame(root, mats, seat_z=0.45):
+    """Single-material CC0 chair: faces below the seat become espresso (CGI dark frame)."""
+    import bmesh
+    dark = mats["DARKW"]
+    for o in list(root.children):
+        if o.type != "MESH" or not o.data.polygons:
+            continue
+        me = o.data
+        if dark.name not in me.materials:
+            me.materials.append(dark)
+        di = me.materials.find(dark.name)
+        bm = bmesh.new()
+        bm.from_mesh(me)
+        bm.faces.ensure_lookup_table()
+        mw = o.matrix_world
+        for f in bm.faces:
+            c = mw @ f.calc_center_median()
+            if c.z < seat_z:
+                f.material_index = di
+        bm.to_mesh(me)
+        bm.free()
+        me.update()
 
 
 def make_scale_bar(origin, mats=None, sc=None):
@@ -708,6 +842,43 @@ def make_scale_bar(origin, mats=None, sc=None):
     t.data.size = 0.28
     t.data.align_x = "CENTER"
     return [a, b, t]
+
+
+def make_scale_post(origin, sc=None, band=0.10):
+    """Vertical 1 m bar at origin (z=0..1), alternating 10 cm black/white bands + '1 m' label."""
+    import bmesh
+    sc = sc or _scene()
+    outs = []
+    n = int(round(1.0 / band))
+    for i in range(n):
+        z0, z1 = i * band, (i + 1) * band
+        me = bpy.data.meshes.new(f"ScalePost_{i}")
+        bm = bmesh.new()
+        bmesh.ops.create_cube(bm, size=1)
+        bmesh.ops.scale(bm, vec=(0.05, 0.05, z1 - z0), verts=bm.verts)
+        bm.to_mesh(me)
+        bm.free()
+        o = bpy.data.objects.new(f"ScalePost_{i}", me)
+        sc.collection.objects.link(o)
+        o.location = (origin[0], origin[1], (z0 + z1) / 2)
+        mat = bpy.data.materials.new(f"ScalePost_{i}_mat")
+        mat.use_nodes = True
+        col = (0.06, 0.06, 0.06) if i % 2 == 0 else (0.96, 0.96, 0.94)
+        b = mat.node_tree.nodes["Principled BSDF"]
+        b.inputs["Base Color"].default_value = (*col, 1)
+        b.inputs["Roughness"].default_value = 0.45
+        o.data.materials.append(mat)
+        outs.append(o)
+    bpy.ops.object.text_add(location=(origin[0], origin[1] - 0.18, 1.04))
+    t = bpy.context.object
+    t.name = "ScalePost_label_1m"
+    t.data.body = "1 m"
+    t.data.extrude = 0.004
+    t.data.size = 0.16
+    t.data.align_x = "CENTER"
+    t.rotation_euler = (1.5708, 0, 0)
+    outs.append(t)
+    return outs
 
 
 def discard_prototypes():
