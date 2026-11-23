@@ -1,0 +1,23 @@
+Checklist gate — Two Bed vs Rightmove 92163630
+Renders: renders/polish/r10/stills_after
+Resolved: {'bathroom': 'renders/polish/r10/stills_after/v5_bathroom.png', 'bedroom1': 'renders/polish/r10/stills_after/v5_bedroom1.png', 'bedroom2': 'renders/polish/r10/stills_after/v5_bedroom2.png', 'kitchen': 'renders/polish/r10/stills_after/v5_kitchen.png', 'living': 'renders/polish/r10/stills_after/v5_living.png'}
+Score: 61.2% (mean item score_norm)
+Gate: FAIL  yes=8 partial=0 no=5  (need no 'no' rows and <=2 'partial')
+
+element                      status   score_norm  metric
+----------------------------------------------------------------------------------------
+living_navy_sofa             yes           0.677  |Δhue|=29.1° (r=31 f=60) luma_std=0.238
+living_window_grid           no            0.108  edge=0.11 dark=0.23
+living_wood_floor            yes           0.979  |Δhue|=1.9° (r=30 f=28) luma_std=0.061
+kitchen_white_units          no            0.000  mean_v 0.809/0.720 bidir=0.89 luma_std=0.026
+kitchen_black_appliances     no            0.000  dark 0.000/0.513=0.00
+kitchen_dining_chairs        yes           0.956  |Δhue|=4.0° (r=31 f=27) luma_std=0.268
+bedroom1_navy_bed            yes           0.970  |Δhue|=2.7° (r=30 f=27) luma_std=0.183
+bedroom1_detail              yes           1.000  edge 0.0431/0.0414=1.04
+bedroom2_navy_bed            yes           0.997  |Δhue|=0.2° (r=29 f=28) luma_std=0.133
+bedroom2_detail              yes           0.904  edge 0.0313/0.0347=0.90
+bathroom_sanitary_white      yes           0.962  mean_v 0.678/0.653 bidir=0.96 luma_std=0.108
+bathroom_fittings_edge       no            0.409  edge 0.0182/0.0444=0.41
+bathroom_grey_surfaces       no            0.000  |Δhue|=3.0° (r=33 f=30) luma_std=0.032
+
+Wrote /workspace/barclay-lanes/polish/tests/reference/result.json  ELAPSED 2.45s

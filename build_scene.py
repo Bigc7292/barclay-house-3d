@@ -335,7 +335,7 @@ def hero(M, C, pts):
         cuts_ = sorted((a_, b_) for a_, b_, zt_ in openings if z < zt_)
         xs = 0.0
         for a_, b_ in cuts_ + [(W, W)]:
-            if a_ > xs + 0.05: box("HERO_rustication_groove", xs, a_, -0.455, -0.449, z-0.035, z+0.035, M["groove"], C, fr)
+            if a_ > xs + 0.05: box("HERO_rustication_groove", xs, a_, -0.455, -0.449, z-hero4.P["groove_hh"], z+hero4.P["groove_hh"], M["groove"], C, fr)
             xs = max(xs, b_)
         z += hero4.P["groove_pitch"]
     for zc, d, h, m in ((LEVELS[1], 0.75, 0.45, "stone"), (LEVELS[4], 0.95, 0.55, "terracotta"), (ROOF, 0.85, 0.55, "terracotta")):
@@ -374,6 +374,7 @@ def hero(M, C, pts):
             if a_ < 0.5 and xx < a_*W: continue
             if a_ > 0.5 and xx > b_*W: continue
             for zz in (LEVELS[3]+0.3, LEVELS[4]-1.6):
+                if hero4.rb_skip(xx, zz, W, LEVELS, TRIPLE): continue
                 disc("HERO_RB_shield", xx, zz, 0.42, 0.52, -0.78, -0.55, M["terracotta"], 16)
     for sgn in (-1, 1):   # moulded doorcase: stepped architrave (3 fasciae)
         for k, (w_, d_) in enumerate(((0.12, -0.55), (0.10, -0.65), (0.08, -0.75))):

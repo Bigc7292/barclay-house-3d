@@ -1,0 +1,42 @@
+{
+ "desk": {
+  "off": [],
+  "back_visible": true,
+  "back_visible_after_scroll": true,
+  "dollhouse_visible": true,
+  "exterior_btn_visible": true,
+  "errors": []
+ },
+ "p390": {
+  "off": [],
+  "back_visible": true,
+  "back_visible_after_scroll": true,
+  "dollhouse_visible": true,
+  "exterior_btn_visible": true,
+  "errors": []
+ },
+ "l390": {
+  "off": [],
+  "back_visible": true,
+  "back_visible_after_scroll": true,
+  "dollhouse_visible": true,
+  "exterior_btn_visible": true,
+  "errors": []
+ },
+ "p360": {
+  "off": [],
+  "back_visible": true,
+  "back_visible_after_scroll": true,
+  "dollhouse_visible": true,
+  "exterior_btn_visible": true,
+  "errors": []
+ },
+ "l360": {
+  "off": [],
+  "back_visible": true,
+  "back_visible_after_scroll": true,
+  "dollhouse_visible": true,
+  "exterior_btn_visible": true,
+  "errors": []
+ }
+}

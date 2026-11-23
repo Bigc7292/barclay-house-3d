@@ -10,6 +10,7 @@ import { UnrealBloomPass } from 'three/examples/jsm/postprocessing/UnrealBloomPa
 import { OutputPass } from 'three/examples/jsm/postprocessing/OutputPass.js';
 import { Water } from 'three/examples/jsm/objects/Water2.js'; // x_tricks #10: three r170 Water2 (MIT), bundled locally by esbuild, no CDN
 import canals from './canal.json'; // Canal_water triangles from out/barclay_surroundings.glb (.gltf/canal_extract.mjs)
+import {cutCanalCover, dressCanal} from './canal_fix.js';
 import lamps from './lights.json';
 import life from './life.json'; // x_tricks #9 street life: OSM Whitworth St W + viaduct rail (scene_data.json, ODbL), heights DTM / rail z
 const $=id=>document.getElementById(id), msg=$('msg');
@@ -219,47 +220,58 @@ let done=0;const need=4;const pr={};const bar=$('pb'),pbw=$('pbw');
 const upd=()=>{const v=Object.values(pr);const t=v.reduce((a,b)=>a+b,0)/need;if(bar)bar.style.width=Math.round(t*100)+'%';if(pbw)pbw.style.display=done>=need?'none':'';};
 const prog=()=>{done++;upd();draw=true;say(done<need?`Loading 3D models… ${done}/${need}${MOB?' (mobile quality)':''}`:'')};
 const INT=(q0.get('int')||'v5');const intU=INT==='v4'?(MOB?'twobed_m.glb':'twobed.glb'):(MOB?'twobed_v5_m.glb':'twobed_v5.glb');
-const heroU=MOB?'hero3_floors_m.glb':'hero3_floors.glb';
-const heroFb=MOB?'hero_mo3.glb':'hero3.glb';
+const heroU=MOB?'hero4c_mobile.glb':'hero4c.glb';
+const heroFb=MOB?'hero4b_mobile.glb':'hero4b.glb';
 const queue=MOB?[[heroU,ext],['context_mo.glb',ext],['ext7_street_o.glb',ext],[intU,intr]]:[[heroU,ext],['context_typed_opt.glb',ext],['ext7_street.glb',ext],[intU,intr]];
 const loadOne=(u,g,fb)=>{pr[u]=0;const kind=u.startsWith('context')?'ctx':u.startsWith('hero')?'hero':u.startsWith('ext7')?'street':'in';
- L.load(u,x=>{pr[u]=1;prep(x.scene,kind);g.add(x.scene);if(/^Ceiling/.test(x.scene.name))ceil=x.scene;x.scene.traverse(o=>{if(/^Ceiling/.test(o.name)&&o.isMesh)ceil=o});if(kind==='hero')bindFloors(x.scene);prog();reshadow();loadNext()},
+ L.load(u,x=>{pr[u]=1;prep(x.scene,kind);g.add(x.scene);if(kind==='ctx')cutCanalCover(x.scene,THREE);if(/^Ceiling/.test(x.scene.name))ceil=x.scene;x.scene.traverse(o=>{if(/^Ceiling/.test(o.name)&&o.isMesh)ceil=o});if(kind==='hero')bindFloors(x.scene);prog();reshadow();loadNext()},
  e=>{if(e&&e.total){pr[u]=e.loaded/e.total;upd();say(`Loading ${MOB?'mobile ':''}3D models… ${Math.round(Object.values(pr).reduce((a,b)=>a+b,0)/need*100)}%`)}},
  e=>{if(fb){delete pr[u];loadOne(fb,g,null);return}say('Could not load '+u+' ('+(e&&e.message||'network error')+'). Check your connection and reload.',1)})};
 const loadNext=()=>{if(!queue.length)return;const [u,g]=queue.shift();loadOne(u,g,u===heroU?heroFb:null)};
 loadNext();
-// x_tricks #5: click a Floor_* node to highlight it and show its name/level. Shared materials are cloned so a tint does not leak across storeys. hero3.glb remains the fallback if the Floor_* file is missing.
+// x_tricks #5: click a Floor_* node to highlight it and show its name/level. Shared materials are cloned so a tint does not leak across storeys. Live exterior is hero4c / hero4c_mobile (r8c: hero4b minus the lower RB shields on the oriel heads). hero4b / hero4b_mobile remain the fallback if hero4c is missing. make_mobile flattens Floor_* children, so bindFloors also registers the named storey parts for picking, tint and isolate.
 const floors=new Map();let selFloor=null,isoOn=false,ptrDown=null;
 const FLOOR_META={Floor_00:{title:'Basement',level:0,note:'Basement level NOT FOUND; stand-in at street level.'},Floor_01:{title:'Ground floor',level:1},Floor_02:{title:'First floor',level:2},Floor_03:{title:'Second floor',level:3},Floor_04:{title:'Third floor',level:4},Floor_05:{title:'Attic storey',level:5}};
-function floorOf(o){while(o){if(/^Floor_\d+$/.test(o.name))return o;o=o.parent}return null}
+function floorOf(o){let p=o;while(p){if(/^Floor_\d+$/.test(p.name))return p;p=p.parent}p=o;while(p){if(p.userData&&p.userData.floorHost)return p.userData.floorHost;p=p.parent}return null}
 function floorNo(name){const m=/^Floor_(\d+)$/.exec(name);return m?+m[1]:null}
 function ensureFlab(){let el=$('flab');if(el)return el;el=document.createElement('div');el.id='flab';el.className='x';el.setAttribute('role','status');$('v').appendChild(el);return el}
 function setLab(node){const el=ensureFlab();if(!node){el.className='x';el.innerHTML='';return}const meta=FLOOR_META[node.name]||{title:node.name,level:floorNo(node.name)};
  el.className='';el.innerHTML=`<div id=flabn>${meta.title} · level ${meta.level}<span class=flid> ${node.name}</span></div>${meta.note?`<div class=flnote>${meta.note}</div>`:''}<div class=flacts><button type=button id=fliso>${isoOn?'Show all floors':'Hide floors above'}</button>${node.name==='Floor_01'?'<button type=button id=flint>View Two Bed interior</button>':''}</div>`;
  const iso=$('fliso');if(iso)iso.onclick=e=>{e.stopPropagation();isoOn=!isoOn;applyIso();setLab(selFloor);draw=true};
  const inn=$('flint');if(inn)inn.onclick=e=>{e.stopPropagation();window.mode('i')}}
-function tintFloor(node,on){node.traverse(o=>{if(!o.isMesh||!o.material)return;const mats=Array.isArray(o.material)?o.material:[o.material];
+function tintFloor(node,on){[node,...(node.userData.extras||[])].forEach(root=>root.traverse(o=>{if(!o.isMesh||!o.material)return;const mats=Array.isArray(o.material)?o.material:[o.material];
  if(on){if(o.userData._mat0)return;o.userData._mat0=mats;const cloned=mats.map(m=>{const c=m.clone();if(c.emissive){c.emissive.setHex(0x1d4ed8);c.emissiveIntensity=(c.emissiveIntensity||0)+0.45}c.needsUpdate=true;return c});o.material=Array.isArray(o.material)?cloned:cloned[0]}
- else if(o.userData._mat0){const cur=Array.isArray(o.material)?o.material:[o.material];cur.forEach(m=>{if(!o.userData._mat0.includes(m))m.dispose()});o.material=Array.isArray(o.material)?o.userData._mat0:o.userData._mat0[0];delete o.userData._mat0}})}
-function applyIso(){const n=selFloor?floorNo(selFloor.name):null;floors.forEach((node,name)=>{const i=floorNo(name);node.visible=!isoOn||n==null||i<=n});reshadow();draw=true}
+ else if(o.userData._mat0){const cur=Array.isArray(o.material)?o.material:[o.material];cur.forEach(m=>{if(!o.userData._mat0.includes(m))m.dispose()});o.material=Array.isArray(o.material)?o.userData._mat0:o.userData._mat0[0];delete o.userData._mat0}}))}
+function applyIso(){const n=selFloor?floorNo(selFloor.name):null;floors.forEach((node,name)=>{const vis=!isoOn||n==null||floorNo(name)<=n;node.visible=vis;(node.userData.extras||[]).forEach(o=>{o.visible=vis})});reshadow();draw=true}
 function clearFloor(){if(selFloor)tintFloor(selFloor,false);selFloor=null;isoOn=false;applyIso();setLab(null);draw=true}
 function selectFloor(node){if(selFloor&&selFloor!==node)tintFloor(selFloor,false);selFloor=node;tintFloor(node,true);applyIso();setLab(node);draw=true}
+const FLOOR_PARTS={Floor_00:['Window_00_sill'],Floor_01:['Door_entrance_frame','Facade_01','HERO_entrance_lettering','HERO_entrance_sign','HERO_rustication_groove_009','Window_01_frame','Window_01_glass'],Floor_02:['HERO_giant_pilaster_005','Window_02_frame','Window_02_glass'],Floor_03:['Window_03_frame','Window_03_glass','Window_03_sill'],Floor_04:['Window_04_frame','Window_04_glass','Window_04_sill'],Floor_05:['Window_05_frame','Window_05_glass','Window_05_sill']};
+function floorPickables(){const arr=[];floors.forEach(node=>{arr.push(node);if(node.userData.extras)arr.push(...node.userData.extras)});return arr}
 function bindFloors(root){floors.clear();selFloor=null;isoOn=false;root.traverse(o=>{if(/^Floor_\d+$/.test(o.name))floors.set(o.name,o)});
+ const under=new Set();floors.forEach(node=>node.traverse(o=>under.add(o)));
+ const byName=new Map();root.traverse(o=>{if(o.name&&!byName.has(o.name))byName.set(o.name,o)});
+ floors.forEach((node,name)=>{const extras=[];(FLOOR_PARTS[name]||[]).forEach(part=>{const o=byName.get(part);if(!o||under.has(o))return;extras.push(o);o.traverse(c=>{c.userData.floorHost=node;under.add(c)})});node.userData.extras=extras});
  const tmp=new THREE.Vector3();
- floors.forEach((node,name)=>{const pts=[];node.traverse(o=>{if(!o.isMesh||!o.geometry||/^Door_/.test(o.name))return;const pos=o.geometry.attributes.position;if(!pos)return;o.updateWorldMatrix(true,false);
-  for(let i=0;i<pos.count;i++){tmp.fromBufferAttribute(pos,i).applyMatrix4(o.matrixWorld);if(tmp.z>14)pts.push([tmp.x,tmp.y,tmp.z])}});
-  const BAND={Floor_00:{y0:-0.05,y1:0.25,x0:12,x1:99},Floor_01:{y0:2.4,y1:5.0,x0:-3,x1:3},Floor_02:{y0:6.5,y1:9.0,x0:-3,x1:3},Floor_03:{y0:10.5,y1:12.2,x0:-3,x1:3},Floor_04:{y0:13.7,y1:15.5,x0:-3,x1:3},Floor_05:{y0:17.2,y1:19.0,x0:-3,x1:3}};
+ floors.forEach((node,name)=>{const pts=[];const collect=o=>{if(!o.isMesh||!o.geometry||/^Door_/.test(o.name))return;const pos=o.geometry.attributes.position;if(!pos)return;o.updateWorldMatrix(true,false);
+  for(let i=0;i<pos.count;i++){tmp.fromBufferAttribute(pos,i).applyMatrix4(o.matrixWorld);if(tmp.z>14)pts.push([tmp.x,tmp.y,tmp.z])}};
+  node.traverse(collect);(node.userData.extras||[]).forEach(o=>o.traverse(collect));
+  const BAND={Floor_00:{y0:-0.05,y1:0.25,x0:-3,x1:3},Floor_01:{y0:2.4,y1:5.0,x0:-3,x1:3},Floor_02:{y0:6.5,y1:9.0,x0:-3,x1:3},Floor_03:{y0:10.5,y1:12.2,x0:-3,x1:3},Floor_04:{y0:13.7,y1:15.5,x0:-3,x1:3},Floor_05:{y0:17.2,y1:19.0,x0:-3,x1:3}};
   const band=BAND[name];
   let cand=band?pts.filter(p=>p[1]>=band.y0&&p[1]<=band.y1&&p[0]>=band.x0&&p[0]<=band.x1):pts;
-  if(!cand.length)cand=pts;
-  let pick;if(!cand.length){const b=new THREE.Box3().setFromObject(node);pick=b.getCenter(new THREE.Vector3())}
-  else{cand.sort((a,b)=>b[2]-a[2]-Math.abs(a[0])*0.35+Math.abs(b[0])*0.35);pick=new THREE.Vector3(cand[0][0],cand[0][1],cand[0][2])}
+  let pick;
+  if(cand.length){cand.sort((a,b)=>b[2]-a[2]-Math.abs(a[0])*0.35+Math.abs(b[0])*0.35);pick=new THREE.Vector3(cand[0][0],cand[0][1],cand[0][2])}
+  else{const b=new THREE.Box3().setFromObject(node);(node.userData.extras||[]).forEach(o=>b.expandByObject(o));
+   const y=band?(band.y0+band.y1)/2:(b.min.y+b.max.y)/2;pick=new THREE.Vector3(0,y,b.max.z)}
   pick.z+=0.08;node.userData.clickPt=pick});
  window.__floorsReady=()=>floors.size>0}
 const floorRay=new THREE.Raycaster(),floorNdc=new THREE.Vector2();
+// Storey Y bands from hero4 Floor_* slabs. Used so a mesh parented to the wrong storey
+// (hero4's giant pilaster is under Floor_02 but runs y 5.5–20) still picks the storey you clicked.
+const FLOOR_Y={0:[-0.5,1.9],1:[1.9,5.56],2:[5.56,9.49],3:[9.49,12.78],4:[12.78,16.1],5:[16.1,30]};
+function floorAtY(y){for(const [name,node] of floors){const i=floorNo(name),b=FLOOR_Y[i];if(b&&y>=b[0]&&y<b[1])return node}return null}
 function pickFloorAt(cx,cy){if(!floors.size||!ext.visible||fp||flying)return null;const r=R.domElement.getBoundingClientRect();
  floorNdc.set(((cx-r.left)/r.width)*2-1,-((cy-r.top)/r.height)*2+1);floorRay.setFromCamera(floorNdc,C);
- const hits=floorRay.intersectObjects([...floors.values()],true);for(const h of hits){const n=floorOf(h.object);if(n&&n.visible)return n}return null}
+ const hits=floorRay.intersectObjects(floorPickables(),true);for(const h of hits){const byY=floorAtY(h.point.y);if(byY&&byY.visible)return byY;const n=floorOf(h.object);if(n&&n.visible)return n}return null}
 function onFloorClick(cx,cy){const n=pickFloorAt(cx,cy);if(!n){if(selFloor)clearFloor();return null}if(selFloor===n){clearFloor();return null}selectFloor(n);return n.name}
 R.domElement.addEventListener('pointerdown',e=>{if(fp||flying||!ext.visible||e.button)return;ptrDown={x:e.clientX,y:e.clientY,id:e.pointerId}});
 const floorUp=e=>{if(!ptrDown||e.pointerId!==ptrDown.id)return;const dx=e.clientX-ptrDown.x,dy=e.clientY-ptrDown.y;const x=ptrDown.x,y=ptrDown.y;ptrDown=null;if(fp||flying||!ext.visible)return;if(Math.hypot(dx,dy)>6)return;onFloorClick(x,y)};
@@ -273,11 +285,13 @@ window.__selectFloor=name=>{const n=floors.get(name);if(!n)return false;selectFl
 window.__clearFloor=()=>{clearFloor()};
 window.__isolateFloors=on=>{isoOn=!!on;applyIso();if(selFloor)setLab(selFloor)};
 window.__projectFloor=projectFloor;
+window.__clickPt=name=>{const n=floors.get(name);if(!n||!n.userData.clickPt)return null;const p=n.userData.clickPt;return[p.x,p.y,p.z]};
 window.__pickFloorAt=(x,y)=>onFloorClick(x,y);
 window.__hitFloorAt=(x,y)=>{const n=pickFloorAt(x,y);return n?n.name:null};
 window.__floorVisible=name=>{const n=floors.get(name);return n?n.visible:null};
-window.__setView=(p,t,f)=>{C.position.fromArray(p);O.target.fromArray(t);if(f){C.fov=f;C.updateProjectionMatrix()}O.update();draw=true};
-const P={street:{p:[-1.41,1.7,29.79],t:[0.2,8.5,9.8],f:70},facade:{p:[-1.4,1.7,29.8],t:[-1,6.5,17.3],f:62},entrance:{p:[-0.75,1.7,21.0],t:[-0.27,3.0,15.3],f:45},aerial:{p:[24.83,120,127.14],t:[-0.2,5.4,4],f:48},viaduct:{p:[-51.07,10.31,38.93],t:[-14.9,10,21.8],f:56},interior:{p:[0.6,12,11],t:[0.2,0,-0.3],f:45},i_living:{p:[-0.5,1.5,1.91],t:[2.97,0.9,0.15],f:70},i_kitchen:{p:[-0.79,1.5,1.18],t:[3.41,1.1,2.96],f:70},i_bed1:{p:[-2.0,1.3,-0.85],t:[-2.41,0.8,-3.17],f:70},i_bed2:{p:[1.5,1.3,-1.6],t:[1.36,0.8,-3.62],f:70},i_bath:{p:[-2.08,1.55,3.83],t:[-3.02,0.9,2.88],f:80},i_hall:{p:[-0.65,1.5,4.15],t:[0.09,1.3,0.29],f:75},i_store:{p:[-1.09,1.5,1.32],t:[-3.0,1.0,1.32],f:80}};
+window.__setView=(p,t,f)=>{C.up.set(0,1,0);C.position.fromArray(p);O.target.fromArray(t);if(f){C.fov=f;C.updateProjectionMatrix()}O.update();draw=true};
+// lane/polish r10: i_bed1/i_bed2 framed to include the wardrobes, i_bath to include the shower head (v5 model coordinates)
+const P={street:{p:[-1.41,1.7,29.79],t:[0.2,8.5,9.8],f:70},facade:{p:[-1.4,1.7,29.8],t:[-1,6.5,17.3],f:62},entrance:{p:[-0.75,1.7,21.0],t:[-0.27,3.0,15.3],f:45},aerial:{p:[24.83,120,127.14],t:[-0.2,5.4,4],f:48},viaduct:{p:[-51.07,10.31,38.93],t:[-14.9,10,21.8],f:56},interior:{p:[0.6,12,11],t:[0.2,0,-0.3],f:45},i_living:{p:[-0.5,1.5,1.91],t:[2.97,0.9,0.15],f:70},i_kitchen:{p:[-0.79,1.5,1.18],t:[3.41,1.1,2.96],f:70},i_bed1:{p:[-3.2,1.45,-3.5],t:[-1.5,0.9,-0.9],f:70},i_bed2:{p:[2.6,1.45,-1.65],t:[0.0,0.9,-3.0],f:70},i_bath:{p:[-1.6,1.6,3.5],t:[-3.4,1.2,3.1],f:80},i_hall:{p:[-0.65,1.5,4.15],t:[0.09,1.3,0.29],f:75},i_store:{p:[-1.09,1.5,1.32],t:[-3.0,1.0,1.32],f:80}};
 P.road={p:[-14,2.2,27.5],t:[6,0.2,22.5],f:60}; // URL/test-only view down Whitworth St W (no button)
 let preset='street';
 window.cam=k=>{preset=k;const v=P[k];C.position.fromArray(v.p);O.target.fromArray(v.t);C.fov=v.f;C.updateProjectionMatrix();O.update();draw=true};
@@ -336,10 +350,17 @@ const waterG=new THREE.Group();waterG.name='CanalWater2';ext.add(waterG);const c
  const put=(m,y,name,w2)=>{m.rotation.x=-Math.PI/2;m.position.y=y;m.name=name;m.userData.water2=w2;waterG.add(m)};
  G.slice(0,NW).forEach(g=>put(new Water(geoOf([g],true),{color:0x9fb3aa,scale:1,flowDirection:new THREE.Vector2(1,0.3),flowSpeed:0.012,reflectivity:0.04,textureWidth:MOB?256:512,textureHeight:MOB?256:512,normalMap0:wn[0],normalMap1:wn[1]}),g.y,'Canal_water2_'+g.c.name,true));
  if(G.length>NW){const mat=new THREE.MeshStandardMaterial({color:0x07100e,roughness:0.06,metalness:0,normalMap:wn[0].clone(),normalScale:new THREE.Vector2(0.35,0.35)});mat.normalMap.wrapS=mat.normalMap.wrapT=THREE.RepeatWrapping;cheapW.push(mat);put(new THREE.Mesh(geoOf(G.slice(NW),false),mat),0,'Canal_water_cheap',false)}})();
-{const w=waterG.children.find(o=>o.userData.water2)||waterG.children[0];if(w){const b=new THREE.Box3().setFromObject(w),y=w.position.y;P.canal={p:[b.max.x-3,y+2.5,(b.min.z+b.max.z)/2],t:[b.min.x+20,y,(b.min.z+b.max.z)/2],f:56}}} // URL-only test view ?cam=canal (no button)
+const useWater2=!(q0.get('water')==='0'||(MOB&&q0.get('water')!=='1'));
+const canalDress=dressCanal({THREE,Water,waterG,wn,MOB,useWater2,kick:()=>{draw=true}});
+// Rear-of-building view along the Rochdale Canal (OSM way 243445859), viaduct to the west.
+P.canal={p:[32,5.8,-16],t:[-8,0.1,-32],f:58};
 if(q0.get('cam')==='canal')cam('canal');
-window.__water=()=>waterG.children.map(o=>({name:o.name,water2:o.userData.water2,y:+o.position.y.toFixed(2),tris:o.geometry.attributes.position.count/3}));
+window.__water=()=>{const out=[];waterG.traverse(o=>{if(!o.isMesh||!o.geometry||!o.geometry.attributes.position)return;const n=o.geometry.index?o.geometry.index.count:o.geometry.attributes.position.count;out.push({name:o.name,water2:!!o.userData.water2,y:+o.position.y.toFixed(2),tris:n/3,visible:o.visible})});return out};
+window.__canalCut=true;
+
+
 let wt0=performance.now();
+
 // ---- x_tricks #9 street life (web): Kenney CC0 cars on Whitworth St W lanes + 3-car train on the viaduct (web/life/, licences there).
 // Speeds, lane offset (1.8 m), sizes = STAND-INS (illustrative set dressing). Animates only while the exterior is visible and the tab is shown;
 // frames capped at 30 fps; ?life=0 or the Traffic button turns it off. No shadows from movers (shadow map stays static).
@@ -372,7 +393,7 @@ window.lifeToggle=()=>{lifeOn=!lifeOn;const b=$('btr');if(b)b.className=lifeOn?'
   pos.push(o.x+nx,y1,o.z+nz, o.x-nx,y1,o.z-nz, o2.x+nx,y2,o2.z+nz, o2.x+nx,y2,o2.z+nz, o.x-nx,y1,o.z-nz, o2.x-nx,y2,o2.z-nz)}
  const g=new THREE.BufferGeometry();g.setAttribute('position',new THREE.Float32BufferAttribute(pos,3));g.computeVertexNormals();
  const m=new THREE.Mesh(g,new THREE.MeshStandardMaterial({color:0xe8e6dc,roughness:0.7,polygonOffset:true,polygonOffsetFactor:-4,polygonOffsetUnits:-4,side:THREE.DoubleSide}));m.name='Road_centre_line';m.receiveShadow=!MOB;ext.add(m)}
-const wTick=()=>{const t=(performance.now()-wt0)/1000;cheapW.forEach(m=>m.normalMap.offset.set(t*0.004,t*0.0025))};
+const wTick=()=>{const t=(performance.now()-wt0)/1000;cheapW.forEach(m=>m.normalMap&&m.normalMap.offset.set(t*0.004,t*0.0025));if(canalDress&&canalDress.userData.tick)canalDress.userData.tick(t)};
 window.__extReady=()=>done>=3&&!!envTex;window.__dpr=()=>dpr;window.__kick=()=>{draw=true};
 const ease=t=>t<.5?4*t*t*t:1-Math.pow(-2*t+2,3)/2;
 function fly(v,dur,done){flying=true;O.enabled=false;const p0=C.position.clone(),t0=O.target.clone(),f0=C.fov,p1=new THREE.Vector3().fromArray(v.p),t1=new THREE.Vector3().fromArray(v.t),f1=v.f,st=performance.now();

@@ -15,6 +15,10 @@ html,body{margin:0;height:100%;overflow:hidden;background:#e9e6e1;font:14px syst
 
 #approx{position:fixed;top:8px;right:8px;z-index:4;background:#f59e0b;color:#111;padding:6px 10px;border-radius:8px;font-weight:700}
 #accpan{position:fixed;top:48px;right:8px;z-index:4;width:310px;max-height:calc(100% - 64px);overflow:auto;background:#fffffff5;border-radius:10px;padding:10px 12px;box-shadow:0 1px 8px #0003;display:none}
+@media (max-width:1100px){
+ #bar{top:max(8px,env(safe-area-inset-top));left:max(8px,env(safe-area-inset-left));right:max(8px,env(safe-area-inset-right))}
+ #approx{top:auto;bottom:max(8px,env(safe-area-inset-bottom));right:max(8px,env(safe-area-inset-right))}
+}
 #accpan.on{display:block}
 #accpan h3{margin:0 0 4px;font-size:13px}
 #accpan .ind{color:#7c2d12;font-size:11px;line-height:1.35;margin:0 0 8px}
@@ -27,7 +31,7 @@ html,body{margin:0;height:100%;overflow:hidden;background:#e9e6e1;font:14px syst
 </style>
 <script type="importmap">{"imports":{"three":"./vendor/three-r160/build/three.module.js","three/addons/":"./vendor/three-r160/examples/jsm/"}}</script>
 </head><body>
-<div id="v"></div><div id="bar"><a id="b_back" href="../index.html?m=i" style="padding:8px 12px;border-radius:8px;background:#111;color:#fff;text-decoration:none;box-shadow:0 1px 4px #0003;font:inherit">← Viewer</a><button id="b_over" class="on" data-act="over">3D</button><button id="b_acc" data-act="acc">Accessible area</button></div>
+<div id="v"></div><div id="bar"><a id="b_back" href="../index.html?m=i" style="padding:8px 12px;border-radius:8px;background:#111;color:#fff;text-decoration:none;box-shadow:0 1px 4px #0003;font:inherit">← Viewer</a><button id="b_over" class="on" data-act="over">3D</button><button id="b_ceil" data-act="ceil" title="Show or hide the ceiling">Ceiling</button><button id="b_acc" data-act="acc">Accessible area</button></div>
 <div id="approx">APPROXIMATE layout</div>
 <div id="accpan" aria-live="polite">
   <h3>Accessible area <span style="font-weight:400">(indicative)</span></h3>
@@ -55,13 +59,20 @@ const C=new THREE.PerspectiveCamera(45,1,0.03,200);const O=new OrbitControls(C,R
 const L=new GLTFLoader();L.setMeshoptDecoder(MeshoptDecoder);
 const gltf=await L.loadAsync(MOB?'../twobed_m.glb':'../twobed.glb').catch(e=>{$('#msg').textContent='load error';throw e});
 const root=gltf.scene;S.add(root);root.updateMatrixWorld(true);
-let ceiling=null;
-root.traverse(o=>{if(!o.isMesh)return;
+let ceiling=null,ceilParts=[];
+root.traverse(o=>{
+ if(!ceiling&&/^Ceiling/i.test(o.name||''))ceiling=o; // group Ceiling_BAKED (twobed.glb) or mesh Ceiling (v5)
+ if(!o.isMesh)return;
  if(/BAKED/.test(o.material.name)){const mp=o.material.map;if(mp)mp.colorSpace=THREE.SRGBColorSpace;o.material=new THREE.MeshBasicMaterial({map:mp,toneMapped:false})}
  else if(/^Art_/.test(o.material.name)){const mp=o.material.map;if(mp){mp.colorSpace=THREE.SRGBColorSpace;mp.anisotropy=4}o.material=new THREE.MeshBasicMaterial({map:mp,color:0xd2ccc4,toneMapped:false})} // lane/polish: art kept out of the bake (own crisp sRGB texture), unlit + dimmed to sit in the baked room
  else if(/backdrop/i.test(o.name)){const mp=o.material.map||o.material.emissiveMap;o.material=new THREE.MeshBasicMaterial({map:mp,toneMapped:false})}
  else if(/glass/i.test(o.material.name)&&!/TV|Chrome/.test(o.material.name)){o.material=new THREE.MeshPhysicalMaterial({color:0xffffff,transparent:true,opacity:0.12,roughness:0.03,depthWrite:false})}
- if(/^Ceiling/.test(o.name))ceiling=o;});
+});
+root.traverse(o=>{if(!o.isMesh)return;for(let p=o;p;p=p.parent)if(p===ceiling)return;if(/downlight|backdrop/i.test(o.name||''))ceilParts.push(o)});
+let ceilingOn=false; // default off in orbit / dollhouse / overview
+const applyCeiling=()=>{if(ceiling)ceiling.visible=ceilingOn;for(const o of ceilParts)o.visible=ceilingOn;const b=$('#b_ceil');if(b)b.classList.toggle('on',ceilingOn)};
+const setCeiling=on=>{ceilingOn=!!on;applyCeiling()};
+applyCeiling();
 // ---- doors: carve each door leaf out of the baked mesh by its hinge frame (data: 2bed.json), give it a pivot (Floorplan 3D pattern)
 const doors=[];
 function carveDoors(){
@@ -88,18 +99,19 @@ const walls=[];S.traverse(o=>{if(o.isMesh&&o!==ceiling&&!/backdrop/i.test(o.name
 // ---- UI: room buttons
 const bar=$('#bar');D.rooms.forEach(r=>{const b=document.createElement('button');b.textContent=r.label;b.dataset.room=r.id;bar.appendChild(b)});
 const wb=document.createElement('button');wb.id='b_walk';wb.textContent='Walk';wb.dataset.act='walk';bar.appendChild(wb);
-const setOn=id=>bar.querySelectorAll('button').forEach(b=>b.classList.toggle('on',b.dataset.room===id||(id==='over'&&b.id==='b_over')||(b.id==='b_walk'&&mode==='walk')));
+const setOn=id=>bar.querySelectorAll('button').forEach(b=>{if(b.id==='b_acc'||b.id==='b_ceil')return;b.classList.toggle('on',b.dataset.room===id||(id==='over'&&b.id==='b_over')||(b.id==='b_walk'&&mode==='walk'))});
 // ---- camera fly-to (ease, same curve family as Floorplan 3D)
 const ease=t=>t<.5?4*t*t*t:1-Math.pow(-2*t+2,3)/2;let fly=null,mode='orbit';
 function flyTo(v,dur,done){const st=performance.now(),p0=C.position.clone(),t0=O.target.clone(),f0=C.fov,p1=new THREE.Vector3().fromArray(v.p),t1=new THREE.Vector3().fromArray(v.t);
  fly={step(now){const k=Math.min(1,(now-st)/dur),e=ease(k);C.position.lerpVectors(p0,p1,e);O.target.lerpVectors(t0,t1,e);C.fov=f0+(v.f-f0)*e;C.updateProjectionMatrix();C.lookAt(O.target);if(k>=1){fly=null;done&&done()}}}}
 const eul=new THREE.Euler(0,0,0,'YXZ');
-function setWalk(on){mode=on?'walk':'orbit';O.enabled=!on;$('#joy').style.display=(on&&(MOB||matchMedia('(pointer:coarse)').matches))?'block':'none';if(on){C.position.y=Math.min(C.position.y,1.6);C.lookAt(O.target)}setOn(null);wb.classList.toggle('on',on)}
+function setWalk(on){mode=on?'walk':'orbit';O.enabled=!on;$('#joy').style.display=(on&&(MOB||matchMedia('(pointer:coarse)').matches))?'block':'none';if(on){C.position.y=Math.min(C.position.y,1.6);C.lookAt(O.target)}setCeiling(on);setOn(null);wb.classList.toggle('on',on)}
 function goRoom(id){const r=D.rooms.find(r=>r.id===id);if(!r||fly)return;const inside=mode==='walk';O.enabled=false;
  const go=()=>flyTo(r.cam,1200,()=>{setWalk(true);setOn(id);wb.classList.add('on')});
  if(inside){const mid={p:[(C.position.x+r.cam.p[0])/2,2.6,(C.position.z+r.cam.p[2])/2],t:r.cam.t,f:r.cam.f};flyTo(mid,450,go)}else go()}
-function goOver(){if(fly)return;setWalk(false);O.enabled=false;flyTo(D.overview,1100,()=>{O.enabled=true;O.update()});setOn('over')}
-bar.addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;if(b.dataset.room)goRoom(b.dataset.room);else if(b.dataset.act==='over')goOver();else if(b.dataset.act==='walk'){if(mode==='walk')goOver();else goRoom(D.rooms[0].id)}});
+const overCam=()=>innerWidth<=420?{p:[0,18,2.2],t:[0,0,-0.6],f:50}:D.overview;
+function goOver(){if(fly)return;setWalk(false);O.enabled=false;flyTo(overCam(),1100,()=>{O.enabled=true;O.update()});setOn('over')}
+bar.addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;if(b.dataset.room)goRoom(b.dataset.room);else if(b.dataset.act==='over')goOver();else if(b.dataset.act==='walk'){if(mode==='walk')goOver();else goRoom(D.rooms[0].id)}else if(b.dataset.act==='ceil')setCeiling(!ceilingOn)});
 // ---- joystick (Floorplan 3D bindJoystick pattern) + drag-to-look + WASD
 const joy={x:0,y:0,id:null};(()=>{const el=$('#joy'),kn=$('#joy i'),RR=45;
  const upd=e=>{const r=el.getBoundingClientRect();let dx=e.clientX-(r.left+r.width/2),dy=e.clientY-(r.top+r.height/2);const l=Math.hypot(dx,dy);if(l>RR){dx*=RR/l;dy*=RR/l}joy.x=dx/RR;joy.y=dy/RR;kn.style.transform=`translate(${dx}px,${dy}px)`};
@@ -127,11 +139,11 @@ function stepWalk(dt){if(mode!=='walk'||fly)return;C.getWorldDirection(fw);fw.y=
 window.__walk=(jx,jy,sec)=>{let t=0;while(t<sec){joy.x=jx;joy.y=jy;stepWalk(1/30);t+=1/30}joy.x=joy.y=0;return C.position.toArray()};
 // ---- loop
 const rs=()=>{R.setSize(innerWidth,innerHeight);C.aspect=innerWidth/innerHeight;C.updateProjectionMatrix()};addEventListener('resize',rs);rs();
-C.position.fromArray(D.overview.p);O.target.fromArray(D.overview.t);C.fov=D.overview.f;C.updateProjectionMatrix();O.update();
+const _ov=overCam();C.position.fromArray(_ov.p);O.target.fromArray(_ov.t);C.fov=_ov.f;C.updateProjectionMatrix();O.update();
 let last=performance.now();
 R.setAnimationLoop(now=>{const dt=Math.min(0.1,(now-last)/1000);last=now;if(fly)fly.step(now);else if(mode==='orbit')O.update();stepWalk(dt);
  doors.forEach(d=>{const tg=d.open?d.base:d.d.closed_rot_y;d.cur+=(tg-d.cur)*Math.min(1,dt*6);d.pv.rotation.y=d.cur});
- if(ceiling)ceiling.visible=C.position.y<2.95;R.render(S,C)});
+ R.render(S,C)});
 
 // ---- accessible-area overlay (trick #21). Layout + engine are copies of interior/accessible_*. Results are indicative.
 const ACC_LAYOUT = await (await fetch('accessible_layout.json')).json();
@@ -247,5 +259,5 @@ window.__access = {
   }
 };
 
-window.__fp3d={ready:true,doors:()=>doors.map(d=>({name:d.d.name,tris:d.tris,open:d.open,rot:+d.cur.toFixed(3)})),mode:()=>mode,fly:()=>!!fly,goRoom,goOver,cam:()=>C.position.toArray()};
+window.__fp3d={ready:true,doors:()=>doors.map(d=>({name:d.d.name,tris:d.tris,open:d.open,rot:+d.cur.toFixed(3)})),mode:()=>mode,fly:()=>!!fly,goRoom,goOver,cam:()=>C.position.toArray(),look:(p,t,f)=>{C.position.fromArray(p);O.target.fromArray(t);if(f){C.fov=f;C.updateProjectionMatrix()}O.update();C.lookAt(O.target)},ceiling:()=>ceilingOn,setCeiling,ceilingNode:()=>ceiling&&ceiling.name,ceilParts:()=>ceilParts.map(o=>o.name)};
 </script></body></html>

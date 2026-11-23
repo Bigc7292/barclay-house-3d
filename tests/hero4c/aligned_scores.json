@@ -1,0 +1,54 @@
+{
+ "hero4b_Cam_Match_geograph_2048x1536.png": {
+  "ground_floor_ashlar": {
+   "status": "yes",
+   "metric": "hf 1.59/5.68=0.28",
+   "hf_render": 1.59,
+   "hf_ref": 5.684,
+   "edge_render": 0.0579,
+   "edge_ref": 0.2072
+  },
+  "ground_floor_ashlar_west": {
+   "status": "yes",
+   "metric": "hf 3.03/3.08=0.98",
+   "hf_render": 3.027,
+   "hf_ref": 3.077,
+   "edge_render": 0.1373,
+   "edge_ref": 0.1785
+  },
+  "arcade": {
+   "status": "no",
+   "metric": "edge=0.50 hf_excess=0.64",
+   "hf_render": 3.935,
+   "hf_ref": 6.176,
+   "edge_render": 0.0798,
+   "edge_ref": 0.1604
+  }
+ },
+ "hero4b_whitebars_Cam_Match_geograph_2048x1536.png": {
+  "ground_floor_ashlar": {
+   "status": "yes",
+   "metric": "hf 1.59/5.68=0.28",
+   "hf_render": 1.585,
+   "hf_ref": 5.684,
+   "edge_render": 0.0578,
+   "edge_ref": 0.2072
+  },
+  "ground_floor_ashlar_west": {
+   "status": "yes",
+   "metric": "hf 3.16/3.08=1.03",
+   "hf_render": 3.158,
+   "hf_ref": 3.077,
+   "edge_render": 0.1499,
+   "edge_ref": 0.1785
+  },
+  "arcade": {
+   "status": "yes",
+   "metric": "edge=0.84 hf_excess=0.93",
+   "hf_render": 5.761,
+   "hf_ref": 6.176,
+   "edge_render": 0.1345,
+   "edge_ref": 0.1604
+  }
+ }
+}

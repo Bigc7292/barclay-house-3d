@@ -19,7 +19,7 @@ import json
 # lane/polish fixes (default all): 4 wall material, 5 art, 6 bake denoise+AO, 7 bathroom stone-look tile + window street backdrop.
 # (2 vanity / 3 beds: placement now comes from the plan trace via furniture_cc0.place_trace, so the polish overrides are retired;
 #  1 storage: CC0 shelf here, texture fix applied to twobed_v5 by polish_v5.py)
-_fx=next((a.split('=',1)[1] for a in sys.argv if a.startswith('--fix=')),'4,5,6,7')
+_fx=next((a.split('=',1)[1] for a in sys.argv if a.startswith('--fix=')),'4,5,6,7,8')   # r10: 8 = backdrop clamped under the wall tops + softer downlight discs + stronger AO
 FIX=set() if _fx=='none' else {int(x) for x in _fx.split(',') if x}
 print("FIX",sorted(FIX))
 def parea(P): return abs(sum(P[i][0]*P[(i+1)%len(P)][1]-P[(i+1)%len(P)][0]*P[i][1] for i in range(len(P))))/2
@@ -43,7 +43,7 @@ OAK=mat("Floor_light_oak",(1,1,1),0.55,img="oak_light_diff.jpg",nor="wood_floor_
 OAKG=mat("Floor_pale_grey_woodlook_kitchen",(1,1,1),0.55,img="oak_grey_diff.jpg",nor="wood_floor_nor_gl.jpg")
 TILE=mat("Tile_grey_600x1200",(1,1,1),0.3,img="marble012_veined_diff.jpg")  # ambientCG Marble012 CC0
 # fix4: wall albedo V 0.86->0.74 (less washed), matte 0.92
-WALL=mat("Wall_warm_white",(0.74,0.71,0.66) if 4 in FIX else (0.86,0.83,0.78),0.92 if 4 in FIX else 0.85); CEILM=mat("Ceiling_warm_white",(0.9,0.88,0.84),0.9)
+WALL=mat("Wall_warm_white",(0.70,0.67,0.62) if 8 in FIX else (0.74,0.71,0.66) if 4 in FIX else (0.86,0.83,0.78),0.94 if 8 in FIX else 0.92 if 4 in FIX else 0.85); CEILM=mat("Ceiling_warm_white",(0.9,0.88,0.84),0.9)   # fix8: walls a touch darker (washed-out)
 SKIRT=mat("Skirting_white_satin",(0.92,0.91,0.88),0.35)
 # Furniture finishes from furniture_cc0.PALETTE (Rightmove 92163630 CGI).
 _P=furniture_cc0.PALETTE
@@ -65,11 +65,11 @@ _c,_r,_m=_p("WHITEP"); WHITEP=mat("Sanitary_white",_c,_r)
 _c,_r,_m=_p("GREYV"); GREYV=mat("Vanity_grey",_c,_r)
 _c,_r,_m=_p("DARKW"); DARKW=mat("Dark_wood_espresso",_c,_r)
 _c,_r,_m=_p("DTOP"); DTOP=mat("Dining_table_dark",_c,_r)
-GLASS=mat("Glass_clear",(0.95,0.97,0.97),0.02,trans=1); WGLASS=mat("Window_glass_clear",(0.95,0.97,1),0.02,trans=1); SKY=mat("Window_backdrop_sky_UNSOURCED_VIEW",(1,1,1),1,img=("sky_backdrop_p5.jpg" if 7 in FIX else "sky_backdrop_r4.jpg")); SKY.node_tree.links.new(SKY.node_tree.nodes["Image Texture"].outputs[0],SKY.node_tree.nodes["Principled BSDF"].inputs["Emission Color"]); SKY.node_tree.nodes["Principled BSDF"].inputs["Emission Strength"].default_value=1.2
+GLASS=mat("Glass_clear",(0.95,0.97,0.97),0.02,trans=1); WGLASS=mat("Window_glass_clear",(0.95,0.97,1),0.02,trans=1); SKY=mat("Window_backdrop_sky_UNSOURCED_VIEW",(1,1,1),1,img=("sky_backdrop_p10.jpg" if 8 in FIX else "sky_backdrop_p5.jpg" if 7 in FIX else "sky_backdrop_r4.jpg")); SKY.node_tree.links.new(SKY.node_tree.nodes["Image Texture"].outputs[0],SKY.node_tree.nodes["Principled BSDF"].inputs["Emission Color"]); SKY.node_tree.nodes["Principled BSDF"].inputs["Emission Strength"].default_value=1.2
 FRAME=mat("Window_frame_black_steel",(0.015,0.015,0.015),0.4,0.6); DOOR=mat("Door_white",(0.9,0.9,0.88),0.4)
 GLOBE=mat("Globe_pendant_opal",(1,0.97,0.92),0.3,emit=(1,0.8,0.6),ew=4); LAMPS=mat("Lamp_shade_opal",(1,0.97,0.92),0.3,emit=(1,0.8,0.6),ew=3)
 LEAF=mat("Plant_leaf",(0.08,0.25,0.07),0.6); POT=mat("Pot_terracotta",(0.55,0.32,0.2),0.8); TVS=mat("TV_screen",(0.01,0.01,0.012),0.08)
-DLM=mat("Downlight_3000K",(1,0.9,0.75),0.3,emit=(1,0.78,0.55),ew=15)
+DLM=mat("Downlight_3000K",(1,0.9,0.75),0.3,emit=(1,0.78,0.55),ew=(2.5 if 8 in FIX else 15))   # fix8: ew 15 baked to hard white dots
 ART=[mat(f"Art_{i}_illustrative",(1,1,1),0.6,img=(f"art_p5_{i}.jpg" if 5 in FIX else f"art_r4_{i}.jpg")) for i in (1,2,3)]  # fix5: crisp sRGB 1024x1365 (tex/make_polish_tex.py)
 def _hs(M,h=0.5,s=1.0,v=1.0):
     """Tint a textured Principled base colour toward the CGI palette."""
@@ -159,7 +159,8 @@ def rect_window(n,a,b,depth,sill,head):
     for k in range(nm+1):
         p=a+u*(L*k/nm); box(n+"_mullion",(p.x,p.y,(sill+head)/2),(fw if 0<k<nm else 0.08,0.05,head-sill),FRAME,ang,0)
     for z in (sill,sill+(head-sill)*0.62,head): box(n+"_transom",(c.x,c.y,z),(L,0.05,fw),FRAME,ang,0)
-    bp=c-nrm*(depth/2+0.6); box(n+"_backdrop",(bp.x,bp.y,(sill+head)/2),(L+1.2,0.01,head-sill+1.0),SKY,ang,0)
+    bz0,bz1=sill-0.5,(min(head+0.5,CEIL-0.03) if 8 in FIX else head+0.5)   # fix8: never above the wall tops (dollhouse)
+    bp=c-nrm*(depth/2+0.6); box(n+"_backdrop",(bp.x,bp.y,(bz0+bz1)/2),(L+1.2,0.01,bz1-bz0),SKY,ang,0)
     lp=c-nrm*(depth/2+0.45); bpy.ops.object.light_add(type='AREA',location=(lp.x,lp.y,(sill+head)/2)); L_=bpy.context.object; L_.name=n+"_daylight"
     L_.data.shape='RECTANGLE'; L_.data.size=L; L_.data.size_y=head-sill; L_.data.energy=90*L; L_.data.color=(0.95,0.97,1)
     L_.rotation_euler=Vector((0,0,1)).rotation_difference(nrm).to_euler()
@@ -284,6 +285,7 @@ for o in sc.objects:
 sc.render.engine='CYCLES';sc.cycles.samples=40;sc.cycles.use_denoising=True;sc.view_settings.view_transform='AgX';sc.view_settings.look='AgX - Medium High Contrast' if 'AgX - Medium High Contrast' in [i.identifier for i in sc.view_settings.bl_rna.properties['look'].enum_items] else 'None'
 sc.world=bpy.data.worlds.new("w");sc.world.use_nodes=True;bg=sc.world.node_tree.nodes['Background'];env=sc.world.node_tree.nodes.new("ShaderNodeTexEnvironment");env.image=bpy.data.images.load(os.path.join(ROOT,"hdri.exr"));sc.world.node_tree.links.new(env.outputs[0],bg.inputs[0]);bg.inputs[1].default_value=0.3
 sc.render.resolution_x=1600;sc.render.resolution_y=1000
+if 8 in FIX: sc.view_settings.exposure=-0.6   # fix8: stills were blown out (white walls/units read flat); renders only, the bake uses --expo
 bpy.context.view_layer.update(); dg=bpy.context.evaluated_depsgraph_get()
 def free(p,r=0.3):
     for d in [Vector(v) for v in ((1,0,0),(-1,0,0),(0,1,0),(0,-1,0),(0,0,1),(0,0,-1),(.7,.7,0),(-.7,.7,0),(.7,-.7,0),(-.7,-.7,0))]:
@@ -402,7 +404,7 @@ if 6 in FIX:   # fix6: OIDN denoise (albedo-guided, edge preserving) instead of 
     dn.render.image_settings.file_format='OPEN_EXR'; dn.render.filepath=OUT+"_bake_dn.exr"; bpy.ops.render.render(write_still=True,scene=dn.name)
     r_=bpy.data.images.load(OUT+"_bake_dn.exr"); d_=np.array(r_.pixels[:]).reshape(RES,RES,4)[...,:3]
     ao=np.array(aoi.pixels[:]).reshape(RES,RES,4)[...,0]; ao=gaussian_filter(ao*cov,1.0)/(gaussian_filter(cov,1.0)+1e-6)
-    rgb[...]=np.where(cov[...,None]>0,d_,rgb)*(1-0.45*(1-np.clip(ao,0,1)))[...,None]
+    rgb[...]=np.where(cov[...,None]>0,d_,rgb)*(1-(0.62 if 8 in FIX else 0.45)*(1-np.clip(ao,0,1)))[...,None]
     os.remove(OUT+"_bake_dn.exr"); print("DENOISED+AO", float(ao[cov>0].mean()))
     bpy.data.scenes.remove(dn)
 else:
@@ -416,7 +418,7 @@ out.filepath_raw=OUT+"bake_atlas.png"; out.file_format='PNG'; out.save()
 # single unlit-style material: base colour = baked atlas on 'bake' UV
 for uvl in list(J.data.uv_layers):
     if uvl.name!="bake": J.data.uv_layers.remove(uvl)
-CEIL_FACES=[f.index for f in J.data.polygons if J.data.materials[f.material_index].name=='Ceiling_warm_white']; print('ceil faces',len(CEIL_FACES))
+CEIL_FACES=[f.index for f in J.data.polygons if J.data.materials[f.material_index].name=='Ceiling_warm_white' or (8 in FIX and J.data.materials[f.material_index].name.startswith('Downlight'))]   # fix8: downlight discs go with the ceiling (hidden in the overview); print('ceil faces',len(CEIL_FACES))
 J.data.materials.clear()
 BM=bpy.data.materials.new("BAKED_lightmap");BM.use_nodes=True;N=BM.node_tree.nodes;b=N["Principled BSDF"];t=N.new("ShaderNodeTexImage");t.image=out
 BM.node_tree.links.new(t.outputs[0],b.inputs["Base Color"]);b.inputs["Roughness"].default_value=1;J.data.materials.append(BM)
@@ -430,6 +432,9 @@ bpy.ops.object.select_all(action='DESELECT');J.select_set(True);bpy.context.view
 bpy.ops.object.mode_set(mode='EDIT'); bpy.ops.mesh.separate(type='SELECTED'); bpy.ops.object.mode_set(mode='OBJECT')
 for o in sc.objects:
     if o.name.startswith("BAKED_interior") and o is not J: o.name="Ceiling_BAKED"; print("CEILING SPLIT",len(o.data.polygons))
+if 8 in FIX:   # fix8: window backdrops hide with the ceiling in the walk-mode overview (2bed.html hides ^Ceiling)
+    _ce=next(o for o in sc.objects if o.name=="Ceiling_BAKED")
+    for o in [o for o in sc.objects if o.type=="MESH" and o.name.endswith("_backdrop")]: _mw=o.matrix_world.copy(); o.parent=_ce; o.matrix_world=_mw
 bpy.ops.object.select_all(action='DESELECT')
 for o in sc.objects: o.select_set(o.type=='MESH')
 bpy.ops.export_scene.gltf(filepath=OUT+"twobed_raw.glb",export_format='GLB',use_selection=True,export_apply=True,export_lights=False,export_image_format='JPEG',export_jpeg_quality=92)

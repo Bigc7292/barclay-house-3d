@@ -1,0 +1,600 @@
+{
+  "crs": "viewer glTF Y-up metres; from scene_data.json (BNG origin 383889.38, 397518.84) via origin_blender_world_offset_m",
+  "sources": [
+    "OpenStreetMap ways, extract area.osm (ODbL). Overpass was retried but not required because the same ways are already in the repo extract (bounds 53.4707,-2.2487 to 53.4779,-2.2367).",
+    "Way 243445859: natural=water, water=canal, layer=-1, ref:GB:uprn=10070868674 \u2014 Rochdale Canal basin behind Barclay House. Width ~8.0 m from polygon area/half-perimeter.",
+    "Way 28047783: waterway=canal, name=Rochdale Canal, towpath=left \u2014 centreline along the rear of the building.",
+    "Way 28047773: waterway=canal, lock=yes, lock_name=Tib Lock, lock_ref=89, towpath=left.",
+    "Way 28047776: waterway=canal, name=Rochdale Canal, towpath=left.",
+    "Way 670994990: waterway=canal, name=Manchester and Salford Junction Canal.",
+    "Way 165386101: natural=water, water=canal, name=Bridgewater Hall Basin.",
+    "Way 449235693: highway=footway, towpath=yes, operator=Canal & River Trust, surface=paving_stones \u2014 towpath along this stretch.",
+    "Water surface Y for way 243445859 is -0.91 m in viewer space, from the Blender Canal_water mesh extracted by canal_web.py into canal.json.",
+    "Drop of the water surface below the coping/towpath and the visible canal-wall depth are UNSOURCED (no depth/gauge tag on these OSM ways, no cited CRT gauge found)."
+  ],
+  "unsourced": {
+    "water_below_coping_m": 0.4,
+    "wall_below_water_m": 0.8,
+    "coping_width_m": 0.35,
+    "note": "wall_below_water_m (0.80) and coping_width_m (0.35) are typical narrow-canal figures, not a cited gauge at Tib Lock 89. For way 243445859 the coping sits at the context paving elevation (road_27605679 world Y ~0.11 m at the canal edge) and the water is at -0.91 m from canal.json, so the visible drop is ~1.02 m (sourced from those two elevations, not from a CRT gauge). water_below_coping_m is kept as a fallback for other basins."
+  },
+  "covering_meshes": {
+    "desktop": "web/context_typed_opt.glb node road_27605679 (material Paving.001). The name is one OSM footway (way 27605679, Sidney-Street area) but the mesh is a merged paved surface of 86,950 verts covering a large area, including the canal behind Barclay House, at Y 0.11\u20135.5 m \u2014 at and above the water. road_783670 (Asphalt.001, Sidney Street) also overlaps in places.",
+    "mobile": "web/context_mo.glb nodes Terrain_EA_DTM (Ground) and the same paved/road meshes. Terrain Y 0.57\u20135.47 m over the canal. A canal_28047773 mesh exists but is largely under the terrain.",
+    "not_in_hero": "hero4c / hero4c_mobile do not contain the covering slab. No source change is required in the hero GLB."
+  },
+  "polygons": [
+    {
+      "id": "165386101",
+      "kind": "water",
+      "source": "OpenStreetMap way 165386101 (local area.osm; ODbL)",
+      "tags": {
+        "natural": "water",
+        "water": "canal",
+        "name": "Bridgewater Hall Basin"
+      },
+      "ring": [
+        [
+          -89.463,
+          -93.826
+        ],
+        [
+          -66.883,
+          -131.886
+        ],
+        [
+          -69.233,
+          -140.936
+        ],
+        [
+          -70.743,
+          -137.866
+        ],
+        [
+          -78.593,
+          -142.856
+        ],
+        [
+          -75.753,
+          -152.636
+        ],
+        [
+          -80.153,
+          -154.126
+        ],
+        [
+          -77.983,
+          -160.546
+        ],
+        [
+          -74.953,
+          -164.496
+        ],
+        [
+          -62.933,
+          -178.736
+        ],
+        [
+          -37.893,
+          -158.396
+        ],
+        [
+          -50.373,
+          -142.166
+        ],
+        [
+          -52.023,
+          -142.576
+        ],
+        [
+          -64.073,
+          -127.466
+        ],
+        [
+          -69.423,
+          -119.496
+        ],
+        [
+          -76.993,
+          -106.426
+        ],
+        [
+          -80.163,
+          -97.726
+        ],
+        [
+          -81.183,
+          -90.776
+        ],
+        [
+          -79.403,
+          -75.206
+        ],
+        [
+          -82.543,
+          -74.896
+        ],
+        [
+          -85.663,
+          -74.576
+        ],
+        [
+          -86.103,
+          -76.256
+        ],
+        [
+          -88.863,
+          -78.736
+        ],
+        [
+          -90.633,
+          -81.406
+        ],
+        [
+          -91.333,
+          -83.656
+        ],
+        [
+          -91.923,
+          -87.616
+        ],
+        [
+          -91.233,
+          -90.666
+        ],
+        [
+          -89.463,
+          -93.826
+        ]
+      ],
+      "area_m2": 1511.4,
+      "width_m": 11.19,
+      "water_y": 1.15,
+      "water_y_source": "canal.json extract of Blender Canal_water for way 165386101"
+    },
+    {
+      "id": "243445859",
+      "kind": "water",
+      "source": "OpenStreetMap way 243445859 (local area.osm; ODbL)",
+      "tags": {
+        "natural": "water",
+        "water": "canal",
+        "name": "Rochdale Canal"
+      },
+      "ring": [
+        [
+          -204.513,
+          -35.306
+        ],
+        [
+          -142.033,
+          -30.866
+        ],
+        [
+          -130.323,
+          -30.256
+        ],
+        [
+          -129.673,
+          -30.766
+        ],
+        [
+          -124.993,
+          -30.516
+        ],
+        [
+          -123.863,
+          -28.666
+        ],
+        [
+          -122.993,
+          -27.276
+        ],
+        [
+          -116.603,
+          -26.756
+        ],
+        [
+          -116.543,
+          -28.576
+        ],
+        [
+          -110.373,
+          -27.966
+        ],
+        [
+          -110.653,
+          -26.516
+        ],
+        [
+          -108.973,
+          -24.486
+        ],
+        [
+          -91.653,
+          -23.376
+        ],
+        [
+          -88.073,
+          -23.066
+        ],
+        [
+          -83.943,
+          -23.386
+        ],
+        [
+          -83.473,
+          -23.996
+        ],
+        [
+          -83.443,
+          -24.536
+        ],
+        [
+          -83.953,
+          -25.196
+        ],
+        [
+          -83.833,
+          -25.946
+        ],
+        [
+          -83.733,
+          -26.536
+        ],
+        [
+          -82.293,
+          -26.476
+        ],
+        [
+          -78.653,
+          -38.946
+        ],
+        [
+          -79.253,
+          -47.526
+        ],
+        [
+          -80.343,
+          -53.656
+        ],
+        [
+          -80.553,
+          -57.516
+        ],
+        [
+          -79.393,
+          -57.676
+        ],
+        [
+          -77.503,
+          -57.926
+        ],
+        [
+          -74.393,
+          -39.786
+        ],
+        [
+          -67.873,
+          -28.826
+        ],
+        [
+          -64.753,
+          -25.596
+        ],
+        [
+          -34.463,
+          -24.096
+        ],
+        [
+          -34.603,
+          -26.236
+        ],
+        [
+          -28.643,
+          -26.616
+        ],
+        [
+          -19.623,
+          -26.086
+        ],
+        [
+          -7.833,
+          -24.426
+        ],
+        [
+          5.267,
+          -27.736
+        ],
+        [
+          8.507,
+          -19.716
+        ],
+        [
+          1.437,
+          -17.426
+        ],
+        [
+          -8.183,
+          -15.406
+        ],
+        [
+          -17.613,
+          -14.566
+        ],
+        [
+          -41.683,
+          -15.646
+        ],
+        [
+          -91.193,
+          -18.576
+        ],
+        [
+          -105.523,
+          -19.346
+        ],
+        [
+          -116.443,
+          -20.796
+        ],
+        [
+          -132.103,
+          -21.736
+        ],
+        [
+          -192.323,
+          -25.466
+        ],
+        [
+          -205.073,
+          -26.066
+        ],
+        [
+          -242.003,
+          -29.086
+        ],
+        [
+          -259.053,
+          -30.486
+        ],
+        [
+          -263.513,
+          -30.846
+        ],
+        [
+          -265.653,
+          -31.016
+        ],
+        [
+          -272.343,
+          -32.506
+        ],
+        [
+          -276.423,
+          -33.306
+        ],
+        [
+          -275.173,
+          -35.466
+        ],
+        [
+          -276.353,
+          -37.716
+        ],
+        [
+          -271.713,
+          -37.816
+        ],
+        [
+          -272.023,
+          -39.136
+        ],
+        [
+          -265.213,
+          -39.116
+        ],
+        [
+          -256.683,
+          -38.586
+        ],
+        [
+          -239.893,
+          -37.526
+        ],
+        [
+          -204.513,
+          -35.306
+        ]
+      ],
+      "area_m2": 2587.4,
+      "width_m": 7.97,
+      "water_y": -0.91,
+      "coping_y": 0.11,
+      "coping_y_source": "context mesh road_27605679 world Y min near the canal edge (~0.107 m)"
+    }
+  ],
+  "centrelines": [
+    {
+      "id": "28047773",
+      "kind": "canal_centreline",
+      "source": "OpenStreetMap way 28047773 (local area.osm; ODbL)",
+      "pts": [
+        [
+          -90.673,
+          -21.306
+        ],
+        [
+          -116.493,
+          -23.176
+        ]
+      ],
+      "buffer_m": 3.98
+    },
+    {
+      "id": "28047776",
+      "kind": "canal_centreline",
+      "source": "OpenStreetMap way 28047776 (local area.osm; ODbL)",
+      "pts": [
+        [
+          -116.493,
+          -23.176
+        ],
+        [
+          -127.073,
+          -23.996
+        ],
+        [
+          -143.753,
+          -25.536
+        ],
+        [
+          -193.773,
+          -30.136
+        ],
+        [
+          -236.713,
+          -32.806
+        ]
+      ],
+      "buffer_m": 3.98
+    },
+    {
+      "id": "28047783",
+      "kind": "canal_centreline",
+      "source": "OpenStreetMap way 28047783 (local area.osm; ODbL)",
+      "pts": [
+        [
+          164.847,
+          -105.366
+        ],
+        [
+          146.107,
+          -95.126
+        ],
+        [
+          108.657,
+          -75.116
+        ],
+        [
+          20.447,
+          -28.606
+        ],
+        [
+          6.767,
+          -24.036
+        ],
+        [
+          0.177,
+          -21.836
+        ],
+        [
+          -8.213,
+          -20.096
+        ],
+        [
+          -16.713,
+          -19.566
+        ],
+        [
+          -73.273,
+          -21.286
+        ],
+        [
+          -90.673,
+          -21.306
+        ]
+      ],
+      "buffer_m": 3.98
+    },
+    {
+      "id": "670994990",
+      "kind": "canal_centreline",
+      "source": "OpenStreetMap way 670994990 (local area.osm; ODbL)",
+      "pts": [
+        [
+          -79.393,
+          -57.676
+        ],
+        [
+          -76.183,
+          -39.516
+        ],
+        [
+          -73.273,
+          -21.286
+        ]
+      ],
+      "buffer_m": 3.98
+    }
+  ],
+  "towpaths": [
+    {
+      "id": "449235693",
+      "kind": "towpath",
+      "source": "OpenStreetMap way 449235693 (towpath=yes, operator=Canal & River Trust, surface=paving_stones; local area.osm; ODbL)",
+      "pts": [
+        [
+          -120.023,
+          -18.056
+        ],
+        [
+          -98.703,
+          -16.896
+        ],
+        [
+          -70.673,
+          -15.696
+        ],
+        [
+          -41.733,
+          -14.676
+        ],
+        [
+          -29.753,
+          -13.976
+        ],
+        [
+          -17.183,
+          -13.656
+        ],
+        [
+          -5.213,
+          -14.726
+        ],
+        [
+          3.197,
+          -16.796
+        ],
+        [
+          12.487,
+          -19.916
+        ],
+        [
+          16.787,
+          -21.696
+        ],
+        [
+          33.937,
+          -28.516
+        ],
+        [
+          44.517,
+          -34.086
+        ],
+        [
+          87.397,
+          -57.416
+        ],
+        [
+          133.557,
+          -82.006
+        ],
+        [
+          166.997,
+          -99.176
+        ]
+      ]
+    }
+  ]
+}
