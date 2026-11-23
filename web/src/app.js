@@ -10,6 +10,7 @@ import { UnrealBloomPass } from 'three/examples/jsm/postprocessing/UnrealBloomPa
 import { OutputPass } from 'three/examples/jsm/postprocessing/OutputPass.js';
 import { Water } from 'three/examples/jsm/objects/Water2.js'; // x_tricks #10: three r170 Water2 (MIT), bundled locally by esbuild, no CDN
 import canals from './canal.json'; // Canal_water triangles from out/barclay_surroundings.glb (.gltf/canal_extract.mjs)
+import {cutCanalCover, dressCanal} from './canal_fix.js';
 import lamps from './lights.json';
 import life from './life.json'; // x_tricks #9 street life: OSM Whitworth St W + viaduct rail (scene_data.json, ODbL), heights DTM / rail z
 const $=id=>document.getElementById(id), msg=$('msg');
@@ -223,7 +224,7 @@ const heroU=MOB?'hero4c_mobile.glb':'hero4c.glb';
 const heroFb=MOB?'hero4b_mobile.glb':'hero4b.glb';
 const queue=MOB?[[heroU,ext],['context_mo.glb',ext],['ext7_street_o.glb',ext],[intU,intr]]:[[heroU,ext],['context_typed_opt.glb',ext],['ext7_street.glb',ext],[intU,intr]];
 const loadOne=(u,g,fb)=>{pr[u]=0;const kind=u.startsWith('context')?'ctx':u.startsWith('hero')?'hero':u.startsWith('ext7')?'street':'in';
- L.load(u,x=>{pr[u]=1;prep(x.scene,kind);g.add(x.scene);if(/^Ceiling/.test(x.scene.name))ceil=x.scene;x.scene.traverse(o=>{if(/^Ceiling/.test(o.name)&&o.isMesh)ceil=o});if(kind==='hero')bindFloors(x.scene);prog();reshadow();loadNext()},
+ L.load(u,x=>{pr[u]=1;prep(x.scene,kind);g.add(x.scene);if(kind==='ctx')cutCanalCover(x.scene,THREE);if(/^Ceiling/.test(x.scene.name))ceil=x.scene;x.scene.traverse(o=>{if(/^Ceiling/.test(o.name)&&o.isMesh)ceil=o});if(kind==='hero')bindFloors(x.scene);prog();reshadow();loadNext()},
  e=>{if(e&&e.total){pr[u]=e.loaded/e.total;upd();say(`Loading ${MOB?'mobile ':''}3D models… ${Math.round(Object.values(pr).reduce((a,b)=>a+b,0)/need*100)}%`)}},
  e=>{if(fb){delete pr[u];loadOne(fb,g,null);return}say('Could not load '+u+' ('+(e&&e.message||'network error')+'). Check your connection and reload.',1)})};
 const loadNext=()=>{if(!queue.length)return;const [u,g]=queue.shift();loadOne(u,g,u===heroU?heroFb:null)};
@@ -288,7 +289,7 @@ window.__clickPt=name=>{const n=floors.get(name);if(!n||!n.userData.clickPt)retu
 window.__pickFloorAt=(x,y)=>onFloorClick(x,y);
 window.__hitFloorAt=(x,y)=>{const n=pickFloorAt(x,y);return n?n.name:null};
 window.__floorVisible=name=>{const n=floors.get(name);return n?n.visible:null};
-window.__setView=(p,t,f)=>{C.position.fromArray(p);O.target.fromArray(t);if(f){C.fov=f;C.updateProjectionMatrix()}O.update();draw=true};
+window.__setView=(p,t,f)=>{C.up.set(0,1,0);C.position.fromArray(p);O.target.fromArray(t);if(f){C.fov=f;C.updateProjectionMatrix()}O.update();draw=true};
 // lane/polish r10: i_bed1/i_bed2 framed to include the wardrobes, i_bath to include the shower head (v5 model coordinates)
 const P={street:{p:[-1.41,1.7,29.79],t:[0.2,8.5,9.8],f:70},facade:{p:[-1.4,1.7,29.8],t:[-1,6.5,17.3],f:62},entrance:{p:[-0.75,1.7,21.0],t:[-0.27,3.0,15.3],f:45},aerial:{p:[24.83,120,127.14],t:[-0.2,5.4,4],f:48},viaduct:{p:[-51.07,10.31,38.93],t:[-14.9,10,21.8],f:56},interior:{p:[0.6,12,11],t:[0.2,0,-0.3],f:45},i_living:{p:[-0.5,1.5,1.91],t:[2.97,0.9,0.15],f:70},i_kitchen:{p:[-0.79,1.5,1.18],t:[3.41,1.1,2.96],f:70},i_bed1:{p:[-3.2,1.45,-3.5],t:[-1.5,0.9,-0.9],f:70},i_bed2:{p:[2.6,1.45,-1.65],t:[0.0,0.9,-3.0],f:70},i_bath:{p:[-1.6,1.6,3.5],t:[-3.4,1.2,3.1],f:80},i_hall:{p:[-0.65,1.5,4.15],t:[0.09,1.3,0.29],f:75},i_store:{p:[-1.09,1.5,1.32],t:[-3.0,1.0,1.32],f:80}};
 P.road={p:[-14,2.2,27.5],t:[6,0.2,22.5],f:60}; // URL/test-only view down Whitworth St W (no button)
@@ -349,10 +350,17 @@ const waterG=new THREE.Group();waterG.name='CanalWater2';ext.add(waterG);const c
  const put=(m,y,name,w2)=>{m.rotation.x=-Math.PI/2;m.position.y=y;m.name=name;m.userData.water2=w2;waterG.add(m)};
  G.slice(0,NW).forEach(g=>put(new Water(geoOf([g],true),{color:0x9fb3aa,scale:1,flowDirection:new THREE.Vector2(1,0.3),flowSpeed:0.012,reflectivity:0.04,textureWidth:MOB?256:512,textureHeight:MOB?256:512,normalMap0:wn[0],normalMap1:wn[1]}),g.y,'Canal_water2_'+g.c.name,true));
  if(G.length>NW){const mat=new THREE.MeshStandardMaterial({color:0x07100e,roughness:0.06,metalness:0,normalMap:wn[0].clone(),normalScale:new THREE.Vector2(0.35,0.35)});mat.normalMap.wrapS=mat.normalMap.wrapT=THREE.RepeatWrapping;cheapW.push(mat);put(new THREE.Mesh(geoOf(G.slice(NW),false),mat),0,'Canal_water_cheap',false)}})();
-{const w=waterG.children.find(o=>o.userData.water2)||waterG.children[0];if(w){const b=new THREE.Box3().setFromObject(w),y=w.position.y;P.canal={p:[b.max.x-3,y+2.5,(b.min.z+b.max.z)/2],t:[b.min.x+20,y,(b.min.z+b.max.z)/2],f:56}}} // URL-only test view ?cam=canal (no button)
+const useWater2=!(q0.get('water')==='0'||(MOB&&q0.get('water')!=='1'));
+const canalDress=dressCanal({THREE,Water,waterG,wn,MOB,useWater2,kick:()=>{draw=true}});
+// Rear-of-building view along the Rochdale Canal (OSM way 243445859), viaduct to the west.
+P.canal={p:[32,5.8,-16],t:[-8,0.1,-32],f:58};
 if(q0.get('cam')==='canal')cam('canal');
-window.__water=()=>waterG.children.map(o=>({name:o.name,water2:o.userData.water2,y:+o.position.y.toFixed(2),tris:o.geometry.attributes.position.count/3}));
+window.__water=()=>{const out=[];waterG.traverse(o=>{if(!o.isMesh||!o.geometry||!o.geometry.attributes.position)return;const n=o.geometry.index?o.geometry.index.count:o.geometry.attributes.position.count;out.push({name:o.name,water2:!!o.userData.water2,y:+o.position.y.toFixed(2),tris:n/3,visible:o.visible})});return out};
+window.__canalCut=true;
+
+
 let wt0=performance.now();
+
 // ---- x_tricks #9 street life (web): Kenney CC0 cars on Whitworth St W lanes + 3-car train on the viaduct (web/life/, licences there).
 // Speeds, lane offset (1.8 m), sizes = STAND-INS (illustrative set dressing). Animates only while the exterior is visible and the tab is shown;
 // frames capped at 30 fps; ?life=0 or the Traffic button turns it off. No shadows from movers (shadow map stays static).
@@ -385,7 +393,7 @@ window.lifeToggle=()=>{lifeOn=!lifeOn;const b=$('btr');if(b)b.className=lifeOn?'
   pos.push(o.x+nx,y1,o.z+nz, o.x-nx,y1,o.z-nz, o2.x+nx,y2,o2.z+nz, o2.x+nx,y2,o2.z+nz, o.x-nx,y1,o.z-nz, o2.x-nx,y2,o2.z-nz)}
  const g=new THREE.BufferGeometry();g.setAttribute('position',new THREE.Float32BufferAttribute(pos,3));g.computeVertexNormals();
  const m=new THREE.Mesh(g,new THREE.MeshStandardMaterial({color:0xe8e6dc,roughness:0.7,polygonOffset:true,polygonOffsetFactor:-4,polygonOffsetUnits:-4,side:THREE.DoubleSide}));m.name='Road_centre_line';m.receiveShadow=!MOB;ext.add(m)}
-const wTick=()=>{const t=(performance.now()-wt0)/1000;cheapW.forEach(m=>m.normalMap.offset.set(t*0.004,t*0.0025))};
+const wTick=()=>{const t=(performance.now()-wt0)/1000;cheapW.forEach(m=>m.normalMap&&m.normalMap.offset.set(t*0.004,t*0.0025));if(canalDress&&canalDress.userData.tick)canalDress.userData.tick(t)};
 window.__extReady=()=>done>=3&&!!envTex;window.__dpr=()=>dpr;window.__kick=()=>{draw=true};
 const ease=t=>t<.5?4*t*t*t:1-Math.pow(-2*t+2,3)/2;
 function fly(v,dur,done){flying=true;O.enabled=false;const p0=C.position.clone(),t0=O.target.clone(),f0=C.fov,p1=new THREE.Vector3().fromArray(v.p),t1=new THREE.Vector3().fromArray(v.t),f1=v.f,st=performance.now();

@@ -1,5 +1,15 @@
 # CHANGELOG
 
+## 2026-11-23 11:45 UTC+4 — Rochdale Canal cut and water (viewer)
+
+- Why: the live rear view showed only a thin strip of canal; a pale grey paved slab covered the rest (Colin's Midday/Traffic Exterior screenshot, painted blue = water, white = cover).
+- Cause: `web/context_typed_opt.glb` node `road_27605679` (Paving.001, merged pavement) and Neighbour open-ground faces sit at Y ≈ 0.11–5.5 m, at and above the water. Not in hero4c.
+- Fix: `web/src/canal_fix.js` + `web/src/canal_footprint.json`. OSM ways 243445859 (basin), 28047783 / 28047773 / 28047776 / 670994990 (centrelines), 165386101 (Bridgewater Hall Basin), towpath 449235693 (kept). Context fragments in the footprint are discarded (shader mask). Water2 on the rear basin, stone coping at paving height, canal walls so the cut is not a void. `app.js?v=46`.
+- UNSOURCED: wall depth 0.80 m and coping width 0.35 m. Visible drop ≈ 1.02 m from sourced water Y −0.91 m vs paving Y ≈ 0.11 m.
+- Check: local Playwright, desktop 1280×720. Rear / Aerial / Viaduct / high rear / nadir. Floor_00, Floor_01, Floor_05 clicks. 0 product console errors (favicon 404 filtered). 0 external requests. Before/after: `/workspace/barclay/shots/canal/`.
+- For Barclay House 3D: cut `road_27605679` / `Terrain_EA_DTM` (and Neighbour ground) out of the canal polygon in the surroundings export. No hero4c change.
+
+
 ## 2026-11-23 10:47 UTC+4 — r8c: 4K hero still in the hero4c look
 - `tests/hero4c/stills/hero4c_hero_4096x2304.png` (12,462,205 B): rendered from `out/barclay_hero4c.blend` with Cam_Hero_34, Cycles on CPU, 48 spp plus the OpenImageDenoise denoiser, in 419 s. JPG copy for sending: `hero4c_hero_4096x2304.jpg` (2,027,884 B, quality 95). `render_cams.py` has a new `--denoise` flag.
 
