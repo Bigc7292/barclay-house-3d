@@ -335,7 +335,7 @@ def hero(M, C, pts):
         cuts_ = sorted((a_, b_) for a_, b_, zt_ in openings if z < zt_)
         xs = 0.0
         for a_, b_ in cuts_ + [(W, W)]:
-            if a_ > xs + 0.05: box("HERO_rustication_groove", xs, a_, -0.455, -0.449, z-0.035, z+0.035, M["groove"], C, fr)
+            if a_ > xs + 0.05: box("HERO_rustication_groove", xs, a_, -0.455, -0.449, z-hero4.P["groove_hh"], z+hero4.P["groove_hh"], M["groove"], C, fr)
             xs = max(xs, b_)
         z += hero4.P["groove_pitch"]
     for zc, d, h, m in ((LEVELS[1], 0.75, 0.45, "stone"), (LEVELS[4], 0.95, 0.55, "terracotta"), (ROOF, 0.85, 0.55, "terracotta")):

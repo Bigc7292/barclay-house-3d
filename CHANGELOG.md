@@ -1,13 +1,64 @@
 # CHANGELOG
 
 ## 2026-11-23 10:20 UTC+4 — wire hero4 into the main viewer
-- Copied `out/barclay_hero4.glb` → `web/hero4.glb` (4,233,200 B, 4.04 MB) and `out/mobile/barclay_hero4_mobile.glb` → `web/hero4_mobile.glb` (2,059,672 B, 1.96 MB). sha256 matches the out/ files. Official `out/` files and `web/hero3.glb` untouched.
+- Copied `out/barclay_hero4.glb` → `web/hero4.glb` (4,233,200 B, 4.04 MB) and `out/mobile/barclay_hero4_mobile.glb` → `web/hero4_mobile.glb` (2,059,672 B, 1.96 MB). sha256 matches the out/ files. Official `out/` files and `web/hero3.glb` untouched. `out/barclay_hero4b.glb` is on barclay but is not wired; this lane ships hero4 as requested.
 - Main viewer now loads `hero4.glb` (desktop) / `hero4_mobile.glb` (mobile). Fallback is `hero3_floors` / `hero3_floors_m` if hero4 fails to load. `app.js?v=43`.
 - Khronos gltf-validator: 0 errors on both files (desktop 3 warnings: missing tangents + unused objects; mobile 1 warning: missing tangents + 24 degenerate triangles of 1200). Size budgets: 4.04/5 MB and 1.96/2 MB.
 - Clickable floors: `make_mobile` flattens Floor_* children, so `bindFloors` also registers the named storey parts (Facade_01, Window_0N_*, doorcase, etc.) for picking, tint and isolate. Hits are classified by storey Y-band so the Floor_02 giant pilaster (y 5.5–20) does not steal Floor_03–05 clicks. Floor_00's coarse slab has no centre verts, so its click point is synthesised at the front centre.
 - Headless Playwright (desktop 1280×720 and Galaxy S9+): Floor_00–05 each return the right name; isolate and empty-clear work; 0 console errors; 0 external requests. Street still: `shots/r13/hero4_street.png`.
 - Not deployed from this lane. Interior bot merges and includes this in the next combined deploy.
 
+## 2026-11-23 10:20 UTC+4 — r8c step 1: camera matched to the Geograph photo, aligned re-score
+- Ran `camera_match.py` on the hero4b surroundings blend with the 6 points in `tests/geograph_points.json` and clip_start 4 m.
+  - Solved `Cam_Match_geograph`: lens 21.69 mm, location (9.10, −32.71, 3.39), rotation (103.43, −0.53, 21.70)°, rms 14.2 px. The worst point is DoorT at −29.6 px in y.
+  - The camera is saved in `tests/hero4c/cam_match_geograph.json`, for use with `render_cams.py --camfile`. The solve report is `geomatch_solve.json.txt`.
+- Renders at 2048x1536, 32 spp:
+  - `tests/hero4c/match/hero4b_Cam_Match_geograph_2048x1536.png`
+  - A diagnostic copy with white bars, `hero4b_whitebars_…png`. It uses `render_cams.py --frame-rgb`, which only recolours at render time and never saves.
+  - Comparison sheet: `tests/hero4c/cmp_aligned_geograph.jpg`.
+- New script `tests/hero4c/aligned_score.py` applies the same crop box to the photo and the render, using the stock `checks.score_element` rules and thresholds. Boxes are picked above the poster hoarding, which starts at y≈0.73. Results are in `tests/hero4c/aligned_scores.json`.
+
+  | Row | Black bars (hero4b) | White bars (diagnostic) |
+  |---|---|---|
+  | Ashlar, east wall bay | hf 0.28, yes | 0.28, yes |
+  | Ashlar, west band/voussoirs | hf 0.98, yes | 1.03, yes |
+  | Arcade | edge 0.50, hf_excess 0.64, no | edge 0.84, hf 0.93, yes |
+
+  Unaligned stock rows for hero4b, for comparison: ashlar hf 2.01 (no); arcade 1.11 / 1.59 (no).
+- What this shows:
+  - With aligned crops the ashlar "no" goes away completely. The earlier gap came from the crops landing on different parts of the facade, not from a stone defect.
+  - The whole arcade gap is the bar colour. Black bars on dark glass give half the photo's edge density, and white bars give 0.84 (yes).
+  - No real facade defect was found, so hero4b's facade stays as it is.
+- Replay: `tests/hero4c/step1_match.sh`. The 64 MB scratch blend is not committed.
+
+## 2026-11-23 10:40 UTC+4 — r8b step 4: before/after stills
+- `tests/hero4b/stills/`: 1920x1080 at 64 spp. Before = hero4 (`before_hero4_shops_{east,west}`, plus `tests/hero4/stills/after_hero4_{street,entrance}`); after = hero4b (`after_hero4b_{street,entrance,shops_east,shops_west}`). Comparison sheets: `cmp_*_hero4_vs_hero4b.jpg`.
+- At these street distances the shopfront and lamp changes are subtle, and the ashlar change is small.
+
+## 2026-11-23 10:15 UTC+4 — r8b steps 2–3: hero4b (ashlar/arcade tweaks + 120 m layers), validate PASS
+- `hero4.py`: new `BHERO4B=1` switch, which requires `BHERO4=1`; hero4 itself is unchanged.
+  - Rustication channel half-height 0.035 → 0.06 m and joint width 0.03 → 0.06 m (stand-ins); channel tone softened from 0.35 to 0.55 of the front.
+  - Stone photo texture 35 % → 8 %, stone normal 0.12 → 0.04, faience bump 0.15 → 0.06.
+  - `build_scene.py` reads the groove height from `hero4.P`.
+- New files:
+  - `out/barclay_hero4b.blend`: hero4b plus the R8 viaduct layer and the R8B shopfront/lamp/tree-pit layers, 66,136,712 B.
+  - `out/barclay_hero4b.glb`: 4,233,068 B (4.04 MB).
+  - `out/mobile/barclay_hero4b_mobile.glb`: 2,059,612 B (1.96 MB).
+  - No hero4 file or protected file was changed.
+  - Replay: `tests/hero4b/run.sh`.
+- Validate (`OUT=tests/hero4b/exp MESHHEALTH=1 MESHHEALTH_BLEND=out/barclay_hero4b.blend`): PASS. 0 errors on all 4 GLBs, check_parts 10/10 with 0 stray, MESHHEALTH 0 Blockers (19 majors, 3268 minors). Report: `tests/validate_20261123_0951.jsonl`.
+- `checks.py` street rows (1600x900, 24 spp still):
+  - ashlar: hf 2.15 → 2.01, still no.
+  - arcade: edge 1.11, hf_excess 1.63 → 1.59, still no.
+  - RB shields: yes.
+- Why ashlar and arcade can't reach yes cheaply: on the uncalibrated `Cam_Street` the ashlar/arcade crops land on the upper windows and arches, and the reference crop lands on the photo's upper floors. The high-frequency score is driven mainly by the black glazing bars, which are Colin's approved look and are white in the photo. Getting to "yes" needs a camera-matched still (Cam_Match_geograph via `camera_match.py`) or recalibrated crops, not more facade changes.
+
+## 2026-11-23 10:05 UTC+4 — r8b step 1: 120 m zone shopfronts, lamps, tree pits (code)
+- `build_surroundings.py` gets a `BSURR_R8B=1` layer; with it off, nothing changes.
+  - **Shopfronts** go on neighbour frontages within 120 m of the hero only where an OSM shop/café/bar/nightclub POI is within 12 m of that frontage (10 frontages). Each gets a stall riser, glazing with mullions, a transom, a recessed door, a fascia with a sign band, and end pilasters. All sizes are stand-ins.
+  - **Lamps**: the 53 lamp positions (still stand-ins; OSM has no lamp nodes) become slim galvanised columns with an upswept arm and a flat LED lantern, as in Geograph 8144686. Height 8 m and arm 1.6 m are stand-ins.
+  - **Street trees**: the 11 LIDAR trees on pavement next to a road get a cast grille (1.2 m) and an 8-bar guard (1.6 m). Both sizes are stand-ins.
+- `tests/hero4/render_cams.py` gains `shops_east` / `shops_west` cameras.
 
 ## 2026-11-23 09:45 UTC+4 — r8 stills + checklist
 - Stills in `tests/hero4/stills/`: before (official blend) and after (hero4) at 1920x1080 for street, facade, entrance and viaduct, plus wsw_east after; comparison sheets `cmp_*_before_after.jpg`; `after_hero4_street_4096x2304.png` (48 spp). The hero 4096 still was skipped because it takes too long under the shared CPU load.

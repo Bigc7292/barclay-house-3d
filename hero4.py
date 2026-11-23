@@ -12,6 +12,7 @@ Fixes (critic R17-trial / round-6 list, refs: Geograph 8144686 real_geograph.jpg
 EVERY size here that is not in build_scene.SOURCES is a STAND-IN (photo-read, not dimensioned)."""
 import os, math
 ON = os.environ.get("BHERO4") == "1"
+B4B = ON and os.environ.get("BHERO4B") == "1"   # r8b: cheaper-to-read ashlar/arcade (checks.py hf rows); off = hero4 exactly
 # hero3.glb PaletteBaseColor entries (sRGB) -> linear
 def _lin(h):
     c = [int(h[i:i+2], 16)/255 for i in (0, 2, 4)]
@@ -23,6 +24,8 @@ FRAME = _lin("222325")      # hero3 palette #17: black metal frames / glazing ba
 GLASS = _lin("272a30")      # hero3 palette #21
 P = {   # defaults == build_scene.py values when BHERO4 is off
     "groove_pitch": 0.80 if ON else 0.55,
+    "groove_hh": 0.06 if B4B else 0.035,   # half-height of the channel; wider + softer reads as channelled ashlar after blur (STAND-IN)
+    "joint_hw": 0.03 if B4B else 0.015,
     "arch_cut_back": -0.02 if ON else -0.12,
     "arch_glass": -0.05 if ON else -0.12,
     "vous_ext": 1.2 if ON else 1.0, "vous_key": 1.45 if ON else 1.25,
@@ -41,18 +44,18 @@ def mats(M):
             mx.inputs[7].default_value = (*[min(1, c*1.6*RENDER_K) for c in FRONT], 1)
             # soften the photo texture: 35 % texture, 65 % flat front tone (smooth ashlar, critic hf target)
             out = mx.outputs[2]; dst = [l.to_socket for l in out.links]
-            mm = nt.nodes.new("ShaderNodeMix"); mm.data_type = "RGBA"; mm.blend_type = "MIX"; mm.inputs[0].default_value = 0.35
+            mm = nt.nodes.new("ShaderNodeMix"); mm.data_type = "RGBA"; mm.blend_type = "MIX"; mm.inputs[0].default_value = 0.08 if B4B else 0.35
             mm.inputs[6].default_value = (*[c*RENDER_K for c in FRONT], 1); nt.links.new(out, mm.inputs[7])
             for s in dst: nt.links.new(mm.outputs[2], s)
-    for nm in _nodes(st, "ShaderNodeNormalMap"): nm.inputs[0].default_value = 0.12
+    for nm in _nodes(st, "ShaderNodeNormalMap"): nm.inputs[0].default_value = 0.04 if B4B else 0.12
     b = nt.nodes["Principled BSDF"]; b.inputs["Base Color"]
     fa = M["terracotta"]
     for br in _nodes(fa, "ShaderNodeTexBrick"):
         br.inputs["Color1"].default_value = (*[c*RENDER_K for c in FRONT], 1); br.inputs["Color2"].default_value = (*[c*RENDER_K for c in FRONT_D], 1)
         br.inputs["Mortar"].default_value = (*[c*0.72*RENDER_K for c in FRONT], 1)
-    for bm in _nodes(fa, "ShaderNodeBump"): bm.inputs["Strength"].default_value = 0.15
+    for bm in _nodes(fa, "ShaderNodeBump"): bm.inputs["Strength"].default_value = 0.06 if B4B else 0.15
     fb = fa.node_tree.nodes["Principled BSDF"]; fb.inputs["Coat Weight"].default_value = 0.35   # less glaze sheen: hero3 reads matte
-    M["groove"].node_tree.nodes["Principled BSDF"].inputs["Base Color"].default_value = (*[c*0.35 for c in FRONT], 1)
+    M["groove"].node_tree.nodes["Principled BSDF"].inputs["Base Color"].default_value = (*[c*(0.55 if B4B else 0.35) for c in FRONT], 1)
     fr = M["frame"]; fr.name = "Window_frame_dark"
     fb_ = fr.node_tree.nodes["Principled BSDF"]; fb_.inputs["Base Color"].default_value = (*FRAME, 1); fb_.inputs["Roughness"].default_value = 0.5; fb_.inputs["Metallic"].default_value = 0.6
     M["glass"].node_tree.nodes["Principled BSDF"].inputs["Base Color"].default_value = (*GLASS, 1)
@@ -84,7 +87,7 @@ def ornament(bpy, M, C, fr, W, L, ROOF, box, disc, ex, ew, TRIPLE, openings):
         zt = z + P["groove_pitch"]; off = 0.8 if row % 2 else 0.0; x = off + 1.6
         while x < W - 0.2:
             blocked = any(a_ - 0.05 < x < b_ + 0.05 and z < zt_ for a_, b_, zt_ in openings)
-            if not blocked: box("HERO_ashlar_joint", x-0.015, x+0.015, -0.455, -0.449, z+0.035, zt-0.035, M["groove"], C, fr)
+            if not blocked: box("HERO_ashlar_joint", x-P["joint_hw"], x+P["joint_hw"], -0.455, -0.449, z+P["groove_hh"], zt-P["groove_hh"], M["groove"], C, fr)
             x += 1.6
         z = zt; row += 1
     # (b) RB shields: layered cartouche frame behind + raised 'RB' monogram, relief 0.08 m (critic R17 #3, STAND-IN depth)

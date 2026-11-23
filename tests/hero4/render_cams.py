@@ -16,6 +16,8 @@ CAMS = {"street": "Cam_Street", "hero": "Cam_Hero_34", "viaduct": "Cam_Viaduct",
         "entrance": cam("Cam_Entrance", L2W(ex+2.0, -9.0, 1.7), L2W(ex, 0, 3.6), 22).name,
         "geograph": "Cam_Match_geograph",
         "wsw_east": cam("Cam_Surr_WSW_east", mathutils.Vector((-30, -27.5, 1.7)), (60, -12, 4), 20).name,   # same framings as build_surroundings.py --render
+        "shops_east": cam("Cam_R8b_shops_east", mathutils.Vector((25, -24, 1.7)), (75, -3, 2.8), 22).name,   # r8b: neighbour shopfronts / lamps / tree pits
+        "shops_west": cam("Cam_R8b_shops_west", mathutils.Vector((-40, -24, 1.7)), (-95, -3, 2.8), 22).name,
         "wsw_west": cam("Cam_Surr_WSW_west", mathutils.Vector((70, -10, 1.7)), (-40, -28, 5), 20).name}
 cf = arg("--camfile")
 if cf and os.path.exists(cf):   # copy a locked camera (e.g. Cam_Match_geograph) from another blend's dump
@@ -28,6 +30,10 @@ if "--dumpcams" in A:
     out = {o.name: {"mw": [list(r) for r in o.matrix_world], "lens": o.data.lens, "sensor": o.data.sensor_width, "shift": [o.data.shift_x, o.data.shift_y], "clip_start": o.data.clip_start}
            for o in bpy.data.objects if o.type == "CAMERA"}
     json.dump(out, open(arg("--dumpcams"), "w"), indent=1); print("DUMPED", list(out)); sys.exit(0)
+if arg("--frame-rgb"):   # diagnostic only (e.g. white bars as in the photo); never saved
+    c_ = [float(v) for v in arg("--frame-rgb").split(",")]
+    for m in bpy.data.materials:
+        if m.name.startswith("Window_frame_dark") and m.use_nodes: m.node_tree.nodes["Principled BSDF"].inputs["Base Color"].default_value = (*c_, 1); m.node_tree.nodes["Principled BSDF"].inputs["Metallic"].default_value = 0.0
 rx, ry = map(int, arg("--res", "1920x1080").split("x")); r = sc.render; r.resolution_x, r.resolution_y = rx, ry; r.resolution_percentage = 100
 sc.cycles.samples = int(arg("--samples", 64)); sc.cycles.device = "CPU"
 od = arg("--out"); os.makedirs(od, exist_ok=True); pre = arg("--prefix", "r")
