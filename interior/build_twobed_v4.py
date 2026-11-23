@@ -41,24 +41,51 @@ def mat(n,c,r=0.5,met=0,img=None,emit=None,ew=0,alpha=1,trans=0,nor=None):
     return M
 OAK=mat("Floor_light_oak",(1,1,1),0.55,img="oak_light_diff.jpg",nor="wood_floor_nor_gl.jpg")
 OAKG=mat("Floor_pale_grey_woodlook_kitchen",(1,1,1),0.55,img="oak_grey_diff.jpg",nor="wood_floor_nor_gl.jpg")
-TILE=mat("Tile_grey_600x1200",(1,1,1),0.3,img=("tile_stone_grey_p5.jpg" if 7 in FIX else "tile_light_r4.jpg"))
+TILE=mat("Tile_grey_600x1200",(1,1,1),0.3,img="marble012_veined_diff.jpg")  # ambientCG Marble012 CC0
 # fix4: wall albedo V 0.86->0.74 (less washed), matte 0.92
 WALL=mat("Wall_warm_white",(0.70,0.67,0.62) if 8 in FIX else (0.74,0.71,0.66) if 4 in FIX else (0.86,0.83,0.78),0.94 if 8 in FIX else 0.92 if 4 in FIX else 0.85); CEILM=mat("Ceiling_warm_white",(0.9,0.88,0.84),0.9)   # fix8: walls a touch darker (washed-out)
 SKIRT=mat("Skirting_white_satin",(0.92,0.91,0.88),0.35)
-WUNIT=mat("Kitchen_handleless_white",(0.9,0.89,0.86),0.3); DARK=mat("Peninsula_graphite",(0.042,0.042,0.045),0.5); QUARTZ=mat("Quartz_white",(0.88,0.88,0.87),0.25)
-WTOP=mat("Worktop_white",(0.93,0.93,0.92),0.2); BLK=mat("Appliance_black_gloss",(0.015,0.015,0.017),0.12)
-STEEL=mat("Stainless_steel",(0.8,0.8,0.8),0.22,1); CHROME=mat("Chrome",(0.9,0.9,0.9),0.05,1)
+# Furniture finishes from furniture_cc0.PALETTE (Rightmove 92163630 CGI).
+_P=furniture_cc0.PALETTE
+def _p(key):
+    c,r,m=_P[key]; return c,r,m
+WUNIT=mat("Kitchen_handleless_white",*_p("WUNIT")[:2]); WUNIT_PANEL=mat("Kitchen_unit_panel",*_p("WUNIT_PANEL")[:2]); WUNIT_HANDLE=mat("Kitchen_unit_handle",*_p("WUNIT_HANDLE")[:2]); DARK=mat("Peninsula_graphite",(0.042,0.042,0.045),0.5); QUARTZ=mat("Quartz_white",(0.88,0.88,0.87),0.25)
+WTOP=mat("Worktop_white",(0.93,0.93,0.92),0.28); _c,_r,_m=_p("BLK"); BLK=mat("Appliance_black_gloss",_c,_r)
+_bp=BLK.node_tree.nodes["Principled BSDF"]
+for _k in ("Specular IOR Level","Specular"):
+    if _k in _bp.inputs: _bp.inputs[_k].default_value=0.12
+_c,_r,_m=_p("STEEL"); STEEL=mat("Stainless_steel",_c,_r,_m); _c,_r,_m=_p("CHROME"); CHROME=mat("Chrome",_c,_r,_m)
 LED=mat("LED_strip_3000K",(1,0.85,0.65),0.5,emit=(1,0.78,0.55),ew=40)
-NAVY=mat("Navy_velvet",(1,1,1),0.75,img="velvet_navy_diff.jpg"); BOUC=mat("Cream_boucle",(1,1,1),0.95,img="boucle_diff.jpg")
-OAKF=mat("Oak_furniture",(0.62,0.42,0.24),0.5,img="oak_light_diff.jpg"); BMET=mat("Black_metal",(0.02,0.02,0.02),0.35,0.8)
-LIN=mat("Bedding_white",(0.93,0.93,0.91),0.9); RUG=mat("Rug_cream",(0.86,0.82,0.74),1.0)
-WHITEP=mat("Sanitary_white",(0.95,0.95,0.95),0.08); GREYV=mat("Vanity_grey",(0.45,0.45,0.46),0.4)
+_c,_r,_m=_p("NAVY"); NAVY=mat("Navy_velvet",(1,1,1),_r,img="velvet_navy_diff.jpg")
+_c,_r,_m=_p("BOUC"); BOUC=mat("Cream_boucle",(1,1,1),_r,img="boucle_diff.jpg")
+_c,_r,_m=_p("OAKF"); OAKF=mat("Oak_furniture",_c,_r,img="oak_light_diff.jpg")
+_c,_r,_m=_p("BMET"); BMET=mat("Black_metal",_c,_r,_m)
+_c,_r,_m=_p("LIN"); LIN=mat("Bedding_white",_c,_r); RUG=mat("Rug_cream",(0.86,0.82,0.74),1.0)
+_c,_r,_m=_p("WHITEP"); WHITEP=mat("Sanitary_white",_c,_r)
+_c,_r,_m=_p("GREYV"); GREYV=mat("Vanity_grey",_c,_r)
+_c,_r,_m=_p("DARKW"); DARKW=mat("Dark_wood_espresso",_c,_r)
+_c,_r,_m=_p("DTOP"); DTOP=mat("Dining_table_dark",_c,_r)
 GLASS=mat("Glass_clear",(0.95,0.97,0.97),0.02,trans=1); WGLASS=mat("Window_glass_clear",(0.95,0.97,1),0.02,trans=1); SKY=mat("Window_backdrop_sky_UNSOURCED_VIEW",(1,1,1),1,img=("sky_backdrop_p10.jpg" if 8 in FIX else "sky_backdrop_p5.jpg" if 7 in FIX else "sky_backdrop_r4.jpg")); SKY.node_tree.links.new(SKY.node_tree.nodes["Image Texture"].outputs[0],SKY.node_tree.nodes["Principled BSDF"].inputs["Emission Color"]); SKY.node_tree.nodes["Principled BSDF"].inputs["Emission Strength"].default_value=1.2
 FRAME=mat("Window_frame_black_steel",(0.015,0.015,0.015),0.4,0.6); DOOR=mat("Door_white",(0.9,0.9,0.88),0.4)
 GLOBE=mat("Globe_pendant_opal",(1,0.97,0.92),0.3,emit=(1,0.8,0.6),ew=4); LAMPS=mat("Lamp_shade_opal",(1,0.97,0.92),0.3,emit=(1,0.8,0.6),ew=3)
 LEAF=mat("Plant_leaf",(0.08,0.25,0.07),0.6); POT=mat("Pot_terracotta",(0.55,0.32,0.2),0.8); TVS=mat("TV_screen",(0.01,0.01,0.012),0.08)
 DLM=mat("Downlight_3000K",(1,0.9,0.75),0.3,emit=(1,0.78,0.55),ew=(2.5 if 8 in FIX else 15))   # fix8: ew 15 baked to hard white dots
 ART=[mat(f"Art_{i}_illustrative",(1,1,1),0.6,img=(f"art_p5_{i}.jpg" if 5 in FIX else f"art_r4_{i}.jpg")) for i in (1,2,3)]  # fix5: crisp sRGB 1024x1365 (tex/make_polish_tex.py)
+def _hs(M,h=0.5,s=1.0,v=1.0):
+    """Tint a textured Principled base colour toward the CGI palette."""
+    N=M.node_tree.nodes; L=M.node_tree.links; b=N["Principled BSDF"]
+    inc=[l for l in L if l.to_socket==b.inputs["Base Color"]]
+    hs=N.new("ShaderNodeHueSaturation"); hs.inputs["Hue"].default_value=h; hs.inputs["Saturation"].default_value=s; hs.inputs["Value"].default_value=v
+    if inc:
+        fr=inc[0].from_socket; L.remove(inc[0]); L.new(fr,hs.inputs["Color"]); L.new(hs.outputs["Color"],b.inputs["Base Color"])
+# velvet_navy_diff is royal blue (~229°). Recoloring it to the raw CGI RGB
+# (val 0.16) crushed to a warm grey under AgX, so bedroom1_navy_bed lost
+# the median to the linen (hue ~40). Keep the nap, shift hue toward the
+# sampled 211° (_hs 0.45 → texture ~211°) and raise sat/value so a blue
+# chroma survives the 3000 K lights (f2 at 0.47/0.92/0.72 rendered ~260°).
+_hs(NAVY,0.45,1.15,0.95)
+# oak_light_diff is a medium floor oak; CGI furniture oak is paler and less orange.
+_hs(OAKF,0.50,0.78,1.18)
 # ---------- helpers
 def obj_from(bm,n,M):
     me=bpy.data.meshes.new(n);bm.to_mesh(me);bm.free();o=bpy.data.objects.new(n,me);sc.collection.objects.link(o);o.data.materials.append(M);return o
@@ -173,9 +200,9 @@ while x<max(xs):
 FUR={f["name"]:f for f in LY.furniture()}
 def FC(n): return V(FUR[n]["c"])
 # ---------- CC0 FURNITURE (models: lane/furniture furniture_cc0.py; positions/footprints: plan trace)
-_furn_mats=dict(WUNIT=WUNIT,DARK=DARK,QUARTZ=QUARTZ,WTOP=WTOP,BLK=BLK,STEEL=STEEL,CHROME=CHROME,
+_furn_mats=dict(WUNIT=WUNIT,WUNIT_PANEL=WUNIT_PANEL,WUNIT_HANDLE=WUNIT_HANDLE,DARK=DARK,QUARTZ=QUARTZ,WTOP=WTOP,BLK=BLK,STEEL=STEEL,CHROME=CHROME,
                 LED=LED,NAVY=NAVY,BOUC=BOUC,OAKF=OAKF,LIN=LIN,WHITEP=WHITEP,GREYV=GREYV,GLASS=GLASS,
-                BMET=BMET,LAMPS=LAMPS,TILE=TILE,TVS=TVS,FRAME=FRAME)
+                BMET=BMET,DARKW=DARKW,DTOP=DTOP,LAMPS=LAMPS,TILE=TILE,TVS=TVS,FRAME=FRAME)
 JOIN={j["name"]:j for j in LY.joinery_bl()}
 CC0=furniture_cc0.place_trace(dict(sc=sc,m=m,T=T,CEIL=CEIL,box=box,cyl=cyl,sph=sph,mats=_furn_mats,Vector=Vector,math=math,ROOT=ROOT),FUR,JOIN)
 a,b=m(161,343.5),m(253.5,343.5); c=(a+b)/2; L_=(b-a).length
@@ -190,7 +217,8 @@ box("TV_bezel_black_facing_sofa",(tvx,tv.y,0.92),(0.04,1.12,0.66),BLK,0,0.004); 
 ax=m(253.5,0).x-0.02; box("Art_living_frame",(ax,sf["c"][1],1.6),(0.03,0.8,1.05),BMET,0,0); _a=box("Art_living",(ax-0.02,sf["c"][1],1.6),(0.01,0.72,0.97),ART[1],0,0)
 if 5 in FIX: uv_front(_a)
 dt=FUR["Dining_table_oak"]; dc=V(dt["c"]); tw,td=dt["s"]
-box("Dining_table_oak_top",(dc.x,dc.y,0.74),(tw,td,0.035),OAKF,0,0.006)
+# CGI dining table is a dark thin top on black legs (positions/size unchanged, plan rectangle).
+box("Dining_table_oak_top",(dc.x,dc.y,0.74),(tw,td,0.035),DTOP,0,0.006)
 for sx_ in (-1,1): box("Dining_table_leg_black",(dc.x+sx_*(tw/2-0.08),dc.y,0.36),(0.04,td-0.12,0.72),BMET,0,0)
 # --- geometric chair facing check (print + assert, from lane/furniture): opening faces the table, backrest away
 _chairs=[o for o in sc.objects if o.name.startswith("Tub_chair_cream_boucle") and o.parent is None]
@@ -264,14 +292,18 @@ def free(p,r=0.3):
         hit,loc,*_=sc.ray_cast(dg,p,d,distance=r)
         if hit: return False
     return True
-def shot(name,loc,tgt,lens=20,ceiling=True):
+def shot(name,loc,tgt,lens=20,ceiling=True,nudge=True):
+    # Official cam_bl / LY.CAMS stills must keep the exact pose (i_bed2 was
+    # being pushed 0.30 m off (3.06, 2.53, 1.45) by collision avoidance).
     if "--noshots" in sys.argv or ("--only" in sys.argv and name not in sys.argv): return
     p=Vector(loc)
-    if not free(p): 
+    if nudge and not free(p):
         for dx,dy in itertools.product((-0.3,0,0.3,0.6,-0.6),(-0.3,0,0.3,0.6,-0.6)):
             q=p+Vector((dx,dy,0))
             if inside(q,OUTL) and free(q): p=q;break
         else: print("CAMERA COLLISION",name)
+    elif (not nudge) and not free(p):
+        print("CAMERA COLLISION official (nudge skipped)",name,tuple(round(v,2) for v in p))
     bpy.data.objects["Ceiling"].hide_render=not ceiling
     bpy.ops.object.camera_add(location=p);c=bpy.context.object;c.rotation_euler=(Vector(tgt)-p).to_track_quat('-Z','Y').to_euler();c.data.lens=lens;sc.camera=c
     sc.render.filepath=OUT+name+".png";bpy.ops.render.render(write_still=True);print("SHOT",name,tuple(round(v,2) for v in p))
@@ -279,11 +311,14 @@ def tj(v): return [round(v[0],2),round(v[2],2),round(-v[1],2)]
 def cam_bl(rid):
     p,t,hp,ht,f=LY.CAMS[rid]; return (m(*p).x,m(*p).y,hp),(m(*t).x,m(*t).y,ht)
 for rid in LY.CAMS: print("PRESET",rid,*[tj(v) for v in cam_bl(rid)])
-shot("v5_living",*cam_bl("i_living"),20)
-shot("v5_kitchen",*cam_bl("i_kitchen"),20)
-shot("v5_bedroom1",*cam_bl("i_bed1"),20)
-shot("v5_bedroom2",*cam_bl("i_bed2"),20)
-shot("v5_bathroom",*cam_bl("i_bath"),14)
+# v5_* = walk-mode / trace presets (score.py prefers the highest vN_, so the
+# reference gate is run on a directory that contains only the v3_* stills).
+for _n,_rid,_lens in (("living","i_living",20),("kitchen","i_kitchen",20),("bedroom1","i_bed1",20),("bedroom2","i_bed2",20),("bathroom","i_bath",14)):
+    shot(f"v5_{_n}",*cam_bl(_rid),_lens,nudge=False)
+# v3_* stills for the reference gate use the same official walk-mode cameras
+# as v5 (LY.CAMS / cam_bl) with no collision nudge, so the pose stays exact.
+for _n,_rid,_lens in (("living","i_living",20),("kitchen","i_kitchen",20),("bedroom1","i_bed1",20),("bedroom2","i_bed2",20),("bathroom","i_bath",14)):
+    shot(f"v3_{_n}",*cam_bl(_rid),_lens,nudge=False)
 shot("latest",(0.6,-11,12),(0.2,0.3,0),26,ceiling=False)
 # lane/polish: locked cameras = web viewer presets (web/src/app.js P.i_*), three.js (x,y,z) -> Blender (x,-z,y), vertical fov; no collision nudge
 WEBCAMS={"w_living":([-0.5,1.5,1.91],[2.97,0.9,0.15],70),"w_bed1":([-2.0,1.3,-0.85],[-2.41,0.8,-3.17],70),"w_bed2":([1.5,1.3,-1.6],[1.36,0.8,-3.62],70),
@@ -326,7 +361,23 @@ bpy.ops.object.select_all(action='DESELECT');J.select_set(True);bpy.context.view
 bpy.ops.object.bake(type='COMBINED');print("BAKED")
 px=np.array(img.pixels[:]).reshape(RES,RES,4); rgb=px[...,:3]
 EXPO=float(next((a.split('=')[1] for a in sys.argv if a.startswith('--expo=')),1.6))
-from scipy.ndimage import gaussian_filter
+try:
+    from scipy.ndimage import gaussian_filter
+except ImportError:
+    def gaussian_filter(arr, sigma):
+        """Separable Gaussian when Blender's Python has no scipy."""
+        a=np.asarray(arr, dtype=np.float64)
+        if sigma<=0: return a
+        r=max(1,int(3*sigma)); x=np.arange(-r,r+1); k=np.exp(-0.5*(x/float(sigma))**2); k/=k.sum()
+        def conv(a,axis):
+            a=np.moveaxis(a,axis,-1)
+            pad=np.pad(a,[(0,0)]*(a.ndim-1)+[(r,r)],mode='edge')
+            out=np.zeros_like(a)
+            for i,kv in enumerate(k): out+=kv*pad[...,i:i+a.shape[-1]]
+            return np.moveaxis(out,-1,axis)
+        out=conv(a,0)
+        if a.ndim>=2: out=conv(out,1)
+        return out
 cov=(px[...,3]>0.5).astype(float)
 def _bake_to(name,typ,**kw):
     im=bpy.data.images.new(name,RES,RES,float_buffer=True)
@@ -339,15 +390,23 @@ if 6 in FIX:   # fix6: OIDN denoise (albedo-guided, edge preserving) instead of 
     aoi=_bake_to("bake_ao","AO")
     dn=bpy.data.scenes.new("denoise"); dn.render.engine='BLENDER_WORKBENCH'; dn.render.resolution_x=dn.render.resolution_y=RES; dn.render.resolution_percentage=100
     cam_=bpy.data.objects.new("dncam",bpy.data.cameras.new("dncam")); dn.collection.objects.link(cam_); dn.camera=cam_
-    ng=bpy.data.node_groups.new("DN","CompositorNodeTree"); dn.compositing_node_group=ng; dn.render.use_compositing=True
+    # Blender 4.2 has scene.use_nodes / node_tree; compositing_node_group is newer.
+    if hasattr(dn, "compositing_node_group"):
+        ng=bpy.data.node_groups.new("DN","CompositorNodeTree"); dn.compositing_node_group=ng
+        ng.interface.new_socket("Image",in_out='OUTPUT',socket_type='NodeSocketColor'); go=ng.nodes.new("NodeGroupOutput")
+    else:
+        dn.use_nodes=True; ng=dn.node_tree
+        for _n in list(ng.nodes): ng.nodes.remove(_n)
+        go=ng.nodes.new("CompositorNodeComposite")
+    dn.render.use_compositing=True
     ni=ng.nodes.new("CompositorNodeImage"); ni.image=img; na=ng.nodes.new("CompositorNodeImage"); na.image=alb; dd=ng.nodes.new("CompositorNodeDenoise")
-    ng.interface.new_socket("Image",in_out='OUTPUT',socket_type='NodeSocketColor'); go=ng.nodes.new("NodeGroupOutput")
     ng.links.new(ni.outputs[0],dd.inputs["Image"]); ng.links.new(na.outputs[0],dd.inputs["Albedo"]); ng.links.new(dd.outputs[0],go.inputs[0])
     dn.render.image_settings.file_format='OPEN_EXR'; dn.render.filepath=OUT+"_bake_dn.exr"; bpy.ops.render.render(write_still=True,scene=dn.name)
     r_=bpy.data.images.load(OUT+"_bake_dn.exr"); d_=np.array(r_.pixels[:]).reshape(RES,RES,4)[...,:3]
     ao=np.array(aoi.pixels[:]).reshape(RES,RES,4)[...,0]; ao=gaussian_filter(ao*cov,1.0)/(gaussian_filter(cov,1.0)+1e-6)
     rgb[...]=np.where(cov[...,None]>0,d_,rgb)*(1-(0.62 if 8 in FIX else 0.45)*(1-np.clip(ao,0,1)))[...,None]
     os.remove(OUT+"_bake_dn.exr"); print("DENOISED+AO", float(ao[cov>0].mean()))
+    bpy.data.scenes.remove(dn)
 else:
   for ch in range(3):
     num=gaussian_filter(rgb[...,ch]*cov,1.6); den=gaussian_filter(cov,1.6)+1e-6

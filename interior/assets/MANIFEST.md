@@ -8,7 +8,20 @@ General licences:
 - Poly Haven: all site assets are [CC0](https://polyhaven.com/license) (“Our assets are all licensed as CC0”).
 - Kenney Furniture Kit 2.0 (2018-10-20): [CC0](https://creativecommons.org/publicdomain/zero/1.0/) on [kenney.nl/assets/furniture-kit](https://kenney.nl/assets/furniture-kit) and in `kenney_furniture_kit/License.txt`.
 
-Shared palette (kit normaliser): navy velvet, cream boucle, oak, handleless white, black appliance, sanitary white (plus chrome / black metal / glass).
+Shared palette (`furniture_cc0.PALETTE`, kit normaliser + `build_twobed_v4.py`): CGI navy velvet (matte, hue ~211°), cream boucle, pale satin oak, handleless white (satin), satin black appliances, sanitary white (soft gloss), grey stone vanity, espresso chair frames, dark dining-table top. Roughness/albedo tuned to the Rightmove Apt 02 CGI (listing 92163630, `refs/critic1/92163630/`). Wood prototypes are remapped onto this oak; dining chairs use espresso frames, not pale oak.
+
+### Navy fabric (sofa + beds) — sampled 23 Nov 2026
+
+Freeze v2 checklist (`lane/reference` `b8612440`) re-anchored the navy-bed reference crops to the fabric, not the cream bedding. Sofa and both beds share one navy, sampled from those crops:
+
+| Sample | Photo / licence-source URL | Crop (frac) | Mean RGB | HSV |
+|---|---|---|---|---|
+| Bedroom 1 headboard | [6830c23cc](https://media.rightmove.co.uk/property-photo/6830c23cc/92163630/6830c23cc81166dfe894a94204f9eeeb.jpeg) (`refs/critic1/92163630/6830c23cc81166dfe894a94204f9eeeb.jpeg`) | [0.335, 0.598, 0.62, 0.626] | (19, 30, 40) | hue 210.1°, sat 0.529, val 0.157 |
+| Bedroom 2 bed base | [09a288504](https://media.rightmove.co.uk/property-photo/09a288504/92163630/09a28850469373714e2934f7bbf90dbb.jpeg) (`refs/critic1/92163630/09a28850469373714e2934f7bbf90dbb.jpeg`) | [0.42, 0.87, 0.72, 0.935] | (18, 24, 32) | hue 213.3°, sat 0.445, val 0.125 |
+
+Palette albedo is HSV hue **211°**, sat 0.53, val 0.18 (linear RGB 0.0846, 0.1307, 0.18). The velvet nap (`interior/tex/velvet_navy_diff.jpg`) is hue-shifted in `build_twobed_v4.py` with `_hs(NAVY, 0.45, 1.15, 0.95)` so the texture sits at ~211° and enough chroma survives AgX + 3000 K lighting (a direct recolor to the lit CGI RGB crushed to warm grey and lost the bed-crop median to the cream linen).
+
+Prototype sizes are checked against `furniture_dims.json` (see `interior/assets/scale_audit.json`). After `place_trace`, some pieces are then fitted to the plan footprint (sofa, beds, kitchen run, vanity, shelving) so positions stay trace-driven.
 
 ## Placed Poly Haven models
 
@@ -57,7 +70,16 @@ No photoreal modern CC0 bed, kitchen run, or bathroom fittings exist on Poly Hav
 | Worktop, plinth, LED strip, WC boxing / flush plate | Built-in architectural fittings, not standalone CC0 models. |
 | Rug, TV screen / stand, wall art, plants, globe pendant, chrome towel ladder | Not in the required furniture/fittings swap, and no suitable matching CC0 model was used. |
 | Shower enclosure (`Shower_tray` + glass screen + head) | Kenney `shower.glb` is a 0.9×0.9×2.1 m cubicle; the existing bathroom camera stands inside that tray, so the enclosure goes black in frame. The original glass-screen stand-in is kept. |
-| Bathroom wall tiles | Architecture / finish, not furniture. Unchanged. |
+| Bathroom wall / floor tiles | Replaced with a CC0 veined marble — see Finishes below. Wall geometry unchanged. |
+
+
+## Finishes (CC0 textures)
+
+| Used on | Asset | Licence page | File |
+|---|---|---|---|
+| Bathroom wall and floor tiles (`Tile_grey_600x1200`, `Bath_wall_tile_*`, `Floor_bathroom_tile`, shower tray finish) | [ambientCG Marble 012](https://ambientcg.com/view?id=Marble012) (veined grey marble; 1K color, contrast-boosted and JPEG-compressed for the GLB) | https://ambientcg.com/view?id=Marble012 — [CC0 1.0](https://docs.ambientcg.com/license/) | `interior/tex/marble012_veined_diff.jpg` |
+
+All ambientCG assets are [CC0 1.0 Universal](https://docs.ambientcg.com/license/). The Marble 012 page was checked CC0 on 23 Nov 2026.
 
 ## Unused asset already in the tree
 
@@ -67,8 +89,10 @@ No photoreal modern CC0 bed, kitchen run, or bathroom fittings exist on Poly Hav
 
 - Module: `interior/furniture_cc0.py`, imported by `interior/build_twobed_v4.py` (object names unchanged so the lane merges with walls/polish).
 - Dims: `interior/assets/furniture_dims.json`.
-- Lineup (1 m bar): `interior/assets/kit_lineup.png`, rendered by `interior/kit_lineup.py`.
+- Lineup (vertical + horizontal 1 m bars, labels, real-world metres): `interior/assets/kit_lineup.png` (overall) plus per-category `kit_lineup_{living,bedroom,kitchen,bath}.png`, rendered by `interior/kit_lineup.py` and annotated by `interior/kit_lineup_annotate.py`.
+- Scale audit: `interior/assets/scale_audit.json` (prototype vs `furniture_dims.json`). Sink unit height is 0.90 m (tap included); storage shelving is scaled to 0.4 × 2.2 m; bedside lamp is listed.
 - Dining chairs: four empties `Tub_chair_cream_boucle*`, front = local −Y; `build_twobed_v4.py` keeps the dot-product assert.
+- Kitchen: the plan L-run has no drawn microwave; a CC0 black microwave is placed in the second south wall-unit bay (CGI kitchen_run) without moving neighbouring units. Kenney door / panel / handle meshes are kept (on source); `woodDark` maps to a slightly darker satin panel and `metal` to a satin-grey handle so the CGI seam, panel and handle AO reads, instead of a single flat white slab.
 
 ## lane/polish r10 (2026-11-23): main-viewer model `web/twobed_v5.glb`
 

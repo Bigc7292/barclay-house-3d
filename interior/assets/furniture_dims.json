@@ -2,91 +2,145 @@
   "comment": "Target sizes used by furniture_cc0.place_all / kit_normalize. Footprints match the existing Two Bed stand-in layout so positions stay valid. Typical manufactured sizes cited where a public spec exists.",
   "items": {
     "sofa_3seat": {
-      "w": 2.0, "d": 0.92, "h": 0.80,
-      "notes": "Stand-in 3-seat navy sofa. Typical 3-seat ~180–230 cm wide.",
+      "w": 2.0,
+      "d": 0.92,
+      "h": 0.8,
+      "notes": "Stand-in 3-seat navy sofa. Typical 3-seat ~180\u2013230 cm wide.",
       "spec_url": "https://www.ikea.com/gb/en/p/kivik-3-seat-sofa-tresund-anthracite-s99320900/"
     },
     "coffee_table": {
-      "w": 0.55, "d": 1.05, "h": 0.42,
-      "notes": "Stand-in rectangular coffee table (0.55×1.05, top at 0.42 m).",
+      "w": 0.55,
+      "d": 1.05,
+      "h": 0.42,
+      "notes": "Stand-in rectangular coffee table (0.55\u00d71.05, top at 0.42 m).",
       "spec_url": "https://www.ikea.com/gb/en/p/listerby-coffee-table-brown-stained-beech-veneer-60484368/"
     },
     "tv_bench": {
-      "w": 1.50, "d": 0.40, "h": 0.50,
+      "w": 1.5,
+      "d": 0.4,
+      "h": 0.5,
       "notes": "Stand-in TV bench 1.5 m wide, 0.4 m deep. Height slightly taller than the 0.36 m stand-in body so the CC0 sideboard keeps its doors.",
       "spec_url": "https://www.ikea.com/gb/en/p/besta-tv-bench-black-brown-90299873/"
     },
     "dining_table_round": {
-      "w": 0.90, "d": 0.90, "h": 0.74,
-      "notes": "Stand-in round table radius 0.45 m, top at 0.74 m. BS EN 1729 / typical dining height 720–760 mm.",
+      "w": 0.9,
+      "d": 0.9,
+      "h": 0.74,
+      "notes": "Stand-in round table radius 0.45 m, top at 0.74 m. BS EN 1729 / typical dining height 720\u2013760 mm.",
       "spec_url": "https://www.ikea.com/gb/en/p/ingatorp-extendable-table-black-80217070/"
     },
     "dining_chair": {
-      "w": 0.43, "d": 0.58, "h": 0.97,
-      "notes": "Poly Haven dining_chair_02 kept near native size (seat ~0.45 m). Typical dining chair seat 430–460 mm.",
+      "w": 0.43,
+      "d": 0.58,
+      "h": 0.97,
+      "notes": "Poly Haven dining_chair_02 kept near native size (seat ~0.45 m). Typical dining chair seat 430\u2013460 mm.",
       "spec_url": "https://www.ikea.com/gb/en/p/odger-chair-anthracite-50457551/"
     },
     "bed_double": {
-      "w": 1.45, "d": 2.05, "h": 0.60,
-      "notes": "Stand-in 1.45×2.05 m (between UK double 1350 mm and king 1500 mm). Headboard against the north wall.",
+      "w": 1.45,
+      "d": 2.05,
+      "h": 0.6,
+      "notes": "Stand-in 1.45\u00d72.05 m (between UK double 1350 mm and king 1500 mm). Headboard against the north wall.",
       "spec_url": "https://www.ikea.com/gb/en/p/malm-ottoman-bed-white-20404812/"
     },
     "bedside": {
-      "w": 0.45, "d": 0.40, "h": 0.55,
-      "notes": "Stand-in bedside 0.45×0.40, body top ~0.58 m.",
+      "w": 0.45,
+      "d": 0.4,
+      "h": 0.55,
+      "notes": "Stand-in bedside 0.45\u00d70.40, body top ~0.58 m.",
       "spec_url": "https://www.ikea.com/gb/en/p/hemnes-bedside-table-white-stain-20128459/"
     },
     "wardrobe": {
-      "w": 1.00, "d": 0.58, "h": 2.10,
-      "notes": "Stand-in 2-door wardrobe 1.0×0.58×2.10 m.",
+      "w": 1.0,
+      "d": 0.58,
+      "h": 2.1,
+      "notes": "Stand-in 2-door wardrobe 1.0\u00d70.58\u00d72.10 m.",
       "spec_url": "https://www.ikea.com/gb/en/p/pax-wardrobe-white-90106543/"
     },
     "storage_shelving": {
-      "w": null, "d": 0.40, "h": 2.20,
+      "w": null,
+      "d": 0.4,
+      "h": 2.2,
       "notes": "Width taken from the storage room (same as the stand-in block). Depth 0.4 m, height 2.2 m."
     },
     "kitchen_base_unit": {
-      "w": 0.60, "d": 0.58, "h": 0.78,
-      "notes": "Stand-in 0.58×0.597×0.78 plus 40 mm worktop at 0.88 m. UK base unit 600 mm module, 720 mm carcass + worktop ~900 mm.",
+      "w": 0.6,
+      "d": 0.58,
+      "h": 0.78,
+      "notes": "Stand-in 0.58\u00d70.597\u00d70.78 plus 40 mm worktop at 0.88 m. UK base unit 600 mm module, 720 mm carcass + worktop ~900 mm.",
       "spec_url": "https://www.ikea.com/gb/en/cat/metod-base-cabs-for-sink-stovetop-16273/"
     },
     "kitchen_wall_unit": {
-      "w": 0.60, "d": 0.33, "h": 0.72,
+      "w": 0.6,
+      "d": 0.33,
+      "h": 0.72,
       "notes": "Stand-in wall unit 0.33 m deep, 0.72 m tall, centre at z=1.95."
     },
-    "kitchen_worktop_z": { "h": 0.88, "notes": "Stand-in worktop top at 0.88 m." },
+    "kitchen_worktop_z": {
+      "h": 0.88,
+      "notes": "Stand-in worktop top at 0.88 m."
+    },
     "washer": {
-      "w": 0.60, "d": 0.58, "h": 0.85,
-      "notes": "Typical 60 cm washing machine. Stand-in 0.58×0.597×0.82."
+      "w": 0.6,
+      "d": 0.58,
+      "h": 0.85,
+      "notes": "Typical 60 cm washing machine. Stand-in 0.58\u00d70.597\u00d70.82."
     },
     "electric_stove": {
-      "w": 0.60, "d": 0.60, "h": 0.90,
-      "notes": "Typical 60 cm freestanding cooker, hob flush with 0.88–0.90 m worktop.",
+      "w": 0.6,
+      "d": 0.6,
+      "h": 0.9,
+      "notes": "Typical 60 cm freestanding cooker, hob flush with 0.88\u20130.90 m worktop.",
       "spec_url": "https://www.ikea.com/gb/en/p/tillreda-portable-induction-hob-1-zone-white-20493603/"
     },
     "microwave": {
-      "w": 0.50, "d": 0.32, "h": 0.30,
-      "notes": "Fits in a wall unit opening (stand-in frame 0.58×0.40)."
+      "w": 0.5,
+      "d": 0.32,
+      "h": 0.3,
+      "notes": "Fits in a wall unit opening (stand-in frame 0.58\u00d70.40)."
     },
     "fridge_tall": {
-      "w": 0.60, "d": 0.58, "h": 2.00,
+      "w": 0.6,
+      "d": 0.58,
+      "h": 2.0,
       "notes": "Fills the leftover tall slot at the end of the kitchen run."
     },
     "wc": {
-      "w": 0.40, "d": 0.65, "h": 0.42,
-      "notes": "Typical close-coupled WC footprint ~400×650 mm."
+      "w": 0.4,
+      "d": 0.65,
+      "h": 0.42,
+      "notes": "Typical close-coupled WC footprint ~400\u00d7650 mm."
     },
     "basin_vanity": {
-      "w": 0.60, "d": 0.46, "h": 0.85,
-      "notes": "Stand-in vanity 0.60×0.46, basin top ~0.82 m."
+      "w": 0.6,
+      "d": 0.46,
+      "h": 0.85,
+      "notes": "Stand-in vanity 0.60\u00d70.46, basin top ~0.82 m."
     },
     "shower": {
-      "w": 0.90, "d": 0.90, "h": 2.10,
-      "notes": "Stand-in 0.9×0.9 m tray, glass ~2.0 m high."
+      "w": 0.9,
+      "d": 0.9,
+      "h": 2.1,
+      "notes": "Stand-in 0.9\u00d70.9 m tray, glass ~2.0 m high."
     },
     "mirror": {
-      "w": 0.55, "d": 0.04, "h": 0.75,
-      "notes": "Stand-in bathroom mirror 0.55×0.75 m."
+      "w": 0.55,
+      "d": 0.04,
+      "h": 0.75,
+      "notes": "Stand-in bathroom mirror 0.55\u00d70.75 m."
+    },
+    "kitchen_sink_unit": {
+      "w": 0.6,
+      "d": 0.58,
+      "h": 0.9,
+      "notes": "Kenney sink includes the mixer tap, so the unit is 0.90 m tall (base carcass still 0.78 m, same 600 mm module as kitchen_base_unit).",
+      "spec_url": "https://www.ikea.com/gb/en/cat/metod-base-cabs-for-sink-stovetop-16273/"
+    },
+    "bedside_lamp": {
+      "w": 0.18,
+      "d": 0.18,
+      "h": 0.32,
+      "notes": "Small mushroom bedside lamp, ~320 mm tall. Typical table lamp shade 150\u2013200 mm."
     }
   }
 }

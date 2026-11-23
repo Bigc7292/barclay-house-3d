@@ -211,10 +211,10 @@ CAMS = {   # viewpoint / target in plan px (chosen inside each room, clear of dr
     "i_living": ((150, 262), (232, 175), 1.5, 0.9, 70),
     "i_kitchen": ((185, 262), (240, 330), 1.5, 1.0, 70),
     "i_bed1": ((60, 166), (60, 85), 1.3, 0.8, 70),
-    "i_bed2": ((240, 105), (160, 70), 1.45, 0.85, 70),   # lane/polish r10: built-in wardrobe + bed in frame
-    "i_bath": ((76, 286), (30, 325), 1.55, 1.25, 80),   # lane/polish r10: aim higher so the shower head is in frame
+    "i_bed2": ((240, 105), (160, 70), 1.45, 0.85, 70),   # official LY.CAMS / lane/polish r10: built-in wardrobe + bed in frame
+    "i_bath": ((76, 286), (30, 325), 1.55, 1.25, 80),   # official LY.CAMS / lane/polish r10: aim higher so the shower head is in frame
     "i_hall": ((110, 336), (145, 262), 1.5, 1.0, 70),
-    "i_store": ((78, 252), (18, 240), 1.5, 1.0, 70),   # lane/polish r10: inside the store (the drawn-open door leaf blocked the old view)
+    "i_store": ((78, 252), (18, 240), 1.5, 1.0, 70),   # official LY.CAMS / lane/polish r10: inside the store (the drawn-open door leaf blocked the old view)
 }
 
 
