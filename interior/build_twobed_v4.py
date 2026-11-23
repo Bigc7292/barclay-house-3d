@@ -397,6 +397,7 @@ if 6 in FIX:   # fix6: OIDN denoise (albedo-guided, edge preserving) instead of 
     ao=np.array(aoi.pixels[:]).reshape(RES,RES,4)[...,0]; ao=gaussian_filter(ao*cov,1.0)/(gaussian_filter(cov,1.0)+1e-6)
     rgb[...]=np.where(cov[...,None]>0,d_,rgb)*(1-0.45*(1-np.clip(ao,0,1)))[...,None]
     os.remove(OUT+"_bake_dn.exr"); print("DENOISED+AO", float(ao[cov>0].mean()))
+    bpy.data.scenes.remove(dn)
 else:
   for ch in range(3):
     num=gaussian_filter(rgb[...,ch]*cov,1.6); den=gaussian_filter(cov,1.6)+1e-6
